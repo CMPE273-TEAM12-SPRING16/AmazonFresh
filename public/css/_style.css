@@ -55,3 +55,39 @@
   overflow: hidden;
   background-color: #9C9A9A !important;
 }
+
+.container-main{
+  margin-top:45px;
+}
+
+.btn-shop{
+  text-align: left !important;
+  color: #FFFFFF !important;
+  background-color: #393F44 !important;
+  width: 100% !important;
+}
+
+.caret-btn-shop{
+  margin-top: 8px;
+}
+
+.row-margin{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.form-control-searchbox{
+  width: 100%;
+}
+.fa-serch-btn{
+  color: #FFFFFF !important;
+  background-color: #393F44 !important;
+  border-color: #393F44 !important;
+}
+
+.btn-signin{
+  margin-top: 5px;
+  background-color: #A9E236 !important;
+}
+
+.row-
