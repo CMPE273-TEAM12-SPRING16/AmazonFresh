@@ -1,0 +1,57 @@
+.header-nav {
+
+    height: 45px;
+    min-width: 1015px;
+    margin: 0px;
+    padding: 0px;
+    background-image: url(../images/support_images/header-nav-bg.png);
+    border: 0px solid #ccc;
+    border-bottom-width: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+}
+
+.header-nav > li > a {
+  color: #FFFFFF;
+  border-radius: 4px;
+}
+.header-nav > li > a:hover,
+.header-nav > li > a:focus {
+  text-decoration: none;
+  color: #A9E236 !important;
+  background-color: transparent !important;
+}
+.header-nav > li > a.img-logo{
+    padding-top: 5px;
+}
+.header-nav > li.text{
+    padding-top: 10px;
+    color: #FFFFFF;
+}
+.header-nav > li.signin > a {
+  padding-left: 2px;
+}
+.customer-name-nav-bar{
+  color: #FFFFFF;
+}
+
+.accout-dropdown-menu{
+  background-image: url(../images/support_images/header-nav-bg.png);
+}
+.accout-dropdown-menu > li > a {
+  color: #FFFFFF !important;
+}
+.accout-dropdown-menu > li > a:hover,
+.accout-dropdown-menu > li > a:focus {
+  text-decoration: none;
+  color: #A9E236 !important;
+  background-color: transparent !important;
+}
+.accout-dropdown-menu .divider {
+  height: 1px;
+  overflow: hidden;
+  background-color: #9C9A9A !important;
+}
