@@ -62,6 +62,7 @@
   margin-top:45px;
 }
 
+
 .btn-shop{
   text-align: left !important;
   color: #FFFFFF !important;
@@ -92,4 +93,34 @@
   background-color: #A9E236 !important;
 }
 
-.row-
+.btn-signup{
+  color: #000000;
+  font-size: 20px;
+  background-color: #A9E236 !important;
+  border-color: #7FAA29!important;
+}
+.btn-signup:focus,
+.btn-signup.focus {
+  color: #000000 !important;
+  background-color: #93C62E !important;
+}
+.btn-signup:hover {
+  color: #000000 !important;
+  background-color: #93C62E !important;
+}
+
+.thumbnail-signup{
+  padding: 20px !important;
+}
+
+.thumbnail-signup > form > h3 {
+  color: #A9E236 !important;
+}
+
+.credit-card-labels{
+  font-size: 10px;
+}
+
+.textbox-address{
+  resize: none;
+}
