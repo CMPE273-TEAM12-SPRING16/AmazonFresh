@@ -4,20 +4,22 @@
 /**
  * Created by aneri on 10-03-2016.
  */
-var Login=angular.module('login',[]);
-Login.controller('login',function($scope,$http)
+var login=angular.module('login',[]);
+login.controller('login',function($scope,$http)
 {
     $scope.registeredEmail=true;
     $scope.unexpectedError=true;
 
     $scope.submit=function()
     {
+  console.log($scope.email);
         $http({
+
             method:"POST",
-            url:'/Login',
+            url:'/login',
             data : {
                 "email":$scope.email,
-                "password" : $scope.password
+                "password":$scope.password
             }
 
         }).success(function(data)

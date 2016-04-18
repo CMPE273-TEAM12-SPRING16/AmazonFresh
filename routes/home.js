@@ -6,9 +6,10 @@ var mysql = require('./mysql');
 
 function doLogin(req, res) {
 
-    var email=req.param("email");
-    var password=req.param("password");
-console.log(email);
+    var email = req.param("email");
+    var password = req.param("password");
+
+
     var  getLoginDetails = "select * from users where email='" + email + "' and password='" + password + "'";
 
     mysql.fetchData(function (err, results) {
@@ -20,14 +21,15 @@ console.log(email);
                 req.session.email=results[0].EMAIL;
                 req.session.userType=results[0].USERTYPE;
                 console.log("valid Login");
-
-                res.send({"statusCode":200,userType:results[0].usertype});
+                var jsonResponse1 = {"statusCode":200};
+                res.send(jsonResponse1);
 
                }
 
             else
             {
-                res.send({"statusCode": 401});
+                var jsonResponse2={"statusCode":401};
+                res.send(jsonResponse2);
             }
 
 
@@ -43,16 +45,16 @@ function redirectToHomepage(req,res)
     {
         //Set these headers to notify the browser not to maintain any cache for the page being loaded
         res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-        res.render("adminhomepage");
+        res.render("adminHome");
     }
     else if(req.session.userType==1) {
         res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-        res.render("customerhomepage");
+        res.render("customerHome");
     }
     else if(req.session.userType==2)
     {
         res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-        res.render("farmerhomepage");
+        res.render("farmerHome");
     }
     else {
         res.redirect('/');
