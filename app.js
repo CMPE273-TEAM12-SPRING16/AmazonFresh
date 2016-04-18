@@ -2,6 +2,7 @@
 var express = require('express')
 	, http = require('http')
 	, path = require('path');
+
 var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
@@ -24,7 +25,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 //app.use(express.favicon());
 //app.use(express.logger('dev'));
-//app.use(express.bodyParser());
+app.use(express.bodyParser());
 //app.use(express.methodOverride());
 //app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
