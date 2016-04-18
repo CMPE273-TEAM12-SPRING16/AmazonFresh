@@ -1,0 +1,15 @@
+{
+  "name": "amazon_fresh",
+  "version": "1.0.0",
+  "description": "AmazonFresh - Farmer's Market built as a Group Project towards the completion of CMPE273(Enterprise Distributed Systems) @ SJSU.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CMPE273-TEAM12-SPRING16/AmazonFresh.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
