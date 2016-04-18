@@ -4,7 +4,7 @@ var express = require('express')
   , path = require('path');
 var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
-var mongoSessionConnectURL = "mongodb://localhost:27017/amazonfreshdb";   //Change this if needed ................................//
+var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 
 var app = express();
 app.use(expressSession({
