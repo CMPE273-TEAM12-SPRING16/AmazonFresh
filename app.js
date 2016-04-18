@@ -39,11 +39,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res){
   res.render('index', {});
 });                     // Change this..........................................//
-
+app.get('/redirectToHomepage',home.redirectToHomepage);
 
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
-
+app.post('/Login',home.doLogin);
 
 
 http.createServer(app).listen(app.get('port'), function(){
