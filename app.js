@@ -1,11 +1,11 @@
 
 var express = require('express')
-  , http = require('http')
-  , path = require('path');
+	, http = require('http')
+	, path = require('path');
 var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazonfreshdb";   //Change this if needed ................................//
-
+var home=require('./routes/home');
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -37,15 +37,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //All GET methods...........................//
 app.get('/', function(req, res){
-  res.render('index', {});
+	res.render('index', {});
 });                     // Change this..........................................//
-
+app.get('/redirectToHomepage',home.redirectToHomepage);
 
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
-
+app.post('/login',home.doLogin);
 
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
+	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
 });
