@@ -1,5 +1,272 @@
 <html>
+
+<head>
+  <link href="css/_style.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/signin.css" rel="stylesheet">
+  <link href="css/ekta.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!--Angular js scripts-->
+  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+  <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Home | AmazonFresh</title>
+
+</head>
+
 <body>
-customer home page
+<div class="container-fluid nopadding">
+  <% include ./partial/header %>
+
+<div class="container-fluid container-main">
+    <div class="row row-margin">
+      <div class="col-md-12">
+        <div class="row">
+          <ul class="nav navbar-nav">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-8">
+              <li>
+                <div class="input-group">
+                   <input type="text" class="form-control"/>
+                    <span class="input-group-addon fa-serch-btn">
+                      <i class="fa fa-search">Go</i>
+                    </span>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+       </div>
+      </div>
+
+      <div class="row row-margin" style="margin-top: 50px;">
+      	<div class="col-md-2" >
+      		<div id = "left-nav">
+      		 <ul id="farmer">
+                  <li class="main_nav level1">
+                    <a href="#">Update Information</a>
+                  </li>
+                    <li class="main_nav level1">
+                    <a href="#">Add Product</a>
+                  </li>
+                   <li class="main_nav level1">
+                    <a href="#">You are selling?</a>
+                  </li>
+                   <li class="main_nav level1">
+                    <a href="#">Cat 4</a>
+                  </li>
+              </ul>
+            </div>
+      	</div>
+      	<div class="col-md-8">
+
+
+
+
+
+
+      		<div class="thumbnail thumbnail-signup" ng-hide="">
+      			<div class="row row-margin" >
+      				<div class="col-md-3" >
+      					<img src="https://images-na.ssl-images-amazon.com/images/I/51gvPECUBpL.01._SR300,300_.jpg">
+      				</div>
+      				<div class="col-md-9" >
+      					<div class="row row-margin" >
+      						<div class="col-md-12" >
+      							<ul id="products">
+                  					<li class="main_nav level1">
+                    					<span class ="span-detail">Name: </span><span>Farmers Market Organic Seasonal Vegetable Bundle</span>
+                  					</li>
+
+                    				<li class="main_nav level1">
+                    					<span class ="span-detail">Description: </span><p> The best of what is in season, certified organic, picked at the peak of ripeness to maximize nutrient density and flavor, and brought to your door. This is as fresh as it gets! Eat the rainbow week after week with this produce bundle that includes enough veggies to serve a two-person family (about 6-8 different types of vegetables). Eat healthy, and simultaneously support local farmers and the environment - shop organic, from your local farmers market! Sample Bundle: broccoli, onions, squash, potatoes, green beans, kale, beets All organic vegetables are sourced directly from certified organic local farms and local farmers markets.</p>
+                 					</li>
+                   					<li class="main_nav level1">
+                   						<span class ="span-detail">Price: </span><span>$25 (10oz)</span>
+
+                  					</li>
+
+                  					<li class="main_nav level1">
+                   						<span class ="span-detail">Ingredients: </span><span>Fresh, certified organic, locally grown produce.</span>
+
+                  					</li>
+
+             					</ul>
+             				</div>
+             			</div>
+             			<div class="row row-margin" >
+      						<div class="col-md-12" >
+      						<ul id="products">
+                  					<li class="main_nav level1">
+                    					<button type="button" class="btn btn-primary btn-product-edit" ng-click="">Edit</button>
+                    					<button type="button" class="btn btn-primary btn-product-edit" ng-click="" style="margin-left: 20px">Delete</button>
+                  					</li>
+      						</ul>
+      						</div>
+      					</div>
+      				</div>
+      			</div>
+      		</div>
+
+
+
+
+
+
+
+
+      		<div class="thumbnail thumbnail-signup" ng-hide="">
+
+                <form role="form" >
+                  <h3>
+                    Personal Details
+                  </h3>
+                  <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="firstName">
+                        First Name
+                      </label>
+                      <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="first_name"/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lastName">
+                        Last Name
+                      </label>
+                      <input type="text" class="form-control" id="lastName"  placeholder="Last Name" ng-model="last_name"/>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="ssn">
+                        SSN
+                      </label>
+                      <input type="text" class="form-control" id="ssn"  placeholder="Social Security Number" ng-model="ssn"/>
+                    </div>
+                  </div>
+                  </div>
+                  <hr>
+
+                  <h3>
+                    Sign-in Details
+                  </h3>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputEmail">
+                          Email address
+                        </label>
+                        <input type="email" class="form-control" id="exampleInputEmail"  placeholder="Email ID" ng-model="email_id"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">
+                        Password
+                      </label>
+                      <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password" ng-model="password"/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputPassword2">
+                        Confirm Password
+                      </label>
+                      <input type="password" class="form-control" id="exampleInputPassword2"  placeholder="Confirm Password" ng-model="confirm_pwd"/>
+                    </div>
+                  </div>
+                  </div>
+
+
+                  <hr>
+
+                  <h3>
+                    Address & Contact
+                  </h3>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="address">
+                          Address
+                        </label>
+                        <textarea class="form-control textbox-address"  placeholder="Address" ng-model="address"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="city">
+                          City
+                        </label>
+                        <input type="text" class="form-control" placeholder="City" ng-model="city"/>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="state">
+                          State
+                        </label>
+                        <input type="text" class="form-control" placeholder="State" ng-model="state"/>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="zip">
+                          Zip
+                        </label>
+                        <input type="text" class="form-control" placeholder="Zip" ng-model="zip_code"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail">
+                          Phone
+                        </label>
+                        <input type="text" class="form-control" placeholder="Phone" ng-model="phone"/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                      <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="signUp()">Update</button>
+                    </div>
+                    <div class="col-md-2"></div>
+                  </div>
+                </form>
+			</div>
+      	</div>
+      </div>
+
+
+
+	</div>
+</div>
 </body>
 </html>

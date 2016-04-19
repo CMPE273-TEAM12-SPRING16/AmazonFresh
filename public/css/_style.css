@@ -194,3 +194,68 @@ hr.product-page-seperator{
 .product-page-user-reviews{
   margin-top: 10px;
 }
+.product-page-review-by{
+  font-size: 10px !important;
+  font-weight: bold !important;
+}
+
+
+.bill-deliver-to{
+  font-size: 12px !important;
+}
+.btn-proceed-to-checkout{
+  color: #FFFFFF !important;
+  font-weight: bold !important;
+  background-color: #BBBBBB !important;
+  border-color: #DDDDDD!important;
+}
+.bill-subtotal{
+  font-size: 25px;
+  color: #80b319 !important;
+}
+.bill-items{
+  font-size: 25px;
+}
+.bill-cart{
+  border-style: none !important;
+}
+.bill-item-img{
+  margin: 5px;
+  height: 50px;
+  width: 50px;
+}
+.bill-cart-item-price{
+  color: #999999;
+}
+.bill-cart-remove-item{
+  /*margin-top: 50%;*/
+}
+.bill-cart-item-name{
+  font-size: 12px;
+}
+.bill-cart-qty{
+  height: 10% !important;
+  width: 80% !important;
+  padding: 0px !important;
+}
+.bill-cart-qty-title{
+  font-size: 11px;
+}
+.bill-cart-qty-pad{
+  margin-top: 0px !important;
+  padding-top: 3% !important;
+  padding-right: 0px !important;
+}
+.bill-cart-item-pad{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.bill-cart-remove-pad{
+  padding-right: 0px !important;
+}
+
+
+.add-prod-description{
+  height: 100px !important;
+  resize: none;
+}
