@@ -7,7 +7,7 @@
 var login=angular.module('login',[]);
 login.controller('login',function($scope,$http)
 {
-    $scope.registeredEmail=true;
+    $scope.invalidLogin=true;
     $scope.unexpectedError=true;
 
     $scope.submit=function()
@@ -25,7 +25,7 @@ login.controller('login',function($scope,$http)
         }).success(function(data)
         {
             if (data.statusCode == 401) {
-                $scope.registeredEmail = false;
+                $scope.invalidLogin = false;
                 $scope.unexpectedError = true;
             }
             if(data.statusCode==200)
@@ -35,7 +35,7 @@ login.controller('login',function($scope,$http)
         })
             .error(function(error) {
                 $scope.unexpectedError = false;
-                $scope.registeredEmail = true;
+                $scope.invalidLogin = true;
             });
 
 
