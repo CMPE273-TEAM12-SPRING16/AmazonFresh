@@ -40,6 +40,10 @@ app.get('/', function(req, res){
   res.render('index', {});
 });                     // Change this..........................................//
 
+app.get('/product', function(req, res){
+  res.render('product', {});
+});
+
 
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
