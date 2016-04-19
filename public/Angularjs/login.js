@@ -16,7 +16,7 @@ login.controller('login',function($scope,$http)
         $http({
 
             method:"POST",
-            url:'/login',
+            url:'/doLogin',
             data : {
                 "email":$scope.email,
                 "password":$scope.password
