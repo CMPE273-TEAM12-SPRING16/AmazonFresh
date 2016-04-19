@@ -185,9 +185,12 @@
   border-color: #7FAA29!important;
 }
 hr.product-page-seperator{
-    border: none;
-    height: 1px;
-    /* Set the hr color */
-    color: #AAAAAA; /* old IE */
-    background-color: #AAAAAA; /* Modern Browsers */
+  border: none;
+  height: 1px;
+  /* Set the hr color */
+  color: #AAAAAA; /* old IE */
+  background-color: #AAAAAA; /* Modern Browsers */
+}
+.product-page-user-reviews{
+  margin-top: 10px;
 }
