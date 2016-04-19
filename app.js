@@ -39,6 +39,10 @@ app.use(bodyParser.json());
 app.get('/', function(req, res){
 	res.render('index', {});
 });                     // Change this..........................................//
+
+app.get('/product', function(req, res){
+  res.render('product', {});
+});
 app.get('/redirectToHomepage',home.redirectToHomepage);
 
 //All POST methods.........................//
