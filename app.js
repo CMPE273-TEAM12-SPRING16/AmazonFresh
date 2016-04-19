@@ -7,6 +7,7 @@ var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
+var product=require('./routes/product');
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -41,6 +42,7 @@ app.get('/', function(req, res){
 	res.render('index', {});
 });                     // Change this..........................................//
 app.get('/redirectToHomepage',home.redirectToHomepage);
+app.get('/addProduct',product.addProduct);
 
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
