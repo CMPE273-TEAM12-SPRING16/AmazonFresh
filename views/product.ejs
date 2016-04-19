@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <link href="css/_style.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/signin.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+  <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Home | {{productName}}</title>
+</head>
+
+<body>
+  <div class="container-fluid nopadding">
+  <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills navbar-fixed-top header-nav">
+        <li>
+            <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="images/support_images/af-logo-white.png"><span></span></a>
+        </li>
+        <li class="text">
+          Already an AmazonFresh customer?
+        </li>
+        <li class="signin">
+          <a href="#modal-container-748235" data-toggle="modal">Sign in.</a>
+        </li>
+        </ul>
+      </div>
+  </div>
+
+  <div class="container-fluid container-main">
+    	<div class="row row-margin">
+        <div class="col-md-9">
+          <div class="row">
+    					<ul class="nav navbar-nav">
+                <div class="col-md-2">
+    						<li class="dropdown">
+    							 <button class="btn btn-default btn-shop" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     Shop<strong class="caret caret-btn-shop pull-right"></strong>
+                   </button>
+    							<ul class="dropdown-menu">
+    								<li>
+    									<a href="#">Cat 1</a>
+    								</li>
+    								<li>
+    									<a href="#">Cat 2</a>
+    								</li>
+    								<li>
+    									<a href="#">Cat 3</a>
+    								</li>
+    								<li>
+    									<a href="#">Cat 4</a>
+    								</li>
+    							</ul>
+    						</li>
+                </div>
+                <div class="col-md-10">
+                <li>
+                  <div class="input-group">
+                    <input type="text" class="form-control"/>
+                    <span class="input-group-addon fa-serch-btn">
+                      <i class="fa fa-search">Go</i>
+                    </span>
+                  </div>
+                </li>
+                </div>
+              </ul>
+            </div>
+
+          <div class="row row-margin">
+          <div class="col-md-12">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Cat1</a></li>
+              <li class="active">Subcat1</li>
+            </ol>
+          </div>
+          </div>
+
+          <div class="row row-margin">
+        		<div class="col-md-4">
+              <div class="">
+                <img src="images/products/product-1.jpg" />
+              </div>
+            </div>
+            <div class="col-md-8">
+              <h1 class="product-page-product-name">
+                Farmers Market Peach Conserve, 8.6 oz
+              </h1>
+              <span class="product-page-other-products-by">Other products by </span>
+              <span class="product-page-farmer-name"><a href="/farmerID">Farmer Name</a></span>
+              <div class="product-page-ratings-img">
+                <img src="images/support_images/0-stars.png"/>
+                (0)
+              </div>
+              <div class="product-page-price">
+                <span class="price">$6.00</span>
+                <span class="unit-price">($0.77/oz)</span>
+              </div>
+              <div class="product-page-add">
+                <button class="btn btn-primary btn-add" disabled="true">Add to Cart</button>
+                <span><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row-margin">
+            <div class="col-md-12">
+              <hr class="product-page-seperator">
+                <h3>Product Description</h2>
+                <p>Made with the juiciest of the farm's tree-ripened peaches, Frog Hollow's Peach Conserve contains less than 20% added sugar, bringing you all the naturally sweet goodness of their peaches in a smooth spreadable fruit. Have it in the morning with your pancakes, on waffles or french toast, or try it as a delightful summery snack with cottage cheese and yogurt. Feeling like you want an even sweeter treat? Top off a scoop of your favorite ice cream with a spoonful of peaches!</p>
+            </div>
+          </div>
+          <div class="row row-margin">
+            <div class="col-md-12">
+              <hr class="product-page-seperator">
+                <h3>Product Details</h2>
+                <p><strong>ASIN:</strong> B017DDIKTO</p>
+            </div>
+          </div>
+          <div class="row row-margin">
+            <div class="col-md-12">
+              <hr class="product-page-seperator">
+                <h3>Reviews & Ratings</h2>
+                  <!-- if no reviews -->
+                  <h6>There are no customer reviews yet.  Add a Review</h6>
+                  <button class="btn btn-xs">Add Review</button>
+
+                  <!-- If reviews are available -->
+
+                  <div class="product-page-user-reviews">
+                    <span><img src="images/support_images/3-stars.png" /></span>
+                    <span><strong>Really Awesome product.</strong></span>
+                    <p></p>
+                  </div>
+            </div>
+          </div>
+    	</div>
+      <div class="col-md-3">
+        <div class="row">
+          <strong class="">Great news, we deliver to your area.</strong>
+          AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
+        </div>
+        <div class="row">
+          <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
+            Sign In
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- _________________________________________________LOGIN MODAL____________________________________________ -->
+<div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="a-section a-padding-medium auth-workflow container-fluid">
+                <div class="a-section">
+                    <!-- show a warning modal dialog when the third party account is connected with Amazon -->
+                    <div class="a-section a-spacing-base auth-pagelet-container">
+                        <div class="a-section">
+                            <form action="" class="a-spacing-none" id="signIn" method="post" name="signIn" novalidate="">
+                                <div class="a-section">
+                                    <div class="a-box">
+                                        <div class="a-box-inner a-padding-extra-large">
+                                            <h1 class="a-spacing-small">Sign in</h1>
+                                            <div class="a-row a-spacing-base">
+                                                <label for="ap_email">Email ID</label>
+                                                <input class="a-input-text a-span12 auth-autofocus auth-required-field"
+                                                id="ap_email" maxlength="128" name="email" tabindex="1" type="email">
+                                            </div>
+                                            <div class="a-section a-spacing-large">
+                                                <div class="a-row">
+                                                    <div class="a-column a-span5">
+                                                        <label for="ap_password">Password</label>
+                                                    </div>
+                                                    <div class="a-column a-span7 a-text-right a-span-last">
+                                                        <a class="a-spacing-null a-link-normal" href=
+                                                        "/forgotPassword"
+                                                        id="auth-fpp-link-bottom">Forgot your password?</a>
+                                                    </div>
+                                                </div>
+                                                <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password">
+                                            </div>
+                                            <div class="a-section a-spacing-extra-large">
+                                                <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
+                                                "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit"> <span aria-hidden="true" class=
+                                                "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
+                                            </div>
+                                            <div class="panel panel-danger login-error" ng-show=true >Wrong Username or Password.</div>
+
+                                            <div class="a-divider a-divider-break">
+                                                <h5>New to Amazon?</h5>
+                                            </div>
+                                            <span class="a-button a-button-span12" id="auth-create-account-link">
+                                              <span class="a-button-inner">
+                                              <a class="a-button-text" href="/signUp" id="createAccountSubmit" role="button" tabindex="6">
+                                                Create your Amazon account
+                                              </a>
+                                            </span>
+                                          </span>
+                                    </div>
+                                </div>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-app="product">
+<head>
+    <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+    <title>Add Product | AmazonFresh</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/_style.css" rel="stylesheet">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="Angularjs/productAngular.js"></script>
+
+  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <style>
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+    </style>
+
+</head>
+<body>
+
+<div class="container-fluid container-main" ng-controller="product">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills navbar-fixed-top header-nav">
+                <li>
+                    <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="images/support_images/af-logo-white.png"><span></span></a>
+                </li>
+                <li class="text">
+                    Already an AmazonFresh customer?
+                </li>
+                <li class="signin">
+                    <a href="/signin">Sign in.</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Add Product</h1>
+                <div class="thumbnail thumbnail-signup">
+                    <form role="form">
+                        <h3>
+                            Product
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="productName">
+                                        Product Name
+                                    </label>
+                                    <input type="text" class="form-control" id="productName" placeholder="Product Name" ng-model="productName"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="unit">
+                                        Unit for Product
+                                    </label>
+                                    <input type="text" class="form-control" id="unit"  placeholder="Unit for Product" ng-model="unit"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="price">
+                                        Price
+                                    </label>
+                                    <input type="text" class="form-control" id="price"  placeholder="Price" ng-model="price"/>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <h3>
+                            Product Details
+                        </h3>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="productDescription">
+                                        Product Description
+                                    </label>
+                                    <textarea class="form-control textbox-address"  placeholder="Product Description" ng-model="productDescription"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ingredients">
+                                        Ingredients
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="Ingredients" ng-model="ingredients"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Image">
+                                        Product Image
+                                    </label>
+                                    <span class="btn btn-default btn-file">
+                                    <input 
+                                        type="file" 
+                                        ngf-select 
+                                        ng-model="file" 
+                                        name="file" 
+                                        ngf-pattern="'image/*'"
+                                        accept="image/*" 
+                                        ngf-max-size="20MB" 
+                                        />
+                                    </span>    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="addProduct();">Add Product</button>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -5,7 +5,7 @@ var ejs = require('ejs');
 var mysql = require('./mysql');
 
 function doLogin(req, res) {
-
+    console.log(req);
     var email = req.param("email");
     var password = req.param("password");
 
@@ -68,3 +68,4 @@ function redirectToHomepage(req,res)
 exports.doLogin=doLogin;
 exports.doSignUp=doSignUp;
 exports.redirectToHomepage=redirectToHomepage;
+
