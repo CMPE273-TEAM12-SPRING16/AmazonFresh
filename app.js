@@ -47,6 +47,7 @@ app.get('/addProduct',product.addProduct);
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
 app.post('/login',home.doLogin);
+app.post('/doAddProduct',product.doAddProduct);
 
 
 http.createServer(app).listen(app.get('port'), function(){

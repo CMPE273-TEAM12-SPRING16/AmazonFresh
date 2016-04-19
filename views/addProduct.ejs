@@ -1,16 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="product">
 <head>
     <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
     <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
-    <title>Sign up | AmazonFresh</title>
+    <title>Add Product | AmazonFresh</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/_style.css" rel="stylesheet">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="Angularjs/productAngular.js"></script>
+
+  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <style>
+    .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+    </style>
 
 </head>
 <body>
 
-<div class="container-fluid container-main">
+<div class="container-fluid container-main" ng-controller="product">
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-pills navbar-fixed-top header-nav">
@@ -30,27 +60,27 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-12">
-                <h1>Sign Up</h1>
+                <h1>Add Product</h1>
                 <div class="thumbnail thumbnail-signup">
                     <form role="form">
                         <h3>
-                            Personal Details
+                            Product
                         </h3>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="firstName">
-                                        First Name
+                                    <label for="productName">
+                                        Product Name
                                     </label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="First Name" />
+                                    <input type="text" class="form-control" id="productName" placeholder="Product Name" ng-model="productName"/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="lastName">
-                                        Last Name
+                                    <label for="unit">
+                                        Unit for Product
                                     </label>
-                                    <input type="text" class="form-control" id="lastName"  placeholder="Last Name"/>
+                                    <input type="text" class="form-control" id="unit"  placeholder="Unit for Product" ng-model="unit"/>
                                 </div>
                             </div>
                         </div>
@@ -58,89 +88,26 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="ssn">
-                                        SSN
+                                    <label for="price">
+                                        Price
                                     </label>
-                                    <input type="text" class="form-control" id="ssn"  placeholder="Social Security Number"/>
+                                    <input type="text" class="form-control" id="price"  placeholder="Price" ng-model="price"/>
                                 </div>
                             </div>
                         </div>
                         <hr>
 
                         <h3>
-                            Sign-in Details
+                            Product Details
                         </h3>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail">
-                                        Email address
+                                    <label for="productDescription">
+                                        Product Description
                                     </label>
-                                    <input type="email" class="form-control" id="exampleInputEmail"  placeholder="Email ID"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">
-                                        Password
-                                    </label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword2">
-                                        Confirm Password
-                                    </label>
-                                    <input type="password" class="form-control" id="exampleInputPassword2"  placeholder="Confirm Password"/>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <hr>
-
-                        <h3>
-                            Address & Contact
-                        </h3>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="address">
-                                        Address
-                                    </label>
-                                    <textarea class="form-control textbox-address"  placeholder="Address"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="city">
-                                        City
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="City"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="state">
-                                        State
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="State"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="zip">
-                                        Zip
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="Zip"/>
+                                    <textarea class="form-control textbox-address"  placeholder="Product Description" ng-model="productDescription"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -148,85 +115,36 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail">
-                                        Phone
+                                    <label for="ingredients">
+                                        Ingredients
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Phone"/>
+                                    <input type="text" class="form-control" placeholder="Ingredients" ng-model="ingredients"/>
                                 </div>
                             </div>
-                        </div>
-
-
-
-                        <hr>
-                        <h3>Credit Card Details</h3>
-                        <div class="row">
-                            <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <div class="thumbnail thumbnail-signup">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="credit-card-labels">Card Number</label>
-                                                <input type="text" class="form-control" placeholder="Card Number"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="credit-card-labels">Name on the Card</label>
-                                                <input type="text" class="form-control" placeholder="Name on the Card"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group">
-
-                                            <div class="col-md-3">
-                                                <label class="credit-card-labels">Expiry Date</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option>01</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                    <option>04</option>
-                                                    <option selected="true">05</option>
-                                                    <option>06</option>
-                                                    <option>07</option>
-                                                    <option>08</option>
-                                                    <option>09</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <label class="credit-card-labels">&nbsp;</label>
-                                                <select class="form-control" id="sel1">
-                                                    <option selected="true">2016</option>
-                                                    <option>2017</option>
-                                                    <option>2018</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-3">
-                                                <label class="credit-card-labels">CVV</label>
-                                                <input type="password" class="form-control" placeholder="CVV" />
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="Image">
+                                        Product Image
+                                    </label>
+                                    <span class="btn btn-default btn-file">
+                                    <input 
+                                        type="file" 
+                                        ngf-select 
+                                        ng-model="file" 
+                                        name="file" 
+                                        ngf-pattern="'image/*'"
+                                        accept="image/*" 
+                                        ngf-max-size="20MB" 
+                                        />
+                                    </span>    
                                 </div>
                             </div>
-                            <div class="col-md-3"></div>
                         </div>
-                        <hr>
+
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <button type="button" class="btn btn-primary btn-block btn-signup">Sign Up</button>
+                                <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="addProduct();">Add Product</button>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
