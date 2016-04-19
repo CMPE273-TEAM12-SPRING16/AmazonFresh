@@ -38,6 +38,11 @@ function doLogin(req, res) {
 
 
 }
+
+function doSignUp(req,res){
+   res.render('signup', { title: 'Amazon Fresh' });
+}
+
 function redirectToHomepage(req,res)
 {
     //Checks type of login(customer/admin/farmer) before redirecting and redirects accordingly
@@ -61,4 +66,6 @@ function redirectToHomepage(req,res)
     }
 };
 exports.doLogin=doLogin;
+exports.doSignUp=doSignUp;
 exports.redirectToHomepage=redirectToHomepage;
+
