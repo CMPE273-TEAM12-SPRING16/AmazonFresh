@@ -25,6 +25,7 @@ signUp.controller('signup',function($scope,$http)
                 "lastName":$scope.lastName,
                 "ssn":$scope.ssn,
                 "email":$scope.email,
+                "password":$scope.password,
                 "address":$scope.address,
                 "city":$scope.city,
                 "state":$scope.state,
@@ -33,8 +34,8 @@ signUp.controller('signup',function($scope,$http)
                 "userType":1,
                 "creditCardNumber":$scope.creditCardNumber,
                 "creditCardName":$scope.creditCardName,
-                "expiryDate":$scope.expiryDate,
                 "expiryMonth":$scope.expiryMonth,
+                "expiryYear":$scope.expiryYear,
                 "cvv":$scope.cvv
             }
 

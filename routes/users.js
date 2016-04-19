@@ -57,6 +57,7 @@ function doSignup(req, res) {
   var lastName=req.param("lastName");
   var ssn=req.param("ssn");
   var email=req.param("email");
+  var password=req.param("password");
   var address=req.param("address");
   var city=req.param("city");
   var state=req.param("state");
@@ -64,37 +65,75 @@ function doSignup(req, res) {
   var phone=req.param("phone");
   var userType=req.param("userType");
   var creditCardNumber=req.param("creditCardNumber");
-  var expiryDate=req.param("expiryDate");
+  var creditCardName=req.param("creditCardName");
   var expiryMonth=req.param("expiryMonth");
+  var expiryYear=req.param("expiryYear");
   var cvv=req.param("cvv");
 console.log(email);
-  var  insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE) values(email,password,userType)";
 
+  var emailExists = "select email from users where email='" + email + "'";
   mysql.fetchData(function (err, results) {
 
-    if (results.affectedRows > 0)
-    {
-      console.log(results);
-      console.log(results[0].insertId);
-    var userId=results[0].USER_ID;
-req.session.userType=userType;
-      console.log("sql values inserted");
-      var jsonResponse1 = {"statusCode":200};
-      res.send(jsonResponse1);
+    if (results.length > 0) {
+      console.log("email exists");
+      json_responses = {"statusCode": 401};
+      res.send(json_responses);
+
 
     }
+    else {
 
-    else
-    {
-      var jsonResponse2={"statusCode":401};
-      res.send(jsonResponse2);
+      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE) values ('" + email + "','" + password + "','" + userType + "')";
+      mysql.fetchData(function (err, results) {
+
+        if (results.affectedRows > 0) {
+          console.log(results);
+          console.log(results.insertId);
+          var userId = results.insertId;
+          req.session.userType = userType;
+          console.log("sql values inserted");
+
+          //insert remaining values in mongo
+
+          var userDetails = {
+            "userId": userId,
+            "firstName": firstName,
+            "lastName": lastName,
+            "ssn": ssn,
+            "address": address,
+            "city": city,
+            "state": state,
+            "zip": zip,
+            "phone": phone,
+            "creditCardNumber": creditCardNumber,
+            "creditCardName": creditCardName,
+            "expiryMonth": expiryMonth,
+            "expiryYear": expiryYear,
+            "cvv": cvv
+          };
+
+          var callbackFunction = function (err, results) {
+            var json_responses;
+
+            if (err) {
+              console.log(err);
+            }
+            else {
+              json_responses = {"statusCode": 200};
+              res.send(json_responses);
+            }
+
+          }
+
+          mongo.insertOne("users", userDetails, callbackFunction);
+        }
+        else {
+          console.log("data insertion failed");
+        }
+      }, insertSignUpDetails);
     }
 
-
-
-  }, insertSignUpDetails);
-
-
+  }, emailExists);
 }
 
 function redirectToHomepage(req,res)
