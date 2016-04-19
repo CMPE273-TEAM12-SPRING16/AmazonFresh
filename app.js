@@ -2,10 +2,12 @@
 var express = require('express')
 	, http = require('http')
 	, path = require('path');
+
 var expressSession = require("express-session");
 var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
+var product=require('./routes/product');
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -27,6 +29,11 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
+//app.use(express.favicon());
+//app.use(express.logger('dev'));
+app.use(express.bodyParser());
+//app.use(express.methodOverride());
+//app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
@@ -44,6 +51,7 @@ app.get('/product', function(req, res){
   res.render('product', {});
 });
 app.get('/redirectToHomepage',home.redirectToHomepage);
+app.get('/addProduct',product.addProduct);
 
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
