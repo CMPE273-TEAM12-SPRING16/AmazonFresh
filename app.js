@@ -8,7 +8,11 @@ var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
 var product=require('./routes/product');
+<<<<<<< HEAD
 var farmer = require('./routes/farmer');
+=======
+var users=require('./routes/users');
+>>>>>>> c7f0a482d6969eee194b5a384c543971f7f4c246
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -49,14 +53,20 @@ app.get('/', function(req, res){
 app.get('/product', function(req, res){
   res.render('productHome', {});
 });
-app.get('/redirectToHomepage',home.redirectToHomepage);
+app.get('/redirectToHomepage',users.redirectToHomepage);
 app.get('/addProduct',product.addProduct);
 app.get('/farmerHome', farmer.farmerHome);
+app.get('/signup',users.signup);
+app.get('/login',users.login);
 
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
-app.post('/login',home.doLogin);
+
+
 app.post('/doAddProduct',product.doAddProduct);
+app.post('/doLogin',users.doLogin);
+app.post('/doSignup',users.doSignup);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
