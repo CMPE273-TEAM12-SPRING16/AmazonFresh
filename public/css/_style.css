@@ -258,3 +258,29 @@ hr.product-page-seperator{
   height: 100px !important;
   resize: none;
 }
+
+hr.seperator-line{
+  border: none;
+  height: 1px;
+  /* Set the hr color */
+  color: #AAAAAA; /* old IE */
+  background-color: #AAAAAA; /* Modern Browsers */
+}
+
+.btn-theme{
+  color: #000000;
+  width: 100% !important;
+  font-size: 20px;
+  background-color: #8fc91d !important;
+  border-color: #7FAA29!important;
+  margin: 3px !important;
+}
+.btn-theme:focus,
+.btn-theme.focus {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+.btn-theme:hover {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}

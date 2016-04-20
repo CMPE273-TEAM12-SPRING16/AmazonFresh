@@ -4,7 +4,7 @@ var express = require('express')
 	, path = require('path');
 
 var expressSession = require("express-session");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
