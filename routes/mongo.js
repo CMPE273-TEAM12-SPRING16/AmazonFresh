@@ -1,7 +1,7 @@
 //Twitter Project with Mongo
 
 var MongoClient = require('mongodb').MongoClient;
-var mongoURL = "mongodb://localhost:27017/amazon-fresh";
+var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var db;
 var connected = false;
 
