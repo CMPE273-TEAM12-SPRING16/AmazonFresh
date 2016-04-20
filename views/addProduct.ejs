@@ -6,7 +6,7 @@
     <title>Add Product | AmazonFresh</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/_style.css" rel="stylesheet">
-    
+
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
     <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
@@ -15,47 +15,12 @@
     <script src="Angularjs/productAngular.js"></script>
 
   <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <style>
-    .btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
-}
-    </style>
 
 </head>
 <body>
 
 <div class="container-fluid container-main" ng-controller="product">
-    <div class="row">
-        <div class="col-md-12">
-            <ul class="nav nav-pills navbar-fixed-top header-nav">
-                <li>
-                    <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="images/support_images/af-logo-white.png"><span></span></a>
-                </li>
-                <li class="text">
-                    Already an AmazonFresh customer?
-                </li>
-                <li class="signin">
-                    <a href="/signin">Sign in.</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <% include ./partial/header %>
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="row">
@@ -64,8 +29,36 @@
                 <div class="thumbnail thumbnail-signup">
                     <form role="form">
                         <h3>
-                            Product
+                            Product Details
                         </h3>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="thumbnail">
+                              <img src="images/products/product-1.jpg"/>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="Image">
+                                      Upload/Change Image
+                                  </label>
+                                  <p>
+                                  <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Change Picture</button>
+                                  </p>
+                                  <input
+                                      id="fileInput"
+                                      style="visibility:hidden"
+                                      type="file"
+                                      ngf-select
+                                      ng-model="file"
+                                      name="file"
+                                      ngf-pattern="'image/*'"
+                                      accept="image/*"
+                                      ngf-max-size="20MB"
+                                  />
+                              </div>
+                          </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -75,72 +68,59 @@
                                     <input type="text" class="form-control" id="productName" placeholder="Product Name" ng-model="productName"/>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="unit">
-                                        Unit for Product
-                                    </label>
-                                    <input type="text" class="form-control" id="unit"  placeholder="Unit for Product" ng-model="unit"/>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="price">
                                         Price
                                     </label>
-                                    <input type="text" class="form-control" id="price"  placeholder="Price" ng-model="price"/>
+                                    <div class="input-group">
+                                      <span class="input-group-addon">$</span>
+                                      <input type="text" class="form-control" placeholder="Price" aria-label="Price">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">
+                                        Number of Units
+                                    </label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon">For</span>
+                                      <input type="text" class="form-control" placeholder="Number" aria-label="Price">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="unit">
+                                        Unit for Product
+                                    </label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon">Unit</span>
+                                      <select class="form-control">
+                                        <option value="ea">ea (each)</option>
+                                        <option value="lbs">lb (pound)</option>
+                                        <option value="bu">bu (bunch)</option>
+                                        <option value="other">Other</option>
+                                      </select>
+                                  </div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-
-                        <h3>
-                            Product Details
-                        </h3>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="productDescription">
                                         Product Description
                                     </label>
-                                    <textarea class="form-control textbox-address"  placeholder="Product Description" ng-model="productDescription"></textarea>
+                                    <textarea class="form-control add-prod-description"  placeholder="Product Description" ng-model="productDescription"></textarea>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="ingredients">
-                                        Ingredients
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="Ingredients" ng-model="ingredients"/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Image">
-                                        Product Image
-                                    </label>
-                                    <span class="btn btn-default btn-file">
-                                    <input 
-                                        type="file" 
-                                        ngf-select 
-                                        ng-model="file" 
-                                        name="file" 
-                                        ngf-pattern="'image/*'"
-                                        accept="image/*" 
-                                        ngf-max-size="20MB" 
-                                        />
-                                    </span>    
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
