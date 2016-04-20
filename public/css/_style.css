@@ -1,5 +1,8 @@
 
-
+.row-margin-none{
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
 .header-nav {
 
     height: 45px;
@@ -275,6 +278,9 @@ hr.seperator-line{
   border-color: #7FAA29!important;
   margin: 3px !important;
 }
+.btn-theme-narrow{
+  width: 80% !important;
+}
 .btn-theme:focus,
 .btn-theme.focus {
   color: #000000 !important;
@@ -283,4 +289,32 @@ hr.seperator-line{
 .btn-theme:hover {
   color: #000000 !important;
   background-color: #7ba527 !important;
+}
+
+.collapse-nav > a{
+  color: #709c16 !important;
+}
+.collapse-body{
+  padding : 10px !important;
+}
+
+.approve-col-1{
+  font-weight: bold !important;
+}
+.approve-col-1 > div.row > h5 {
+  margin: 0px 5px 0px 5px;
+}
+.approve-col-2 > div.row {
+  padding-top: 1px !important;
+}
+.address-line > p {
+  margin-bottom: 4px !important;
+}
+.admin-page-title{
+  color: #9fdf20 !important;
+  font-size: 30px !important;
+}
+.admin-page-title-cat{
+  color: #444444 !important;
+  font-size: 30px !important;
 }
