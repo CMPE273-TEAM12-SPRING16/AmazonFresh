@@ -23,7 +23,7 @@ function doLogin(req, res) {
   var password = req.param("password");
 
 console.log(email);
-  var  getLoginDetails = "select * from users where email='" + email + "' and password='" + password + "'";
+  var  getLoginDetails = "SELECT * FROM USERS WHERE EMAIL='" + email + "' AND PASSWORD='" + password + "'";
 
   mysql.fetchData(function (err, results) {
 
@@ -64,11 +64,7 @@ function doSignup(req, res) {
   var zip=req.param("zip");
   var phone=req.param("phone");
   var userType=req.param("userType");
-  var creditCardNumber=req.param("creditCardNumber");
-  var creditCardName=req.param("creditCardName");
-  var expiryMonth=req.param("expiryMonth");
-  var expiryYear=req.param("expiryYear");
-  var cvv=req.param("cvv");
+
 console.log(email);
 
   var emailExists = "select email from users where email='" + email + "'";
@@ -97,19 +93,14 @@ console.log(email);
 
           var userDetails = {
             "USERID": userId,
-            "FIRSTNAME": firstName,
-            "LASTNAME": lastName,
+            "FIRST_NAME": firstName,
+            "LAST_NAME": lastName,
             "SSN": ssn,
             "ADDRESS": address,
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
             "PHONE": phone,
-            "CREDITCARDNUMBER": creditCardNumber,
-            "CREDITCARDNAME": creditCardName,
-            "EXPIRYMONTH": expiryMonth,
-            "EXPIRYYEAR": expiryYear,
-            "CVV": cvv
           };
 
           var callbackFunction = function (err, results) {
@@ -119,8 +110,42 @@ console.log(email);
               console.log(err);
             }
             else {
+
+              if(userType==1) {
+                var creditCardNumber = req.param("creditCardNumber");
+                var creditCardName = req.param("creditCardName");
+                var expiryMonth = req.param("expiryMonth");
+                var expiryYear = req.param("expiryYear");
+                var cvv = req.param("cvv");
+
+                var customerCreditCardDetails = {
+                  "USERID": userId,
+                  CREDIT_CARD_DETAILS:
+                {
+                  "CREDIT_CARD_NUMBER": creditCardNumber,
+                  "CREDIT_CARD_NAME": creditCardName,
+                  "EXPIRY_MONTH": expiryMonth,
+                  "EXPIRY_YEAR": expiryYear,
+                  "CVV": cvv}
+                };
+                var callbackFunction = function (err, results) {
+                  var json_responses;
+
+                  if (err) {
+                    console.log(err);
+                  }
+                  else {
+                    console.log("creditCardDetailsInserted");
+                  }
+                }
+                mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, callbackFunction);
+              }
+
               json_responses = {"statusCode": 200};
               res.send(json_responses);
+
+             //checking for credit card details and entering the details in CREDITCARDTABLE
+
             }
 
           }
