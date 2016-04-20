@@ -45,7 +45,9 @@ app.get('/addProduct',product.addProduct);
 app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
-
+app.get('/adminHome', function(req, res){
+  res.render('adminHome', {});
+});
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
 
