@@ -23,7 +23,7 @@ var upload = multer({ //multer settings
 
 exports.addProduct = function(req, res)
 {
-    res.render('addproduct');
+    res.render('addProduct');
 }
 
 
