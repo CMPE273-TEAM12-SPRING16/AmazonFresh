@@ -22,7 +22,7 @@ function doLogin(req, res) {
   var email = req.param("email");
   var password = req.param("password");
 
-
+console.log(email);
   var  getLoginDetails = "select * from users where email='" + email + "' and password='" + password + "'";
 
   mysql.fetchData(function (err, results) {
@@ -96,20 +96,20 @@ console.log(email);
           //insert remaining values in mongo
 
           var userDetails = {
-            "userId": userId,
-            "firstName": firstName,
-            "lastName": lastName,
-            "ssn": ssn,
-            "address": address,
-            "city": city,
-            "state": state,
-            "zip": zip,
-            "phone": phone,
-            "creditCardNumber": creditCardNumber,
-            "creditCardName": creditCardName,
-            "expiryMonth": expiryMonth,
-            "expiryYear": expiryYear,
-            "cvv": cvv
+            "USERID": userId,
+            "FIRSTNAME": firstName,
+            "LASTNAME": lastName,
+            "SSN": ssn,
+            "ADDRESS": address,
+            "CITY": city,
+            "STATE": state,
+            "ZIP": zip,
+            "PHONE": phone,
+            "CREDITCARDNUMBER": creditCardNumber,
+            "CREDITCARDNAME": creditCardName,
+            "EXPIRYMONTH": expiryMonth,
+            "EXPIRYYEAR": expiryYear,
+            "CVV": cvv
           };
 
           var callbackFunction = function (err, results) {
@@ -125,7 +125,7 @@ console.log(email);
 
           }
 
-          mongo.insertOne("users", userDetails, callbackFunction);
+          mongo.insertOne("USERS", userDetails, callbackFunction);
         }
         else {
           console.log("data insertion failed");
