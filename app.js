@@ -4,6 +4,7 @@ var express = require('express')
 	, path = require('path');
 
 var expressSession = require("express-session");
+var bodyParser = require('body-parser')
 var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
@@ -26,17 +27,10 @@ app.use(expressSession({
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
- if ('development' == app.get('env')) {
-   app.use(express.errorHandler());
- }
 
 //All GET methods...........................//
 app.get('/', function(req, res){
