@@ -164,7 +164,7 @@ exports.doDeleteProduct = function(req,res){
 };
 
 
-}
+
 exports.productHome = function(req, res)
 {
 	res.render('productHome');
