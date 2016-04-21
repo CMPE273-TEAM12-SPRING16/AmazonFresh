@@ -15,9 +15,7 @@
   <![endif]-->
 
   <!--Angular js scripts-->
-  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
 
@@ -28,22 +26,7 @@
 
 <body>
 <div class="container-fluid nopadding">
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="nav nav-pills navbar-fixed-top header-nav">
-        <li>
-          <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="images/support_images/af-logo-white.png"><span></span></a>
-        </li>
-        <li class="text">
-          Already an AmazonFresh customer?
-        </li>
-        <li class="signin">
-          <a href="#modal-container-748235" data-toggle="modal">Sign in.</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
+  <% include ./partial/header %>
   <div class="container-fluid container-main">
     <div class="row row-margin">
       <div class="col-md-9">
@@ -433,33 +416,11 @@
     </div><div id="footerBar"> <div class="col-md-4"></div><div class="col-md-4"><< Previous &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp; <a >2</a>&nbsp;&nbsp;&nbsp;&nbsp;<a> Next >></a> </div></div>
 
   </div></div>
-<!--
-<div id="footerBar"></div>
--->
-<div class="container-fluid" id="bottombar">
-  <div class="row">
-    <div class="col-md-12">
-      <div id="refreshFooter">
-        <div class="column">
-
-         <p > <a style="text-decoration:none;color: white" href="#">Home</a></p>
-          <p><a style="text-decoration:none;color: white"  href="#">Conditions Of Use</a></p>
-
-          <a style="text-decoration:none;color: white" href="#">Privacy Notice</a>
-</div>
-      </div><font color="white" style="padding: 14px" >© 2007-2016 AmazonFresh, LLC or its affiliates   All items sold by and ship from AmazonFresh unless otherwise specified.</font>
-    </div>
-  </div>
-</div>
-
-</body>
-
-</html>
 
 
 
 
-
+<% include ./partial/footer %>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
