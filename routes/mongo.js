@@ -72,6 +72,18 @@ exports.find = function(collectionName,queryJSON,callbackFunction)
 
 }
 
+exports.findOneUsingId = function(collectionName,idString,callbackFunction) {
+
+    var o_id = new require('mongodb').ObjectID(idString);
+    var queryJSON = {_id : o_id};
+
+    connect(mongoURL, function(db){
+        console.log('Connected to mongo at: ' + mongoURL);
+        var collectionObject = collection(collectionName);
+        console.log(queryJSON);
+        collectionObject.findOne(queryJSON,callbackFunction);
+    });
+}
 
 exports.count = function(collectionName,queryJSON,callbackFunction)
 {
