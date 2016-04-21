@@ -1,6 +1,7 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
-productDisplayAngular.controller("productDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
+productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
     {
+        $scope.isLoggedIn = false;
             $http({
 
                 method: "POST",
@@ -13,6 +14,32 @@ productDisplayAngular.controller("productDisplayAngular",['$scope','$http','send
                 $scope.displayProductDetails = res.data.productDetails;
                 $scope.farmerName=res.data.farmerName;
             });
+
+            $http({
+
+                method: "POST",
+                url: '/getLoggedInUserDetails',
+                data: {
+                }
+
+            }).then(function (res) {
+                    $scope.firstName = res.data.firstName;
+                    $scope.lastName = res.data.lastName;
+                    $scope.email = res.data.email;
+                    $scope.city = res.data.city;
+                    $scope.userId = res.data.userId;
+                    if(res.data.firstName)
+                    {
+                        $scope.isLoggedIn = true;
+                    }
+            });
+
+    }
+]);
+
+productDisplayAngular.controller("LoggedInUserDetails",['$scope','$http',function($scope,$http)
+    {
+            
 
     }
 ]);
