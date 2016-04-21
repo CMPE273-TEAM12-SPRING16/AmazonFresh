@@ -151,7 +151,7 @@ console.log(email);
 
           }
 
-          mongo.insertOne("USERS", userDetails, callbackFunction);
+          mongo.insertOne("USER_DETAILS", userDetails, callbackFunction);
         }
         else {
           console.log("data insertion failed");
