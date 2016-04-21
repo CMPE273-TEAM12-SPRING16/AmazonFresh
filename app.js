@@ -58,6 +58,10 @@ app.get('/apprReqFarmer', function(req, res){
 app.get('/apprReqProduct', function(req, res){
   res.render('adminTemplates/apprReqProduct', {});
 });
+app.get('/account', function(req, res){
+  res.render('customerAccount', {});
+});
+
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
 

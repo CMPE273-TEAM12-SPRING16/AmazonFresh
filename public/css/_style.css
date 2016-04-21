@@ -1,6 +1,4 @@
-body{
-  background-color: #f9f9f9 !important;
-}
+
 .row-margin-none{
   margin-right: 0px !important;
   margin-left: 0px !important;
@@ -144,6 +142,9 @@ body{
 
 .credit-card-labels{
   font-size: 10px;
+}
+.credit-card-labels-account{
+  font-size: 13px;
 }
 
 .textbox-address{
@@ -301,6 +302,7 @@ hr.seperator-line{
   border-color: #7FAA29!important;
   margin: 3px !important;
 }
+
 .btn-theme-narrow{
   width: 80% !important;
 }
@@ -313,6 +315,24 @@ hr.seperator-line{
   color: #000000 !important;
   background-color: #7ba527 !important;
 }
+
+.btn-primary-theme{
+  color: #000000;
+  font-size: 20px;
+  background-color: #8fc91d !important;
+  border-color: #7FAA29!important;
+  margin: 3px !important;
+}
+.btn-primary-theme:focus,
+.btn-primary-theme.focus {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+.btn-primary-theme:hover {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+
 
 .collapse-nav > a{
   color: #709c16 !important;
@@ -350,4 +370,24 @@ hr.seperator-line{
 .admin-page-title-cat{
   color: #444444 !important;
   font-size: 25px !important;
+}
+
+.pagination-bar{
+  background-color: #DDDDDD !important;
+  font-size: 12px;
+  padding: 1px 5px 1px 5px;
+}
+.sort-select{
+  padding: 0px !important;
+  height: 20px !important;
+  font-size: 13px !important;
+}
+
+
+.nopadding{
+  padding: 0px !important;
+}
+
+.nomargin{
+  margin: 0px !important;
 }
