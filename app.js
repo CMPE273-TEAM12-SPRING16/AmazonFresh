@@ -42,10 +42,32 @@ app.get('/product', function(req, res){
 });
 app.get('/redirectToHomepage',users.redirectToHomepage);
 
+
 //app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
+
+app.get('/addProduct',product.addProduct);
+app.get('/productHome',product.productHome);
+app.get('/farmerHome', farmer.farmerHome);
+app.get('/signup',users.signup);
+app.get('/login',users.login);
+app.get('/adminHome', function(req, res){
+  res.render('adminHome', {});
+});
+app.get('/apprReqCustomer', function(req, res){
+  res.render('adminTemplates/apprReqCustomer', {});
+});
+app.get('/apprReqFarmer', function(req, res){
+  res.render('adminTemplates/apprReqFarmer', {});
+});
+app.get('/apprReqProduct', function(req, res){
+  res.render('adminTemplates/apprReqProduct', {});
+});
+app.get('/account', function(req, res){
+  res.render('customerAccount', {});
+});
 
 
 app.post('/doShowProductList',farmer.doShowProductList);
@@ -61,6 +83,7 @@ app.post('/doEditProduct', product.doEditProduct);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 
+
 app.get('/productList', function(req, res){
 	
   res.render('farmerTemplate/productList', {});
@@ -70,6 +93,10 @@ app.get('/myProfile', function(req, res){
 	
   res.render('farmerTemplate/editFarmerDetails', {});
 });
+
+app.post('/getProductDetails',product.getProductDetails);
+app.get('/products/:id',product.getProductId);
+
 
 app.get('/addProduct', function(req, res){
 	

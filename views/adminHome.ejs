@@ -1,5 +1,179 @@
-<html>
-<body>
-admin home page
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <link href="css/_style.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/signin.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!--Angular js scripts-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+
+  <script src="angularjs/adminAngular.js" type="text/javascript"></script>
+
+
+  <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Home | Admin</title>
+
+</head>
+
+<body ng-app="adminNgApp" ng-controller="AdminPageCtrl">
+  <div class="container-fluid nopadding">
+    <% include ./partial/headerLoggedIn %>
+    <div class="container-fluid container-main">
+      <div class="row row-margin">
+        <div class="col-md-12">
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-8">
+                <li>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search the products you are selling.."/>
+                    <span class="input-group-addon fa-serch-btn">
+                      <i class="fa fa-search">Go</i>
+                    </span>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title collapse-nav">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Notifications <span class="badge pull-right">4</span>
+                </a>
+              </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body collapse-body">
+                  <ul class="nav nav-pills nav-stacked">
+                    <li ng-class="activeCustomer" ng-click="activateCustomer()">
+                      <a href="#/apprReqCustomer">Approve Customer<span class="badge pull-right">2</span></a>
+                    </li>
+                    <li ng-class="activeFarmer" ng-click="activateFarmer()">
+                      <a href="#/apprReqFarmer">Approve Farmer<span class="badge pull-right">1</span></a>
+                    </li>
+                    <li ng-class="activeProduct" ng-click="activateProduct()">
+                      <a href="#/apprReqProduct">Approve Product<span class="badge pull-right">1</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title collapse-nav">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Review<span class="badge pull-right"><strong class="caret"></strong></span></a>
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                  <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                      <a href="#">Customers<span class="badge pull-right">2</span></a>
+                    </li>
+                    <li class="">
+                      <a href="#">Farmers<span class="badge pull-right">1</span></a>
+                    </li>
+                    <li class="">
+                      <a href="#">Products<span class="badge pull-right">1</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title collapse-nav">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Statistics<span class="badge pull-right"><strong class="caret"></strong></span></a>
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                  <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                      <a href="#">Stats1<span class="badge pull-right">2</span></a>
+                    </li>
+                    <li class="">
+                      <a href="#">Stats2<span class="badge pull-right">1</span></a>
+                    </li>
+                    <li class="">
+                      <a href="#">Stats3<span class="badge pull-right">1</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title collapse-nav">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                    Bills<span class="badge pull-right">543</span></a>
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                  <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                      <a href="#">Stats1<span class="badge pull-right">2</span></a>
+                    </li>
+                    <li class="">
+                      <a href="#">Stats2<span class="badge pull-right">1</span></a>
+                    </li>
+                    <li class="">
+                      <a href="#">Stats3<span class="badge pull-right">1</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+
+
+          <div ng-view class="thumbnail thumbnail-signup">
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% include ./partial/footer %>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

@@ -1,5 +1,8 @@
 
-
+.row-margin-none{
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
 .header-nav {
 
     height: 45px;
@@ -15,16 +18,21 @@
     right: 0px;
     z-index: 100;
 }
+.sup-plus{
+  font-size: 15px !important;
+}
+
 
 .header-nav > li > a {
-  color: #FFFFFF;
-  border-radius: 4px;
+  color: #FFFFFF !important;
+  border-radius: 4px !important;
 }
 .header-nav > li > a:hover,
 .header-nav > li > a:focus {
-  text-decoration: none;
+  text-decoration: none !important;
   color: #A9E236 !important;
   background-color: transparent !important;
+  outline: none !important;
 }
 .header-nav > li > a.img-logo{
     padding-top: 5px;
@@ -90,6 +98,17 @@
 .btn-signin{
   margin-top: 5px;
   background-color: #A9E236 !important;
+  border-color: #bce963 !important;
+  outline: none !important;
+}
+.btn-signin:focus,
+.btn-signup.focus {
+  outline: none !important;
+}
+.btn-signin:hover {
+  background-color: #93C62E !important;
+  border-color: #bce963 !important;
+  outline: none !important;
 }
 
 .btn-signup{
@@ -110,14 +129,22 @@
 
 .thumbnail-signup{
   padding: 20px !important;
+  background-color: #ecf9d2 !important;
+}
+.thumbnail-credit-card{
+  padding: 20px !important;
+  background-color: #DDDDDD !important;
 }
 
 .thumbnail-signup > form > h3 {
-  color: #A9E236 !important;
+  color: #8fc91d !important;
 }
 
 .credit-card-labels{
   font-size: 10px;
+}
+.credit-card-labels-account{
+  font-size: 13px;
 }
 
 .textbox-address{
@@ -275,6 +302,10 @@ hr.seperator-line{
   border-color: #7FAA29!important;
   margin: 3px !important;
 }
+
+.btn-theme-narrow{
+  width: 80% !important;
+}
 .btn-theme:focus,
 .btn-theme.focus {
   color: #000000 !important;
@@ -283,4 +314,80 @@ hr.seperator-line{
 .btn-theme:hover {
   color: #000000 !important;
   background-color: #7ba527 !important;
+}
+
+.btn-primary-theme{
+  color: #000000;
+  font-size: 20px;
+  background-color: #8fc91d !important;
+  border-color: #7FAA29!important;
+  margin: 3px !important;
+}
+.btn-primary-theme:focus,
+.btn-primary-theme.focus {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+.btn-primary-theme:hover {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+
+
+.collapse-nav > a{
+  color: #709c16 !important;
+}
+.collapse-nav > a:hover,
+.collapse-nav > a:focus {
+  text-decoration: none !important;
+  background-color: transparent !important;
+}
+.collapse-nav > a > span.badge {
+  text-decoration: none !important;
+  background-color: #555555 !important;
+}
+
+.collapse-body{
+  padding : 10px !important;
+}
+
+.approve-col-1{
+  font-weight: bold !important;
+}
+.approve-col-1 > div.row > h5 {
+  margin: 0px 5px 0px 5px;
+}
+.approve-col-2 > div.row {
+  padding-top: 1px !important;
+}
+.address-line > p {
+  margin-bottom: 4px !important;
+}
+.admin-page-title{
+  color: #8fc91d !important;
+  font-size: 25px !important;
+}
+.admin-page-title-cat{
+  color: #444444 !important;
+  font-size: 25px !important;
+}
+
+.pagination-bar{
+  background-color: #DDDDDD !important;
+  font-size: 12px;
+  padding: 1px 5px 1px 5px;
+}
+.sort-select{
+  padding: 0px !important;
+  height: 20px !important;
+  font-size: 13px !important;
+}
+
+
+.nopadding{
+  padding: 0px !important;
+}
+
+.nomargin{
+  margin: 0px !important;
 }

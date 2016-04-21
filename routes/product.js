@@ -30,6 +30,8 @@ exports.addProduct = function(req, res)
 }
 
 
+
+
 exports.doAddProduct = function(req,res)
 {
 	var callbackFunction = function(err, results) {
@@ -62,9 +64,16 @@ exports.doAddProduct = function(req,res)
 					var unit = req.param("units"); 
 					var price = req.param("price"); 
 					var productDescription = req.param("productDescription"); 
+
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
+
+					var ingredients = req.param("ingredients");
+					var farmerId = 6;
+
+             		console.log("File uploaded successfully");
+
              			var insertJSON = {"PRODUCT_NAME" : productName,
 						"FARMER_ID" : farmerId,
 						"PRICE" : price,
@@ -153,5 +162,59 @@ exports.doDeleteProduct = function(req,res){
 		mongo.removeOne('PRODUCTS',deleteProductJSON,callbackFunction);
 
 };
+
+
+}
+exports.productHome = function(req, res)
+{
+	res.render('productHome');
+}
+
+exports.getProductId=function(req,res)
+{
+
+	var productId = req.param("id");
+	console.log(productId);
+	ejs.renderFile('./views/productHome.ejs',{sendProductId:productId},function(err, results) {
+		if (!err) {
+			res.end(results);
+		}
+		else{
+			console.log("entered");
+		}
+	});
+}
+
+exports.getProductDetails=function(req,res)
+{
+
+	var productId = req.param("productId");
+	var callbackFunction = function (err, results) {
+
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log(results.PRODUCT_NAME);
+			var farmerId = {"USER_ID":results.FARMER_ID};
+
+			var callbackFunction = function (err, result) {
+				var json_responses;
+
+				if (err) {
+					console.log(err);
+				}
+				else {
+					var farmerName=result.FIRST_NAME+" "+ result.LAST_NAME;
+					res.send({"productDetails":results,"farmerName":farmerName});
+				}
+			}
+			mongo.findOne("USER_DETAILS",farmerId, callbackFunction);
+		}
+	}
+	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
+}
+
+
 
 
