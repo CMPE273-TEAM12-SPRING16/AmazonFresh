@@ -42,6 +42,7 @@ app.get('/product', function(req, res){
 });
 app.get('/redirectToHomepage',users.redirectToHomepage);
 app.get('/addProduct',product.addProduct);
+app.get('/productHome',product.productHome);
 app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
@@ -53,7 +54,8 @@ app.get('/login',users.login);
 app.post('/doAddProduct',product.doAddProduct);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
-
+app.post('/getProductDetails',product.getProductDetails);
+app.get('/:id',product.getProductId);
 
 
 http.createServer(app).listen(app.get('port'), function(){
