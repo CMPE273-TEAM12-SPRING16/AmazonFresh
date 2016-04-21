@@ -4,7 +4,7 @@
   <link href="css/_style.css" rel="stylesheet">
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/signin.css" rel="stylesheet">
-  <link href="css/ekta.css" rel="stylesheet">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -14,14 +14,22 @@
   <![endif]-->
 
   <!--Angular js scripts-->
-  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
+  <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+  <script src="angularjs/farmerAngular.js"></script>
+
   <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <title>Home | AmazonFresh</title>
 
 </head>
 
-<body>
+<body ng-app="farmer" ng-controller="FarmerController">
   <div class="container-fluid nopadding">
     <% include ./partial/header %>
     <div class="container-fluid container-main">
@@ -45,33 +53,23 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-          <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Cat1</a></li>
-            <li class="active">Subcat1</li>
-          </ol>
-        </div>
-
-      </div>
+    
 
       <div class="row">
         <div class="col-md-2">
           <div class="thumbnail">
             <ul class="nav nav-pills nav-stacked">
-              <li class="active">
-                <a href="#">I am selling</a>
+              <li ng-class="{active:tab.isSetTab(1)}" class="active">
+                <a href="#/productList" >I am selling</a>
               </li>
-              <li class="">
-                <a href="#">My Profile</a>
+              <li ng-class="{active:tab.isSetTab(2)}">
+                <a href="#/myProfile" >My Profile</a>
               </li>
-              <li class="">
-                <a href="#">Add Product</a>
+              <li ng-class="{active:tab.isSetTab(3)}">
+                <a href="#/addProduct" >Add Product</a>
               </li>
 
-              <li class="">
+              <li ng-class="">
                 <a href="#">Something else</a>
               </li>
             </ul>
@@ -79,333 +77,156 @@
         </div>
         <div class="col-md-8">
 
+        <div ng-view>
 
+        </div>
 
+<!-- Modal for product edit -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
 
-
-
-          <div class="thumbnail thumbnail-signup" ng-hide="">
-            <h1>I am Selling</h1>
-
-            <div class="thumbnail">
-              <div class="row">
-              <div class="col-md-2">
-                <div>
-                  <img src="images/products/product-1.jpg" />
-                </div>
-                <button type="button" class="btn btn-primary btn-xs btn-theme" ng-click="">Edit</button>
-                <button type="button" class="btn btn-primary btn-xs btn-theme" ng-click="">Delete</button>
-              </div>
-              <div class="col-md-10">
-                <h2 class="product-page-product-name">
-                  Farmers Market Peach Conserve, 8.6 oz
-                </h2>
-                <div class="product-page-ratings-img">
-                  <img src="images/support_images/0-stars.png"/>
-                  (0)
-                </div>
-                <div class="product-page-price">
-                  <span class="price">$6.00</span>
-                  <span class="unit-price">($0.77/oz)</span>
-                </div>
-                <div class="row row-margin">
-                  <div class="col-md-12">
-                      <h3>Product Description</h2>
-                      <p>Made with the juiciest of the farm's tree-ripened peaches, Frog Hollow's Peach Conserve contains less than 20% added sugar, bringing you all the naturally sweet goodness of their peaches in a smooth spreadable fruit. Have it in the morning with your pancakes, on waffles or french toast, or try it as a delightful summery snack with cottage cheese and yogurt. Feeling like you want an even sweeter treat? Top off a scoop of your favorite ice cream with a spoonful of peaches!</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-
-            <div class="thumbnail">
-              <div class="row">
-              <div class="col-md-2">
-                <div>
-                  <img src="images/products/product-1.jpg" />
-                </div>
-                <button type="button" class="btn btn-primary btn-xs btn-theme" ng-click="">Edit</button>
-                <button type="button" class="btn btn-primary btn-xs btn-theme" ng-click="">Delete</button>
-              </div>
-              <div class="col-md-10">
-                <h2 class="product-page-product-name">
-                  Farmers Market Peach Conserve, 8.6 oz
-                </h2>
-                <div class="product-page-ratings-img">
-                  <img src="images/support_images/0-stars.png"/>
-                  (0)
-                </div>
-                <div class="product-page-price">
-                  <span class="price">$6.00</span>
-                  <span class="unit-price">($0.77/oz)</span>
-                </div>
-                <div class="row row-margin">
-                  <div class="col-md-12">
-                      <h3>Product Description</h2>
-                      <p>Made with the juiciest of the farm's tree-ripened peaches, Frog Hollow's Peach Conserve contains less than 20% added sugar, bringing you all the naturally sweet goodness of their peaches in a smooth spreadable fruit. Have it in the morning with your pancakes, on waffles or french toast, or try it as a delightful summery snack with cottage cheese and yogurt. Feeling like you want an even sweeter treat? Top off a scoop of your favorite ice cream with a spoonful of peaches!</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-
-          </div>
-
-          <div class="thumbnail thumbnail-signup" ng-hide="">
-            <h1>My Profile</h1>
-            <form role="form" >
-              <h3>
-                Personal Details
-              </h3>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="firstName">
-                      First Name
-                    </label>
-                    <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="first_name"/>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="lastName">
-                      Last Name
-                    </label>
-                    <input type="text" class="form-control" id="lastName"  placeholder="Last Name" ng-model="last_name"/>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="ssn">
-                      SSN
-                    </label>
-                    <input type="text" class="form-control" id="ssn"  placeholder="Social Security Number" ng-model="ssn"/>
-                  </div>
-                </div>
-              </div>
-              <hr>
-
-              <h3>
-                Sign-in Details
-              </h3>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="exampleInputEmail">
-                      Email address
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail"  placeholder="Email ID" ng-model="email_id"/>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">
-                      Password
-                    </label>
-                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password" ng-model="password"/>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputPassword2">
-                      Confirm Password
-                    </label>
-                    <input type="password" class="form-control" id="exampleInputPassword2"  placeholder="Confirm Password" ng-model="confirm_pwd"/>
-                  </div>
-                </div>
-              </div>
-
-
-              <hr>
-
-              <h3>
-                Address & Contact
-              </h3>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="address">
-                      Address
-                    </label>
-                    <textarea class="form-control textbox-address"  placeholder="Address" ng-model="address"></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="city">
-                      City
-                    </label>
-                    <input type="text" class="form-control" placeholder="City" ng-model="city"/>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="state">
-                      State
-                    </label>
-                    <input type="text" class="form-control" placeholder="State" ng-model="state"/>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="zip">
-                      Zip
-                    </label>
-                    <input type="text" class="form-control" placeholder="Zip" ng-model="zip_code"/>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail">
-                      Phone
-                    </label>
-                    <input type="text" class="form-control" placeholder="Phone" ng-model="phone"/>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                  <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="signUp()">Update</button>
-                </div>
-                <div class="col-md-2"></div>
-              </div>
-            </form>
-          </div>
-
-
-
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="thumbnail thumbnail-signup">
-                      <h1>Add Product</h1>
-                      <form role="form">
-                          <h3>
-                              Product Details
-                          </h3>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <div class="thumbnail">
-                                <img src="images/products/product-1.jpg"/>
-                              </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <div class="row" >
+            <div class="col-md-12">
+                <h1>Edit Product</h1>
+                <div class="thumbnail thumbnail-signup">
+                    <form role="form">
+                        <h3>
+                            Product Details
+                        </h3>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="thumbnail">
+                              <img src="images/products/product-1.jpg"/>
                             </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="Image">
+                                      Upload/Change Image
+                                  </label>
+                                  <p>
+                                  <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Change Picture</button>
+                                  </p>
+                                  <input
+                                      id="fileInput"
+                                      style="visibility:hidden"
+                                      type="file"
+                                      ngf-select
+                                      ng-model="file"
+                                      name="file"
+                                      ngf-pattern="'image/*'"
+                                      accept="image/*"
+                                      ngf-max-size="20MB"
+                                  />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Image">
-                                        Upload/Change Image
+                                <input type="hidden" ng-model="product_id"/>
+                                    <label for="productName">
+                                        Product Name
                                     </label>
-                                    <p>
-                                    <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Change Picture</button>
-                                    </p>
-                                    <input
-                                        id="fileInput"
-                                        style="visibility:hidden"
-                                        type="file"
-                                        ngf-select
-                                        ng-model="file"
-                                        name="file"
-                                        ngf-pattern="'image/*'"
-                                        accept="image/*"
-                                        ngf-max-size="20MB"
-                                    />
+                                    <input type="text" class="form-control" id="productName" placeholder="Product Name" ng-model="edit_product_name"/>
                                 </div>
                             </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label for="productName">
-                                          Product Name
-                                      </label>
-                                      <input type="text" class="form-control" id="productName" placeholder="Product Name" ng-model="productName"/>
-                                  </div>
-                              </div>
-                          </div>
+                        </div>
 
-                          <div class="row">
-                              <div class="col-md-2">
-                                  <div class="form-group">
-                                      <label for="price">
-                                          Price
-                                      </label>
-                                      <div class="input-group">
-                                        <span class="input-group-addon">$</span>
-                                        <input type="text" class="form-control" placeholder="Price" aria-label="Price">
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="form-group">
-                                      <label for="price">
-                                          Number of Units
-                                      </label>
-                                      <div class="input-group">
-                                        <span class="input-group-addon">For</span>
-                                        <input type="text" class="form-control" placeholder="Number" aria-label="Price">
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="form-group">
-                                      <label for="unit">
-                                          Unit for Product
-                                      </label>
-                                      <div class="input-group">
-                                        <span class="input-group-addon">Unit</span>
-                                        <select class="form-control">
-                                          <option value="ea">ea (each)</option>
-                                          <option value="lbs">lb (pound)</option>
-                                          <option value="bu">bu (bunch)</option>
-                                          <option value="other">Other</option>
-                                        </select>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="price">
+                                        Price
+                                    </label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon">$</span>
+                                      <input type="text" class="form-control" placeholder="Price" aria-label="Price" ng-model="edit_price">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">
+                                        Number of Units
+                                    </label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon">For</span>
+                                      <input type="text" class="form-control" placeholder="Number" aria-label="Price" ng-model="edit_noOfUnits">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="unit">
+                                        Unit for Product
+                                    </label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon">Unit</span>
+                                      <select class="form-control" ng-model="edit_units">
+                                        <option value="ea">ea (each)</option>
+                                        <option value="lbs">lb (pound)</option>
+                                        <option value="bu">bu (bunch)</option>
+                                        <option value="other">Other</option>
+                                      </select>
                                   </div>
-                              </div>
-                          </div>
+                                </div>
+                            </div>
+                        </div>
 
-                          <div class="row">
-                              <div class="col-md-8">
-                                  <div class="form-group">
-                                      <label for="productDescription">
-                                          Product Description
-                                      </label>
-                                      <textarea class="form-control add-prod-description"  placeholder="Product Description" ng-model="productDescription"></textarea>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-2"></div>
-                              <div class="col-md-8">
-                                  <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="addProduct();">Add Product</button>
-                              </div>
-                              <div class="col-md-2"></div>
-                          </div>
-                      </form>
-                  </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="productDescription">
+                                        Product Description
+                                    </label>
+                                    <textarea class="form-control add-prod-description"  placeholder="Product Description" ng-model="edit_productDescription"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="edit_product();">Update</button>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
 
-              </div>
-          </div>
+                        <div class="row" >
+                           <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                              <div class="alert alert-success" role="alert" style="margin-top: 30px" ng-hide="successUpdatedProduct">
+                   
+                                 <center>Product Updated <strong>Successfully</strong>!!!</center>
+                  
+                             </div>
+                            </div>
+                        <div class="col-md-2"></div>
+                      </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+</div>
 
 
         </div>
       </div>
     </div>
   </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

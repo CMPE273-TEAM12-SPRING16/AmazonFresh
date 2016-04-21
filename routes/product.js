@@ -8,7 +8,7 @@ uploadFilename = "";
 
 var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
-            cb(null, './uploads/');
+            cb(null, './public/uploads/');
         },
         filename: function (req, file, cb) {
             var datetimestamp = Date.now();
@@ -59,24 +59,99 @@ exports.doAddProduct = function(req,res)
              	{
 
              		var productName = req.param("productName");
-					var unit = req.param("unit"); 
+					var unit = req.param("units"); 
 					var price = req.param("price"); 
 					var productDescription = req.param("productDescription"); 
-					var ingredients = req.param("ingredients");
-					var farmerId = "1";
-
-             		console.log("File uploaded successfully");
+					var farmerId = req.session.user_id;
+					var noOfUnits = req.param("noOfunits");
+             		console.log("File uploaded successfully"+noOfUnits);
              			var insertJSON = {"PRODUCT_NAME" : productName,
 						"FARMER_ID" : farmerId,
 						"PRICE" : price,
+						"NOOFUNITS" : noOfUnits,
 						"UNIT" : unit,
 						"PRODUCT_DESCRIPTION" : productDescription,
-						"INGREDIENTS" : ingredients,
 						"filename" : uploadFilename
 						};
              		mongo.insertOne('PRODUCTS',insertJSON,callbackFunction);
              	}
         });
+};
+
+exports.doEditProduct = function(req,res)
+{
+	var callbackFunction = function(err, results) {
+		if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in renderHomepage");
+			res.send(json_responses);
+		}
+		else
+		{
+			json_responses = {"statusCode" : 200,"results":results};
+			console.log("result is:"+results);
+			res.send(json_responses);
+		}
+	};
 
 
-}
+	console.log("Edit Product");
+	upload(req,res,function(err){
+            if(err){
+                	console.log("code has some errors");
+                 return err;
+            }
+             else
+             	{
+             		var productId = new require('mongodb').ObjectID(req.param("productId"));
+             		var productName = req.param("productName");
+					var unit = req.param("units"); 
+					var price = req.param("price"); 
+					var productDescription = req.param("productDescription"); 
+					var farmerId = req.session.user_id;
+					var noOfUnits = req.param("noOfunits");
+             		console.log("File uploaded successfully"+noOfUnits);
+
+					var updatedWhereJSON = {"_id" : productId};
+					var updatedDetailJSON = {$set : {
+						"PRODUCT_NAME" : productName,
+						"FARMER_ID" : farmerId,
+						"PRICE" : price,
+						"NOOFUNITS" : noOfUnits,
+						"UNIT" : unit,
+						"PRODUCT_DESCRIPTION" : productDescription,
+						"filename" : uploadFilename
+					}
+		};	
+					mongo.updateOne('PRODUCTS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
+             	}
+        });
+};
+
+exports.doDeleteProduct = function(req,res){
+	console.log("product.doDeleteProduct");
+	var product_id = new require('mongodb').ObjectID(req.param("product_id"));
+		console.log("product_id "+product_id);
+	var deleteProductJSON = {"_id" : product_id};
+	var callbackFunction = function(err, results) {
+		if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in renderHomepage");
+			res.send(json_responses);
+		}
+		else
+		{
+			json_responses = {"statusCode" : 200,"results":results};
+			console.log("result is:"+results);
+			res.send(json_responses);
+		}
+	}
+		mongo.removeOne('PRODUCTS',deleteProductJSON,callbackFunction);
+
+};
+
+

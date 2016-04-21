@@ -30,7 +30,7 @@ login.controller('login',function($scope,$http)
             }
             if(data.statusCode==200)
             {
-                window.location.assign("/redirectToHomepage");
+                window.location.assign("/farmerHome");
             }
         })
             .error(function(error) {

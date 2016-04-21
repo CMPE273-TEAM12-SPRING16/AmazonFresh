@@ -41,20 +41,40 @@ app.get('/product', function(req, res){
   res.render('productHome', {});
 });
 app.get('/redirectToHomepage',users.redirectToHomepage);
-app.get('/addProduct',product.addProduct);
-app.get('/farmerHome', farmer.farmerHome);
+
+//app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
+app.get('/farmerHome',users.farmerHome);
 
+
+app.post('/doShowProductList',farmer.doShowProductList);
+app.post('/doShowProfile',farmer.doShowFarmerProfile);
+app.post('/doUpdateProfile',farmer.doUpdateProfile);
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
 
 
 app.post('/doAddProduct',product.doAddProduct);
+app.post('/doDeleteProduct',product.doDeleteProduct);
+app.post('/doEditProduct', product.doEditProduct);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 
+app.get('/productList', function(req, res){
+	
+  res.render('farmerTemplate/productList', {});
+});
 
+app.get('/myProfile', function(req, res){
+	
+  res.render('farmerTemplate/editFarmerDetails', {});
+});
+
+app.get('/addProduct', function(req, res){
+	
+  res.render('farmerTemplate/addProduct', {});
+});
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
