@@ -48,6 +48,9 @@ app.get('/login',users.login);
 app.get('/adminHome', function(req, res){
   res.render('adminHome', {});
 });
+app.get('/apprReqCustomer', function(req, res){
+  res.render('adminTemplates/apprReqCustomer', {});
+});
 //All POST methods.........................//
 //app.post('/signUpUser', users.signUpUser);           // Change this..........................................//
 

@@ -1,4 +1,6 @@
-
+body{
+  background-color: #f9f9f9 !important;
+}
 .row-margin-none{
   margin-right: 0px !important;
   margin-left: 0px !important;
@@ -18,16 +20,21 @@
     right: 0px;
     z-index: 100;
 }
+.sup-plus{
+  font-size: 15px !important;
+}
+
 
 .header-nav > li > a {
-  color: #FFFFFF;
-  border-radius: 4px;
+  color: #FFFFFF !important;
+  border-radius: 4px !important;
 }
 .header-nav > li > a:hover,
 .header-nav > li > a:focus {
-  text-decoration: none;
+  text-decoration: none !important;
   color: #A9E236 !important;
   background-color: transparent !important;
+  outline: none !important;
 }
 .header-nav > li > a.img-logo{
     padding-top: 5px;
@@ -93,6 +100,17 @@
 .btn-signin{
   margin-top: 5px;
   background-color: #A9E236 !important;
+  border-color: #bce963 !important;
+  outline: none !important;
+}
+.btn-signin:focus,
+.btn-signup.focus {
+  outline: none !important;
+}
+.btn-signin:hover {
+  background-color: #93C62E !important;
+  border-color: #bce963 !important;
+  outline: none !important;
 }
 
 .btn-signup{
@@ -113,10 +131,15 @@
 
 .thumbnail-signup{
   padding: 20px !important;
+  background-color: #ecf9d2 !important;
+}
+.thumbnail-credit-card{
+  padding: 20px !important;
+  background-color: #DDDDDD !important;
 }
 
 .thumbnail-signup > form > h3 {
-  color: #A9E236 !important;
+  color: #8fc91d !important;
 }
 
 .credit-card-labels{
@@ -294,6 +317,16 @@ hr.seperator-line{
 .collapse-nav > a{
   color: #709c16 !important;
 }
+.collapse-nav > a:hover,
+.collapse-nav > a:focus {
+  text-decoration: none !important;
+  background-color: transparent !important;
+}
+.collapse-nav > a > span.badge {
+  text-decoration: none !important;
+  background-color: #555555 !important;
+}
+
 .collapse-body{
   padding : 10px !important;
 }
@@ -311,10 +344,10 @@ hr.seperator-line{
   margin-bottom: 4px !important;
 }
 .admin-page-title{
-  color: #9fdf20 !important;
-  font-size: 30px !important;
+  color: #8fc91d !important;
+  font-size: 25px !important;
 }
 .admin-page-title-cat{
   color: #444444 !important;
-  font-size: 30px !important;
+  font-size: 25px !important;
 }
