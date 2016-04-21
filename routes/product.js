@@ -114,7 +114,6 @@ exports.getProductDetails=function(req,res)
 		else {
 			console.log(results.PRODUCT_NAME);
 			var farmerId = {"USER_ID":results.FARMER_ID};
-			console.log("farmer id is"+farmerId);
 
 			var callbackFunction = function (err, result) {
 				var json_responses;
@@ -123,20 +122,14 @@ exports.getProductDetails=function(req,res)
 					console.log(err);
 				}
 				else {
-					console.log(result.FIRST_NAME);
-					console.log("found farmer name"+result.FIRST_NAME+" "+result.LAST_NAME);
-
 					var farmerName=result.FIRST_NAME+" "+ result.LAST_NAME;
 					res.send({"productDetails":results,"farmerName":farmerName});
 				}
 			}
 			mongo.findOne("USER_DETAILS",farmerId, callbackFunction);
-
 		}
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
-
-
 }
 
 

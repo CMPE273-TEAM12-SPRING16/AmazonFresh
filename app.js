@@ -57,7 +57,7 @@ app.post('/doAddProduct',product.doAddProduct);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getProductDetails',product.getProductDetails);
-app.get('/:id',product.getProductId);
+app.get('/products/:id',product.getProductId);
 
 
 http.createServer(app).listen(app.get('port'), function(){
