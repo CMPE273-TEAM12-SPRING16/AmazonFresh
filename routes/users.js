@@ -31,19 +31,41 @@ console.log(email);
     {
       console.log(results);
       console.log(results[0].USERTYPE);
-      req.session.user_id=results[0].USER_ID;
-      req.session.email=results[0].EMAIL;
-      req.session.userType=results[0].USERTYPE;
+      req.session.email = results[0].EMAIL;
+      req.session.userType = results[0].USERTYPE;
+      req.session.userId = results[0].USER_ID;
       console.log("valid Login");
-      var jsonResponse1 = {"statusCode":200};
-      res.send(jsonResponse1);
+      
+      var callbackFunction = function(err,resultsMongo) 
+      {
+        if(resultsMongo)
+        {
+          console.log(resultsMongo);
+          req.session.firstName = resultsMongo.FIRST_NAME;
+          req.session.lastName = resultsMongo.LAST_NAME;
+          req.session.city = resultsMongo.CITY;
+          req.session.address = resultsMongo.ADDRESS;
+          req.session.zip = resultsMongo.ZIP;
+          req.session.phone = resultsMongo.PHONE_NUMBER;
+          req.session.ssn = resultsMongo.SSN;
+          var jsonResponse = {"statusCode":200};
 
+          res.send(jsonResponse);
+        }
+        else
+        {
+          throw err;
+        }
+      };
+
+      var queryJSON = {"USER_ID" : req.session.userId};
+      mongo.findOne('USER_DETAILS',queryJSON,callbackFunction);
     }
 
     else
     {
-      var jsonResponse2={"statusCode":401};
-      res.send(jsonResponse2);
+      var jsonResponse={"statusCode":401};
+      res.send(jsonResponse);
     }
 
 
@@ -93,7 +115,7 @@ console.log(email);
           //insert remaining values in mongo
 
           var userDetails = {
-            "USERID": userId,
+            "USER_ID": userId,
             "FIRST_NAME": firstName,
             "LAST_NAME": lastName,
             "SSN": ssn,
@@ -101,10 +123,10 @@ console.log(email);
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
-            "PHONE": phone,
+            "PHONE_NUMBER": phone,
           };
 
-          var callbackFunction = function (err, results) {
+          var userDetailsCallbackFunction = function (err, results) {
             var json_responses;
 
             if (err) {
@@ -120,7 +142,7 @@ console.log(email);
                 var cvv = req.param("cvv");
 
                 var customerCreditCardDetails = {
-                  "USERID": userId,
+                  "USER_ID": userId,
                   CREDIT_CARD_DETAILS:
                 {
                   "CREDIT_CARD_NUMBER": creditCardNumber,
@@ -129,7 +151,7 @@ console.log(email);
                   "EXPIRY_YEAR": expiryYear,
                   "CVV": cvv}
                 };
-                var callbackFunction = function (err, results) {
+                var customerCreditCardDetailsCallbackFunction = function (err, results) {
                   var json_responses;
 
                   if (err) {
@@ -139,7 +161,7 @@ console.log(email);
                     console.log("creditCardDetailsInserted");
                   }
                 }
-                mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, callbackFunction);
+                mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, customerCreditCardDetailsCallbackFunction);
               }
 
               json_responses = {"statusCode": 200};
@@ -151,7 +173,7 @@ console.log(email);
 
           }
 
-          mongo.insertOne("USER_DETAILS", userDetails, callbackFunction);
+          mongo.insertOne("USER_DETAILS", userDetails, userDetailsCallbackFunction);
         }
         else {
           console.log("data insertion failed");
@@ -184,6 +206,19 @@ function redirectToHomepage(req,res)
     res.redirect('/');
   }
 };
+
+
+exports.getLoggedInUserDetails = function(req,res)
+{
+  var jsonResponse={"statusCode" : 200,
+                    "firstName" : req.session.firstName,
+                    "lastName" : req.session.lastName,
+                    "email" : req.session.email,
+                    "city" : req.session.city,
+                    "userId" : req.session.userId};
+  res.send(jsonResponse);
+}
+
 
 function farmerHome(req,res)
 {

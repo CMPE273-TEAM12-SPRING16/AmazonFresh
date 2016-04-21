@@ -53,6 +53,7 @@ app.get('/farmerHome',users.farmerHome);
 app.get('/productHome',product.productHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
+
 app.get('/adminHome', function(req, res){
   res.render('adminHome', {});
 });
@@ -82,6 +83,7 @@ app.post('/doDeleteProduct',product.doDeleteProduct);
 app.post('/doEditProduct', product.doEditProduct);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
+app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 
 
 app.get('/productList', function(req, res){
