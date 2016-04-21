@@ -31,6 +31,7 @@ console.log(email);
     {
       console.log(results);
       console.log(results[0].USERTYPE);
+      req.session.user_id=results[0].USER_ID;
       req.session.email=results[0].EMAIL;
       req.session.userType=results[0].USERTYPE;
       console.log("valid Login");
@@ -159,9 +160,15 @@ function redirectToHomepage(req,res)
   }
 };
 
+function farmerHome(req,res)
+{
+res.render('farmerHome');
+
+}
+
 exports.signup=signup;
 exports.login=login;
 exports.doLogin=doLogin;
 exports.doSignup=doSignup;
 exports.redirectToHomepage=redirectToHomepage;
-
+exports.farmerHome=farmerHome;
