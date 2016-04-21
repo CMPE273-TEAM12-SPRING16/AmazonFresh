@@ -70,8 +70,7 @@ exports.doAddProduct = function(req,res)
              		console.log("File uploaded successfully"+noOfUnits);
 
 					var ingredients = req.param("ingredients");
-					var farmerId = 6;
-
+					
              		console.log("File uploaded successfully");
 
              			var insertJSON = {"PRODUCT_NAME" : productName,
