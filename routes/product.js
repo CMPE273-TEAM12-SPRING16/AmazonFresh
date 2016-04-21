@@ -61,9 +61,9 @@ exports.doAddProduct = function(req,res)
              	{
 
              		var productName = req.param("productName");
-					var unit = req.param("units"); 
-					var price = req.param("price"); 
-					var productDescription = req.param("productDescription"); 
+					var unit = req.param("units");
+					var price = req.param("price");
+					var productDescription = req.param("productDescription");
 
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
@@ -116,9 +116,9 @@ exports.doEditProduct = function(req,res)
              	{
              		var productId = new require('mongodb').ObjectID(req.param("productId"));
              		var productName = req.param("productName");
-					var unit = req.param("units"); 
-					var price = req.param("price"); 
-					var productDescription = req.param("productDescription"); 
+					var unit = req.param("units");
+					var price = req.param("price");
+					var productDescription = req.param("productDescription");
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
@@ -133,7 +133,7 @@ exports.doEditProduct = function(req,res)
 						"PRODUCT_DESCRIPTION" : productDescription,
 						"filename" : uploadFilename
 					}
-		};	
+		};
 					mongo.updateOne('PRODUCTS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
              	}
         });
@@ -164,7 +164,6 @@ exports.doDeleteProduct = function(req,res){
 };
 
 
-}
 exports.productHome = function(req, res)
 {
 	res.render('productHome');
@@ -214,7 +213,3 @@ exports.getProductDetails=function(req,res)
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
 }
-
-
-
-
