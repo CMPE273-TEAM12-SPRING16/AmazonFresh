@@ -50,7 +50,6 @@ app.get('/farmerHome',users.farmerHome);
 
 app.get('/addProduct',product.addProduct);
 app.get('/productHome',product.productHome);
-app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/adminHome', function(req, res){

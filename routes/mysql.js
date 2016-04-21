@@ -12,7 +12,7 @@ function getConnection()
     var connection = mysql.createConnection({
         host     : 'localhost', //host where mysql server is running
         user     : 'root', //user for the mysql application
-        password : 'Mysql2803', //password for the mysql application
+        password : 'root', //password for the mysql application
         database : 'amazon_fresh', //database name
         port  : 3306 //port, it is 3306 by default for mysql  });
     });
