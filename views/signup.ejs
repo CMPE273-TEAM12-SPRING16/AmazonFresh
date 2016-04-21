@@ -4,8 +4,9 @@
     <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
     <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
     <title>Sign up | AmazonFresh</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/_style.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/signin.css" rel="stylesheet">
     <script src="angularjs/signup.js"></script>
      <!--<script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>-->
 
@@ -48,7 +49,7 @@
               Already an AmazonFresh customer?
             </li>
             <li class="signin">
-              <a href="/signin">Sign in.</a>
+             <a href="#modal-container-748235" data-toggle="modal">Sign in.</a>
             </li>
             </ul>
           </div>
@@ -289,6 +290,84 @@
       </div>
       <div class="col-md-2"></div>
     </div>
+
+<!-- _________________________________________________LOGIN MODAL____________________________________________ -->
+<script src="angularjs/login.js"></script>
+<div  ng-app="login" ng-controller="login">
+  <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="a-section a-padding-medium auth-workflow container-fluid">
+            <div class="a-section">
+              <!-- show a warning modal dialog when the third party account is connected with Amazon -->
+              <div class="a-section a-spacing-base auth-pagelet-container">
+                <div class="a-section">
+                  <form action="" class="a-spacing-none" id="signIn" method="post" name="signIn" novalidate="">
+                    <div class="a-section">
+                      <div class="a-box">
+                        <div class="a-box-inner a-padding-extra-large">
+                          <h1 class="a-spacing-small">Sign in</h1>
+                          <div class="a-row a-spacing-base">
+                            <label for="ap_email">Email ID</label>
+                            <input class="a-input-text a-span12 auth-autofocus auth-required-field"
+                                   id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email">
+                          </div>
+                          <div class="a-section a-spacing-large">
+                            <div class="a-row">
+                              <div class="a-column a-span5">
+                                <label for="ap_password">Password</label>
+                              </div>
+                              <div class="a-column a-span7 a-text-right a-span-last">
+                                <a class="a-spacing-null a-link-normal" href=
+                                "/forgotPassword"
+                                   id="auth-fpp-link-bottom">Forgot your password?</a>
+                              </div>
+                            </div>
+                            <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password">
+                            <div  ng-hide="invalidLogin">
+                              <strong>Incorrect username or password</strong>
+                            </div>
+
+                            <div ng-hide="unexpectedError">
+                              <strong>Unexpected error,try again</strong>
+                            </div>
+                          </div>
+                          <div class="a-section a-spacing-extra-large">
+                                                <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
+
+                                                "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"> <span aria-hidden="true" class=
+                                                "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
+                                            </div>
+
+
+                                            <div class="a-divider a-divider-break">
+                                                <h5>New to Amazon?</h5>
+                                            </div>
+
+                                            <span class="a-button a-button-span12" id="auth-create-account-link">
+                                              <span class="a-button-inner">
+                                              <a class="a-button-text" href="/signUp" id="createAccountSubmit" role="button" tabindex="6">
+                                                Create your Amazon account
+                                              </a>
+                                            </span>
+                                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
