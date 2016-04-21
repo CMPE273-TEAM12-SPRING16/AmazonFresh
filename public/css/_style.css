@@ -379,10 +379,14 @@ hr.seperator-line{
 }
 .sort-select{
   padding: 0px !important;
-  height: 20px !important;
+  height: 18px !important;
   font-size: 13px !important;
 }
-
+.qty-select{
+  padding: 0px !important;
+  height: 22px !important;
+  font-size: 13px !important;
+}
 
 .nopadding{
   padding: 0px !important;
@@ -390,4 +394,13 @@ hr.seperator-line{
 
 .nomargin{
   margin: 0px !important;
+}
+
+.thumbnail-product-image{
+  margin: 5px !important;
+}
+
+.product_list_name > a{
+  color: #222222 !important;
+  text-decoration: none !important;
 }

@@ -49,6 +49,7 @@ app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
 
 //app.get('/addProduct',product.addProduct);
+
 app.get('/productHome',product.productHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
@@ -84,12 +85,12 @@ app.post('/doSignup',users.doSignup);
 
 
 app.get('/productList', function(req, res){
-	
+
   res.render('farmerTemplate/productList', {});
 });
 
 app.get('/myProfile', function(req, res){
-	
+
   res.render('farmerTemplate/editFarmerDetails', {});
 });
 
@@ -98,7 +99,7 @@ app.get('/products/:id',product.getProductId);
 
 
 app.get('/addProduct', function(req, res){
-	
+
   res.render('farmerTemplate/addProduct', {});
 });
 
