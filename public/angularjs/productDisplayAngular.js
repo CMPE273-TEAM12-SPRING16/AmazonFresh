@@ -1,8 +1,10 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
 productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
 {
-    $scope.cart = [];
+        $scope.cart = [];
         $scope.isLoggedIn = false;
+        $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
+
             $http({
 
                 method: "POST",
@@ -62,6 +64,7 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                         else
                             {
                                 var length = $scope.cart.length;
+                                $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-enabled";
                                 $scope.cart[length] = {"PRODUCT_ID" : $scope.displayProductDetails.PRODUCT_ID,
                                                         "PRODUCT_NAME" : $scope.displayProductDetails.PRODUCT_NAME,
                                                         "PRICE" : $scope.displayProductDetails.PRICE,
@@ -95,7 +98,10 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 });
 
                 console.log(index);
-                if($scope.cart.length == 1){$scope.cart =[]; }
+                if($scope.cart.length == 1){
+                  $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
+                  $scope.cart =[];
+                 }
                 var length = scope.cart.length;
                 $scope.cart = $scope.cart.splice(index,length-1); //check this one
 

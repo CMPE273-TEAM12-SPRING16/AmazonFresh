@@ -271,12 +271,29 @@ hr.product-page-seperator{
 .bill-deliver-to{
   font-size: 12px !important;
 }
-.btn-proceed-to-checkout{
+.btn-proceed-to-checkout-disabled{
   color: #FFFFFF !important;
-  font-weight: bold !important;
   background-color: #BBBBBB !important;
   border-color: #DDDDDD!important;
 }
+.btn-proceed-to-checkout-enabled{
+  color: #333333 !important;
+  font-weight: bold !important;
+  background-color: #8fc91d !important;
+  border-color: #7FAA29!important;
+}
+.btn-proceed-to-checkout-enabled:focus,
+.btn-proceed-to-checkout-enabled.focus {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+.btn-proceed-to-checkout-enabled:hover {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+
+
+
 .bill-subtotal{
   font-size: 25px;
   color: #80b319 !important;
