@@ -54,6 +54,7 @@ app.get('/redirectToHomepage',users.redirectToHomepage);
 app.get('/productHome',product.productHome);
 
 app.get('/signup',users.signup);
+app.get('/farmerSignup', users.farmerSignup);
 app.get('/login',users.login);
 
 app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
@@ -73,6 +74,7 @@ app.get('/apprReqProduct', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
+
 
 
 app.post('/doShowProductList',farmer.doShowProductList);

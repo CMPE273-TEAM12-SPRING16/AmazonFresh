@@ -234,20 +234,19 @@ adminNgApp.controller('AdminPageCtrl', function($scope){
   $scope.activeFarmer = "";
   $scope.activeProduct = "";
 
-  $scope.activateCustomer = function(){
-    $scope.activeCustomer = "active";
-    $scope.activeFarmer = "";
-    $scope.activeProduct = "";
+  $scope.activateMe = function(option){
+    if(option == 1){
+      $scope.activeCustomer = "active";
+      $scope.activeFarmer = "";
+      $scope.activeProduct = "";
+    }else if(option == 2){
+      $scope.activeCustomer = "";
+      $scope.activeFarmer = "active";
+      $scope.activeProduct = "";
+    }else if(option == 3){
+      $scope.activeCustomer = "";
+      $scope.activeFarmer = "";
+      $scope.activeProduct = "active";
+    }
   }
-  $scope.activateFarmer = function(){
-    $scope.activeCustomer = "";
-    $scope.activeFarmer = "active";
-    $scope.activeProduct = "";
-  }
-  $scope.activateProduct = function(){
-    $scope.activeCustomer = "";
-    $scope.activeFarmer = "";
-    $scope.activeProduct = "active";
-  }
-
 });
