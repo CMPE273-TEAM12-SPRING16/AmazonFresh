@@ -8,7 +8,9 @@ var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 
 function signup(req, res) {
   res.render('signup');
-
+};
+exports.farmerSignup = function (req, res) {
+  res.render('farmerSignup');
 };
 
 function login(req, res) {

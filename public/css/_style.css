@@ -18,6 +18,9 @@
     right: 0px;
     z-index: 100;
 }
+
+
+
 .sup-plus{
   font-size: 15px !important;
 }
@@ -44,6 +47,37 @@
 .header-nav > li.signin > a {
   padding-left: 2px;
 }
+
+
+.footer{
+  height: 100px;
+  min-width: 1015px;
+  margin: 0px;
+  padding: 20px;
+  background-image: url(../images/support_images/header-nav-bg.png);
+  border: 0px solid #ccc;
+  border-bottom-width: 0px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.footer > p {
+  margin: 3px !important;
+  color: #FFFFFF;
+}
+.footer > p > a:hover,
+.footer > p > a:focus {
+  text-decoration: none !important;
+  color: #A9E236 !important;
+  background-color: transparent !important;
+  outline: none !important;
+}
+
+
+
+
+
+
 .customer-name-nav-bar{
   color: #FFFFFF;
 }
