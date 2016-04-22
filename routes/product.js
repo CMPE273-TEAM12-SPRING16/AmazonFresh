@@ -61,18 +61,13 @@ exports.doAddProduct = function(req,res)
              	{
 
              		var productName = req.param("productName");
-<<<<<<< HEAD
+
 					var unit = req.param("units"); 
 					var price = req.param("price"); 
 					var productDescription = req.param("productDescription"); 
 					var farmerFirstName = req.session.firstName;
-					var farmerLastName = req.sessionlastName;
-=======
-					var unit = req.param("units");
-					var price = req.param("price");
-					var productDescription = req.param("productDescription");
+					var farmerLastName = req.session.lastName;
 
->>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
@@ -172,10 +167,7 @@ exports.doDeleteProduct = function(req,res){
 
 };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
 exports.productHome = function(req, res)
 {
 	res.render('productHome');
