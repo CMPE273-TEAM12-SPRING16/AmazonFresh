@@ -9,6 +9,7 @@ var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
 var product=require('./routes/product');
+var cart=require('./routes/cart');
 var farmer = require('./routes/farmer');
 var admin = require('./routes/admin');
 var users=require('./routes/users');
@@ -36,7 +37,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //All GET methods...........................//
 app.get('/', function(req, res){
 	res.render('index', {});
-});                     // Change this..........................................//
+});
+
+app.get('/newSignUp', function(req, res){
+	res.redirect('/#newSignUp');
+});
 
 app.get('/product', function(req, res){
   res.render('productHome', {});
@@ -54,7 +59,7 @@ app.get('/redirectToHomepage',users.redirectToHomepage);
 app.get('/productHome',product.productHome);
 
 app.get('/signup',users.signup);
-app.get('/login',users.login);
+app.get('/farmerSignup', users.farmerSignup);
 
 app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
 
@@ -73,6 +78,7 @@ app.get('/apprReqProduct', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
+app.get('/logout',users.logout);
 
 
 app.post('/doShowProductList',farmer.doShowProductList);
@@ -85,9 +91,13 @@ app.post('/doUpdateProfile',farmer.doUpdateProfile);
 app.post('/doAddProduct',product.doAddProduct);
 app.post('/doDeleteProduct',product.doDeleteProduct);
 app.post('/doEditProduct', product.doEditProduct);
+app.post('/addToCart',cart.addToCart);
+app.post('/getCartDetails',cart.getCartDetails);
+app.post('/removeItemFromCart',cart.removeItemFromCart);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
+
 
 
 //----Admin Module for Customer-----
@@ -107,24 +117,22 @@ app.post('/doRejectProduct',admin.doRejectProduct);
 
 
 app.get('/productList', function(req, res){
-
   res.render('farmerTemplate/productList', {});
 });
 
 app.get('/myProfile', function(req, res){
-
   res.render('farmerTemplate/editFarmerDetails', {});
 });
+
+app.get('/addProductTemplate', function(req, res) {
+	res.render('farmerTemplate/addProduct', {});
+})
 
 app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
+app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
 
-	
-app.get('/addProductTemplate', function(req, res){
-	console.log("AddProduct");
-
-}
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));

@@ -1,4 +1,6 @@
-
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 .row-margin-none{
   margin-right: 0px !important;
   margin-left: 0px !important;
@@ -18,6 +20,9 @@
     right: 0px;
     z-index: 100;
 }
+
+
+
 .sup-plus{
   font-size: 15px !important;
 }
@@ -44,6 +49,37 @@
 .header-nav > li.signin > a {
   padding-left: 2px;
 }
+
+
+.footer{
+  height: 100px;
+  min-width: 1015px;
+  margin: 0px;
+  padding: 20px;
+  background-image: url(../images/support_images/header-nav-bg.png);
+  border: 0px solid #ccc;
+  border-bottom-width: 0px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.footer > p {
+  margin: 3px !important;
+  color: #FFFFFF;
+}
+.footer > p > a:hover,
+.footer > p > a:focus {
+  text-decoration: none !important;
+  color: #A9E236 !important;
+  background-color: transparent !important;
+  outline: none !important;
+}
+
+
+
+
+
+
 .customer-name-nav-bar{
   color: #FFFFFF;
 }
@@ -163,6 +199,12 @@
    width: 100%; /* for IE 6 */
 }
 
+.thumbnail-image-product-pagination{
+  position: relative;
+  height: 180px !important;
+  width: 180px !important;
+}
+
 .img-desc{
   padding: 8px 10px;
     background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/80_White_Overlay._V356448940_.png);
@@ -229,12 +271,29 @@ hr.product-page-seperator{
 .bill-deliver-to{
   font-size: 12px !important;
 }
-.btn-proceed-to-checkout{
+.btn-proceed-to-checkout-disabled{
   color: #FFFFFF !important;
-  font-weight: bold !important;
   background-color: #BBBBBB !important;
   border-color: #DDDDDD!important;
 }
+.btn-proceed-to-checkout-enabled{
+  color: #333333 !important;
+  font-weight: bold !important;
+  background-color: #8fc91d !important;
+  border-color: #7FAA29!important;
+}
+.btn-proceed-to-checkout-enabled:focus,
+.btn-proceed-to-checkout-enabled.focus {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+.btn-proceed-to-checkout-enabled:hover {
+  color: #000000 !important;
+  background-color: #7ba527 !important;
+}
+
+
+
 .bill-subtotal{
   font-size: 25px;
   color: #80b319 !important;
@@ -403,4 +462,8 @@ hr.seperator-line{
 .product_list_name > a{
   color: #222222 !important;
   text-decoration: none !important;
+}
+
+.thumbnail-product-pagination{
+
 }

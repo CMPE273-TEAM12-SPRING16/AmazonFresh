@@ -8,7 +8,9 @@ var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 
 function signup(req, res) {
   res.render('signup');
-
+};
+exports.farmerSignup = function (req, res) {
+  res.render('farmerSignup');
 };
 
 function login(req, res) {
@@ -29,13 +31,9 @@ console.log(email);
 
     if (results.length > 0)
     {
-      console.log(results);
-      console.log(results[0].USERTYPE);
-
       req.session.email = results[0].EMAIL;
       req.session.userType = results[0].USERTYPE;
       req.session.userId = results[0].USER_ID;
-      console.log("valid Login");
 
       var callbackFunction = function(err,resultsMongo)
       {
@@ -45,6 +43,7 @@ console.log(email);
           req.session.firstName = resultsMongo.FIRST_NAME;
           req.session.lastName = resultsMongo.LAST_NAME;
           req.session.city = resultsMongo.CITY;
+          req.session.state = resultsMongo.STATE;
           req.session.address = resultsMongo.ADDRESS;
           req.session.zip = resultsMongo.ZIP;
           req.session.phone = resultsMongo.PHONE_NUMBER;
@@ -113,7 +112,7 @@ console.log(email);
           var userId = results.insertId;
           var email = results.email;
           req.session.userType = userType;
-          req.session.user_id = userId;
+          req.session.userId = userId;
           console.log("sql values inserted");
 
           //insert remaining values in mongo
@@ -128,11 +127,9 @@ console.log(email);
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
-            "PHONE": phone,
-            "USER_TYPE": userType,
-            "ISAPPROVED" : 0
-
             "PHONE_NUMBER": phone,
+            "USER_TYPE": userType,
+            "IS_APPROVED" : 0
 
           };
 
@@ -207,7 +204,7 @@ function redirectToHomepage(req,res)
   else if(req.session.userType==1) {
     console.log("inside redirect");
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.redirect("/#newSignUp");
+    res.redirect("index");
   }
   else if(req.session.userType==2)
   {
@@ -240,30 +237,41 @@ res.render('farmerHome');
 
 function getCustomerAccountDetails(req,res)
 {
-  var userId=({USER_ID:req.session.user_id});
-  var callbackFunction = function (err, results) {
+  var userId=({USER_ID:req.session.userId});
 
+  var userDetails= {
+    "firstName" : req.session.firstName,
+    "lastName" : req.session.lastName,
+    "email" : req.session.email,
+    "city" : req.session.city,
+    "userId" : req.session.userId,
+    "state":req.session.state,
+    "address":req.session.address,
+    "ssn":req.session.ssn,
+    "phone":req.session.phone,
+    "zip":req.session.zip
 
-    if (err) {
-      console.log(err);
-    }
-    else {
-      var userName=results.FIRST_NAME;
+  };
+
       var callbackFunction = function (err, result) {
 
         if (err) {
           console.log(err);
         }
         else {
-console.log(results.FIRST_NAME);
-          res.send({"userDetails":results,"customerDetails":result,"email":req.session.email});
+console.log(userDetails.firstName);
+          res.send({"userDetails":userDetails,"customerDetails":result});
         }
       }
       mongo.findOne("CUSTOMER_DETAILS",userId, callbackFunction);
-    }
-  }
-  mongo.findOne("USER_DETAILS",userId, callbackFunction);
 
+}
+
+exports.logout = function(req,res)
+{
+  console.log("in logout");
+  req.session.destroy();
+  res.redirect('/');
 }
 
 exports.signup=signup;

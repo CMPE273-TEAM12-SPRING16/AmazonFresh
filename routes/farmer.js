@@ -31,7 +31,7 @@ exports.doShowProductList = function(req, res) {
 // show farmer profile details for update
  exports.doShowFarmerProfile = function(req,res){
  	var user_id = req.session.user_id;
- 	var getProfileJSON = {"USERID" : user_id};
+ 	var getProfileJSON = {"USER_ID" : user_id};
 
  	console.log("User_ID "+user_id);
 
@@ -50,8 +50,8 @@ exports.doShowProductList = function(req, res) {
 			res.send(json_responses);
 		}
 	}
-		
-		mongo.findOne('USERS',getProfileJSON,callbackFunction);
+
+		mongo.findOne('USER_DETAILS',getProfileJSON,callbackFunction);
 
  };
 
@@ -78,7 +78,7 @@ exports.doShowProductList = function(req, res) {
 		}
 		else
 		{
-			
+
 			json_responses = {"statusCode" : 200,"results":results};
 			console.log("result is:"+results);
 			res.send(json_responses);
@@ -101,4 +101,3 @@ exports.doShowProductList = function(req, res) {
 	mongo.updateOne('USERS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
 
  };
-

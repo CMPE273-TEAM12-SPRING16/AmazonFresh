@@ -61,18 +61,17 @@ exports.doAddProduct = function(req,res)
              	{
 
              		var productName = req.param("productName");
-
-					var unit = req.param("units"); 
-					var price = req.param("price"); 
-					var productDescription = req.param("productDescription"); 
+					var unit = req.param("units");
+					var price = req.param("price");
+					var productDescription = req.param("productDescription");
 					var farmerFirstName = req.session.firstName;
-					var farmerLastName = req.sessionlastName;
+					var farmerLastName = req.session.lastName;
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
 
 					var ingredients = req.param("ingredients");
-					
+
              		console.log("File uploaded successfully");
 
              			var insertJSON = {"PRODUCT_NAME" : productName,
@@ -215,4 +214,26 @@ exports.getProductDetails=function(req,res)
 		}
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
+}
+
+exports.doFetch10Products = function(req,res){
+
+  getProductJSON = {};
+	var callbackFunction = function (err, results) {
+           if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in doShowProductList");
+			res.send(json_responses);
+		}
+		else
+		{
+			json_responses = {"statusCode" : 200,"results":results};
+			res.send(json_responses);
+		}
+    }
+
+    mongo.find('PRODUCTS',getProductJSON,callbackFunction);
+
 }

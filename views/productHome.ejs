@@ -37,7 +37,7 @@
   <title>Home | {{displayProductDetails.PRODUCT_NAME}}</title>
 </head>
 
-<body ng-controller="ProductDisplayAngular">
+<body ng-controller="ProductDisplayAngular" ng-cloak>
   <div class="container-fluid nopadding">
   <div ng-hide="isLoggedIn">
     <div class="row">
@@ -80,7 +80,7 @@
                 <li class="divider">
                 </li>
                 <li>
-                  <a href="#">Sign Out</a>
+                  <a href="/logout">Sign Out</a>
                 </li>
               </ul>
         </li>
@@ -155,7 +155,7 @@
           <div class="row row-margin">
         		<div class="col-md-4">
               <div class="">
-                <img ng-src="../uploads/{{displayProductDetails.filename}}" />
+                <img ng-src="../uploads/{{displayProductDetails.FILE_NAME}}" />
               </div>
             </div>
             <div class="col-md-8">
@@ -169,11 +169,11 @@
                 (0)
               </div>
               <div class="product-page-price">
-                <span class="price">{{displayProductDetails.PRICE}}</span>
+                <span class="price">{{displayProductDetails.PRICE | currency}}</span>
                 <span class="unit-price">($0.77/oz)</span>
               </div>
               <div class="product-page-add">
-                <button class="btn btn-primary btn-add" enabled="isLoggedIn">Add to Cart</button>
+                <button class="btn btn-primary btn-add" enabled="isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
                 <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
               </div>
             </div>
@@ -250,110 +250,54 @@
         <div class="row" ng-show=true>
           <div class="thumbnail">
 						<div class="caption">
-              <span class="bill-deliver-to">Deliver to <strong>Gaurav Chodwadia-SAN JOSE</strong></span>
-							<button class="btn btn-primary btn-block btn-proceed-to-checkout" enabled="isLoggedIn">Proceed to Checkout</button>
+              <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
+							<button ng-class="checkOutBtnClass" enabled="isLoggedIn" ng-click="doProceedToCheckout()">Proceed to Checkout</button>
+              <div ng-show="cart.length==0">
+                <center>Add products to Cart to checkout.</center>
+              </div>
+              <p>
+                  <span class="bill-subtotal">Subtotal $0.00</span><span class="bill-items pull-right">(0 Items)</span>
+                  <hr class="product-page-seperator"/>
+              </p>
 
-              <center>Add products to Cart to checkout.</center>
-              <p>
-                <span class="bill-subtotal">Subtotal $0.00</span><span class="bill-items pull-right">(0 Items)</span>
-                <hr class="product-page-seperator"/>
-              </p>
-              <p>
-                  There are currently no items in your cart. You can add an item by clicking on any <strong>Add to cart</strong> button.
-                <hr class="product-page-seperator"/>
-              </p>
+              <div ng-show="cart.length==0">
+                <p>
+                    There are currently no items in your cart. You can add an item by clicking on any <strong>Add to cart</strong> button.
+                  <hr class="product-page-seperator"/>
+                </p>
+              </div>
 
               <!-- Items in the cart -->
-              <div class="panel panel-default bill-cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
+              <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
                 <div class="row">
                   <div class="col-md-2 bill-cart-qty-pad">
                     <span class="bill-cart-qty-title">Qty</span>
-                    <select class="form-control bill-cart-qty">
-                      <option selected="true">1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                    <select class="form-control bill-cart-qty" ng-model="item.QTY">
+                      <option ng-selected="item.QTY == 1">1</option>
+                      <option ng-selected="item.QTY == 2">2</option>
+                      <option ng-selected="item.QTY == 3">3</option>
+                      <option ng-selected="item.QTY == 4">4</option>
+                      <option ng-selected="item.QTY == 5">5</option>
                     </select>
                   </div>
                   <div class="col-md-8 bill-cart-item-pad">
                     <div class="media">
-                      <a href="#" class="pull-left"><img alt="" src="../images/products/product-1.jpg" class="media-object bill-item-img"/></a>
+                      <a href="#" class="pull-left"><img alt="" src="../uploads/{{item.FILE_NAME}}" class="media-object bill-item-img"/></a>
                       <div class="media-body">
-                          <a class="bill-cart-item-name">Farmers Market Peach Conserve, 8.6 oz</a>
+                          <a class="bill-cart-item-name">{{item.PRODUCT_NAME}}</a>
                         <h6>
-                            <span class="bill-cart-item-price">$6.00</span>
+                            <span class="bill-cart-item-price">{{item.PRICE | currency}}</span>
                         </h6>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-2 bill-cart-remove-pad">
-                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" alt="x" />
+                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" ng-click="removeItemFromCart($index);" alt="x" />
                   </div>
                 </div>
               </div>
 
-              <div class="panel panel-default bill-cart">
-                <div class="row">
-                  <div class="col-md-2 bill-cart-qty-pad">
-                    <span class="bill-cart-qty-title">Qty</span>
-                    <select class="form-control bill-cart-qty">
-                      <option selected="true">1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-
-                  </div>
-                  <div class="col-md-8 bill-cart-item-pad">
-                    <div class="media">
-                      <a href="#" class="pull-left"><img alt="" src="../images/products/product-1.jpg" class="media-object bill-item-img"/></a>
-                      <div class="media-body">
-                          <a class="bill-cart-item-name">Farmers Market Peach Conserve, 8.6 oz</a>
-                        <h6>
-                            <span class="bill-cart-item-price">$6.00</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-2 bill-cart-remove-pad">
-                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" alt="x" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default bill-cart">
-                <div class="row">
-                  <div class="col-md-2 bill-cart-qty-pad">
-                    <span class="bill-cart-qty-title">Qty</span>
-                    <select class="form-control bill-cart-qty">
-                      <option selected="true">1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-
-                  </div>
-                  <div class="col-md-8 bill-cart-item-pad">
-                    <div class="media">
-                      <a href="#" class="pull-left"><img alt="" src="../images/products/product-1.jpg" class="media-object bill-item-img"/></a>
-                      <div class="media-body">
-                          <a class="bill-cart-item-name">Farmers Market Peach Conserve, 8.6 oz</a>
-                        <h6>
-                            <span class="bill-cart-item-price">$6.00</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-2 bill-cart-remove-pad">
-                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" alt="x" />
-                  </div>
-                </div>
-              </div>
-
-						</div>
+            </div>
 					</div>
         </div>
 

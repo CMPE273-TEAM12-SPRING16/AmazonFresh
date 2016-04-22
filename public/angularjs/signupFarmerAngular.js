@@ -1,14 +1,8 @@
 /**
- * Created by aneri on 18-04-2016.
+ * Created by aneri on 21-04-2016.
  */
-/**
- * Created by aneri on 17-04-2016.
- */
-/**
- * Created by aneri on 10-03-2016.
- */
-var signUp=angular.module('signup',[]);
-signUp.controller('signup',function($scope,$http)
+var signupFarmer=angular.module('signupFarmer',[]);
+signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
 {
     $scope.registeredEmail=true;
     $scope.unexpectedError=true;
@@ -31,12 +25,8 @@ signUp.controller('signup',function($scope,$http)
                 "state":$scope.state,
                 "zip":$scope.zip,
                 "phone":$scope.phone,
-                "userType":1,
-                "creditCardNumber":$scope.creditCardNumber,
-                "creditCardName":$scope.creditCardName,
-                "expiryMonth":$scope.expiryMonth,
-                "expiryYear":$scope.expiryYear,
-                "cvv":$scope.cvv
+                "userType":2,
+
             }
 
         }).success(function(data)
@@ -47,8 +37,7 @@ signUp.controller('signup',function($scope,$http)
             }
             if(data.statusCode==200)
             {
-                console.log("Hello");
-                window.location.assign("/newSignUp");
+                window.location.assign("/redirectToHomepage");
             }
         })
             .error(function(error) {
@@ -62,12 +51,12 @@ signUp.controller('signup',function($scope,$http)
     $scope.match=function()
     {
 
-    $scope.passwordMatch=false;
+        $scope.passwordMatch=false;
 
-    if($scope.password!=$scope.confirmPassword)
-    {
-        $scope.passwordMatch=true;
+        if($scope.password!=$scope.confirmPassword)
+        {
+            $scope.passwordMatch=true;
+        }
     }
-}
 
 })

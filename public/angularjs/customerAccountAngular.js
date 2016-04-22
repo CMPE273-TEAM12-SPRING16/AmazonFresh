@@ -15,7 +15,7 @@ customerAccount.controller("customerAccount",function($scope,$http)
         $scope.userDetails = res.data.userDetails;
         console.log($scope.userDetails.FIRST_NAME);
         $scope.customerDetails=res.data.customerDetails;
-        $scope.email=res.data.email;
+       
     });
 
 }

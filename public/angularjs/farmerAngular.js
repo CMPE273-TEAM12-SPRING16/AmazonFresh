@@ -29,7 +29,7 @@ farmer.controller("ProductListController", function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
                 console.log(data.results);
@@ -63,7 +63,7 @@ farmer.controller("ProductListController", function($scope,$http) {
             	console.log("Added");
                $scope.successUpdatedProduct = false;
             } else {
-               
+
             }
         });
     }
@@ -86,19 +86,19 @@ farmer.controller("ProductListController", function($scope,$http) {
 
         }).success(function(data)
         {
-            console.log(data);   
+            console.log(data);
             if(data.statusCode==200)
             {
-                
-               $scope.first_name = data.results.FIRSTNAME;
-               $scope.last_name = data.results.LASTNAME;
+
+               $scope.first_name = data.results.FIRST_NAME;
+               $scope.last_name = data.results.LAST_NAME;
                $scope.ssn = data.results.SSN;
-               $scope.email_id = data.results.email_id;
+               $scope.email_id = data.results.EMAIL_ID;
                $scope.address = data.results.ADDRESS;
                $scope.city = data.results.CITY;
                $scope.state = data.results.STATE;
                $scope.zip_code = data.results.ZIP;
-               $scope.phone = data.results.PHONE;
+               $scope.phone = data.results.PHONE_NUMBER;
             }
         }).error(function(error) {
                 $scope.unexpectedError = false;
@@ -125,14 +125,14 @@ farmer.controller("ProductListController", function($scope,$http) {
 
         }).success(function(data)
         {
-         	console.log(data);   
+         	console.log(data);
             if(data.statusCode==200)
             {
             	console.log("Updated!!!");
             	$scope.successUpdateProfile = false;
             }
         }).error(function(error) {
-              
+
             });
 	}
     });
@@ -140,7 +140,7 @@ farmer.controller("ProductListController", function($scope,$http) {
 
  farmer.controller("AddProductController", ['Upload','$scope','$http',function(Upload,$scope,$http){
  	$scope.successAddProduct = true;
-    
+
 
  	$scope.addProduct = function(){
       Upload.upload({
@@ -159,13 +159,13 @@ farmer.controller("ProductListController", function($scope,$http) {
             	console.log("Added");
                $scope.successAddProduct = false;
             } else {
-               
+
             }
         });
 	}
     }]);
 
-farmer.controller('FarmerController',['Upload','$scope','$http',function(Upload,$scope,$http)
+farmer.controller('FarmerPageController',['Upload','$scope','$http',function(Upload,$scope,$http)
 {
 	$scope.showProductList = true;
 	$scope.showPersonalDetails = false;
@@ -173,6 +173,26 @@ farmer.controller('FarmerController',['Upload','$scope','$http',function(Upload,
 	$scope.successUpdateProfile = true;
 	$scope.successAddProduct = true;
 	$scope.successUpdatedProduct = true;
+
+  $scope.active1 = "active";
+  $scope.active2 = "";
+  $scope.active3 = "";
+
+  $scope.activateMe = function(option){
+    if(option == 1){
+      $scope.active1 = "active";
+      $scope.active2 = "";
+      $scope.active3 = "";
+    }else if(option == 2){
+      $scope.active1 = "";
+      $scope.active2 = "active";
+      $scope.active3 = "";
+    }else if(option == 3){
+      $scope.active1 = "";
+      $scope.active2 = "";
+      $scope.active3 = "active";
+    }
+  }
 
     $scope.edit_product = function(product){
 
@@ -194,13 +214,13 @@ farmer.controller('FarmerController',['Upload','$scope','$http',function(Upload,
             	console.log("Added");
                $scope.successUpdatedProduct = false;
             } else {
-               
+
             }
         });
     }
 
     $scope.delete_product = function(product){
-    	
+
     	console.log("product"+product);
     	$http({
 
@@ -212,10 +232,10 @@ farmer.controller('FarmerController',['Upload','$scope','$http',function(Upload,
 
         }).success(function(data)
         {
-            console.log(data);   
+            console.log(data);
             if(data.statusCode==200)
             {
-               
+
             }
         }).error(function(error) {
                 $scope.unexpectedError = false;
@@ -236,7 +256,3 @@ farmer.controller('FarmerController',['Upload','$scope','$http',function(Upload,
         }
 
 }]);
-
-
-
-
