@@ -1,0 +1,111 @@
+  <div class="thumbnail thumbnail-signup" >
+            <h1>My Profile</h1>
+            <form role="form" >
+              <h3>
+                Personal Details
+              </h3>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="firstName">
+                      First Name
+                    </label>
+                    <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="first_name"/>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="lastName">
+                      Last Name
+                    </label>
+                    <input type="text" class="form-control" id="lastName"  placeholder="Last Name" ng-model="last_name"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="ssn">
+                      SSN
+                    </label>
+                    <input type="text" class="form-control" id="ssn"  placeholder="Social Security Number" ng-model="ssn"/>
+                  </div>
+                </div>
+              </div>
+              <hr>
+               <h3>
+                Address & Contact
+              </h3>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="address">
+                      Address
+                    </label>
+                    <textarea class="form-control textbox-address"  placeholder="Address" ng-model="address"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="city">
+                      City
+                    </label>
+                    <input type="text" class="form-control" placeholder="City" ng-model="city"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="state">
+                      State
+                    </label>
+                    <input type="text" class="form-control" placeholder="State" ng-model="state"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="zip">
+                      Zip
+                    </label>
+                    <input type="text" class="form-control" placeholder="Zip" ng-model="zip_code"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail">
+                      Phone
+                    </label>
+                    <input type="text" class="form-control" placeholder="Phone" ng-model="phone"/>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                  <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="updateProfile()">Update</button>
+                </div>
+                <div class="col-md-2"></div>
+              </div>
+
+              <div class="row" ng-hide="successUpdateProfile">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                <div class="alert alert-success" role="alert" style="margin-top: 30px">
+                   
+                      <center>Details Updated <strong>Successfully</strong>!!!</center>
+                  
+                </div>
+                  
+                </div>
+                <div class="col-md-2"></div>
+              </div>
+            </form>
+          </div>

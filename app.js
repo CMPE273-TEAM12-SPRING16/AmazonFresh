@@ -49,7 +49,7 @@ app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
 
-app.get('/addProduct',product.addProduct);
+//app.get('/addProduct',product.addProduct);
 app.get('/productHome',product.productHome);
 
 app.get('/signup',users.signup);
