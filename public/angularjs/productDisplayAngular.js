@@ -1,6 +1,7 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
 productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
-    {
+{
+    $scope.cart = [];
         $scope.isLoggedIn = false;
             $http({
 
@@ -33,6 +34,71 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                         $scope.isLoggedIn = true;
                     }
             });
+
+            $http({
+
+                method: "POST",
+                url: '/getCartDetails',
+                data: {
+                }
+
+            }).then(function (res) {
+                    $scope.cart = res.data.results.CART_PRODUCTS;
+            });
+
+            $scope.addToCart = function(productId){
+                console.log("Clicked"+productId);
+                $http({
+                    method:"POST",
+                    url:"/addToCart",
+                    data:{
+                        "productId" : productId
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+                            
+                            }
+                        else
+                            {   
+                                var length = $scope.cart.length;
+                                $scope.cart[length] = {"PRODUCT_ID" : $scope.displayProductDetails.PRODUCT_ID,
+                                                        "PRODUCT_NAME" : $scope.displayProductDetails.PRODUCT_NAME,
+                                                        "PRICE" : $scope.displayProductDetails.PRICE,
+                                                        "QTY" : 1,
+                                                        "FILE_NAME" : $scope.displayProductDetails.filename}; //change this
+                            }
+                    }).error(function(error){
+                        
+            });
+            } 
+
+            $scope.removeItemFromCart = function(index){
+                
+                $http({
+                    method:"POST",
+                    url:"/removeItemFromCart",
+                    data:{
+                        "product" : $scope.cart[index]
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+                            
+                            }
+                        else
+                            {
+                             
+                            }
+                    }).error(function(error){
+                        
+                });
+
+                console.log(index);
+                if($scope.cart.length == 1){$scope.cart =[]; }
+                $scope.cart = $scope.cart.splice(index-1,1); //check this one
+
+            } 
 
     }
 ]);

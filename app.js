@@ -9,6 +9,7 @@ var mongoStore = require("connect-mongo")(expressSession);
 var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Change this if needed ................................//
 var home=require('./routes/home');
 var product=require('./routes/product');
+var cart=require('./routes/cart');
 var farmer = require('./routes/farmer');
 var admin = require('./routes/admin');
 var users=require('./routes/users');
@@ -78,7 +79,7 @@ app.get('/apprReqProduct', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
-
+app.get('/logout',users.logout);
 
 
 app.post('/doShowProductList',farmer.doShowProductList);
@@ -91,9 +92,13 @@ app.post('/doUpdateProfile',farmer.doUpdateProfile);
 app.post('/doAddProduct',product.doAddProduct);
 app.post('/doDeleteProduct',product.doDeleteProduct);
 app.post('/doEditProduct', product.doEditProduct);
+app.post('/addToCart',cart.addToCart);
+app.post('/getCartDetails',cart.getCartDetails);
+app.post('/removeItemFromCart',cart.removeItemFromCart);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
+
 
 
 //----Admin Module for Customer-----
