@@ -64,23 +64,25 @@ exports.doAddProduct = function(req,res)
 					var unit = req.param("units"); 
 					var price = req.param("price"); 
 					var productDescription = req.param("productDescription"); 
-
+					var farmerFirstName = req.session.firstName;
+					var farmerLastName = req.sessionlastName;
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
 
 					var ingredients = req.param("ingredients");
-					var farmerId = 6;
-
+					
              		console.log("File uploaded successfully");
 
              			var insertJSON = {"PRODUCT_NAME" : productName,
 						"FARMER_ID" : farmerId,
+						"FARMER_FIRST_NAME" : farmerFirstName,
+						"FARMER_LAST_NAME" : farmerLastName,
 						"PRICE" : price,
 						"NOOFUNITS" : noOfUnits,
 						"UNIT" : unit,
 						"PRODUCT_DESCRIPTION" : productDescription,
-						"filename" : uploadFilename
+						"FILE_NAME" : uploadFilename
 						};
              		mongo.insertOne('PRODUCTS',insertJSON,callbackFunction);
              	}
@@ -162,7 +164,6 @@ exports.doDeleteProduct = function(req,res){
 		mongo.removeOne('PRODUCTS',deleteProductJSON,callbackFunction);
 
 };
-
 
 
 exports.productHome = function(req, res)
