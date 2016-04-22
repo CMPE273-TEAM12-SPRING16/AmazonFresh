@@ -129,13 +129,10 @@ console.log(email);
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
-<<<<<<< HEAD
             "PHONE": phone,
             "USER_TYPE": userType,
-            "ISAPPROVED" : 0
-=======
-            "PHONE_NUMBER": phone,
->>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
+            "ISAPPROVED" : 0,
+            "PHONE_NUMBER": phone
           };
 
           var userDetailsCallbackFunction = function (err, results) {

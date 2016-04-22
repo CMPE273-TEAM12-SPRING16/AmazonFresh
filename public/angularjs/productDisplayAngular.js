@@ -34,6 +34,30 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                     }
             });
 
+
+            $scope.addToCart = function(productId){
+                console.log("Clicked"+productId);
+                $http({
+                    method:"POST",
+                    url:"/addToCart",
+                    data:{
+                        "productId" : productId
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+                            
+                            }
+                        else
+                            {
+                            $scope.followShow = false;
+                            $scope.followerCount +=1;  
+                            }
+                    }).error(function(error){
+                        
+            });
+            } 
+
     }
 ]);
 
