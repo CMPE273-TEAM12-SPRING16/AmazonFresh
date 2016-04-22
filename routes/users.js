@@ -31,6 +31,7 @@ console.log(email);
     {
       console.log(results);
       console.log(results[0].USERTYPE);
+
       req.session.email = results[0].EMAIL;
       req.session.userType = results[0].USERTYPE;
       req.session.userId = results[0].USER_ID;
@@ -57,6 +58,7 @@ console.log(email);
           throw err;
         }
       };
+
 
       var queryJSON = {"USER_ID" : req.session.userId};
       mongo.findOne('USER_DETAILS',queryJSON,callbackFunction);
@@ -110,6 +112,7 @@ console.log(email);
           console.log(results.insertId);
           var userId = results.insertId;
           req.session.userType = userType;
+          req.session.user_id = userId;
           console.log("sql values inserted");
 
           //insert remaining values in mongo
@@ -186,6 +189,7 @@ console.log(email);
 
 function redirectToHomepage(req,res)
 {
+  console.log("inside");
   //Checks type of login(customer/admin/farmer) before redirecting and redirects accordingly
   if(req.session.userType==0)
   {
@@ -194,8 +198,9 @@ function redirectToHomepage(req,res)
     res.render("adminHome");
   }
   else if(req.session.userType==1) {
+    console.log("inside redirect");
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.render("customerHome");
+    res.render("customerAccount");
   }
   else if(req.session.userType==2)
   {
@@ -226,9 +231,38 @@ res.render('farmerHome');
 
 }
 
+function getCustomerAccountDetails(req,res)
+{
+  var userId=({USER_ID:req.session.user_id});
+  var callbackFunction = function (err, results) {
+
+
+    if (err) {
+      console.log(err);
+    }
+    else {
+      var userName=results.FIRST_NAME;
+      var callbackFunction = function (err, result) {
+
+        if (err) {
+          console.log(err);
+        }
+        else {
+console.log(results.FIRST_NAME);
+          res.send({"userDetails":results,"customerDetails":result,"email":req.session.email});
+        }
+      }
+      mongo.findOne("CUSTOMER_DETAILS",userId, callbackFunction);
+    }
+  }
+  mongo.findOne("USER_DETAILS",userId, callbackFunction);
+
+}
+
 exports.signup=signup;
 exports.login=login;
 exports.doLogin=doLogin;
 exports.doSignup=doSignup;
 exports.redirectToHomepage=redirectToHomepage;
 exports.farmerHome=farmerHome;
+exports.getCustomerAccountDetails=getCustomerAccountDetails;

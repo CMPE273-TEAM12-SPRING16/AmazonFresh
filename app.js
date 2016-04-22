@@ -40,19 +40,21 @@ app.get('/', function(req, res){
 app.get('/product', function(req, res){
   res.render('productHome', {});
 });
-app.get('/redirectToHomepage',users.redirectToHomepage);
+
 
 
 //app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
-
+app.get('/redirectToHomepage',users.redirectToHomepage);
 //app.get('/addProduct',product.addProduct);
 
 app.get('/productHome',product.productHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
+
+app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
 
 app.get('/adminHome', function(req, res){
   res.render('adminHome', {});
