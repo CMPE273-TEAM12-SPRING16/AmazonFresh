@@ -120,16 +120,11 @@ app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
 
-<<<<<<< HEAD
+	
 app.get('/addProductTemplate', function(req, res){
 	console.log("AddProduct");
-=======
-app.get('/addProduct', function(req, res){
 
->>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
-  res.render('farmerTemplate/addProduct', {});
-});
-
+}
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
