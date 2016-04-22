@@ -131,13 +131,9 @@ console.log(email);
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
-<<<<<<< HEAD
-            "PHONE": phone,
-            "USER_TYPE": userType,
-            "ISAPPROVED" : 0
-=======
             "PHONE_NUMBER": phone,
->>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
+            "USER_TYPE": userType,
+            "IS_APPROVED" : 0
           };
 
           var userDetailsCallbackFunction = function (err, results) {
@@ -211,7 +207,7 @@ function redirectToHomepage(req,res)
   else if(req.session.userType==1) {
     console.log("inside redirect");
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.redirect("/#newSignUp");
+    res.redirect("index");
   }
   else if(req.session.userType==2)
   {
