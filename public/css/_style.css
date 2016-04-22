@@ -197,6 +197,12 @@
    width: 100%; /* for IE 6 */
 }
 
+.thumbnail-image-product-pagination{
+  position: relative;
+  height: 180px !important;
+  width: 180px !important;
+}
+
 .img-desc{
   padding: 8px 10px;
     background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/80_White_Overlay._V356448940_.png);
@@ -437,4 +443,8 @@ hr.seperator-line{
 .product_list_name > a{
   color: #222222 !important;
   text-decoration: none !important;
+}
+
+.thumbnail-product-pagination{
+
 }

@@ -36,7 +36,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //All GET methods...........................//
 app.get('/', function(req, res){
 	res.render('index', {});
-});                     // Change this..........................................//
+});
+
+app.get('/newSignUp', function(req, res){
+	res.redirect('/#newSignUp');
+});
 
 app.get('/product', function(req, res){
   res.render('productHome', {});
@@ -109,24 +113,22 @@ app.post('/doRejectProduct',admin.doRejectProduct);
 
 
 app.get('/productList', function(req, res){
-
   res.render('farmerTemplate/productList', {});
 });
 
 app.get('/myProfile', function(req, res){
-
   res.render('farmerTemplate/editFarmerDetails', {});
 });
+
+app.get('/addProductTemplate', function(req, res) {
+	res.render('farmerTemplate/addProduct', {});
+})
 
 app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
 
-
-app.get('/addProductTemplate', function(req, res) {
-	console.log("AddProduct");
-
-})
+app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));

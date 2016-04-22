@@ -47,7 +47,8 @@ signUp.controller('signup',function($scope,$http)
             }
             if(data.statusCode==200)
             {
-                window.location.assign("/redirectToHomepage");
+                console.log("Hello");
+                window.location.assign("/newSignUp");
             }
         })
             .error(function(error) {

@@ -18,6 +18,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+  <script src="angularjs/indexAngular.js"></script>
 
   <script type="text/javascript">
 
@@ -35,7 +37,7 @@
   <title>Home | AmazonFresh</title>
 </head>
 
-<body>
+<body ng-app="indexAngular">
   <div class="container-fluid nopadding">
     <% include ./partial/header %>
     <div class="container-fluid container-main">
@@ -80,9 +82,8 @@
           <div class="row row-margin">
             <div class="col-md-12">
               <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Cat1</a></li>
-                <li class="active">Subcat1</li>
+                <li><a href="/" class="active">Home</a></li>
+                <li></li>
               </ol>
             </div>
           </div>
@@ -249,17 +250,18 @@
                     </div>
                   </div>
 
+                  <div ng-controller="PaginationController">
                   <div class="row row-margin">
-                    <div class="col-md-4" >
-                      <div class="thumbnail">
-                        <div class="">
-                          <a href="/productHome/{{prod_id}}" >
-                            <img class="thumbnail-image" src="uploads\file-1461119218905.jpg" alt="">
+                    <div class="col-md-4"  ng-repeat="product in products" >
+                      <div class="thumbnail thumbnail-product-pagination">
+                        <div>
+                          <a href="/products/{{product._id}}" >
+                            <img class="thumbnail-image-product-pagination" src="uploads\{{product.FILE_NAME}}" alt="">
                           </a>
                           <div class="caption">
-                            <h5>$20</h5>
-                            <p  class="product_list_name"><a href="/productHome/{{prod_id}}">Organic Seasonal Vegetable Bundle</a></p>
-                            <p>Sold By <a href="">Farmer Name</a></p>
+                            <h5>${{product.PRICE}}</h5>
+                            <p  class="product_list_name"><a href="/products/{{product._id}}">{{product.PRODUCT_NAME}}</a></p>
+                            <p>Sold By <a href="">{{product.FARMER_FIRST_NAME}} {{product.FARMER_LAST_NAME}}</a></p>
                             <div class="row">
                               <div class="col-md-3">
                                 <select class="form-control qty-select">
@@ -278,48 +280,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4" >
-                      <div class="thumbnail">
-                        <div class="">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4" >
-                      <div class="thumbnail">
-                        <div class="">
-
-                        </div>
-                      </div>
-                    </div>
                   </div>
+                </div><!-- controller div -->
 
-                  <div class="row pagination-bar">
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-6">
-                      <center>
-                        <nav>
-                          <ul class="pagination nomargin">
-                            <li>
-                              <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
-                      </center>
-                    </div>
-                    <div class="col-md-3">
-                    </div>
-                  </div>
 
                 </div>
               </div>
@@ -341,9 +304,6 @@
         </div>
         <% include ./partial/footer %>
   </div>
-
-
-      </div>
 
       <!-- <% include ./partial/footer %> -->
       <!-- <div class="row">
