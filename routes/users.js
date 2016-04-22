@@ -129,10 +129,9 @@ console.log(email);
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
-            "PHONE": phone,
+            "PHONE_NUMBER": phone,
             "USER_TYPE": userType,
-            "ISAPPROVED" : 0,
-            "PHONE_NUMBER": phone
+            "ISAPPROVED" : 0            
           };
 
           var userDetailsCallbackFunction = function (err, results) {
