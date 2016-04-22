@@ -11,7 +11,7 @@ farmer.config(['$routeProvider', function($routeProvider) {
                     controller: 'EditProfileController'
                 }).
                 when('/addProduct', {
-                    templateUrl: 'addProduct',
+                    templateUrl: 'addProductTemplate',
                     controller: 'AddProductController'
                 }).
                 otherwise({

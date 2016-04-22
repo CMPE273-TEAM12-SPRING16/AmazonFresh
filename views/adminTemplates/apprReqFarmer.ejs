@@ -1,6 +1,6 @@
           <div ng-show="true"> <!-- add farmer notifications -->
             <span class="admin-page-title">Approval Requests :</span><span class="admin-page-title-cat"> Farmer</span>
-            <div class="thumbnail">
+            <div class="thumbnail" ng-repeat = "farmer in pendingFarmers">
               <div class="row row-margin-none">
                 <div class="col-md-10">
                   <div class="row">
@@ -8,7 +8,7 @@
                       <h5>Name <span class="pull-right">:</span></h5>
                     </div>
                     <div class="col-md-6">
-                      <span>John Doe Farmer</span>
+                      <span>{{farmer.FIRST_NAME}} {{farmer.LAST_NAME}}</span>
                     </div>
                   </div>
                   <div class="row">
@@ -16,7 +16,7 @@
                       <h5>Email Id <span class="pull-right">:</span></h5>
                     </div>
                     <div class="col-md-6">
-                      <span>John.Doe@gmail.com</span>
+                      <span>{{farmer.EMAIL}}</span>
                     </div>
                   </div>
                   <div class="row">
@@ -24,9 +24,9 @@
                       <h5>Address <span class="pull-right">:</span></h5>
                     </div>
                     <div class="col-md-6 address-line">
-                      <p>522 The Hello World</p>
+                      <p>{{farmer.ADDRESS}}</p>
                       <p>Apt 332</p>
-                      <p>San Jose, CA 95112</p>
+                      <p>{{faremr.CITY}}, {{farmer.STATE}} {{farmer.ZIP}}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -34,7 +34,7 @@
                       <h5>Phone <span class="pull-right">:</span></h5>
                     </div>
                     <div class="col-md-6">
-                      <span>+1 (408)-908-8717</span>
+                      <span>{{farmer.PHONE_NUMBER}}</span>
                     </div>
                   </div>
                   <div class="row">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-2">
                   <div class="row">
-                    <button class="btn btn-success btn-xs btn-theme btn-theme-narrow pull-right">
+                    <button class="btn btn-success btn-xs btn-theme btn-theme-narrow pull-right" ng-click="approveFarmer(farmer.USERID)">
                       <span class="pull-left">Approve</span>
                       <span class="badge pull-right">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true">
@@ -57,7 +57,7 @@
                     </button>
                   </div>
                   <div class="row">
-                    <button class="btn btn-danger btn-xs btn-theme btn-theme-narrow pull-right">
+                    <button class="btn btn-danger btn-xs btn-theme btn-theme-narrow pull-right" ng-click="rejectFarmer(farmer.USERID)">
                       <span class="pull-left">Reject</span>
                       <span class="badge pull-right">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true">
@@ -68,74 +68,4 @@
                 </div>
               </div>
             </div>
-
-            <div class="thumbnail">
-              <div class="row row-margin-none">
-                <div class="col-md-10">
-                  <div class="row">
-                    <div class="col-md-2 approve-col-1">
-                      <h5>Name <span class="pull-right">:</span></h5>
-                    </div>
-                    <div class="col-md-6">
-                      <span>John Doe Farmer 2</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-2 approve-col-1">
-                      <h5>Email Id <span class="pull-right">:</span></h5>
-                    </div>
-                    <div class="col-md-6">
-                      <span>John.Doe@gmail.com</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-2 approve-col-1">
-                      <h5>Address <span class="pull-right">:</span></h5>
-                    </div>
-                    <div class="col-md-6 address-line">
-                      <p>522 The Hello World</p>
-                      <p>Apt 332</p>
-                      <p>San Jose, CA 95112</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-2 approve-col-1">
-                      <h5>Phone <span class="pull-right">:</span></h5>
-                    </div>
-                    <div class="col-md-6">
-                      <span>+1 (408)-908-8717</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-2 approve-col-1">
-                      <h5>SSN <span class="pull-right">:</span></h5>
-                    </div>
-                    <div class="col-md-6  ">
-                      <span>XX-XX-XXX</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="row">
-                    <button class="btn btn-success btn-xs btn-theme btn-theme-narrow pull-right">
-                      <span class="pull-left">Approve</span>
-                      <span class="badge pull-right">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true">
-                        </span>
-                      </span>
-                    </button>
-                  </div>
-                  <div class="row">
-                    <button class="btn btn-danger btn-xs btn-theme btn-theme-narrow pull-right">
-                      <span class="pull-left">Reject</span>
-                      <span class="badge pull-right">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true">
-                        </span>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div><!-- FINISHED add farmer notification -->

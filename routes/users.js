@@ -87,6 +87,7 @@ console.log(email);
           console.log(results);
           console.log(results.insertId);
           var userId = results.insertId;
+          var email = results.email;
           req.session.userType = userType;
           console.log("sql values inserted");
 
@@ -96,12 +97,15 @@ console.log(email);
             "USERID": userId,
             "FIRST_NAME": firstName,
             "LAST_NAME": lastName,
+            "EMAIL_ID": email,
             "SSN": ssn,
             "ADDRESS": address,
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
             "PHONE": phone,
+            "USER_TYPE": userType,
+            "ISAPPROVED" : 0
           };
 
           var callbackFunction = function (err, results) {

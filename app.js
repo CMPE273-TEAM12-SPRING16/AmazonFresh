@@ -10,6 +10,7 @@ var mongoSessionConnectURL = "mongodb://localhost:27017/amazon_fresh";   //Chang
 var home=require('./routes/home');
 var product=require('./routes/product');
 var farmer = require('./routes/farmer');
+var admin = require('./routes/admin');
 var users=require('./routes/users');
 var app = express();
 app.use(expressSession({
@@ -50,7 +51,7 @@ app.get('/farmerHome',users.farmerHome);
 
 app.get('/addProduct',product.addProduct);
 app.get('/productHome',product.productHome);
-app.get('/farmerHome', farmer.farmerHome);
+
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/adminHome', function(req, res){
@@ -84,6 +85,22 @@ app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 
 
+//----Admin Module for Customer-----
+app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);
+app.post('/doApproveCustomer',admin.doApproveCustomer);
+app.post('/doRejectCustomer',admin.doRejectCustomer);
+
+//----Admin Module for Farmer-----
+app.post('/doShowPendingFarmerAprroval',admin.doShowPendingFarmerAprroval);
+app.post('/doApproveFarmer',admin.doApproveFarmer);
+app.post('/doRejectFarmer',admin.doRejectFarmer);
+
+//------Admin Module for Products ----
+app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
+app.post('/doApproveProduct',admin.doApproveProduct);
+app.post('/doRejectProduct',admin.doRejectProduct);
+
+
 app.get('/productList', function(req, res){
 	
   res.render('farmerTemplate/productList', {});
@@ -98,10 +115,11 @@ app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
 
-app.get('/addProduct', function(req, res){
-	
+app.get('/addProductTemplate', function(req, res){
+	console.log("AddProduct");
   res.render('farmerTemplate/addProduct', {});
 });
+
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));

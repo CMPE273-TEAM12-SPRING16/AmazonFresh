@@ -7,6 +7,7 @@
 var login=angular.module('login',[]);
 login.controller('login',function($scope,$http)
 {
+
     $scope.invalidLogin=true;
     $scope.unexpectedError=true;
 
@@ -24,13 +25,16 @@ login.controller('login',function($scope,$http)
 
         }).success(function(data)
         {
+            debugger;
             if (data.statusCode == 401) {
                 $scope.invalidLogin = false;
                 $scope.unexpectedError = true;
             }
             if(data.statusCode==200)
             {
-                window.location.assign("/farmerHome");
+                console.log("After success login");
+                debugger;
+                window.location.assign("/adminHome");
             }
         })
             .error(function(error) {
