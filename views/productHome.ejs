@@ -169,7 +169,7 @@
                 (0)
               </div>
               <div class="product-page-price">
-                <span class="price">{{displayProductDetails.PRICE}}</span>
+                <span class="price">{{displayProductDetails.PRICE | currency}}</span>
                 <span class="unit-price">($0.77/oz)</span>
               </div>
               <div class="product-page-add">
@@ -268,7 +268,7 @@
               </div>
 
               <!-- Items in the cart -->
-              <div class="panel panel-default bill-cart" ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
+              <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
                 <div class="row">
                   <div class="col-md-2 bill-cart-qty-pad">
                     <span class="bill-cart-qty-title">Qty</span>
@@ -286,7 +286,7 @@
                       <div class="media-body">
                           <a class="bill-cart-item-name">{{item.PRODUCT_NAME}}</a>
                         <h6>
-                            <span class="bill-cart-item-price">${{item.PRICE}}</span>
+                            <span class="bill-cart-item-price">{{item.PRICE | currency}}</span>
                         </h6>
                       </div>
                     </div>

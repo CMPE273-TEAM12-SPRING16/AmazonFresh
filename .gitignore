@@ -43,6 +43,7 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
+public/uploads
 
 # Optional npm cache directory
 .npm
@@ -217,4 +218,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
