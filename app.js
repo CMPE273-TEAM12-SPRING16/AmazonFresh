@@ -75,7 +75,7 @@ app.get('/apprReqProduct', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
-
+app.get('/logout',users.logout);
 
 
 app.post('/doShowProductList',farmer.doShowProductList);
@@ -89,6 +89,8 @@ app.post('/doAddProduct',product.doAddProduct);
 app.post('/doDeleteProduct',product.doDeleteProduct);
 app.post('/doEditProduct', product.doEditProduct);
 app.post('/addToCart',cart.addToCart);
+app.post('/getCartDetails',cart.getCartDetails);
+app.post('/removeItemFromCart',cart.removeItemFromCart);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
