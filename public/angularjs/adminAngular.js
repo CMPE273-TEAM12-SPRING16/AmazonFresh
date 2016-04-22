@@ -159,7 +159,7 @@ adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
 });
 
-adminNgApp.controller('ApprReqProduct', function($scope) {
+adminNgApp.controller('ApprReqProduct', function($scope,$http) {
 
 $scope.showPendingProductReq = function(){
           console.log("showPendingProductReq");
