@@ -270,7 +270,12 @@ console.log(userDetails.firstName);
 
 }
 
-
+exports.logout = function(req,res)
+{
+  console.log("in logout");
+  req.session.destroy();
+  res.redirect('/');
+}
 
 exports.signup=signup;
 exports.login=login;

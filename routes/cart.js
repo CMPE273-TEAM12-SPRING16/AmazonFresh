@@ -78,20 +78,21 @@ exports.addToCart = function(req,res)
 			        }
 			        else if(cartProductDetails.length == 0)
 			        {
-			   //      	insertCartJSON = {"USER_ID" : req.session.userId, "CART_PRODUCTS" : {"PRODUCT_ID" : productId ,
-			   //      																		"PRODUCT_NAME" : productName,
-			   //      																		"PRICE" : price,
-			   //      																		"QTY" : qty,
-			   //      																		"FILE_NAME" : fileName}};
-						// mongo.insertOne("CART",insertCartJSON,function (err, results) {
-					 //        if (err) {
-					 //        console.log(err);
-					 //        }
-					 //        else {
-					 //        	var jsonResponse = {"statusCode":200};
-					 //        	res.send(jsonResponse);
-					 //        }
-	    	// 			});
+			         		var newJSON = {"PRODUCT_ID" : productId,"PRODUCT_NAME" : productName,"PRICE" : price,"QTY" : qty,"FILE_NAME" : fileName};
+			        		cartProductDetails[0] = newJSON;
+
+			        		console.log("add new product to cart");
+			        		updateJSON = {"CART_PRODUCTS" : cartProductDetails};
+			        		console.log("cart product:"+JSON.stringify(updateJSON));
+			        		mongo.updateOne('CART',{ "USER_ID" : req.session.userId },{$set : updateJSON},function (err, updateResults) {
+						        if (err) {
+						        console.log(err);
+						        }
+						        else {
+						        	var jsonResponse = {"statusCode":200};
+						        	res.send(jsonResponse);
+						        }
+	    					});
 			        }
 		    	}
 		        else{
@@ -102,7 +103,7 @@ exports.addToCart = function(req,res)
 			        																		"PRICE" : price,
 			        																		"QTY" : qty,
 			        																		"FILE_NAME" : fileName}]};
-						mongo.insertOne("CART",insertCartJSON,function (err, results) {
+						mongo.insertOne('CART',insertCartJSON,function (err, results) {
 					        if (err) {
 					        console.log(err);
 					        }
@@ -117,4 +118,32 @@ exports.addToCart = function(req,res)
 		}
      });
 
+}
+
+
+exports.getCartDetails = function(req,res)
+{
+	mongo.findOne('CART',{"USER_ID" : req.session.userId},function (err, results) {
+					        if (err) {
+					        console.log(err);
+					        }
+					        else {
+					        	var jsonResponse = {"statusCode":200,"results":results};
+					        	res.send(jsonResponse);
+					        }
+	    				});
+}
+
+exports.removeItemFromCart = function(req,res)
+{
+	mongo.updateOne('CART',{"USER_ID" : req.session.userId},{$pull : { "CART_PRODUCTS" : req.param("product")}},function (err, results) {
+																					        if (err) {
+																					        console.log(err);
+																					        }
+																					        else {
+																					        	var jsonResponse = {"statusCode":200};
+																					        	res.send(jsonResponse);
+																					        }
+																	    				}
+	);
 }
