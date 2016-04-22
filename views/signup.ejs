@@ -140,7 +140,10 @@
                     <label for="exampleInputPassword2">
                       Confirm Password
                     </label>
-                    <input type="password" class="form-control" id="exampleInputPassword2"  placeholder="Confirm Password">
+                    <input type="password" class="form-control" id="exampleInputPassword2"  placeholder="Confirm Password"  ng-model="confirmPassword" ng-change="match();">
+                    <div ng-show="passwordMatch">
+                      <strong>Password Doesn't Match</strong>
+                    </div></br></br>
                   </div>
                 </div>
               </div>

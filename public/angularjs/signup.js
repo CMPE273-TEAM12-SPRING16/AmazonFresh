@@ -58,5 +58,15 @@ signUp.controller('signup',function($scope,$http)
 
     };
 
+    $scope.match=function()
+    {
+
+    $scope.passwordMatch=false;
+
+    if($scope.password!=$scope.confirmPassword)
+    {
+        $scope.passwordMatch=true;
+    }
+}
 
 })
