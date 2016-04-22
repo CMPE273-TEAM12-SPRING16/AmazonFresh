@@ -31,13 +31,9 @@ console.log(email);
 
     if (results.length > 0)
     {
-      console.log(results);
-      console.log(results[0].USERTYPE);
-
       req.session.email = results[0].EMAIL;
       req.session.userType = results[0].USERTYPE;
       req.session.userId = results[0].USER_ID;
-      console.log("valid Login");
 
       var callbackFunction = function(err,resultsMongo)
       {

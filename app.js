@@ -60,7 +60,6 @@ app.get('/productHome',product.productHome);
 
 app.get('/signup',users.signup);
 app.get('/farmerSignup', users.farmerSignup);
-app.get('/login',users.login);
 
 app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
 
