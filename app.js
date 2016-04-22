@@ -94,6 +94,7 @@ app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 
 
+
 //----Admin Module for Customer-----
 app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);
 app.post('/doApproveCustomer',admin.doApproveCustomer);
