@@ -16,7 +16,18 @@
 
   <!--Angular js scripts-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+  <script type="text/javascript">
+
+    $(window).load(function(){
+      var url = window.location.href;
+      if(url.indexOf('#newSignUp') != -1) {
+        $('#newSignUpModal').modal('show');
+      }
+    });
+  </script>
 
 
   <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
@@ -25,50 +36,48 @@
 </head>
 
 <body>
-<div class="container-fluid nopadding">
-  <% include ./partial/header %>
-  <div class="container-fluid container-main">
-    <div class="row row-margin">
-      <div class="col-md-9">
-        <div class="row">
-          <ul class="nav navbar-nav">
-            <div class="col-md-2">
-              <li class="dropdown">
-                <button class="btn btn-default btn-shop" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Shop<strong class="caret caret-btn-shop pull-right"></strong>
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="#">Cat 1</a>
-                  </li>
-                  <li>
-                    <a href="#">Cat 2</a>
-                  </li>
-                  <li>
-                    <a href="#">Cat 3</a>
-                  </li>
-                  <li>
-                    <a href="#">Cat 4</a>
-                  </li>
-                </ul>
-              </li>
-            </div>
-            <div class="col-md-10">
-              <li>
-                <div class="input-group">
-                  <input type="text" class="form-control"/>
+  <div class="container-fluid nopadding">
+    <% include ./partial/header %>
+    <div class="container-fluid container-main">
+      <div class="row row-margin">
+        <div class="col-md-9">
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <div class="col-md-2">
+                <li class="dropdown">
+                  <button class="btn btn-default btn-shop" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Shop<strong class="caret caret-btn-shop pull-right"></strong>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#">Cat 1</a>
+                    </li>
+                    <li>
+                      <a href="#">Cat 2</a>
+                    </li>
+                    <li>
+                      <a href="#">Cat 3</a>
+                    </li>
+                    <li>
+                      <a href="#">Cat 4</a>
+                    </li>
+                  </ul>
+                </li>
+              </div>
+              <div class="col-md-10">
+                <li>
+                  <div class="input-group">
+                    <input type="text" class="form-control"/>
                     <span class="input-group-addon fa-serch-btn">
                       <i class="fa fa-search">Go</i>
                     </span>
-                </div>
-              </li>
-            </div>
-          </ul>
-        </div>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
 
-
-        <div class="row row-margin">
-
+          <div class="row row-margin">
           <div class="col-md-12">
             <ol class="breadcrumb">
               <li><a href="#">Home</a></li>
@@ -76,373 +85,386 @@
               <li class="active">Subcat1</li>
             </ol>
           </div>
-
-        </div>
+          </div>
 
           <div class="row row-margin">
             <div class="col-md-2">
             </div>
-        		<div class="col-md-10">
-        			<div class="carousel slide" id="carousel-795683">
-        				<ol class="carousel-indicators">
-        					<li class="active" data-slide-to="0" data-target="#carousel-795683">
-        					</li>
-        					<li data-slide-to="1" data-target="#carousel-795683">
-        					</li>
-        					<li data-slide-to="2" data-target="#carousel-795683">
-        					</li>
-        				</ol>
-        				<div class="carousel-inner">
-        					<div class="item active">
-        						<img alt="Carousel Bootstrap First" src="images/promotion_images/carousel/car1.jpg" />
-        					</div>
-        					<div class="item">
-        						<img alt="Carousel Bootstrap Second" src="images/promotion_images/carousel/car2.jpg" />
-        					</div>
-        					<div class="item">
-        						<img alt="Carousel Bootstrap Third" src="images/promotion_images/carousel/car3.jpg" />
-        					</div>
-        				</div>
-                  <a class="left carousel-control" href="#carousel-795683" data-slide="prev">
+            <div class="col-md-10">
+              <div class="carousel slide" id="carousel-795683">
+                <ol class="carousel-indicators">
+                  <li class="active" data-slide-to="0" data-target="#carousel-795683">
+                  </li>
+                  <li data-slide-to="1" data-target="#carousel-795683">
+                  </li>
+                  <li data-slide-to="2" data-target="#carousel-795683">
+                  </li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img alt="Carousel Bootstrap First" src="images/promotion_images/carousel/car1.jpg" />
+                  </div>
+                  <div class="item">
+                    <img alt="Carousel Bootstrap Second" src="images/promotion_images/carousel/car2.jpg" />
+                  </div>
+                  <div class="item">
+                    <img alt="Carousel Bootstrap Third" src="images/promotion_images/carousel/car3.jpg" />
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-795683" data-slide="prev">
                   <span class="glyphicon glyphicon-chevron-left"></span></a>
                   <a class="right carousel-control" href="#carousel-795683" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span></a>
-        			</div>
-              <div class="row row-margin"></div>
-              <div class="row row-margin">
-                  <div class="col-md-3">
-                    <center><hr></hr></center>
+                    <span class="glyphicon glyphicon-chevron-right"></span></a>
                   </div>
-                  <div class="col-md-6">
-                    <center class="font-italic">Shop Local Farmers Market Selections</center>
-                  </div>
-                  <div class="col-md-3">
-                    <div><hr></hr></div>
-                  </div>
-              </div>
-
-              <div class="row row-margin">
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                    <div class="thumbnail-image">
-                      <img alt="Leafy Greens" src="images/category/tile-leafygreens.jpg"/>
-                      <span class="img-desc">LEAFY GREENS > </span>
+                  <div class="row row-margin"></div>
+                  <div class="row row-margin">
+                    <div class="col-md-3">
+                      <center><hr></hr></center>
+                    </div>
+                    <div class="col-md-6">
+                      <center class="font-italic">Shop Local Farmers Market Selections</center>
+                    </div>
+                    <div class="col-md-3">
+                      <div><hr></hr></div>
                     </div>
                   </div>
 
-                </div>
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Squash" src="images/category/tile-squash.jpg"/>
-                    <span class="img-desc">SQUASH > </span>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Cabbage" src="images/category/tile-cabbage.jpg"/>
-                    <span class="img-desc">CABBAGE > </span>
-                  </div>
-                  </div>
-                </div>
-              </div>
+                  <div class="row row-margin">
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Leafy Greens" src="images/category/tile-leafygreens.jpg"/>
+                          <span class="img-desc">LEAFY GREENS > </span>
+                        </div>
+                      </div>
 
-              <div class="row row-margin">
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Fresh Herbs" src="images/category/tile-freshherbs.jpg"/>
-                    <span class="img-desc">FRESH HERBS > </span>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Squash" src="images/category/tile-squash.jpg"/>
+                          <span class="img-desc">SQUASH > </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Cabbage" src="images/category/tile-cabbage.jpg"/>
+                          <span class="img-desc">CABBAGE > </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Root Vegetables" src="images/category/tile-root.jpg"/>
-                    <span class="img-desc">ROOT VEGETABLES > </span>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Produce Bundles" src="images/category/tile-produce.jpg"/>
-                    <span class="img-desc">PRODUCE BUNDLES > </span>
-                  </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row row-margin">
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Jams" src="images/category/tile-jam.jpg"/>
-                    <span class="img-desc">JAMS > </span>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Chutneys" src="images/category/tile-chutney.jpg"/>
-                    <span class="img-desc">CHUTNEYS > </span>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="thumbnail">
-                  <div class="thumbnail-image">
-                    <img alt="Farmbox SF" src="images/category/tile-farmboxsf.jpg"/>
-                    <span class="img-desc">FARMBOX SF > </span>
-                  </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="row row-margin">
-                <h4 style="color: #555555;">Shop All the Local Produce</h4>
-              </div>
-              <div class="row pagination-bar">
-                  <div class="col-md-1 nopadding">
-                    <span>1 - 36 of 60</span>
+                  <div class="row row-margin">
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Fresh Herbs" src="images/category/tile-freshherbs.jpg"/>
+                          <span class="img-desc">FRESH HERBS > </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Root Vegetables" src="images/category/tile-root.jpg"/>
+                          <span class="img-desc">ROOT VEGETABLES > </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Produce Bundles" src="images/category/tile-produce.jpg"/>
+                          <span class="img-desc">PRODUCE BUNDLES > </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-1 nopadding">
-                    <span class="pull-right">Sort By:</span>
+                  <div class="row row-margin">
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Jams" src="images/category/tile-jam.jpg"/>
+                          <span class="img-desc">JAMS > </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Chutneys" src="images/category/tile-chutney.jpg"/>
+                          <span class="img-desc">CHUTNEYS > </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="thumbnail">
+                        <div class="thumbnail-image">
+                          <img alt="Farmbox SF" src="images/category/tile-farmboxsf.jpg"/>
+                          <span class="img-desc">FARMBOX SF > </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-2 nopadding">
+
+
+                  <div class="row row-margin">
+                    <h4 style="color: #555555;">Shop All the Local Produce</h4>
+                  </div>
+                  <div class="row pagination-bar">
+                    <div class="col-md-1 nopadding">
+                      <span>1 - 36 of 60</span>
+                    </div>
+                    <div class="col-md-1 nopadding">
+                      <span class="pull-right">Sort By:</span>
+                    </div>
+                    <div class="col-md-2 nopadding">
                       <select class="form-control sort-select">
                         <option value="1" selected="true">Best Selling</option>
                         <option value="2">Price: Low to High</option>
                         <option value="3">Price: High to Low</option>
                       </select>
+                    </div>
+                    <div class="col-md-8">
+                        <nav class="pull-right">
+                          <ul class="pagination nomargin">
+                            <li>
+                              <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li>
+                              <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
                   </div>
-              </div>
 
-          </div>
-
-       </div>
-    	</div>
-      <div class="col-md-3">
-        <div class="row">
-          <strong class="">Great news, we deliver to your area.</strong>
-          AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
-        </div>
-        <div class="row">
-          <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
-            Sign In
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<div class="container-fluid">
-  <div class="row">
-    <div class = "col-md-3">
-    </div>
-    <div id="ProductBar">
-    <div class="col-md-3">
-      <h4>Shop All the Local Produce</h4>
-
-      <br>
-      Sort By:
-      <div class="btn-group dropup">
-
-        <button class="btn btn-default">
-          Best-selling
-        </button>
-        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <a href="#">Price: High to Low</a>
-          </li>
-          <li>
-            <a href="#">Price: Low to High</a>
-          </li>
-          <li class="divide">
-          </li>
-          <li>
-            <a href="#">Relevance</a>
-          </li>
-        </ul>
-      </div>
-    </div></div>
-  </div>
-</div><br>              <div class="row row-margin">
-
-<!--
-<div class="container-fluid" id="Fresh" >
--->
-  <div class="container-fluid" id="Fresh">
-  <div class="row">
-    <!--<div class="col-md-4">
-      <div class="thumbnail">
-        <div class="thumbnail-image">
-          <img alt="greensbundle" src="images/products/greensbundle.jpg" width="120px" height="120px"/>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4" >
-      <div class="thumbnail" >
-        <div class="thumbnail-image">
-          <img alt="vegetablebundle" src="images/products/vegetablebundle.jpg" width="120px" height="120px"/>
-        &lt;!&ndash;<strong>$14.00</strong>
-        &ndash;&gt;</div>
-      </div>
-    </div>-->
-
-    <div class="col-md-4" id="">
-      <div class="thumbnail" id="product1">
-        <div class="thumbnail-image" align="center">
-          <img alt="peachconserve" src="images/products/greensbundle.jpg" width="120px" height="120px"/>
-
-        </div> <br><strong>$14.00</strong> &nbsp; ($14.00/count)
-        <br> Farmers Market Greens Bundle<br><br>
-        <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/search/3-star-green._V349257521_.png" class="pull-left">
-        <br><br>
-        <button type="button" class="btn btn-success" aria-setsize="10px" disabled>Add To cart</button>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="thumbnail" id="product3">
-        <div class="thumbnail-image" align="center">
-          <img alt="peachconserve" src="images/products/vegetablebundle.jpg" width="120px" height="120px"/>
-
-        </div> <br><strong>$23.00</strong> &nbsp; ($23.00/count)
-        <br> Farmers Market Vegetable Bundle<br><br>
-        <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/search/3-star-green._V349257521_.png" class="pull-left">
-        <br><br>
-        <button type="button" class="btn btn-success" aria-setsize="10px" disabled>Add To cart</button>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="thumbnail" id="product2">
-        <div class="thumbnail-image" align="center">
-          <img alt="peachconserve" src="images/products/product-1.jpg" width="120px" height="120px"/>
-
-        </div> <br><strong>$9.50</strong> &nbsp; ($9.50/count)
-        <br> Farmers Market Peach Conserve<br><br>
-        <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/search/3-star-green._V349257521_.png" class="pull-left">
-        <br><br>
-        <button type="button" class="btn btn-success" aria-setsize="10px" disabled>Add To cart</button>
-      </div>
-    </div>
-
-    </div><div id="footerBar"> <div class="col-md-4"></div><div class="col-md-4"><< Previous &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &nbsp; <a >2</a>&nbsp;&nbsp;&nbsp;&nbsp;<a> Next >></a> </div></div>
-
-  </div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- _________________________________________________LOGIN MODAL____________________________________________ -->
-<script src="angularjs/login.js"></script>
-<div  ng-app="login" ng-controller="login">
-  <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <div class="a-section a-padding-medium auth-workflow container-fluid">
-            <div class="a-section">
-              <!-- show a warning modal dialog when the third party account is connected with Amazon -->
-              <div class="a-section a-spacing-base auth-pagelet-container">
-                <div class="a-section">
-                  <form action="" class="a-spacing-none" id="signIn" method="post" name="signIn" novalidate="">
-                    <div class="a-section">
-                      <div class="a-box">
-                        <div class="a-box-inner a-padding-extra-large">
-                          <h1 class="a-spacing-small">Sign in</h1>
-                          <div class="a-row a-spacing-base">
-                            <label for="ap_email">Email ID</label>
-                            <input class="a-input-text a-span12 auth-autofocus auth-required-field"
-                            id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email">
-                          </div>
-                          <div class="a-section a-spacing-large">
-                            <div class="a-row">
-                              <div class="a-column a-span5">
-                                <label for="ap_password">Password</label>
+                  <div class="row row-margin">
+                    <div class="col-md-4" >
+                      <div class="thumbnail">
+                        <div class="">
+                          <a href="/productHome/{{prod_id}}" >
+                            <img class="thumbnail-image" src="uploads\file-1461119218905.jpg" alt="">
+                          </a>
+                          <div class="caption">
+                            <h5>$20</h5>
+                            <p  class="product_list_name"><a href="/productHome/{{prod_id}}">Organic Seasonal Vegetable Bundle</a></p>
+                            <p>Sold By <a href="">Farmer Name</a></p>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <select class="form-control qty-select">
+                                  <option value="1" selected="true">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </select>
                               </div>
-                              <div class="a-column a-span7 a-text-right a-span-last">
-                                <a class="a-spacing-null a-link-normal" href=
-                                "/forgotPassword"
-                                id="auth-fpp-link-bottom">Forgot your password?</a>
+                              <div class="col-md-3" style="padding: 0px 2px 0px 2px">
+                                <button class="btn nopadding nomargin btn-primary btn-theme"><span class="glyphicon glyphicon-shopping-cart"></span></button>
                               </div>
                             </div>
-                            <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password">
-                            <div  ng-hide="invalidLogin">
-                              <strong>Incorrect username or password</strong>
-                            </div>
-
-                            <div ng-hide="unexpectedError">
-                              <strong>Unexpected error,try again</strong>
-                            </div>
                           </div>
-                          <div class="a-section a-spacing-extra-large">
-                            <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
-
-                              "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"> <span aria-hidden="true" class=
-                              "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
-                            </div>
-
-
-                            <div class="a-divider a-divider-break">
-                              <h5>New to Amazon?</h5>
-                            </div>
-
-                            <span class="a-button a-button-span12" id="auth-create-account-link">
-                              <span class="a-button-inner">
-                                <a class="a-button-text" href="/signUp" id="createAccountSubmit" role="button" tabindex="6">
-                                  Create your Amazon account
-                                </a>
-                              </span>
-                            </span>
-                          </div>
+                        </div>
                       </div>
                     </div>
-                  </form>
+                    <div class="col-md-4" >
+                      <div class="thumbnail">
+                        <div class="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4" >
+                      <div class="thumbnail">
+                        <div class="">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row pagination-bar">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                      <center>
+                        <nav>
+                          <ul class="pagination nomargin">
+                            <li>
+                              <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li>
+                              <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </center>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <strong class="">Great news, we deliver to your area.</strong>
+                AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
+              </div>
+              <div class="row">
+                <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
+                  Sign In
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+  </div>
+
+
+
+
+
+
+
+  <!-- _________________________________________________LOGIN MODAL____________________________________________ -->
+  <script src="angularjs/login.js"></script>
+  <div  ng-app="login" ng-controller="login">
+    <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="a-section a-padding-medium auth-workflow container-fluid">
+              <div class="a-section">
+                <!-- show a warning modal dialog when the third party account is connected with Amazon -->
+                <div class="a-section a-spacing-base auth-pagelet-container">
+                  <div class="a-section">
+                    <form action="" class="a-spacing-none" id="signIn" method="post" name="signIn" novalidate="">
+                      <div class="a-section">
+                        <div class="a-box">
+                          <div class="a-box-inner a-padding-extra-large">
+                            <h1 class="a-spacing-small">Sign in</h1>
+                            <div class="a-row a-spacing-base">
+                              <label for="ap_email">Email ID</label>
+                              <input class="a-input-text a-span12 auth-autofocus auth-required-field"
+                              id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email">
+                            </div>
+                            <div class="a-section a-spacing-large">
+                              <div class="a-row">
+                                <div class="a-column a-span5">
+                                  <label for="ap_password">Password</label>
+                                </div>
+                                <div class="a-column a-span7 a-text-right a-span-last">
+                                  <a class="a-spacing-null a-link-normal" href=
+                                  "/forgotPassword"
+                                  id="auth-fpp-link-bottom">Forgot your password?</a>
+                                </div>
+                              </div>
+                              <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password">
+                              <div  ng-hide="invalidLogin">
+                                <strong>Incorrect username or password</strong>
+                              </div>
+
+                              <div ng-hide="unexpectedError">
+                                <strong>Unexpected error,try again</strong>
+                              </div>
+                            </div>
+                            <div class="a-section a-spacing-extra-large">
+                              <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
+
+                                "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"> <span aria-hidden="true" class=
+                                "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
+                              </div>
+
+
+                              <div class="a-divider a-divider-break">
+                                <h5>New to Amazon?</h5>
+                              </div>
+
+                              <span class="a-button a-button-span12" id="auth-create-account-link">
+                                <span class="a-button-inner">
+                                  <a class="a-button-text" href="/signUp" id="createAccountSubmit" role="button" tabindex="6">
+                                    Create your Amazon account
+                                  </a>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-2"></div>
           </div>
         </div>
-        <div class="col-md-2"></div>
       </div>
     </div>
-  </div>
-</div>
+
+    <!-- After Signup Modal -->
+    <div class="modal fade" id="newSignUpModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								×
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<center>Welcome to <img class="logo-modal" src="images/support_images/af-logo-black.png"/></center>
+							</h4>
+						</div>
+						<div class="modal-body">
+            <center>
+							<p><h3>Please, give us a few hours to verify your account.</h3></p>
+              <p><h4>Meanwhile, you can browse our product catalog.</h4></p>
+            </center>
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" data-dismiss="modal" class="btn btn-primary btn-primary-theme">
+								Continue
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
 
 
 
-<% include ./partial/footer %>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-</body>
-</html>
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <% include partial/footer %>
+  </body>
+  </html>

@@ -31,19 +31,43 @@ console.log(email);
     {
       console.log(results);
       console.log(results[0].USERTYPE);
-      req.session.user_id=results[0].USER_ID;
-      req.session.email=results[0].EMAIL;
-      req.session.userType=results[0].USERTYPE;
-      console.log("valid Login");
-      var jsonResponse1 = {"statusCode":200};
-      res.send(jsonResponse1);
 
+      req.session.email = results[0].EMAIL;
+      req.session.userType = results[0].USERTYPE;
+      req.session.userId = results[0].USER_ID;
+      console.log("valid Login");
+
+      var callbackFunction = function(err,resultsMongo)
+      {
+        if(resultsMongo)
+        {
+          console.log(resultsMongo);
+          req.session.firstName = resultsMongo.FIRST_NAME;
+          req.session.lastName = resultsMongo.LAST_NAME;
+          req.session.city = resultsMongo.CITY;
+          req.session.address = resultsMongo.ADDRESS;
+          req.session.zip = resultsMongo.ZIP;
+          req.session.phone = resultsMongo.PHONE_NUMBER;
+          req.session.ssn = resultsMongo.SSN;
+          var jsonResponse = {"statusCode":200};
+
+          res.send(jsonResponse);
+        }
+        else
+        {
+          throw err;
+        }
+      };
+
+
+      var queryJSON = {"USER_ID" : req.session.userId};
+      mongo.findOne('USER_DETAILS',queryJSON,callbackFunction);
     }
 
     else
     {
-      var jsonResponse2={"statusCode":401};
-      res.send(jsonResponse2);
+      var jsonResponse={"statusCode":401};
+      res.send(jsonResponse);
     }
 
 
@@ -89,12 +113,13 @@ console.log(email);
           var userId = results.insertId;
           var email = results.email;
           req.session.userType = userType;
+          req.session.user_id = userId;
           console.log("sql values inserted");
 
           //insert remaining values in mongo
 
           var userDetails = {
-            "USERID": userId,
+            "USER_ID": userId,
             "FIRST_NAME": firstName,
             "LAST_NAME": lastName,
             "EMAIL_ID": email,
@@ -103,12 +128,16 @@ console.log(email);
             "CITY": city,
             "STATE": state,
             "ZIP": zip,
+<<<<<<< HEAD
             "PHONE": phone,
             "USER_TYPE": userType,
             "ISAPPROVED" : 0
+=======
+            "PHONE_NUMBER": phone,
+>>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
           };
 
-          var callbackFunction = function (err, results) {
+          var userDetailsCallbackFunction = function (err, results) {
             var json_responses;
 
             if (err) {
@@ -124,7 +153,7 @@ console.log(email);
                 var cvv = req.param("cvv");
 
                 var customerCreditCardDetails = {
-                  "USERID": userId,
+                  "USER_ID": userId,
                   CREDIT_CARD_DETAILS:
                 {
                   "CREDIT_CARD_NUMBER": creditCardNumber,
@@ -133,7 +162,7 @@ console.log(email);
                   "EXPIRY_YEAR": expiryYear,
                   "CVV": cvv}
                 };
-                var callbackFunction = function (err, results) {
+                var customerCreditCardDetailsCallbackFunction = function (err, results) {
                   var json_responses;
 
                   if (err) {
@@ -143,7 +172,7 @@ console.log(email);
                     console.log("creditCardDetailsInserted");
                   }
                 }
-                mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, callbackFunction);
+                mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, customerCreditCardDetailsCallbackFunction);
               }
 
               json_responses = {"statusCode": 200};
@@ -155,7 +184,7 @@ console.log(email);
 
           }
 
-          mongo.insertOne("USERS", userDetails, callbackFunction);
+          mongo.insertOne("USER_DETAILS", userDetails, userDetailsCallbackFunction);
         }
         else {
           console.log("data insertion failed");
@@ -168,6 +197,7 @@ console.log(email);
 
 function redirectToHomepage(req,res)
 {
+  console.log("inside");
   //Checks type of login(customer/admin/farmer) before redirecting and redirects accordingly
   if(req.session.userType==0)
   {
@@ -176,8 +206,9 @@ function redirectToHomepage(req,res)
     res.render("adminHome");
   }
   else if(req.session.userType==1) {
+    console.log("inside redirect");
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.render("customerHome");
+    res.redirect("/#newSignUp");
   }
   else if(req.session.userType==2)
   {
@@ -189,9 +220,50 @@ function redirectToHomepage(req,res)
   }
 };
 
+
+exports.getLoggedInUserDetails = function(req,res)
+{
+  var jsonResponse={"statusCode" : 200,
+                    "firstName" : req.session.firstName,
+                    "lastName" : req.session.lastName,
+                    "email" : req.session.email,
+                    "city" : req.session.city,
+                    "userId" : req.session.userId};
+  res.send(jsonResponse);
+}
+
+
 function farmerHome(req,res)
 {
 res.render('farmerHome');
+
+}
+
+function getCustomerAccountDetails(req,res)
+{
+  var userId=({USER_ID:req.session.user_id});
+  var callbackFunction = function (err, results) {
+
+
+    if (err) {
+      console.log(err);
+    }
+    else {
+      var userName=results.FIRST_NAME;
+      var callbackFunction = function (err, result) {
+
+        if (err) {
+          console.log(err);
+        }
+        else {
+console.log(results.FIRST_NAME);
+          res.send({"userDetails":results,"customerDetails":result,"email":req.session.email});
+        }
+      }
+      mongo.findOne("CUSTOMER_DETAILS",userId, callbackFunction);
+    }
+  }
+  mongo.findOne("USER_DETAILS",userId, callbackFunction);
 
 }
 
@@ -201,3 +273,4 @@ exports.doLogin=doLogin;
 exports.doSignup=doSignup;
 exports.redirectToHomepage=redirectToHomepage;
 exports.farmerHome=farmerHome;
+exports.getCustomerAccountDetails=getCustomerAccountDetails;

@@ -61,11 +61,18 @@ exports.doAddProduct = function(req,res)
              	{
 
              		var productName = req.param("productName");
+<<<<<<< HEAD
 					var unit = req.param("units"); 
 					var price = req.param("price"); 
 					var productDescription = req.param("productDescription"); 
 					var farmerFirstName = req.session.firstName;
 					var farmerLastName = req.sessionlastName;
+=======
+					var unit = req.param("units");
+					var price = req.param("price");
+					var productDescription = req.param("productDescription");
+
+>>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
@@ -118,9 +125,9 @@ exports.doEditProduct = function(req,res)
              	{
              		var productId = new require('mongodb').ObjectID(req.param("productId"));
              		var productName = req.param("productName");
-					var unit = req.param("units"); 
-					var price = req.param("price"); 
-					var productDescription = req.param("productDescription"); 
+					var unit = req.param("units");
+					var price = req.param("price");
+					var productDescription = req.param("productDescription");
 					var farmerId = req.session.user_id;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
@@ -135,7 +142,7 @@ exports.doEditProduct = function(req,res)
 						"PRODUCT_DESCRIPTION" : productDescription,
 						"filename" : uploadFilename
 					}
-		};	
+		};
 					mongo.updateOne('PRODUCTS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
              	}
         });
@@ -165,7 +172,10 @@ exports.doDeleteProduct = function(req,res){
 
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
 exports.productHome = function(req, res)
 {
 	res.render('productHome');
@@ -197,25 +207,22 @@ exports.getProductDetails=function(req,res)
 		}
 		else {
 			console.log(results.PRODUCT_NAME);
-			var farmerId = {"USER_ID":results.FARMER_ID};
+			res.send({"productDetails":results});
+			// var farmerId = {"USER_ID":results.FARMER_ID};
 
-			var callbackFunction = function (err, result) {
-				var json_responses;
+			// var callbackFunction = function (err, result) {
+			// 	var json_responses;
 
-				if (err) {
-					console.log(err);
-				}
-				else {
-					var farmerName=result.FIRST_NAME+" "+ result.LAST_NAME;
-					res.send({"productDetails":results,"farmerName":farmerName});
-				}
-			}
-			mongo.findOne("USER_DETAILS",farmerId, callbackFunction);
+			// 	if (err) {
+			// 		console.log(err);
+			// 	}
+			// 	else {
+			// 		var farmerName=result.FIRST_NAME+" "+ result.LAST_NAME;
+			// 		res.send({"productDetails":results,"farmerName":farmerName});
+			// 	}
+			// }
+			// mongo.findOne("USER_DETAILS",farmerId, callbackFunction);
 		}
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
 }
-
-
-
-

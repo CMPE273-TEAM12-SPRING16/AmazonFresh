@@ -41,19 +41,23 @@ app.get('/', function(req, res){
 app.get('/product', function(req, res){
   res.render('productHome', {});
 });
-app.get('/redirectToHomepage',users.redirectToHomepage);
+
 
 
 //app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
-
+app.get('/redirectToHomepage',users.redirectToHomepage);
 //app.get('/addProduct',product.addProduct);
+
 app.get('/productHome',product.productHome);
 
 app.get('/signup',users.signup);
 app.get('/login',users.login);
+
+app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
+
 app.get('/adminHome', function(req, res){
   res.render('adminHome', {});
 });
@@ -83,6 +87,7 @@ app.post('/doDeleteProduct',product.doDeleteProduct);
 app.post('/doEditProduct', product.doEditProduct);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
+app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 
 
 //----Admin Module for Customer-----
@@ -102,12 +107,12 @@ app.post('/doRejectProduct',admin.doRejectProduct);
 
 
 app.get('/productList', function(req, res){
-	
+
   res.render('farmerTemplate/productList', {});
 });
 
 app.get('/myProfile', function(req, res){
-	
+
   res.render('farmerTemplate/editFarmerDetails', {});
 });
 
@@ -115,8 +120,13 @@ app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
 
+<<<<<<< HEAD
 app.get('/addProductTemplate', function(req, res){
 	console.log("AddProduct");
+=======
+app.get('/addProduct', function(req, res){
+
+>>>>>>> f742ea928146c969e668e6e756c3e5c7e8db8629
   res.render('farmerTemplate/addProduct', {});
 });
 

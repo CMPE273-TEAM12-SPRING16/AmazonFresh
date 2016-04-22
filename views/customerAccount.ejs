@@ -13,14 +13,18 @@
   <![endif]-->
 
 
-  <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+  <script src="angularjs/customerAccountAngular.js"></script>
 
   <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <title>Home | AmazonFresh</title>
 
 </head>
-<body>
+<body ng-app="customerAccount" ng-controller="customerAccount">
   <div class="container-fluid container-main">
     <% include ./partial/headerLoggedIn %>
 
@@ -44,7 +48,8 @@
                     <label for="firstName">
                       First Name
                     </label>
-                    <input type="text" class="form-control" id="firstName" maxlength="10" ng-model="firstName" placeholder="First Name" />
+                    <input type="text" class="form-control" id="firstName" maxlength="10" ng-model="userDetails.FIRST_NAME"
+                     placeholder="First Name" value="{{userDetails.FIRST_NAME}}"/>
 
                   </div>
                 </div>
@@ -54,7 +59,7 @@
                       Last Name
                     </label>
 
-                    <input type="text" class="form-control" id="lastName" maxlength="10" ng-model="lastName"  placeholder="Last Name"/>
+                    <input type="text" class="form-control" id="lastName" maxlength="10" ng-model="userDetails.LAST_NAME" value="{{userDetails.LAST_NAME}}"  placeholder="Last Name"  />
 
                   </div>
                 </div>
@@ -68,7 +73,7 @@
                     </label>
 
                     <input type="text" class="form-control" id="ssn" pattern="^d{3}-d{2}-d{4}$"
-                            placeholder="###-##-####" ng-model="ssn"/>
+                            placeholder="###-##-####" ng-model="userDetails.SSN"  value="{{userDetails.SSN}}"/>
 
                   </div>
                 </div>
@@ -87,10 +92,8 @@
                       </label>
 
 
-                      <input type="email" class="form-control" id="exampleInputEmail"  placeholder="Email ID" ng-model="email"/>
-                      <div ng-hide="registeredEmail">
-                        <strong>An account is already registered with this email</strong>
-                      </div></br></br>
+                      <input type="email" class="form-control" id="exampleInputEmail"  placeholder="Email ID" ng-model="email"  value="{{email}}" disabled/>
+
 
                     </div>
                   </div>
@@ -132,7 +135,7 @@
                       <label for="address">
                         Address
                       </label>
-                      <textarea class="form-control textbox-address"  placeholder="Address" ng-model="address"></textarea>
+                      <textarea class="form-control textbox-address"  placeholder="Address" ng-model="userDetails.ADDRESS"  value="{{userDetails.ADDRESS}}"></textarea>
                     </div>
                   </div>
                 </div>
@@ -143,7 +146,7 @@
                       <label for="city">
                         City
                       </label>
-                      <input type="text" class="form-control" placeholder="City" ng-model="city"/>
+                      <input type="text" class="form-control" placeholder="City" ng-model="userDetails.CITY"  value="{{userDetails.CITY}}"/>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -151,7 +154,7 @@
                       <label for="state">
                         State
                       </label>
-                      <input type="text" class="form-control" placeholder="State" ng-model="state"/>
+                      <input type="text" class="form-control" placeholder="State" ng-model="userDetails.STATE"  value="{{userDetails.STATE}}"/>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -161,7 +164,7 @@
                       </label>
 
 
-                      <input type="text" class="form-control" placeholder="Zip" ng-model="zip"/>
+                      <input type="text" class="form-control" placeholder="Zip" ng-model="userDetails.ZIP_CODE"  value="{{userDetails.ZIP_CODE}}"/>
 
                     </div>
                   </div>
@@ -173,7 +176,7 @@
                       <label for="exampleInputEmail">
                         Phone
                       </label>
-                      <input type="text" class="form-control" placeholder="Phone" ng-model="phone"/>
+                      <input type="text" class="form-control" placeholder="Phone" ng-model="userDetails.PHONE_NUMBER"  value="{{userDetails.PHONE_NUMBER}}"/>
                     </div>
                   </div>
                 </div>
@@ -190,7 +193,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="credit-card-labels-account">Card Number</label>
-                              <input type="text" class="form-control" placeholder="Card Number" ng-model="creditCardNumber"/>
+                              <input type="text" class="form-control" placeholder="Card Number" ng-model="customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER"  value="{{customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER}}"/>
 
                           </div>
                         </div>
@@ -199,7 +202,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="credit-card-labels-account">Name on the Card</label>
-                              <input type="text" class="form-control" placeholder="Name on the Card" ng-model="creditCardName"/>
+                              <input type="text" class="form-control" placeholder="Name on the Card" ng-model="customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NAME" value="{{customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NAME}}"/>
 
                           </div>
                         </div>
@@ -210,12 +213,12 @@
 
                             <div class="col-md-3">
                               <label class="credit-card-labels-account">Expiry Date</label>
-                              <select class="form-control" id="sel1" ng-model="expiryMonth">
+                              <select class="form-control" id="sel1" ng-model="customerDetails.CREDIT_CARD_DETAILS.EXPIRY_MONTH" value="{{customerDetails.CREDIT_CARD_DETAILS.EXPIRY_MONTH}}" >
                                 <option>01</option>
                                 <option>02</option>
                                 <option>03</option>
                                 <option>04</option>
-                                <option selected="true">05</option>
+                                <option>05</option>
                                 <option>06</option>
                                 <option>07</option>
                                 <option>08</option>
@@ -228,8 +231,8 @@
 
                             <div class="col-md-4">
                               <label class="credit-card-labels-account">&nbsp;</label>
-                              <select class="form-control" id="sel1" ng-model="expiryYear">
-                                <option selected="true">2016</option>
+                              <select class="form-control" id="sel1" ng-model="customerDetails.CREDIT_CARD_DETAILS.EXPIRY_YEAR" value="{{customerDetails.CREDIT_CARD_DETAILS.EXPIRY_YEAR}}">
+                                <option>2016</option>
                                 <option>2017</option>
                                 <option>2018</option>
                               </select>
@@ -237,7 +240,7 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-3">
                               <label class="credit-card-labels-account">CVV</label>
-                                <input type="password" class="form-control" placeholder="CVV" ng-model="cvv" />
+                                <input type="password" class="form-control" placeholder="CVV" ng-model="customerDetails.CREDIT_CARD_DETAILS.CVV" value="{{customerDetails.CREDIT_CARD_DETAILS.CVV}}"/>
 
                             </div>
 
