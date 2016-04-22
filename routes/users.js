@@ -35,8 +35,8 @@ console.log(email);
       req.session.userType = results[0].USERTYPE;
       req.session.userId = results[0].USER_ID;
       console.log("valid Login");
-      
-      var callbackFunction = function(err,resultsMongo) 
+
+      var callbackFunction = function(err,resultsMongo)
       {
         if(resultsMongo)
         {
@@ -195,7 +195,7 @@ function redirectToHomepage(req,res)
   }
   else if(req.session.userType==1) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.render("customerHome");
+    res.redirect("/#newSignUp");
   }
   else if(req.session.userType==2)
   {
