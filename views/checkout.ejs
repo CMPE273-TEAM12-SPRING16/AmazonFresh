@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="checkoutAngular">
+
+<head>
+
+
+  <link href="../css/_style.css" rel="stylesheet">
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/signin.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+    <script src="../angularjs/checkOutAngular.js"></script>
+
+
+
+  <link rel="shortcut icon" href="../images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="../images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Checkout</title>
+</head>
+
+<body ng-cloak>
+  <div class="container-fluid nopadding">
+  <div ng-hide="isLoggedIn">
+    <div class="row">
+      <div class="col-md-12">
+          <ul class="nav nav-pills navbar-fixed-top header-nav">
+              <li>
+                  <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="../images/support_images/af-logo-white.png"><span></span></a>
+              </li>
+              <li class="text">
+                  Already have an AmazonFresh<sup class="sup-plus">+</sup> account?
+              </li>
+              <li class="signin">
+                  <a href="/signin">Sign in.</a>
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div ng-show="isLoggedIn">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills navbar-fixed-top header-nav">
+        <li>
+            <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="../images/support_images/af-logo-white.png"><span></span></a>
+        </li>
+        <li class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown">
+                 Hi, {{firstName}} {{lastName}}<span></span><strong class="caret"></strong>
+               </a>
+              <ul class="dropdown-menu accout-dropdown-menu">
+                <li>
+                  <a href="#">Your Account</a>
+                </li>
+                <li>
+                  <a href="#">Manage Your Dash</a>
+                </li>
+                <li>
+                  <a href="#">Help</a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                  <a href="/logout">Sign Out</a>
+                </li>
+              </ul>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/AllOrders">Your Deliveries</a>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/#" id="">Messages <span class="message-count"></span></a>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/MyList?ref_=nav_lists" id="">Your Lists</a>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/Favorites?ref_=nav_pp&amp;resultsPerPage=40" id="">Past Purchases</a>
+        </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-fluid container-main">
+    	<div class="row row-margin">
+        <div class="col-md-9" ng-controller="checkOutProcessController">
+
+          <div class="row row-margin">
+          <div class="col-md-12">
+            <div class="row bs-wizard" style="border-bottom:0;">
+
+                <div ng-class="classDeliveryAddress"> <!-- change active to complete or disabled -->
+                  <div class="text-center bs-wizard-stepnum">Step 1</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Delivery Address</div>
+                </div>
+
+                <div ng-class="classPaymentDetails"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Step 2</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Payment Details</div>
+                </div>
+
+                <div ng-class="classReviewDetails"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Step 3</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Review Order</div>
+                </div>
+
+                <div ng-class="classConfirmation"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Step 4</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Confirm Details</div>
+                </div>
+            </div>
+          </div>
+          </div>
+
+          <div class="row row-margin">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="thumbnail thumbnail-signup">
+
+                        <div ng-view>
+
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <a class="pull-right" href="{{nextHREF}}"  ng-click="checkOutNext(nextNUMBER)" style="text-decoration: none;">
+                              <button type="button" class="btn btn-primary btn-block btn-signup">
+                                {{buttonLabel}}
+                              </button>
+                            </a>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+
+          </div>
+    	</div>
+
+      <div class="col-md-3" ng-show=true>
+          <div class="row">
+            <strong class="">Great news, we deliver to your area.</strong>
+            AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
+          </div>
+          <div class="row" ng-hide="isLoggedIn">
+            <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
+              Sign In
+            </button>
+        </div>
+
+        <div class="row" ng-show=true>
+          <div class="thumbnail">
+						<div class="caption">
+              <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
+							<button ng-class="checkOutBtnClass" enabled="isLoggedIn" ng-click="doProceedToCheckout()">Proceed to Checkout</button>
+              <div ng-show="cart.length==0">
+                <center>Add products to Cart to checkout.</center>
+              </div>
+              <p>
+                  <span class="bill-subtotal">Subtotal $0.00</span><span class="bill-items pull-right">(0 Items)</span>
+                  <hr class="product-page-seperator"/>
+              </p>
+
+              <div ng-show="cart.length==0">
+                <p>
+                    There are currently no items in your cart. You can add an item by clicking on any <strong>Add to cart</strong> button.
+                  <hr class="product-page-seperator"/>
+                </p>
+              </div>
+
+              <!-- Items in the cart -->
+              <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
+                <div class="row">
+                  <div class="col-md-2 bill-cart-qty-pad">
+                    <span class="bill-cart-qty-title">Qty</span>
+                    <select class="form-control bill-cart-qty" ng-model="item.QTY">
+                      <option ng-selected="item.QTY == 1">1</option>
+                      <option ng-selected="item.QTY == 2">2</option>
+                      <option ng-selected="item.QTY == 3">3</option>
+                      <option ng-selected="item.QTY == 4">4</option>
+                      <option ng-selected="item.QTY == 5">5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8 bill-cart-item-pad">
+                    <div class="media">
+                      <a href="#" class="pull-left"><img alt="" src="../uploads/{{item.FILE_NAME}}" class="media-object bill-item-img"/></a>
+                      <div class="media-body">
+                          <a class="bill-cart-item-name">{{item.PRODUCT_NAME}}</a>
+                        <h6>
+                            <span class="bill-cart-item-price">{{item.PRICE | currency}}</span>
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 bill-cart-remove-pad">
+                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" ng-click="removeItemFromCart($index);" alt="x" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+					</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>

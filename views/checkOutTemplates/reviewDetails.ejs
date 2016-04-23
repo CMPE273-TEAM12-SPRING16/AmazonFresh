@@ -1,0 +1,57 @@
+
+          <h3>
+            Review Order
+          </h3>
+
+          <div class="row">
+            <div class="col-md-12">
+                <label for="city">Order Details</label>
+            </div>
+            <div class="thumbnail bill-cart  ng-scope"> <!-- This will have ng-repeat. Remove the hardcoded items -->
+                <div class="row">
+                  <div class="col-md-2 bill-cart-qty-pad">
+                    <span class="bill-cart-qty-title">Qty</span>
+                    <select class="form-control bill-cart-qty ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="item.QTY"><option value="? number:2 ?"></option>
+                      <option value="1" ng-selected="item.QTY == 1">1</option>
+                      <option selected="selected" value="2" ng-selected="item.QTY == 2">2</option>
+                      <option value="3" ng-selected="item.QTY == 3">3</option>
+                      <option value="4" ng-selected="item.QTY == 4">4</option>
+                      <option value="5" ng-selected="item.QTY == 5">5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8 bill-cart-item-pad">
+                    <div class="media">
+                      <a class="pull-left" href="#"><img class="media-object bill-item-img" alt="" src="../uploads/file-1461288065663.jpg"></a>
+                      <div class="media-body">
+                          <a class="bill-cart-item-name ng-binding">Hass Avocado, Ripe, One Large</a>
+                        <h6>
+                            <span class="bill-cart-item-price ng-binding">$1.50</span>
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 bill-cart-remove-pad">
+                    <img class="bill-cart-remove-item" alt="x" src="../images/support_images/remove-item.png" ng-click="removeItemFromCart($index);">
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 approve-col-1">
+              <h5>Delivery Address <span class="pull-right">:</span></h5>
+            </div>
+            <div class="col-md-6 address-line">
+              <p>1322 The Alameda</p>
+              <p>Apt 332</p>
+              <p>San Jose, CA 95112</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 approve-col-1">
+              <h5>Payment <span class="pull-right">:</span></h5>
+            </div>
+            <div class="col-md-6  ">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <span>XXXX-XXXX-XXXX-2222{{customer.CREDITCARDNUMBER | limitTo:-4}} (Validated)</span>
+            </div>
+          </div>
