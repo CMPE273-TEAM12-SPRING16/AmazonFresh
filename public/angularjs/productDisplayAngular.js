@@ -109,10 +109,3 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
     }
 ]);
-
-productDisplayAngular.controller("LoggedInUserDetails",['$scope','$http',function($scope,$http)
-    {
-
-
-    }
-]);

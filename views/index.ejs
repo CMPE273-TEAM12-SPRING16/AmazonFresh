@@ -37,9 +37,14 @@
   <title>Home | AmazonFresh</title>
 </head>
 
-<body ng-app="indexAngular">
+<body ng-app="indexAngular" ng-controller="IndexPageController">
   <div class="container-fluid nopadding">
-    <% include ./partial/header %>
+    <div ng-hide="isLoggedIn">
+      <% include ./partial/header %>
+    </div>
+    <div ng-show="isLoggedIn">
+      <% include ./partial/headerLoggedIn %>
+    </div>
     <div class="container-fluid container-main">
       <div class="row row-margin">
         <div class="col-md-9">
@@ -326,7 +331,6 @@
 
 
 <!-- _________________________________________________LOGIN MODAL____________________________________________ -->
-<script src="angularjs/login.js"></script>
 <div ng-controller="LoginController">
   <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

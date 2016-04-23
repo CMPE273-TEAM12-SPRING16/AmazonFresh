@@ -16,8 +16,6 @@ var users=require('./routes/users');
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
-	resave: false,  //don't save session if unmodified
-	saveUninitialized: false,	// don't create session until something stored
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000,
 	store: new mongoStore({
@@ -38,6 +36,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res){
 	res.render('index', {});
 });
+app.post('/', function(req, res){
+	res.render('index', {});
+});
 
 app.get('/newSignUp', function(req, res){
 	res.redirect('/#newSignUp');
@@ -47,14 +48,14 @@ app.get('/product', function(req, res){
   res.render('productHome', {});
 });
 
+app.get('/checkout', function(req, res){
+	res.render('checkout', {});
+});
 
-
-//app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
 app.get('/redirectToHomepage',users.redirectToHomepage);
-//app.get('/addProduct',product.addProduct);
 
 app.get('/productHome',product.productHome);
 
@@ -77,6 +78,7 @@ app.get('/apprReqProduct', function(req, res){
 });
 
 
+
 app.get('/reviewCustomer', function(req, res){
   res.render('adminTemplates/reviewCustomer', {});
 });
@@ -87,6 +89,20 @@ app.get('/reviewProduct', function(req, res){
   res.render('adminTemplates/reviewProduct', {});
 });
 
+
+
+app.get('/deliveryDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/deliveryDetails', {});
+});
+app.get('/paymentDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/paymentDetails', {});
+});
+app.get('/reviewDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/reviewDetails', {});
+});
+app.get('/confirmDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/confirmDetails', {});
+});
 
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
