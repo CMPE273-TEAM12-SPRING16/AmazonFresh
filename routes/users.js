@@ -91,7 +91,7 @@ function doSignup(req, res) {
 
 console.log(email);
 
-  var emailExists = "select email from users where email='" + email + "'";
+  var emailExists = "select 'x' from users where email='" + email + "'";
   mysql.fetchData(function (err, results) {
 
     if (results.length > 0) {
