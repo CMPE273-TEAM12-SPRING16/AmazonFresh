@@ -25,7 +25,7 @@ app.controller('LoginController',function($scope,$http)
           if(data.statusCode == 200)
           {
               console.log("After success login");
-              window.location.assign("/adminHome");
+              window.location.assign("/");
           }else if (data.statusCode == 401) {
                 $scope.invalidLogin = false;
                 $scope.unexpectedError = true;
@@ -62,5 +62,30 @@ app.controller('PaginationController',function($scope,$http){
     console.log(error);
   });
 
+
+});
+
+app.controller('IndexPageController',function($scope,$http){
+
+  $scope.isLoggedIn = false;
+    $http({
+
+        method: "POST",
+        url: '/getLoggedInUserDetails',
+        data: {
+        }
+
+    }).then(function (res) {
+            $scope.firstName = res.data.firstName;
+            $scope.lastName = res.data.lastName;
+            $scope.email = res.data.email;
+            $scope.city = res.data.city;
+            $scope.userId = res.data.userId;
+            if(res.data.firstName)
+            {
+                $scope.isLoggedIn = true;
+            }
+            console.log("first name"+$scope.firstName+"lastName"+$scope.lastName+" isLoggedIn "+$scope.isLoggedIn);
+    });
 
 });

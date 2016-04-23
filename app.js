@@ -16,8 +16,6 @@ var users=require('./routes/users');
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
-	resave: false,  //don't save session if unmodified
-	saveUninitialized: false,	// don't create session until something stored
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000,
 	store: new mongoStore({
@@ -36,6 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //All GET methods...........................//
 app.get('/', function(req, res){
+	res.render('index', {});
+});
+app.post('/', function(req, res){
 	res.render('index', {});
 });
 
