@@ -8,7 +8,7 @@
  * Created by aneri on 10-03-2016.
  */
 var signUp=angular.module('signup',[]);
-signUp.controller('signup',function($scope,$http)
+signUp.controller('signup',function($scope,$http,$rootScope)
 {
     $scope.registeredEmail=true;
     $scope.unexpectedError=true;
@@ -47,7 +47,7 @@ signUp.controller('signup',function($scope,$http)
             }
             if(data.statusCode==200)
             {
-                window.location.assign("/redirectToHomepage");
+                window.location.assign("/newSignUp");
             }
         })
             .error(function(error) {
@@ -58,15 +58,18 @@ signUp.controller('signup',function($scope,$http)
 
     };
 
-    $scope.match=function()
+    $scope.match=function(x)
     {
 
-    $scope.passwordMatch=false;
+
 
     if($scope.password!=$scope.confirmPassword)
     {
-        $scope.passwordMatch=true;
-    }
-}
 
-})
+        $scope.passwordMatch=true;
+
+    }
+
+    }
+
+});
