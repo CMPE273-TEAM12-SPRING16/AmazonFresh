@@ -37,7 +37,7 @@ signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
             }
             if(data.statusCode==200)
             {
-                window.location.assign("/redirectToHomepage");
+                window.location.assign("/newSignUpFarmer");
             }
         })
             .error(function(error) {
