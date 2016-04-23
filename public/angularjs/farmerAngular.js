@@ -14,13 +14,15 @@ farmer.config(['$routeProvider', function($routeProvider) {
                     templateUrl: 'addProductTemplate',
                     controller: 'AddProductController'
                 }).
-                otherwise({
-                    redirectTo: '/'
-                });
+                when('/',{
+                    templateUrl: 'productList', controller: 'ProductListController'
+                 })
 }]);
 
 farmer.controller("ProductListController", function($scope,$http) {
 		console.log("ProductListController");
+        $scope.getProductList = function(){
+            console.log("GetProductList");
         $scope.successUpdateProfile = true;
        $http({
 
@@ -39,7 +41,8 @@ farmer.controller("ProductListController", function($scope,$http) {
                 $scope.unexpectedError = false;
                 $scope.invalidLogin = true;
             });
-
+}
+$scope.getProductList();
 
 
 

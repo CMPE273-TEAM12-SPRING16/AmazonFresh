@@ -3,10 +3,10 @@ var ejs = require('ejs');
 var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
-
+var user_id_arr = [];
 exports.doShowPendingCustAprroval = function(req, res) {
 	var user_id = req.session.user_id;
-	var getCustomerPendingJSON = {$and : [{"ISAPPROVED" : 0},{"USER_TYPE":1}]};
+	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":1}]};
 
 	var callbackFunction = function (err, results) {
            if(err)
@@ -14,15 +14,49 @@ exports.doShowPendingCustAprroval = function(req, res) {
 			throw err;
 			json_responses = {"statusCode" : 401};
 			console.log("Error in doShowProductList");
-			res.send(json_responses);
+			//res.send(json_responses);
 		}
 		else
 		{
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
+			Object.keys(results).forEach(function(index) {
+								// here, we'll first bit a list of all LogIds
 
+								var id = results[index].USER_ID;
+								user_id_arr.push(id);
+							});
+			console.log(user_id_arr);
+			var cardDetailJSON = {"USER_ID" : {$in : user_id_arr}};
+			console.log(user_id_arr);
+			mongo.find('CUSTOMER_DETAILS',cardDetailJSON,function(err,userDetails){
+					 if(err)
+					{
+						throw err;
+						json_responses = {"statusCode" : 401};
+						console.log("Error in doShowProductList");
+						res.send(json_responses);
+					}
+					else{
+
+					
+						
+						Object.keys(results).forEach(function(user) {
+							Object.keys(userDetails).forEach(function(card) {
+								if(userDetails[card].USER_ID == results[user].USER_ID){
+									console.log(userDetails[card].CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER);
+									results[user].CARD_NUMBER = userDetails[card].CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER;
+
+								}
+									});
+								});
+						
+						results.CARD_NUMBER = userDetails;	
+						json_responses = {"statusCode" : 200,"results":results};
+						res.send(json_responses);
+					}
+				});
+		
+    }
+}
     mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
  };
 
@@ -40,15 +74,16 @@ exports.doShowPendingCustAprroval = function(req, res) {
 		}
 		else
 		{
-			console.log("Pending customer requests ");
+			console.log("Approve Requests ");
 			console.log(results);
 			json_responses = {"statusCode" : 200,"results":results};
 			res.send(json_responses);
 		}
     }
+		console.log("doApproveCustomer "+cust_id);
 
-    var approvalWhereJSON = {"USERID" : cust_id};
-    var approvalSetJSON = {$set : {"ISAPPROVED" : 1}};
+    var approvalWhereJSON = {"USER_ID" : cust_id};
+    var approvalSetJSON = {$set : {"IS_APPROVED" : 1}};
 
     mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
@@ -74,8 +109,8 @@ exports.doShowPendingCustAprroval = function(req, res) {
 		}
     }
 
-    var approvalWhereJSON = {"USERID" : cust_id};
-    var approvalSetJSON = {$set : {"ISAPPROVED" : 2}};
+    var approvalWhereJSON = {"USER_ID" : cust_id};
+    var approvalSetJSON = {$set : {"IS_APPROVED" : 2}};
 
     mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
@@ -83,7 +118,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 // Farmer approval/reject 
 exports.doShowPendingFarmerAprroval = function(req, res) {
 	var user_id = req.session.user_id;
-	var getCustomerPendingJSON = {$and : [{"ISAPPROVED" : 0},{"USER_TYPE":2}]};
+	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":2}]};
 
 	var callbackFunction = function (err, results) {
            if(err)
@@ -125,7 +160,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
     }
 
     var approvalWhereJSON = {"USER_ID" : cust_id};
-    var approvalSetJSON = {$set : {"ISAPPROVED" : 1}};
+    var approvalSetJSON = {$set : {"IS_APPROVED" : 1}};
 
     mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
@@ -152,7 +187,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
     }
 
     var approvalWhereJSON = {"USER_ID" : cust_id};
-    var approvalSetJSON = {$set : {"ISAPPROVED" : 2}};
+    var approvalSetJSON = {$set : {"IS_APPROVED" : 2}};
 
     mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
@@ -161,8 +196,9 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
  exports.doShowPendingProductAprroval = function(req, res) {
 	var user_id = req.session.user_id;
-	var getProductPendingJSON = {$and : [{"ISAPPROVED" : 0},{"USER_TYPE":2}]};
+	var getProductPendingJSON = {"IS_APPROVED" : 0};
 
+	console.log("doShowPendingProductAprroval" +user_id);
 	var callbackFunction = function (err, results) {
            if(err)
 		{
@@ -173,18 +209,18 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 		}
 		else
 		{
+			console.log(results);
 			json_responses = {"statusCode" : 200,"results":results};
 			res.send(json_responses);
 		}
     }
 
-    mongo.find('PRODUCT_DETAILS',getProductPendingJSON,callbackFunction);
+    mongo.find('PRODUCTS',getProductPendingJSON,callbackFunction);
  };
 
  exports.doApproveProduct = function(req,res){
- 	var product_id = req.param("product_id");
  	
-
+ 	var product_id = new require('mongodb').ObjectID(req.param("product_id"));
  	var callbackFunction = function (err, results) {
            if(err)
 		{
@@ -203,16 +239,14 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
     }
 
     var approvalWhereJSON = {"_id" : product_id};
-    var approvalSetJSON = {$set : {"ISAPPROVED" : 1}};
+    var approvalSetJSON = {$set : {"IS_APPROVED" : 1}};
 
-    mongo.updateOne('PRODUCTS_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
+    mongo.updateOne('PRODUCTS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
 
  exports.doRejectProduct = function(req,res){
- 	var product_id = req.param("product_id");
- 	
-
- 	var callbackFunction = function (err, results) {
+ var product_id = new require('mongodb').ObjectID(req.param("product_id"));
+ var callbackFunction = function (err, results) {
            if(err)
 		{
 			throw err;
@@ -230,8 +264,111 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
     }
 
     var approvalWhereJSON = {"_id" : product_id};
-    var approvalSetJSON = {$set : {"ISAPPROVED" : 2}};
+    var approvalSetJSON = {$set : {"IS_APPROVED" : 2}};
 
-    mongo.updateOne('PRODUCTS_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
+    mongo.updateOne('PRODUCTS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
 
+//------------------Reveiw----------------------------
+
+exports.doShowAllCustomer = function(req,res){
+var getCustomerPendingJSON = {"USER_TYPE":1};
+
+	var callbackFunction = function (err, results) {
+           if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in doShowProductList");
+			//res.send(json_responses);
+		}
+		else
+		{
+			Object.keys(results).forEach(function(index) {
+								// here, we'll first bit a list of all LogIds
+
+								var id = results[index].USER_ID;
+								user_id_arr.push(id);
+							});
+			
+			var cardDetailJSON = {"USER_ID" : {$in : user_id_arr}};
+			console.log(user_id_arr);
+			mongo.find('CUSTOMER_DETAILS',cardDetailJSON,function(err,userDetails){
+					 if(err)
+					{
+						throw err;
+						json_responses = {"statusCode" : 401};
+						console.log("Error in doShowProductList");
+						res.send(json_responses);
+					}
+					else{
+
+					
+						
+						Object.keys(results).forEach(function(user) {
+							Object.keys(userDetails).forEach(function(card) {
+								if(userDetails[card].USER_ID == results[user].USER_ID){
+									
+									results[user].CARD_NUMBER = userDetails[card].CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER;
+
+								}
+									});
+								});
+						
+						results.CARD_NUMBER = userDetails;	
+						json_responses = {"statusCode" : 200,"results":results};
+						res.send(json_responses);
+					}
+				});
+		
+    }
+}
+    mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
+
+}
+
+exports.reviewFarmer = function(req, res) {
+	var user_id = req.session.user_id;
+	var getCustomerPendingJSON = {"USER_TYPE":2};
+
+	var callbackFunction = function (err, results) {
+           if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in doShowProductList");
+			res.send(json_responses);
+		}
+		else
+		{
+			json_responses = {"statusCode" : 200,"results":results};
+			res.send(json_responses);
+		}
+    }
+
+    mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
+ };
+
+ exports.reviewProduct = function(req, res) {
+	
+	var getProductPendingJSON = {};
+
+	console.log("review product");
+	var callbackFunction = function (err, results) {
+           if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in doShowPendingProductAprroval");
+			res.send(json_responses);
+		}
+		else
+		{
+			console.log(results);
+			json_responses = {"statusCode" : 200,"results":results};
+			res.send(json_responses);
+		}
+    }
+
+    mongo.find('PRODUCTS',getProductPendingJSON,callbackFunction);
+ };

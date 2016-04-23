@@ -75,6 +75,19 @@ app.get('/apprReqFarmer', function(req, res){
 app.get('/apprReqProduct', function(req, res){
   res.render('adminTemplates/apprReqProduct', {});
 });
+
+
+app.get('/reviewCustomer', function(req, res){
+  res.render('adminTemplates/reviewCustomer', {});
+});
+app.get('/reviewFarmer', function(req, res){
+  res.render('adminTemplates/reviewFarmer', {});
+});
+app.get('/reviewProduct', function(req, res){
+  res.render('adminTemplates/reviewProduct', {});
+});
+
+
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
@@ -100,20 +113,36 @@ app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 
 
 
-//----Admin Module for Customer-----
+//----Admin Module for Notification :  Customer-----
 app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);
 app.post('/doApproveCustomer',admin.doApproveCustomer);
 app.post('/doRejectCustomer',admin.doRejectCustomer);
 
-//----Admin Module for Farmer-----
+//----Admin Module for Notification : Farmer-----
 app.post('/doShowPendingFarmerAprroval',admin.doShowPendingFarmerAprroval);
 app.post('/doApproveFarmer',admin.doApproveFarmer);
 app.post('/doRejectFarmer',admin.doRejectFarmer);
 
-//------Admin Module for Products ----
+//------Admin Module for Notification : Products ----
 app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
 app.post('/doApproveProduct',admin.doApproveProduct);
 app.post('/doRejectProduct',admin.doRejectProduct);
+
+
+//----Admin Module for Review :  Customer-----
+app.post('/doShowAllCustomer',admin.doShowAllCustomer);
+// app.post('/doApproveCustomer',admin.doApproveCustomer);
+// app.post('/doRejectCustomer',admin.doRejectCustomer);
+app.post('/reviewFarmer',admin.reviewFarmer);
+//----Admin Module for Reveiw : Farmer-----
+// app.post('/doShowPendingFarmerAprroval',admin.doShowPendingFarmerAprroval);
+// app.post('/doApproveFarmer',admin.doApproveFarmer);
+// app.post('/doRejectFarmer',admin.doRejectFarmer);
+app.post('/reviewProduct',admin.reviewProduct);
+//------Admin Module for Review : Products ----
+// app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
+// app.post('/doApproveProduct',admin.doApproveProduct);
+// app.post('/doRejectProduct',admin.doRejectProduct);
 
 
 app.get('/productList', function(req, res){

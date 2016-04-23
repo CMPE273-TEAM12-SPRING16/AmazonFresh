@@ -94,14 +94,14 @@
               <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
                   <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a href="#">Customers<span class="badge pull-right">2</span></a>
+                     <li ng-class="activeRevCustomer" ng-click="activateMe(4)">
+                      <a href="#/reviewCust">Customers<span class="badge pull-right">2</span></a>
                     </li>
-                    <li class="">
-                      <a href="#">Farmers<span class="badge pull-right">1</span></a>
+                       <li ng-class="activeRevFarmer" ng-click="activateMe(5)">
+                      <a href="#/reviewFarmer">Farmers<span class="badge pull-right">1</span></a>
                     </li>
-                    <li class="">
-                      <a href="#">Products<span class="badge pull-right">1</span></a>
+                    <li ng-class="activeRevProduct" ng-click="activateMe(6)">
+                      <a href="#/reviewProduct">Products<span class="badge pull-right">1</span></a>
                     </li>
                   </ul>
                 </div>
