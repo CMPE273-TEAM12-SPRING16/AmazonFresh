@@ -6,6 +6,7 @@ var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 //Retrive list of products
 exports.doShowProductList = function(req, res) {
 	var user_id = req.session.user_id;
+	console.log(req.session.firstName);
 	var getProductJSON = {"FARMER_ID" : user_id}
 
 	var callbackFunction = function (err, results) {

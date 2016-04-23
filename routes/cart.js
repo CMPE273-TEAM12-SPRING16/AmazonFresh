@@ -12,20 +12,20 @@ exports.addToCart = function(req,res)
 
         	productName = results.PRODUCT_NAME;
         	price = results.PRICE;
-        	fileName = results.filename; //change filename
+        	fileName = results.FILE_NAME; //change filename
         	qty = 1;
 
         	mongo.findOne("CART",{"USER_ID":req.session.userId},function (cartErr, cartResults) {
         		console.log("Cart Results"+JSON.stringify(cartResults));
 
 		        if(cartResults)
-		        {	
+		        {
 		        	console.log("reached 1");
 		        	var cartProductDetails = cartResults.CART_PRODUCTS;
 		        	console.log("Length cartProductDetails"+cartProductDetails.length);
-			        if (cartProductDetails.length>0) 
+			        if (cartProductDetails.length>0)
 			        {
-			        	
+
 			        	console.log("reached 2");
 			        	var i = 0;
 			        	var found = false;

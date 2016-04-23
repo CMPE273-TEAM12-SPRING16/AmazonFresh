@@ -16,8 +16,6 @@ var users=require('./routes/users');
 var app = express();
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
-	resave: false,  //don't save session if unmodified
-	saveUninitialized: false,	// don't create session until something stored
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000,
 	store: new mongoStore({
@@ -37,26 +35,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 //All GET methods...........................//
 app.get('/', function(req, res){
 	res.render('index', {});
-});                     // Change this..........................................//
+});
+app.post('/', function(req, res){
+	res.render('index', {});
+});
+
+app.get('/newSignUp', function(req, res){
+	res.redirect('/#newSignUp');
+});
 
 app.get('/product', function(req, res){
   res.render('productHome', {});
 });
 
+app.get('/checkout', function(req, res){
+	res.render('checkout', {});
+});
 
-
-//app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
 app.get('/redirectToHomepage',users.redirectToHomepage);
-//app.get('/addProduct',product.addProduct);
 
 app.get('/productHome',product.productHome);
 
 app.get('/signup',users.signup);
 app.get('/farmerSignup', users.farmerSignup);
-app.get('/login',users.login);
 
 app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
 
@@ -72,6 +76,34 @@ app.get('/apprReqFarmer', function(req, res){
 app.get('/apprReqProduct', function(req, res){
   res.render('adminTemplates/apprReqProduct', {});
 });
+
+
+
+app.get('/reviewCustomer', function(req, res){
+  res.render('adminTemplates/reviewCustomer', {});
+});
+app.get('/reviewFarmer', function(req, res){
+  res.render('adminTemplates/reviewFarmer', {});
+});
+app.get('/reviewProduct', function(req, res){
+  res.render('adminTemplates/reviewProduct', {});
+});
+
+
+
+app.get('/deliveryDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/deliveryDetails', {});
+});
+app.get('/paymentDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/paymentDetails', {});
+});
+app.get('/reviewDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/reviewDetails', {});
+});
+app.get('/confirmDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/confirmDetails', {});
+});
+
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
@@ -97,41 +129,55 @@ app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 
 
 
-//----Admin Module for Customer-----
+//----Admin Module for Notification :  Customer-----
 app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);
 app.post('/doApproveCustomer',admin.doApproveCustomer);
 app.post('/doRejectCustomer',admin.doRejectCustomer);
 
-//----Admin Module for Farmer-----
+//----Admin Module for Notification : Farmer-----
 app.post('/doShowPendingFarmerAprroval',admin.doShowPendingFarmerAprroval);
 app.post('/doApproveFarmer',admin.doApproveFarmer);
 app.post('/doRejectFarmer',admin.doRejectFarmer);
 
-//------Admin Module for Products ----
+//------Admin Module for Notification : Products ----
 app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
 app.post('/doApproveProduct',admin.doApproveProduct);
 app.post('/doRejectProduct',admin.doRejectProduct);
 
 
-app.get('/productList', function(req, res){
+//----Admin Module for Review :  Customer-----
+app.post('/doShowAllCustomer',admin.doShowAllCustomer);
+// app.post('/doApproveCustomer',admin.doApproveCustomer);
+// app.post('/doRejectCustomer',admin.doRejectCustomer);
+app.post('/reviewFarmer',admin.reviewFarmer);
+//----Admin Module for Reveiw : Farmer-----
+// app.post('/doShowPendingFarmerAprroval',admin.doShowPendingFarmerAprroval);
+// app.post('/doApproveFarmer',admin.doApproveFarmer);
+// app.post('/doRejectFarmer',admin.doRejectFarmer);
+app.post('/reviewProduct',admin.reviewProduct);
+//------Admin Module for Review : Products ----
+// app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
+// app.post('/doApproveProduct',admin.doApproveProduct);
+// app.post('/doRejectProduct',admin.doRejectProduct);
 
+
+app.get('/productList', function(req, res){
   res.render('farmerTemplate/productList', {});
 });
 
 app.get('/myProfile', function(req, res){
-
   res.render('farmerTemplate/editFarmerDetails', {});
 });
+
+app.get('/addProductTemplate', function(req, res) {
+	res.render('farmerTemplate/addProduct', {});
+})
 
 app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
+app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
 
-
-app.get('/addProductTemplate', function(req, res) {
-	console.log("AddProduct");
-
-})
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));

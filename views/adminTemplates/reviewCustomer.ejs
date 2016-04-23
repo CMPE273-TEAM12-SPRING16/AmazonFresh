@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <div class="row">
+        <div class="row" ng-show="{{customer.IS_APPROVED}} == 1">
           <button class="btn btn-success btn-xs btn-theme btn-theme-narrow pull-right" ng-click="approveCustomer(customer.USER_ID)">
             <span class="pull-left">Approve</span>
             <span class="badge pull-right">
@@ -65,7 +65,7 @@
             </span>
           </button>
         </div>
-        <div class="row">
+        <div class="row" ng-show="{{customer.IS_APPROVED}} == 2">
           <button class="btn btn-danger btn-xs btn-theme btn-theme-narrow pull-right" ng-click="rejectCustomer(customer.USER_ID)">
             <span class="pull-left">Reject</span>
             <span class="badge pull-right">
