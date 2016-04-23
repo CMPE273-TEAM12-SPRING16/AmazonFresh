@@ -82,7 +82,8 @@ exports.doAddProduct = function(req,res)
 						"NOOFUNITS" : noOfUnits,
 						"UNIT" : unit,
 						"PRODUCT_DESCRIPTION" : productDescription,
-						"FILE_NAME" : uploadFilename
+						"FILE_NAME" : uploadFilename,
+						"IS_APPROVED" : 0
 						};
              		mongo.insertOne('PRODUCTS',insertJSON,callbackFunction);
              	}
