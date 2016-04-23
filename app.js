@@ -47,14 +47,14 @@ app.get('/product', function(req, res){
   res.render('productHome', {});
 });
 
+app.get('/checkout', function(req, res){
+	res.render('checkout', {});
+});
 
-
-//app.get('/farmerHome', farmer.farmerHome);
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
 app.get('/redirectToHomepage',users.redirectToHomepage);
-//app.get('/addProduct',product.addProduct);
 
 app.get('/productHome',product.productHome);
 
@@ -75,6 +75,23 @@ app.get('/apprReqFarmer', function(req, res){
 app.get('/apprReqProduct', function(req, res){
   res.render('adminTemplates/apprReqProduct', {});
 });
+
+app.get('/deliveryDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/deliveryDetails', {});
+});
+app.get('/paymentDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/paymentDetails', {});
+});
+app.get('/reviewDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/reviewDetails', {});
+});
+app.get('/confirmDetailsCheckout', function(req, res){
+  res.render('checkOutTemplates/confirmDetails', {});
+});
+
+
+
+
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });

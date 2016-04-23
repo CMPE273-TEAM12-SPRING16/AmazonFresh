@@ -1,0 +1,70 @@
+
+          <h3>
+            Payment
+          </h3>
+
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <div class="thumbnail thumbnail-credit-card">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="credit-card-labels">Card Number</label>
+                      <input type="text" class="form-control" placeholder="Card Number" ng-model="creditCardNumber"/>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="credit-card-labels">Name on the Card</label>
+                      <input type="text" class="form-control" placeholder="Name on the Card" ng-model="creditCardName"/>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group">
+
+                    <div class="col-md-3">
+                      <label class="credit-card-labels">Expiry Date</label>
+                      <select class="form-control" id="sel1" ng-model="expiryMonth">
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option selected="true">05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label class="credit-card-labels">&nbsp;</label>
+                      <select class="form-control" id="sel1" ng-model="expiryYear">
+                        <option selected="true">2016</option>
+                        <option>2017</option>
+                        <option>2018</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                      <label class="credit-card-labels">CVV</label>
+                      <input type="password" class="form-control" placeholder="CVV" ng-model="cvv" />
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
