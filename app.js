@@ -181,8 +181,6 @@ app.get('/addProductTemplate', function(req, res) {
 
 app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
-
-app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
 app.post('/addProductReview', product.addProductReview);
 
 
