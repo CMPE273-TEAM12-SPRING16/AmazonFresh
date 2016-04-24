@@ -1,6 +1,7 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
 productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
 {
+        $scope.reviewReq = true;
         $scope.cart = [];
         $scope.isLoggedIn = false;
         $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
@@ -15,7 +16,6 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
             }).then(function (res) {
                 $scope.displayProductDetails = res.data.productDetails;
-                $scope.farmerName=res.data.farmerName;
             });
 
             $http({
@@ -118,5 +118,32 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
             //   console.log($scope.QTY);
             // }
 
+            $scope.addReview = function(product_id,avg_rating){
+                console.log("product_id"+avg_rating);
+                
+                 $http({
+                    method: "POST",
+                    url: '/addProductReview',
+                    data: {
+                        "avg_rating" : avg_rating,
+                        "product_id" : product_id,
+                        "ratings" : $scope.rating,
+                        "title" : $scope.title,
+                        "review" : $scope.review
+                    }
+                }).then(function (res) {
+                    $scope.firstName = res.data.firstName;
+                    $scope.lastName = res.data.lastName;
+                    $scope.email = res.data.email;
+                    $scope.city = res.data.city;
+                    $scope.userId = res.data.userId;
+                    if(res.data.firstName)
+                    {
+                        $scope.isLoggedIn = true;
+                    }
+            },function(err){
+                console.log(err);
+            });
+            }
     }
 ]);

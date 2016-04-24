@@ -165,8 +165,8 @@
               <span class="product-page-other-products-by">Other products by </span>
               <span class="product-page-farmer-name"><a href="/farmerID">{{farmerName}}</a></span>
               <div class="product-page-ratings-img">
-                <img src="../images/support_images/0-stars.png"/>
-                (0)
+                <img src="../images/support_images/{{displayProductDetails.AVG_RATING}}-stars.png"/>
+                ({{displayProductDetails.AVG_RATING}})
               </div>
               <div class="product-page-price">
                 <span class="price">{{displayProductDetails.PRICE | currency}}</span>
@@ -199,39 +199,21 @@
                 <h3>Reviews & Ratings</h2>
                   <!-- if no reviews -->
                   <h6>There are no customer reviews yet.  Add a Review</h6>
-                  <button id="modal-649609" href="#modal-container-649609" role="button" data-toggle="modal" class="btn btn-xs">Add Review</button>
+                  <button id="modal-649609" href="#modal-container-649609" role="button" data-toggle="modal" class="btn btn-xs" >Add Review</button>
 
                   <!-- If reviews are available -->
 
-                  <div class="product-page-user-reviews">
-                    <span><img src="../images/support_images/3-stars.png" /></span>
-                    <span><strong>Really Awesome product.</strong></span>
+                  <div class="product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS">
+                   <hr class="product-page-seperator">
+                    <span><img src="../images/support_images/{{review.RATINGS}}-stars.png" /></span>
+                    <span><strong>{{review.TITLE}}</strong></span>
                     <p class="product-page-review-by">
-                      By <a>John Doe</a> on April 18, 2016
+                      By <a>{{review.CUSTOMER_NAME}}</a> on {{review.TIMESTAMP}}
                     </p>
                     <p>
-                      This is the platonic form of a USB sound card. It works well in Windows XP and Mac OS X, has clearly labeled inputs, decent build quality, and has no unnecessary features, at a very affordable price. We bought it to use stereo jack headsets with Skype on Mac computers that don't have microphone jacks, and this adapter fits our needs exactly. This also resolves a problem we have when using Windows XP on our iMacs - Apple doesn't provide the correct sound drivers in Boot Camp, and the built-in iMac headphone jack doesn't work in Windows - the USB adapter works perfectly.
+                      {{review.REVIEW}}
                     </p>
-                  </div>
-                  <div class="product-page-user-reviews">
-                    <span><img src="../images/support_images/3-stars.png" /></span>
-                    <span><strong>Really Awesome product.</strong></span>
-                    <p class="product-page-review-by">
-                      By <a>John Doe</a> on April 18, 2016
-                    </p>
-                    <p>
-                      This is the platonic form of a USB sound card. It works well in Windows XP and Mac OS X, has clearly labeled inputs, decent build quality, and has no unnecessary features, at a very affordable price. We bought it to use stereo jack headsets with Skype on Mac computers that don't have microphone jacks, and this adapter fits our needs exactly. This also resolves a problem we have when using Windows XP on our iMacs - Apple doesn't provide the correct sound drivers in Boot Camp, and the built-in iMac headphone jack doesn't work in Windows - the USB adapter works perfectly.
-                    </p>
-                  </div>
-                  <div class="product-page-user-reviews">
-                    <span><img src="../images/support_images/3-stars.png" /></span>
-                    <span><strong>Really Awesome product.</strong></span>
-                    <p class="product-page-review-by">
-                      By <a>John Doe</a> on April 18, 2016
-                    </p>
-                    <p>
-                      This is the platonic form of a USB sound card. It works well in Windows XP and Mac OS X, has clearly labeled inputs, decent build quality, and has no unnecessary features, at a very affordable price. We bought it to use stereo jack headsets with Skype on Mac computers that don't have microphone jacks, and this adapter fits our needs exactly. This also resolves a problem we have when using Windows XP on our iMacs - Apple doesn't provide the correct sound drivers in Boot Camp, and the built-in iMac headphone jack doesn't work in Windows - the USB adapter works perfectly.
-                    </p>
+
                   </div>
             </div>
           </div>
@@ -327,6 +309,7 @@
 							</h4>
 						</div>
 						<div class="modal-body">
+            <form name="reviewForm">
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -334,11 +317,11 @@
                       Your Rating
                     </label>
                     <fieldset class="rating">
-                      <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                      <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                      <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                      <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                      <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                      <input type="radio" id="star5" ng-model="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                      <input type="radio" id="star4" ng-model="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                      <input type="radio" id="star3" ng-model="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                      <input type="radio" id="star2" ng-model="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                      <input type="radio" id="star1" ng-model="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
                     </fieldset>
                   </div>
                 </div>
@@ -359,28 +342,30 @@
                     <label for="review">
                       Review
                     </label>
-                    <textarea class="form-control textbox-address"  placeholder="Write your review here..." ng-model="review"></textarea>
+                    <textarea class="form-control textbox-address"  placeholder="Write your review here..." ng-model="review"  ng-required="reviewReq;"></textarea>
+                    <span ng-show="reviewForm.review.$touched && reviewForm.review.$invalid">Please enter the review.</span>
                   </div>
                 </div>
               </div>
 						</div>
-						<grammarly>
+						
 							<div class="_9b5ef6-textarea_btn _9b5ef6-not_focused">
 								<div class="_9b5ef6-transform_wrap">
 									<div class="_9b5ef6-status">
 									</div>
 								</div>
 							</div>
-						</grammarly>
+						
 						<div class="modal-footer">
 
 							<button type="button" class="btn btn-default" data-dismiss="modal">
 								Cancel
 							</button>
-							<button type="button" class="btn btn-primary btn-primary-theme" data-dismiss="modal">
+							<button type="submit" class="btn btn-primary btn-primary-theme" data-dismiss="modal" ng-disabled="reviewForm.$invalid" ng-click="addReview(displayProductDetails._id,displayProductDetails.AVG_RATING)">
 								Submit Review
 							</button>
 						</div>
+            </form>
 					</div>
 
 				</div>

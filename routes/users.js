@@ -21,7 +21,7 @@ function login(req, res) {
 
 function doLogin(req, res) {
 
-  /*var email = req.param("email");
+  var email = req.param("email");
   var password = req.param("password");
 
 console.log(email);
@@ -73,7 +73,7 @@ console.log(email);
 
 
 
-  }, getLoginDetails);*/
+  }, getLoginDetails);
   console.log("hellllo");
 
 
