@@ -317,17 +317,13 @@ hr.product-page-seperator{
 .bill-cart-item-name{
   font-size: 12px;
 }
-.bill-cart-qty{
-  height: 10% !important;
-  width: 80% !important;
-  padding: 0px !important;
-}
+
 .bill-cart-qty-title{
   font-size: 11px;
 }
 .bill-cart-qty-pad{
   margin-top: 0px !important;
-  padding-top: 3% !important;
+  padding-top: 0px !important;
   padding-right: 0px !important;
 }
 .bill-cart-item-pad{
@@ -338,6 +334,43 @@ hr.product-page-seperator{
   padding-right: 0px !important;
 }
 
+.input-group-vertical {
+  margin-bottom: 0px;
+}
+
+.bill-cart-qty-btn{
+  background-color: #EEEEEE !important;
+  color: #333333 !important;
+  height: 15px !important;
+  width: 25px !important;
+  padding: 0px 2px 0px 2px !important;
+  border-radius: 2px !important;
+}
+.bill-cart-qty-btn.focus,
+.bill-cart-qty-btn:focus{
+  border-style: none !important;
+}
+.bill-cart-qty-btn:hover{
+  border-style: none !important;
+}
+
+
+.bill-cart-qty-btn > span {
+  font-size: 7px !important;
+}
+
+.bill-cart-qty {
+    color: #333333 !important;
+    text-align: center !important;
+    font-size: 12px !important;
+    padding: 0px 1px 0px 1px !important;
+    margin: 0px 0px 0px 0px !important;
+    width: 25px !important;
+    height: 18px !important;
+}
+.gly-plus-minus{
+  top: -5px !important;
+}
 
 .add-prod-description{
   height: 100px !important;
@@ -468,14 +501,6 @@ hr.seperator-line{
 }
 
 
-
-
-
-
-
-
-
-
 .bs-wizard {margin-top: 0px;}
 
 /*Form Wizard*/
@@ -498,3 +523,63 @@ hr.seperator-line{
 .bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
 .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
 /*END Form Wizard*/
+
+
+
+/*Rating*/
+.rating {
+    float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:150%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #a9e236;
+    text-shadow:1px 1px #202d06, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: #a9e236;
+    text-shadow:1px 1px #202d06, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #a9e236;
+    text-shadow:1px 1px #202d06, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
+/*Rating Over*/

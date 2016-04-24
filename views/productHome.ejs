@@ -34,7 +34,7 @@
 
   <link rel="shortcut icon" href="../images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="../images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
-  <title>Home | {{displayProductDetails.PRODUCT_NAME}}</title>
+  <title>Amazon Fresh</title>
 </head>
 
 <body ng-controller="ProductDisplayAngular" ng-cloak>
@@ -199,7 +199,7 @@
                 <h3>Reviews & Ratings</h2>
                   <!-- if no reviews -->
                   <h6>There are no customer reviews yet.  Add a Review</h6>
-                  <button class="btn btn-xs">Add Review</button>
+                  <button id="modal-649609" href="#modal-container-649609" role="button" data-toggle="modal" class="btn btn-xs">Add Review</button>
 
                   <!-- If reviews are available -->
 
@@ -271,14 +271,17 @@
               <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
                 <div class="row">
                   <div class="col-md-2 bill-cart-qty-pad">
-                    <span class="bill-cart-qty-title">Qty</span>
-                    <select class="form-control bill-cart-qty" ng-model="item.QTY">
-                      <option ng-selected="item.QTY == 1">1</option>
-                      <option ng-selected="item.QTY == 2">2</option>
-                      <option ng-selected="item.QTY == 3">3</option>
-                      <option ng-selected="item.QTY == 4">4</option>
-                      <option ng-selected="item.QTY == 5">5</option>
-                    </select>
+                    <fieldset class="input-group-vertical">
+                      <button class="btn btn-default bill-cart-qty-btn" ng-click="updateQTY('plus')">
+                        <span class="glyphicon glyphicon-plus gly-plus-minus"></span>
+                      </button>
+                      <div class="">
+                        <input type="text" class="form-control bill-cart-qty" ng-model="QTY"/>
+                      </div>
+                      <button class="btn btn-default bill-cart-qty-btn" ng-click="updateQTY('minus')">
+                        <span class="glyphicon glyphicon-minus gly-plus-minus"></span>
+                      </button>
+                    </fieldset>
                   </div>
                   <div class="col-md-8 bill-cart-item-pad">
                     <div class="media">
@@ -306,6 +309,86 @@
   </div>
 </div>
 
+<!-- __________________________________________REVIEW MODAL_____________________________________________ -->
+<div class="row">
+		<div class="col-md-12">
+			 <a></a>
+
+			<div class="modal fade" id="modal-container-649609" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								Write a Review for {{displayProductDetails.PRODUCT_NAME}}
+							</h4>
+						</div>
+						<div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="rating">
+                      Your Rating
+                    </label>
+                    <fieldset class="rating">
+                      <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                      <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                      <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                      <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                      <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="title">
+                      Title
+                    </label>
+                    <input type="text" class="form-control" placeholder="Title..." ng-model="title"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="review">
+                      Review
+                    </label>
+                    <textarea class="form-control textbox-address"  placeholder="Write your review here..." ng-model="review"></textarea>
+                  </div>
+                </div>
+              </div>
+						</div>
+						<grammarly>
+							<div class="_9b5ef6-textarea_btn _9b5ef6-not_focused">
+								<div class="_9b5ef6-transform_wrap">
+									<div class="_9b5ef6-status">
+									</div>
+								</div>
+							</div>
+						</grammarly>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								Cancel
+							</button>
+							<button type="button" class="btn btn-primary btn-primary-theme" data-dismiss="modal">
+								Submit Review
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
 
 
 <!-- _________________________________________________LOGIN MODAL____________________________________________ -->

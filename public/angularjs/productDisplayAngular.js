@@ -107,5 +107,16 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
             }
 
+            // $scope.updateQTY = function(operation){
+            //   if(operation == "plus"){
+            //     $scope.QTY = $scope.QTY + 1;
+            //   } else if(operation == "minus") {
+            //     if($scope.QTY != 0){
+            //       $scope.QTY = $scope.QTY - 1;
+            //     }
+            //   }
+            //   console.log($scope.QTY);
+            // }
+
     }
 ]);
