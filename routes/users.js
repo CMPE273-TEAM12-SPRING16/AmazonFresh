@@ -21,7 +21,7 @@ function login(req, res) {
 
 function doLogin(req, res) {
 
-  var email = req.param("email");
+  /*var email = req.param("email");
   var password = req.param("password");
 
 console.log(email);
@@ -54,7 +54,9 @@ console.log(email);
           req.session.ssn = resultsMongo.SSN;
           var jsonResponse = {"statusCode":200};
 
-          res.send(jsonResponse);
+          var userType={"userType":results[0].USERTYPE};
+          console.log(results[0].USERTYPE+"user type is");
+          res.send(jsonResponse,userType);
         }
         else
         {
@@ -75,7 +77,8 @@ console.log(email);
 
 
 
-  }, getLoginDetails);
+  }, getLoginDetails);*/
+  console.log("hellllo");
 
 
 }
@@ -114,7 +117,6 @@ console.log(email);
           console.log(results);
           console.log(results.insertId);
           var userId = results.insertId;
-          var email = results.email;
           req.session.userType = userType;
           req.session.userId = userId;
           console.log("sql values inserted");
