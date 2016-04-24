@@ -224,20 +224,6 @@ exports.getProductDetails=function(req,res)
 		else {
 			console.log(results.PRODUCT_NAME);
 			res.send({"productDetails":results});
-			// var farmerId = {"USER_ID":results.FARMER_ID};
-
-			// var callbackFunction = function (err, result) {
-			// 	var json_responses;
-
-			// 	if (err) {
-			// 		console.log(err);
-			// 	}
-			// 	else {
-			// 		var farmerName=result.FIRST_NAME+" "+ result.LAST_NAME;
-			// 		res.send({"productDetails":results,"farmerName":farmerName});
-			// 	}
-			// }
-			// mongo.findOne("USER_DETAILS",farmerId, callbackFunction);
 		}
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
