@@ -293,7 +293,8 @@
                             <div class="a-row a-spacing-base">
                               <label for="ap_email">Email ID</label>
                               <input class="a-input-text a-span12 auth-autofocus auth-required-field"
-                              id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email">
+                                     id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
+                              <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email is required</span>
                             </div>
                             <div class="a-section a-spacing-large">
                               <div class="a-row">
@@ -303,10 +304,11 @@
                                 <div class="a-column a-span7 a-text-right a-span-last">
                                   <a class="a-spacing-null a-link-normal" href=
                                   "/forgotPassword"
-                                  id="auth-fpp-link-bottom">Forgot your password?</a>
+                                     id="auth-fpp-link-bottom">Forgot your password?</a>
                                 </div>
                               </div>
-                              <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password">
+                              <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password" required>
+                              <span style="color:red" ng-show="signIn.password.$error.required && signIn.password.$dirty">Password is required</span>
                               <div  ng-hide="invalidLogin">
                                 <strong>Incorrect username or password</strong>
                               </div>
