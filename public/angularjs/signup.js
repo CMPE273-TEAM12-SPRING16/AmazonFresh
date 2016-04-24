@@ -48,7 +48,7 @@ signUp.controller('signup',function($scope,$http)
             if(data.statusCode==200)
             {
                 console.log("Hello");
-                window.location.assign("/newSignUp");
+                window.location.assign("/newSignUpCustomer");
             }
         })
             .error(function(error) {

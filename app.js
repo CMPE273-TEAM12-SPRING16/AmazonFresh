@@ -40,8 +40,11 @@ app.post('/', function(req, res){
 	res.render('index', {});
 });
 
-app.get('/newSignUp', function(req, res){
-	res.redirect('/#newSignUp');
+app.get('/newSignUpCustomer', function(req, res){
+	res.redirect('/#newSignUpCustomer');
+});
+app.get('/newSignUpFarmer', function(req, res){
+	res.redirect('/#newSignUpFarmer');
 });
 
 app.get('/product', function(req, res){
