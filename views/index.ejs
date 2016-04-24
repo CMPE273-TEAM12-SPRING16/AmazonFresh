@@ -81,10 +81,10 @@
               <div class="col-md-10">
                 <li>
                   <div class="input-group">
-                    <input type="text" class="form-control"/>
-                    <span class="input-group-addon fa-serch-btn">
-                      <i class="fa fa-search">Go</i>
-                    </span>
+                    <input type="text" class="form-control" ng-model="searchString"/>
+                      <span class="input-group-addon fa-serch-btn">
+                        <a ng-click="doSearch()" style="color: #FFFFFF; text-decoration: none;"><i class="fa fa-search">Go</i></a>
+                      </span>
                   </div>
                 </li>
               </div>
@@ -104,7 +104,7 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-10">
-              <div class="carousel slide" id="carousel-795683">
+              <div class="carousel slide" id="carousel-795683" ng-hide="isSearch">
                 <ol class="carousel-indicators">
                   <li class="active" data-slide-to="0" data-target="#carousel-795683">
                   </li>
@@ -129,8 +129,8 @@
                   <a class="right carousel-control" href="#carousel-795683" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span></a>
                   </div>
-                  <div class="row row-margin"></div>
-                  <div class="row row-margin">
+                  <div class="row row-margin" ng-hide="isSearch"></div>
+                  <div class="row row-margin" ng-hide="isSearch">
                     <div class="col-md-3">
                       <center><hr></hr></center>
                     </div>
@@ -142,7 +142,7 @@
                     </div>
                   </div>
 
-                  <div class="row row-margin">
+                  <div class="row row-margin"  ng-hide="isSearch">
                     <div class="col-md-4">
                       <div class="thumbnail">
                         <div class="thumbnail-image">
@@ -170,7 +170,7 @@
                     </div>
                   </div>
 
-                  <div class="row row-margin">
+                  <div class="row row-margin"  ng-hide="isSearch">
                     <div class="col-md-4">
                       <div class="thumbnail">
                         <div class="thumbnail-image">
@@ -196,38 +196,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row row-margin">
-                    <div class="col-md-4">
-                      <div class="thumbnail">
-                        <div class="thumbnail-image">
-                          <img alt="Jams" src="images/category/tile-jam.jpg"/>
-                          <span class="img-desc">JAMS > </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="thumbnail">
-                        <div class="thumbnail-image">
-                          <img alt="Chutneys" src="images/category/tile-chutney.jpg"/>
-                          <span class="img-desc">CHUTNEYS > </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="thumbnail">
-                        <div class="thumbnail-image">
-                          <img alt="Farmbox SF" src="images/category/tile-farmboxsf.jpg"/>
-                          <span class="img-desc">FARMBOX SF > </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
 
 
-                  <div class="row row-margin">
+                  <div class="row row-margin"  ng-hide="isSearch">
                     <h4 style="color: #555555;">Shop All the Local Produce</h4>
                   </div>
-                  <div class="row pagination-bar">
+                  <div class="row pagination-bar"  ng-hide="isSearch">
                     <div class="col-md-1 nopadding">
                       <span>1 - 36 of 60</span>
                     </div>
@@ -262,14 +236,15 @@
                     </div>
                   </div>
 
-                  <div ng-controller="PaginationController">
-                  <div class="row row-margin">
+
+                  <div class="row row-margin" ng-hide="isSearch">
                     <div class="col-md-4"  ng-repeat="product in products" >
                       <div class="thumbnail thumbnail-product-pagination">
-                        <div>
+                        <div class="img-container-product-pagination">
                           <a href="/products/{{product._id}}" >
                             <img class="thumbnail-image-product-pagination" src="uploads\{{product.FILE_NAME}}" alt="">
                           </a>
+                        </div>
                           <div class="caption">
                             <h5>${{product.PRICE}}</h5>
                             <p  class="product_list_name"><a href="/products/{{product._id}}">{{product.PRODUCT_NAME}}</a></p>
@@ -289,12 +264,40 @@
                               </div>
                             </div>
                           </div>
-                        </div>
                       </div>
                     </div>
                   </div>
-                </div><!-- controller div -->
 
+                  <div class="row row-margin" ng-show="isSearch">
+                    <div class="col-md-4"  ng-repeat="product in searchedProducts" >
+                      <div class="thumbnail thumbnail-product-pagination">
+                        <div class="img-container-product-pagination">
+                          <a href="/products/{{product._id}}" >
+                            <img class="thumbnail-image-product-pagination" src="uploads\{{product.FILE_NAME}}" alt="">
+                          </a>
+                        </div>
+                          <div class="caption">
+                            <h5>${{product.PRICE}}</h5>
+                            <p  class="product_list_name"><a href="/products/{{product._id}}">{{product.PRODUCT_NAME}}</a></p>
+                            <p>Sold By <a href="">{{product.FARMER_FIRST_NAME}} {{product.FARMER_LAST_NAME}}</a></p>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <select class="form-control qty-select">
+                                  <option value="1" selected="true">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </select>
+                              </div>
+                              <div class="col-md-3" style="padding: 0px 2px 0px 2px">
+                                <button class="btn nopadding nomargin btn-primary btn-theme"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
               </div>
@@ -349,7 +352,7 @@
               <!-- show a warning modal dialog when the third party account is connected with Amazon -->
               <div class="a-section a-spacing-base auth-pagelet-container">
                 <div class="a-section">
-                  <form action="" class="a-spacing-none" id="signIn" method="post" name="signIn" novalidate="">
+                  <form class="a-spacing-none" name="signIn">
                     <div class="a-section">
                       <div class="a-box">
                         <div class="a-box-inner a-padding-extra-large">
@@ -384,7 +387,7 @@
                           <div class="a-section a-spacing-extra-large">
                             <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
 
-                              "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"  ng-disabled="signIn.$invalid"> <span aria-hidden="true" class=
+                              "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="button" ng-click="submit();"  ng-disabled="signIn.$invalid"> <span aria-hidden="true" class=
                               "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
                             </div>
 

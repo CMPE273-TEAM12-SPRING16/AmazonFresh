@@ -255,7 +255,7 @@ farmer.controller('FarmerPageController',['Upload','$scope','$http',function(Upl
         	$scope.edit_units = product.UNIT,
         	$scope.edit_price = product.PRICE,
         	$scope.edit_productDescription = product.PRODUCT_DESCRIPTION,
-        	$scope.file = product.filename
+        	$scope.file = product.FILE_NAME
         }
 
 }]);

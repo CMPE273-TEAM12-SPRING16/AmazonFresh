@@ -132,7 +132,7 @@ app.post('/minusQtyInCart',cart.minusQtyInCart);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
-
+app.post('/doSearch', product.doSearch);
 
 
 //----Admin Module for Notification :  Customer-----
@@ -183,7 +183,7 @@ app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 
 app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
-app.post('/addProductReview',product.addProductReview);
+app.post('/addProductReview', product.addProductReview);
 
 
 //Socket inplementation
