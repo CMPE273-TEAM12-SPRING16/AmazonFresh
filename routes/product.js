@@ -229,9 +229,37 @@ exports.getProductDetails=function(req,res)
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
 }
 
-exports.doFetch10Products = function(req,res){
 
-  getProductJSON = {};
+exports.addProductReview = function(req,res){
+	var product_id = new require('mongodb').ObjectID(req.param("product_id"));
+	var ratings = Number(req.param("ratings"));
+	var review = req.param("review");
+	var avgRating = Number(req.param("avg_rating"));
+	var avg = 0;
+	if(avgRating != 0){
+		avg = Math.round(ratings+avgRating)/2;
+		console.log("Avg if !0"+avg);
+	}
+	else{
+		avg = ratings;
+		console.log("Avg if 0 "+avg);
+	}
+
+
+	var title = req.param("title");
+	var date = new Date();
+	var name = req.session.firstName+" "+req.session.lastName;
+	var user_id = req.session.userId;
+	var reviewJSON = {
+		"RATINGS" : ratings,
+		"TITLE" : title,
+		"REVIEW" : review,
+		"CUSTOMER_NAME" : name,
+		"TIMESTAMP" : date,
+		"USER_ID" : user_id
+	}
+ 	var productWhereJSON = {"_id" : product_id};
+	var productSetJSON = {$push : {"REVIEW_DETAILS" : reviewJSON}};
 	var callbackFunction = function (err, results) {
            if(err)
 		{
@@ -242,11 +270,26 @@ exports.doFetch10Products = function(req,res){
 		}
 		else
 		{
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
+			console.log("---->>>>"+results);
+			var updateAvgRating = {$set : {"AVG_RATING" : avg}};
+			mongo.updateOne('PRODUCTS',productWhereJSON,updateAvgRating,function(err,reviews){
+				if(err){
+					throw err;
+					json_responses = {"statusCode" : 401};
+					console.log("Error in doShowProductList");
+					res.send(json_responses);
+				}
+				else{
+					console.log("----->>>> send "+reviews.AVG_RATING);
+					json_responses = {"statusCode" : 200,"results":reviews};
+					res.send(json_responses);
+				}
+
+
+		});
 		}
     }
+    mongo.updateOne('PRODUCTS',productWhereJSON,productSetJSON,callbackFunction);
 
-    mongo.find('PRODUCTS',getProductJSON,callbackFunction);
 
 }
