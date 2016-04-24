@@ -10,7 +10,10 @@ app.controller('LoginController',function($scope,$http)
 
     $scope.submit=function()
     {
+
+
       console.log($scope.email);
+
         $http({
 
             method:"POST",
@@ -22,6 +25,7 @@ app.controller('LoginController',function($scope,$http)
 
         }).success(function(data)
         {
+
           if(data.statusCode == 200)
           {
               console.log("After success login");
