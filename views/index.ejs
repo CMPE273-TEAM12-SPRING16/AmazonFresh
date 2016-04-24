@@ -22,11 +22,18 @@
   <script src="angularjs/indexAngular.js"></script>
 
   <script type="text/javascript">
-
   $(window).load(function(){
     var url = window.location.href;
-    if(url.indexOf('#newSignUp') != -1) {
+    if(url.indexOf('#newSignUpCustomer') != -1) {
       $('#newSignUpModal').modal('show');
+    }
+  });
+  </script>
+  <script type="text/javascript">
+  $(window).load(function(){
+    var url = window.location.href;
+    if(url.indexOf('#newSignUpFarmer') != -1) {
+      $('#newSignUpFarmerModal').modal('show');
     }
   });
   </script>
@@ -407,7 +414,7 @@
   </div>
 
   <!-- After Signup Modal -->
-  <div class="modal fade" id="newSignUpModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="newSignUpCustomerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -432,12 +439,37 @@
           </button>
         </div>
       </div>
-
     </div>
-
   </div>
 
+  <!-- After Signup Modal -->
+  <div class="modal fade" id="newSignUpFarmerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
 
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            ×
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            <center>Welcome to <img class="logo-modal" src="images/support_images/af-logo-black.png"/></center>
+          </h4>
+        </div>
+        <div class="modal-body">
+          <center>
+            <p><h3>Please, give us a few hours to verify your account.</h3></p>
+            <p><h4>Meanwhile, get your produces ready..!!</h4></p>
+          </center>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" data-dismiss="modal" class="btn btn-primary btn-primary-theme">
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

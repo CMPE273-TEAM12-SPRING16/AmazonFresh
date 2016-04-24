@@ -10,7 +10,7 @@ app.controller('LoginController',function($scope,$http)
 
     $scope.submit=function()
     {
-  console.log($scope.email);
+      console.log($scope.email);
         $http({
 
             method:"POST",
