@@ -211,12 +211,12 @@
                     </label>
 
 
-                    <input type="text" class="form-control" id ="zip" name="zip" placeholder="Zip" ng-model="zip"  autocomplete="on"
-                           autofocus aria-required="true"  ng-maxlength=6 ng-minlength="6" ng-pattern="/[0-9]/"required/>
+                    <input type="text" class="form-control" id ="zip" name="zip" placeholder="5 digit zip code" ng-model="zip"  autocomplete="on"
+                           autofocus aria-required="true"  ng-maxlength=5 ng-minlength="5" ng-pattern="/^\d{5}$/"required/>
                     <span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 6 digit long</span>
+                      <span style="color:red" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 digit long</span>
                       <span style="color:red" ng-show="signupForm.zip.$error.required && signupForm.zip.$dirty">Zip code is required</span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.pattern">Zip code should contain numbers only </span>
+                      <span style="color:red" ng-show="signupForm.zip.$error.pattern">Invalid zip code </span>
                     </span>
 
                   </div>
@@ -308,7 +308,7 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-3">
                           <label class="credit-card-labels">CVV</label>
-                          <input type="password" class="form-control" placeholder="CVV" name="cvv" id="cvv" ng-model="cvv" autocomplete=off ng-minlength=3 ng-maxlength=3 maxlength=3 ng-pattern="/[0-9]/" required />
+                          <input type="password" class="form-control" placeholder="CVV" name="cvv" id="cvv" ng-model="cvv" autocomplete=off ng-minlength=3 ng-maxlength=3 maxlength=3 ng-pattern=" /^\d{3}$/" required />
                          <span>
                            <span style="color:red" ng-show="signupForm.cvv.$error.maxlength || signupForm.cvv.$error.minlength">cvv number must be 3 digit long</span>
                          <span style="color:red" ng-show="signupForm.cvv.$error.pattern">Numbers only</span>

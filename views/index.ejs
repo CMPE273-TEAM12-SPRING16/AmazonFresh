@@ -357,7 +357,8 @@
                           <div class="a-row a-spacing-base">
                             <label for="ap_email">Email ID</label>
                             <input class="a-input-text a-span12 auth-autofocus auth-required-field"
-                            id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email">
+                            id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
+                            <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email is required</span>
                           </div>
                           <div class="a-section a-spacing-large">
                             <div class="a-row">
@@ -370,7 +371,8 @@
                                 id="auth-fpp-link-bottom">Forgot your password?</a>
                               </div>
                             </div>
-                            <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password">
+                            <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password" required>
+                            <span style="color:red" ng-show="signIn.password.$error.required && signIn.password.$dirty">Password is required</span>
                             <div  ng-hide="invalidLogin">
                               <strong>Incorrect username or password</strong>
                             </div>
@@ -382,7 +384,7 @@
                           <div class="a-section a-spacing-extra-large">
                             <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
 
-                              "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"> <span aria-hidden="true" class=
+                              "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"  ng-disabled="signIn.$invalid"> <span aria-hidden="true" class=
                               "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
                             </div>
 
