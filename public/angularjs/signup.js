@@ -73,3 +73,4 @@ signUp.controller('signup',function($scope,$http,$rootScope)
     }
 
 });
+

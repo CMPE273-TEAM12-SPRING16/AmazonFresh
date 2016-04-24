@@ -1,8 +1,10 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
 productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
 {
-    $scope.cart = [];
+        $scope.cart = [];
         $scope.isLoggedIn = false;
+        $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
+
             $http({
 
                 method: "POST",
@@ -57,24 +59,25 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                     }).success(function(data){
                         if(data.statusCode==401)
                             {
-                            
+
                             }
                         else
-                            {   
+                            {
                                 var length = $scope.cart.length;
+                                $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-enabled";
                                 $scope.cart[length] = {"PRODUCT_ID" : $scope.displayProductDetails.PRODUCT_ID,
                                                         "PRODUCT_NAME" : $scope.displayProductDetails.PRODUCT_NAME,
                                                         "PRICE" : $scope.displayProductDetails.PRICE,
                                                         "QTY" : 1,
-                                                        "FILE_NAME" : $scope.displayProductDetails.filename}; //change this
+                                                        "FILE_NAME" : $scope.displayProductDetails.FILE_NAME}; //change this
                             }
                     }).error(function(error){
-                        
+
             });
-            } 
+            }
 
             $scope.removeItemFromCart = function(index){
-                
+
                 $http({
                     method:"POST",
                     url:"/removeItemFromCart",
@@ -84,28 +87,25 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                     }).success(function(data){
                         if(data.statusCode==401)
                             {
-                            
+
                             }
                         else
                             {
-                             
+
                             }
                     }).error(function(error){
-                        
+
                 });
 
                 console.log(index);
-                if($scope.cart.length == 1){$scope.cart =[]; }
-                $scope.cart = $scope.cart.splice(index-1,1); //check this one
+                if($scope.cart.length == 1){
+                  $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
+                  $scope.cart =[];
+                 }
+                var length = scope.cart.length;
+                $scope.cart = $scope.cart.splice(index,length-1); //check this one
 
-            } 
-
-    }
-]);
-
-productDisplayAngular.controller("LoggedInUserDetails",['$scope','$http',function($scope,$http)
-    {
-            
+            }
 
     }
 ]);

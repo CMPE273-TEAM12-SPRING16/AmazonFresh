@@ -10,7 +10,9 @@ app.controller('LoginController',function($scope,$http)
 
     $scope.submit=function()
     {
-     console.log("try");
+
+  console.log($scope.email);
+
         $http({
 
             method:"POST",
@@ -22,31 +24,15 @@ app.controller('LoginController',function($scope,$http)
 
         }).success(function(data)
         {
-            console.log(data.statusCode+"status code");
-            console.log(data.userType+"user type is");
-            window.location.assign("/signup");
-/*          if(data.statusCode == 200)
+
+          if(data.statusCode == 200)
           {
-              console.log(data.userType);
               console.log("After success login");
-
-              if(data.userType=0)
-              {
-                  window.location.assign("/adminHome");
-              }
-              else if(data.userType=1)
-              {
-                  window.location.assign("/");
-              }
-              else if(data.userType=2)
-              {
-                  window.location.assign("/farmerHome");
-              }
-
+              window.location.assign("/");
           }else if (data.statusCode == 401) {
                 $scope.invalidLogin = false;
                 $scope.unexpectedError = true;
-            }*/
+            }
 
         }).error(function(error) {
                 $scope.unexpectedError = false;
