@@ -166,6 +166,32 @@ exports.doDeleteProduct = function(req,res){
 
 };
 
+exports.doSearch = function(req, res){
+
+  var searchString = req.param("searchString");
+
+  mongo.searchIt('PRODUCTS', searchString, function(err,searchRes){
+
+    if(err){
+      throw err;
+    }
+    else
+    {
+      if(searchRes){
+        var jsonResponse = {
+          "results" : searchRes,
+          "statusCode" : 200
+        };
+        res.send(jsonResponse);
+      }
+      else {
+        jsonResponse = {result : "Nothing Found", "status" : "OK"};
+        res.send(jsonResponse);
+      }
+    }
+  });
+}
+
 exports.productHome = function(req, res)
 {
 	res.render('productHome');

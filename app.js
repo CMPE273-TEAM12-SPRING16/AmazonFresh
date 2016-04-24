@@ -129,7 +129,7 @@ app.post('/removeItemFromCart',cart.removeItemFromCart);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
-
+app.post('/doSearch', product.doSearch);
 
 
 //----Admin Module for Notification :  Customer-----
