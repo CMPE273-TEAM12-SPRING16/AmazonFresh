@@ -123,8 +123,6 @@
                             required />
 
 
-                    <input type="text" class="form-control" id="ssn"  name="ssn" autocomplete="on" ng-maxlength="9" ng-minlength="9" ng-pattern="/[0-9]/"
-                    placeholder="###-##-####" ng-model="ssn"/>
                     <span>
                                       <span style="color:red" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
                     <span style="color:red" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
