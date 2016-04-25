@@ -17,6 +17,22 @@
   <script href="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="angularjs/signup.js"></script>
 
+<!--------------------------------------------------------------------SCRIPT ------------------------------------------------------------>
+
+
+    <script>
+    function formatPhone(obj) {
+        var numbers = obj.value.replace(/\D/g, ''),
+            char = {0:'(',3:') ',6:' - '};
+        obj.value = '';
+        for (var i = 0; i < numbers.length; i++) {
+            obj.value += (char[i]||'') + numbers[i];
+        }
+    }
+    </script>
+
+
+
 
 </head>
 
@@ -229,8 +245,14 @@
                     <label for="exampleInputEmail">
                       Phone
                     </label>
-                    <input type="text" class="form-control"  autocomplete="on" name="phone" id="phone"
-                           autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/" required/>
+                    <!-- <input type="text" class="form-control"  autocomplete="on" name="phone" id="phone"
+                           autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/"
+                            onblur="this.value=formatPhoneNumber(this.value, false)"
+                            required/> -->
+                            <input type="text" class="form-control" autocomplete="on" name="phone" id="phone" onblur="formatPhone(this);"
+                            autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/"
+                            required />
+
                   <span>
                     <span style="color:red" ng-show="signupForm.phone.$error.maxlength || signupForm.phone.$error.minlength">Phone number must be 10 digit long</span>
                     <span style="color:red" ng-show="signupForm.phone.$error.required && signupForm.phone.$dirty">Phone number is required</span>
