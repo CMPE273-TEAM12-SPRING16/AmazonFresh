@@ -29,6 +29,9 @@ adminNgApp.config(['$routeProvider', function($routeProvider) {
 
 adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
+  $scope.noResult = false;
+
+
         $scope.showPendingCustReq = function(){
           console.log("ApprReqCustomer");
            $http({
@@ -38,11 +41,16 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-                console.log(data);
-                $scope.pendingCustomers = data.results
+              if(data.results != ""){
+                $scope.pendingCustomers = data.results;
+              }else{
+                $scope.noResult = true;
+              }
+
+
             }
         }).error(function(error) {
                 $scope.unexpectedError = false;
@@ -61,10 +69,10 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingCustReq();
             }
         }).error(function(error) {
@@ -74,7 +82,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
         }
 
         $scope.rejectCustomer = function(customer_id){
-        
+
           console.log("RejectCustomer"+customer_id);
           $http({
 
@@ -84,10 +92,10 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingCustReq();
             }
         }).error(function(error) {
@@ -95,13 +103,13 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
                 $scope.invalidLogin = true;
             });
         }
-      
+
 
 });
 
 adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
-   
+
           console.log("ApprReqFarmer");
            $http({
 
@@ -110,17 +118,21 @@ adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-              
+              if(data.results != ""){
                 $scope.pendingFarmers = data.results
+              }else{
+                $scope.noResult = true;
+              }
+
             }
         }).error(function(error) {
                 $scope.unexpectedError = false;
                 $scope.invalidLogin = true;
             });
-     
+
         $scope.approveFarmer = function(customer_id){
           console.log("approveFarmer"+customer_id);
           $http({
@@ -131,10 +143,10 @@ adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingFarmerReq();
             }
         }).error(function(error) {
@@ -144,7 +156,7 @@ adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
         }
 
         $scope.rejectFarmer = function(customer_id){
-        
+
           console.log("RejectFarmer"+customer_id);
           $http({
 
@@ -154,10 +166,10 @@ adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingFarmerReq();
             }
         }).error(function(error) {
@@ -179,11 +191,14 @@ $scope.showPendingProductReq = function(){
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-              
+              if(data.results != ""){
                 $scope.pendingProducts = data.results
+              }else{
+                $scope.noResult = true;
+              }
             }
         }).error(function(error) {
                 $scope.unexpectedError = false;
@@ -202,10 +217,10 @@ $scope.showPendingProductReq = function(){
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingProductReq();
             }
         }).error(function(error) {
@@ -215,7 +230,7 @@ $scope.showPendingProductReq = function(){
         }
 
         $scope.rejectProduct = function(product_id){
-        
+
           console.log("rejectProduct"+product_id);
           $http({
 
@@ -225,10 +240,10 @@ $scope.showPendingProductReq = function(){
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingProductReq();
             }
         }).error(function(error) {
@@ -249,7 +264,7 @@ adminNgApp.controller('ReviewCustomer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
                 console.log(data);
@@ -272,10 +287,10 @@ adminNgApp.controller('ReviewCustomer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showAllCustomer();
             }
         }).error(function(error) {
@@ -285,7 +300,7 @@ adminNgApp.controller('ReviewCustomer', function($scope,$http) {
         }
 
         $scope.rejectCustomer = function(customer_id){
-        
+
           console.log("RejectCustomer"+customer_id);
           $http({
 
@@ -295,10 +310,10 @@ adminNgApp.controller('ReviewCustomer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingCustReq();
             }
         }).error(function(error) {
@@ -306,11 +321,11 @@ adminNgApp.controller('ReviewCustomer', function($scope,$http) {
                 $scope.invalidLogin = true;
             });
         }
-      
+
 });
 
 adminNgApp.controller('ReviewFarmer', function($scope,$http) {
- 
+
            $http({
 
             method:"POST",
@@ -318,17 +333,17 @@ adminNgApp.controller('ReviewFarmer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-              
+
                 $scope.pendingFarmers = data.results
             }
         }).error(function(error) {
                 $scope.unexpectedError = false;
                 $scope.invalidLogin = true;
             });
-     
+
         $scope.approveFarmer = function(customer_id){
           console.log("approveFarmer"+customer_id);
           $http({
@@ -339,10 +354,10 @@ adminNgApp.controller('ReviewFarmer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingFarmerReq();
             }
         }).error(function(error) {
@@ -352,7 +367,7 @@ adminNgApp.controller('ReviewFarmer', function($scope,$http) {
         }
 
         $scope.rejectFarmer = function(customer_id){
-        
+
           console.log("RejectFarmer"+customer_id);
           $http({
 
@@ -362,10 +377,10 @@ adminNgApp.controller('ReviewFarmer', function($scope,$http) {
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingFarmerReq();
             }
         }).error(function(error) {
@@ -386,10 +401,10 @@ $scope.reviewProduct = function(){
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-              
+
                 $scope.pendingProducts = data.results
             }
         }).error(function(error) {
@@ -409,10 +424,10 @@ $scope.reviewProduct = function(){
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingProductReq();
             }
         }).error(function(error) {
@@ -422,7 +437,7 @@ $scope.reviewProduct = function(){
         }
 
         $scope.rejectProduct = function(product_id){
-        
+
           console.log("rejectProduct"+product_id);
           $http({
 
@@ -432,10 +447,10 @@ $scope.reviewProduct = function(){
 
         }).success(function(data)
         {
-            
+
             if(data.statusCode==200)
             {
-               
+
                 $scope.showPendingProductReq();
             }
         }).error(function(error) {
