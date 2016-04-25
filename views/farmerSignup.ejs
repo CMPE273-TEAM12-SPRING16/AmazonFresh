@@ -31,6 +31,16 @@
   <script src="angularjs/signupFarmerAngular.js"></script>
 
 
+      <script>
+      function formatPhone(obj) {
+          var numbers = obj.value.replace(/\D/g, ''),
+              char = {0:'(',3:') ',6:' - '};
+          obj.value = '';
+          for (var i = 0; i < numbers.length; i++) {
+              obj.value += (char[i]||'') + numbers[i];
+          }
+      }
+      </script>
 </head>
 
 
@@ -202,8 +212,9 @@
                     <label for="exampleInputEmail">
                       Phone
                     </label>
-                    <input type="text" class="form-control" placeholder="Phone" ng-model="phone"/>
-                  </div>
+                    <input type="text" class="form-control" autocomplete="on" name="phone" id="phone" onblur="formatPhone(this);"
+                    autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/"
+                    required />                  </div>
                 </div>
               </div>
 
