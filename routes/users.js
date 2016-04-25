@@ -31,47 +31,63 @@ function doLogin(req, res) {
 
     if (results.length > 0)
     {
-      req.session.email = results[0].EMAIL;
-      req.session.userType = results[0].USERTYPE;
-      req.session.userId = results[0].USER_ID;
+      if(results[0].IS_APPROVED==1) {
 
-      if(results[0].USERTYPE != 0){
-        var callbackFunction = function(err,resultsMongo)
-        {
-          if(resultsMongo)
-          {
-            console.log(resultsMongo);
-            req.session.firstName = resultsMongo.FIRST_NAME;
-            req.session.lastName = resultsMongo.LAST_NAME;
-            req.session.city = resultsMongo.CITY;
-            req.session.state = resultsMongo.STATE;
-            req.session.address = resultsMongo.ADDRESS;
-            req.session.zip = resultsMongo.ZIP;
-            req.session.phone = resultsMongo.PHONE_NUMBER;
-            req.session.ssn = resultsMongo.SSN;
+        req.session.email = results[0].EMAIL;
+        req.session.userType = results[0].USERTYPE;
+        req.session.userId = results[0].USER_ID;
 
-            var jsonResponse = {
-              "statusCode":200,
-              "userType" : results[0].USERTYPE
-            };
+        if (results[0].USERTYPE != 0) {
+          var callbackFunction = function (err, resultsMongo) {
+            if (resultsMongo) {
+              console.log(resultsMongo);
+              req.session.firstName = resultsMongo.FIRST_NAME;
+              req.session.lastName = resultsMongo.LAST_NAME;
+              req.session.city = resultsMongo.CITY;
+              req.session.state = resultsMongo.STATE;
+              req.session.address = resultsMongo.ADDRESS;
+              req.session.zip = resultsMongo.ZIP;
+              req.session.phone = resultsMongo.PHONE_NUMBER;
+              req.session.ssn = resultsMongo.SSN;
 
-            res.send(jsonResponse);
-          }
-          else
-          {
-            throw err;
-          }
-        };
+              var jsonResponse = {
+                "statusCode": 200,
+                "userType": results[0].USERTYPE,
+                "isApproved":1
+              };
 
-        var queryJSON = {"USER_ID" : req.session.userId};
-        mongo.findOne('USER_DETAILS',queryJSON,callbackFunction);
+              res.send(jsonResponse);
+            }
+            else {
+              throw err;
+            }
+          };
 
-      } else if (results[0].USERTYPE == 0) {   ////FOR ADMIN USER/////////////
-        var jsonResponse = {
-          "statusCode":200,
-          "userType" : results[0].USERTYPE
-        };
-        res.send(jsonResponse);
+          var queryJSON = {"USER_ID": req.session.userId};
+          mongo.findOne('USER_DETAILS', queryJSON, callbackFunction);
+
+
+        } else if (results[0].USERTYPE == 0) {   ////FOR ADMIN USER/////////////
+          var jsonResponse = {
+            "statusCode": 200,
+            "userType": results[0].USERTYPE,
+            "isApproved":1
+          };
+          res.send(jsonResponse);
+        }
+      }
+      else if (results[0].IS_APPROVED==0)
+      {
+        var isApproved={"isApproved" : 0};
+  res.send(isApproved);
+
+      }
+      else if (results[0].IS_APPROVED==2)
+      {
+        console.log("rejected");
+        var isApproved={"isApproved" : 2};
+        res.send(isApproved);
+
       }
 
     }
@@ -112,10 +128,12 @@ console.log(email);
     }
     else {
 
-      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE) values ('" + email + "','" + password + "','" + userType + "')";
+      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE,IS_APPROVED) values ('" + email + "','" + password + "','" + userType + "','" + 0 + "')";
       mysql.fetchData(function (err, results) {
 
         if (results.affectedRows > 0) {
+
+
           console.log(results);
           console.log(results.insertId);
           var userId = results.insertId;
@@ -190,6 +208,9 @@ console.log(email);
 
           mongo.insertOne("USER_DETAILS", userDetails, userDetailsCallbackFunction);
         }
+
+
+
         else {
           console.log("data insertion failed");
         }

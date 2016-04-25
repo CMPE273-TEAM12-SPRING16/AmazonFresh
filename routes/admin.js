@@ -62,7 +62,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 
  exports.doApproveCustomer = function(req,res){
  	var cust_id = req.param("customer_id");
- 	
+ 	console.log("customer is id"+cust_id);
 
  	var callbackFunction = function (err, results) {
            if(err)
@@ -72,12 +72,21 @@ exports.doShowPendingCustAprroval = function(req, res) {
 			console.log("Error in doShowProductList");
 			res.send(json_responses);
 		}
-		else
-		{
-			console.log("Approve Requests ");
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
+		else {
+			   var approveUser = "UPDATE USERS set IS_APPROVED='" + 1 + "' where USER_ID='" + cust_id + "'";
+
+			   mysql.fetchData(function (err, results) {
+
+				   if (results.affectedRows > 0) {
+
+			   console.log(results.IS_APPROVED);
+
+			   console.log("Approve Requests ");
+			   console.log(results);
+			   json_responses = {"statusCode": 200, "results": results};
+			   res.send(json_responses);
+		   }
+			   },approveUser);
 		}
     }
 		console.log("doApproveCustomer "+cust_id);
@@ -102,10 +111,19 @@ exports.doShowPendingCustAprroval = function(req, res) {
 		}
 		else
 		{
+			var rejectUser = "update USERS set IS_APPROVED='" + 2 + "' where USER_ID='" + cust_id + "'";
+
+			mysql.fetchData(function (err, results) {
+
+				if (results.affectedRows > 0) {
+
+					console.log(results.IS_APPROVED);
 			console.log("Pending customer requests ");
 			console.log(results);
 			json_responses = {"statusCode" : 200,"results":results};
 			res.send(json_responses);
+				}
+			},rejectUser);
 		}
     }
 
@@ -152,10 +170,19 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 		}
 		else
 		{
+			var approveFarmer = "UPDATE USERS set IS_APPROVED='" + 1 + "' where USER_ID='" + cust_id + "'";
+
+			mysql.fetchData(function (err, results) {
+
+				if (results.affectedRows > 0) {
+
+					console.log(results.IS_APPROVED);
 			console.log("Pending customer requests ");
 			console.log(results);
 			json_responses = {"statusCode" : 200,"results":results};
 			res.send(json_responses);
+		}
+			},approveFarmer);
 		}
     }
 
@@ -179,10 +206,17 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 		}
 		else
 		{
+			var rejectFarmer = "update USERS set IS_APPROVED='" + 2 + "' where USER_ID='" + cust_id + "'";
+
+			mysql.fetchData(function (err, results) {
+
+				if (results.affectedRows > 0) {
 			console.log("Pending customer requests ");
 			console.log(results);
 			json_responses = {"statusCode" : 200,"results":results};
 			res.send(json_responses);
+		}
+			},rejectFarmer);
 		}
     }
 

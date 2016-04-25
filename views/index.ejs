@@ -361,6 +361,12 @@
                         <div class="a-box-inner a-padding-extra-large">
                           <h1 class="a-spacing-small">Sign in</h1>
                           <div class="a-row a-spacing-base">
+                            <div ng-hide="isPending">
+                              <strong>Your account is currently pending approval.</strong>
+                            </div>
+                            <div ng-hide="isNotApproved">
+                              <strong>Unfortunately,we couldn't approve your account.Please contact the help desk for more information. </strong>
+                            </div>
                             <label for="ap_email">Email ID</label>
                             <input class="a-input-text a-span12 auth-autofocus auth-required-field"
                             id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>

@@ -4,7 +4,8 @@ var app=angular.module('indexAngular',[]);
 
 app.controller('LoginController',function($scope,$http)
 {
-
+    $scope.isNotApproved=true;
+    $scope.isPending=true;
     $scope.invalidLogin=true;
     $scope.unexpectedError=true;
 
@@ -23,22 +24,34 @@ app.controller('LoginController',function($scope,$http)
                 "password":$scope.password
             }
 
+
         }).then(function(res){
+            console.log(res.data.isApproved);
+           if(res.data.isApproved==1) {
 
-          if(res.data.statusCode == 200)
-          {
-              if(res.data.userType == 1){
-                window.location.assign("/");
-              } else if(res.data.userType == 2) {
-                window.location.assign("/farmerHome");
-              } else if(res.data.userType == 0){
-                window.location.assign("/adminHome");
-              }
-          }else if (res.data.statusCode == 401) {
-                $scope.invalidLogin = false;
-                $scope.unexpectedError = true;
-            }
+               if (res.data.statusCode == 200) {
+                   if (res.data.userType == 1) {
+                       window.location.assign("/");
+                   } else if (res.data.userType == 2) {
+                       window.location.assign("/farmerHome");
+                   } else if (res.data.userType == 0) {
+                       window.location.assign("/adminHome");
+                   }
+               } else if (res.data.statusCode == 401) {
+                   $scope.invalidLogin = false;
+                   $scope.unexpectedError = true;
+               }
 
+           }
+            else if(res.data.isApproved==0)
+           {
+               $scope.isPending=false;
+           }
+           else if(res.data.isApproved==2)
+           {
+               console.log("is approved is 2")
+               $scope.isNotApproved=false;
+           }
         }, function(res) { //this will be called on error
           console.log(res.data);
         });
