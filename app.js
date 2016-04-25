@@ -1,6 +1,8 @@
 
 var express = require('express')
-	, http = require('http')
+  ,  app = express()
+	, http = require('http').Server(app)
+  , io = require('socket.io')(http) //socket Implementation
 	, path = require('path');
 
 var expressSession = require("express-session");
@@ -13,7 +15,7 @@ var cart=require('./routes/cart');
 var farmer = require('./routes/farmer');
 var admin = require('./routes/admin');
 var users=require('./routes/users');
-var app = express();
+
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
 	duration: 30 * 60 * 1000,
@@ -40,8 +42,11 @@ app.post('/', function(req, res){
 	res.render('index', {});
 });
 
-app.get('/newSignUp', function(req, res){
-	res.redirect('/#newSignUp');
+app.get('/newSignUpCustomer', function(req, res){
+	res.redirect('/#newSignUpCustomer');
+});
+app.get('/newSignUpFarmer', function(req, res){
+	res.redirect('/#newSignUpFarmer');
 });
 
 app.get('/product', function(req, res){
@@ -123,10 +128,11 @@ app.post('/doEditProduct', product.doEditProduct);
 app.post('/addToCart',cart.addToCart);
 app.post('/getCartDetails',cart.getCartDetails);
 app.post('/removeItemFromCart',cart.removeItemFromCart);
+app.post('/minusQtyInCart',cart.minusQtyInCart);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
-
+app.post('/doSearch', product.doSearch);
 
 
 //----Admin Module for Notification :  Customer-----
@@ -175,10 +181,20 @@ app.get('/addProductTemplate', function(req, res) {
 
 app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
-
 app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
+app.post('/addProductReview', product.addProductReview);
 
 
-http.createServer(app).listen(app.get('port'), function(){
+//Socket inplementation
+io.on('connection',function(socket){
+  console.log("a user is connected");
+  socket.on("test",function(data){
+    console.log(data);
+  });
+});
+
+
+
+http.listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
 });

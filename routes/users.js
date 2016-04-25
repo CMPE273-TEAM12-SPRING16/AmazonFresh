@@ -24,7 +24,7 @@ function doLogin(req, res) {
   var email = req.param("email");
   var password = req.param("password");
 
-console.log(email);
+  console.log(email);
   var  getLoginDetails = "SELECT * FROM USERS WHERE EMAIL='" + email + "' AND PASSWORD='" + password + "'";
 
   mysql.fetchData(function (err, results) {
@@ -35,46 +35,55 @@ console.log(email);
       req.session.userType = results[0].USERTYPE;
       req.session.userId = results[0].USER_ID;
 
-      var callbackFunction = function(err,resultsMongo)
-      {
-        if(resultsMongo)
+      if(results[0].USERTYPE != 0){
+        var callbackFunction = function(err,resultsMongo)
         {
-          console.log(resultsMongo);
-          req.session.firstName = resultsMongo.FIRST_NAME;
-          req.session.lastName = resultsMongo.LAST_NAME;
-          req.session.city = resultsMongo.CITY;
-          req.session.state = resultsMongo.STATE;
-          req.session.address = resultsMongo.ADDRESS;
-          req.session.zip = resultsMongo.ZIP;
-          req.session.phone = resultsMongo.PHONE_NUMBER;
-          req.session.ssn = resultsMongo.SSN;
-          var jsonResponse = {"statusCode":200};
+          if(resultsMongo)
+          {
+            console.log(resultsMongo);
+            req.session.firstName = resultsMongo.FIRST_NAME;
+            req.session.lastName = resultsMongo.LAST_NAME;
+            req.session.city = resultsMongo.CITY;
+            req.session.state = resultsMongo.STATE;
+            req.session.address = resultsMongo.ADDRESS;
+            req.session.zip = resultsMongo.ZIP;
+            req.session.phone = resultsMongo.PHONE_NUMBER;
+            req.session.ssn = resultsMongo.SSN;
 
-          res.send(jsonResponse);
-        }
-        else
-        {
-          throw err;
-        }
-      };
+            var jsonResponse = {
+              "statusCode":200,
+              "userType" : results[0].USERTYPE
+            };
 
+            res.send(jsonResponse);
+          }
+          else
+          {
+            throw err;
+          }
+        };
 
-      var queryJSON = {"USER_ID" : req.session.userId};
-      mongo.findOne('USER_DETAILS',queryJSON,callbackFunction);
+        var queryJSON = {"USER_ID" : req.session.userId};
+        mongo.findOne('USER_DETAILS',queryJSON,callbackFunction);
+
+      } else if (results[0].USERTYPE == 0) {   ////FOR ADMIN USER/////////////
+        var jsonResponse = {
+          "statusCode":200,
+          "userType" : results[0].USERTYPE
+        };
+        res.send(jsonResponse);
+      }
+
     }
-
     else
     {
       var jsonResponse={"statusCode":401};
       res.send(jsonResponse);
     }
-
-
-
   }, getLoginDetails);
-
-
 }
+
+
 function doSignup(req, res) {
 
   var firstName=req.param("firstName");
@@ -110,7 +119,6 @@ console.log(email);
           console.log(results);
           console.log(results.insertId);
           var userId = results.insertId;
-          var email = results.email;
           req.session.userType = userType;
           req.session.userId = userId;
           console.log("sql values inserted");

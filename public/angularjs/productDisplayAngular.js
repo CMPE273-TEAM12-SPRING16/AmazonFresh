@@ -1,6 +1,7 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
-productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId',function($scope,$http,sendProductId)
+productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId','socket',function($scope,$http,sendProductId,socket)
 {
+        $scope.reviewReq = true;
         $scope.cart = [];
         $scope.isLoggedIn = false;
         $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
@@ -15,7 +16,6 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
             }).then(function (res) {
                 $scope.displayProductDetails = res.data.productDetails;
-                $scope.farmerName=res.data.farmerName;
             });
 
             $http({
@@ -46,6 +46,10 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
             }).then(function (res) {
                     $scope.cart = res.data.results.CART_PRODUCTS;
+                    if($scope.cart.length>0)
+                    {
+                        $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-enabled";
+                    }
             });
 
             $scope.addToCart = function(productId){
@@ -64,13 +68,32 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                         else
                             {
                                 var length = $scope.cart.length;
+                                console.log("cart length: "+$scope.cart.length);
+                                console.log("cart"+$scope.cart);
                                 $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-enabled";
-                                $scope.cart[length] = {"PRODUCT_ID" : $scope.displayProductDetails.PRODUCT_ID,
+                                var productFound = false;
+                                for(var i=0;i<$scope.cart.length;i++)
+                                {
+                                    console.log("reached here");
+                                    console.log("product id from cart"+$scope.cart[i].PRODUCT_ID );
+                                    console.log("produc id passed for product"+productId);
+                                    if($scope.cart[i].PRODUCT_ID == productId)
+                                    {
+                                        $scope.cart[i].QTY += 1;
+                                        productFound = true;
+                                    }
+                                }
+                                if(!productFound)
+                                {
+                                    $scope.cart[length] = {"PRODUCT_ID" : productId,
                                                         "PRODUCT_NAME" : $scope.displayProductDetails.PRODUCT_NAME,
                                                         "PRICE" : $scope.displayProductDetails.PRICE,
                                                         "QTY" : 1,
                                                         "FILE_NAME" : $scope.displayProductDetails.FILE_NAME}; //change this
                             }
+                                }
+                                socket.emit('test',{id:"test"});
+
                     }).error(function(error){
 
             });
@@ -102,10 +125,133 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                   $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
                   $scope.cart =[];
                  }
-                var length = scope.cart.length;
-                $scope.cart = $scope.cart.splice(index,length-1); //check this one
+                var length = $scope.cart.length;
+                $scope.cart = $scope.cart.splice($scope.cart.indexOf($scope.cart[index],1)); //check this one
 
             }
 
+            $scope.plusQTY = function(index){
+                console.log("index"+index);
+                $http({
+                    method:"POST",
+                    url:"/addToCart",
+                    data:{
+                        "productId" : $scope.cart[index].PRODUCT_ID
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+
+                            }
+                        else
+                            {
+                                $scope.cart[index].QTY+=1;
+                            }
+                    }).error(function(error){
+
+                });
+
+              
+            }
+            
+            $scope.minusQTY = function(index){
+    
+                $http({
+                    method:"POST",
+                    url:"/minusQtyInCart",
+                    data:{
+                        "product" : $scope.cart[index]
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+
+                            }
+                        else
+                            {                                   
+                                if($scope.cart[index].QTY == 1)
+                                {
+                                    $scope.cart = $scope.cart.splice(index,1);
+                                }
+                                else
+                                {
+                                    $scope.cart[index].QTY-=1;    
+                                }
+                            }
+                    }).error(function(error){
+
+                });
+            }
+
+
+            $scope.getTotal = function(){
+                var total = 0;
+                for(var i = 0; i < $scope.cart.length; i++){
+                    total += ($scope.cart[i].PRICE * $scope.cart[i].QTY);
+                }
+                return total;
+            }
+
+            $scope.addReview = function(product_id,avg_rating){
+                console.log("product_id"+avg_rating);
+                
+                 $http({
+                    method: "POST",
+                    url: '/addProductReview',
+                    data: {
+                        "avg_rating" : avg_rating,
+                        "product_id" : product_id,
+                        "ratings" : $scope.rating,
+                        "title" : $scope.title,
+                        "review" : $scope.review
+                    }
+                }).then(function (res) {
+                    $scope.firstName = res.data.firstName;
+                    $scope.lastName = res.data.lastName;
+                    $scope.email = res.data.email;
+                    $scope.city = res.data.city;
+                    $scope.userId = res.data.userId;
+                    if(res.data.firstName)
+                    {
+                        $scope.isLoggedIn = true;
+                    }
+            },function(err){
+                console.log(err);
+            });
+            }
     }
 ]);
+
+
+productDisplayAngular.factory('socket', ['$rootScope', function ($rootScope) {
+    var socket = io.connect();
+    console.log("socket created");
+ 
+    return {
+        on: function (eventName, callback) {
+            function wrapper() {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            }
+ 
+            socket.on(eventName, wrapper);
+ 
+            return function () {
+                socket.removeListener(eventName, wrapper);
+            };
+        },
+ 
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if(callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            });
+        }
+    };
+}]);

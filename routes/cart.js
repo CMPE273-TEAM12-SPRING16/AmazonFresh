@@ -147,3 +147,44 @@ exports.removeItemFromCart = function(req,res)
 																	    				}
 	);
 }
+
+
+exports.minusQtyInCart = function(req,res)
+{
+	var productOld = req.param("product");
+	var product = productOld.constructor();
+
+	for (var attr in productOld) {
+        if (productOld.hasOwnProperty(attr)) product[attr] = productOld[attr];
+    }
+
+    product.QTY -= 1;
+
+    if(productOld.QTY != 1)
+	{
+		mongo.updateOne('CART',{"USER_ID" : req.session.userId ,"CART_PRODUCTS" : productOld},{$set : { "CART_PRODUCTS.$" : product}},function (err, results) {
+																					        if (err) {
+																					        console.log(err);
+																					        }
+																					        else {
+																					        	var jsonResponse = {"statusCode":200};
+																					        	res.send(jsonResponse);
+																					        }
+																	    				}
+		);
+	}
+	else
+	{
+		mongo.updateOne('CART',{"USER_ID" : req.session.userId},{$pull : { "CART_PRODUCTS" : req.param("product")}},function (err, results) {
+																					        if (err) {
+																					        console.log(err);
+																					        }
+																					        else {
+																					        	var jsonResponse = {"statusCode":200};
+																					        	res.send(jsonResponse);
+																					        }
+																	    				}
+		);
+	}
+
+}
