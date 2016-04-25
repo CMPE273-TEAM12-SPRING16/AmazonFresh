@@ -67,8 +67,10 @@ exports.searchIt = function(collectionName,searchString,callback){
   var regexValue='\.*'+searchString+'\.*';
   var queryJSON = { PRODUCT_NAME : new RegExp(regexValue, 'i')};
 
-  var collectionObject = collection(collectionName);
-	collectionObject.find(queryJSON).toArray(callback);
+  connect(mongoURL, function(db){
+      var collectionObject = collection(collectionName);
+    	collectionObject.find(queryJSON).toArray(callback);
+  });
 }
 
 
