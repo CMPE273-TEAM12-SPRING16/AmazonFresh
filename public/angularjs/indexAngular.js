@@ -55,6 +55,13 @@ app.controller('IndexPageController',function($scope,$http){
 
   $scope.isLoggedIn = false;
   $scope.isSearch = false;
+  $scope.searchedProducts = {};
+
+
+  //___________________BREAD_CRUMB_START___________________//
+  $scope.bcHomeClass = "active";
+  $scope.bcSearchResultsClass = "inactive";
+  //___________________BREAD_CRUMB_OVER___________________//
 
     $http({ //GET LOGGED IN USER DETAILS
 
@@ -97,8 +104,8 @@ app.controller('IndexPageController',function($scope,$http){
     //Search Function..........................................................//
     $scope.doSearch = function(){
       $scope.isSearch = true;
-
-      $scope.searchResult = "";
+      $scope.bcHomeClass = "inactive";
+      $scope.bcSearchResultsClass = "active";
       var searchString = $scope.searchString;
       if(searchString != ""){
         $http({

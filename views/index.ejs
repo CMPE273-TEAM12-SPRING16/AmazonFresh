@@ -94,13 +94,13 @@
           <div class="row row-margin">
             <div class="col-md-12">
               <ol class="breadcrumb">
-                <li><a href="/" class="active">Home</a></li>
-                <li></li>
+                <li><a href="/" ng-class="bcHomeClass">Home</a></li>
+                <li><a href="#" ng-class="bcSearchResultsClass" ng-show="isSearch">Search: "{{searchString}}"</a></li>
               </ol>
             </div>
           </div>
 
-          <div class="row row-margin">
+          <div class="row">
             <div class="col-md-2">
             </div>
             <div class="col-md-10">
@@ -268,6 +268,9 @@
                     </div>
                   </div>
 
+                  <div class="row row-margin"  ng-show="isSearch">
+                    <div class="alert-search" role="alert"><strong>Serch Results :</strong> "{{searchString}}"</div>
+                  </div>
                   <div class="row row-margin" ng-show="isSearch">
                     <div class="col-md-4"  ng-repeat="product in searchedProducts" >
                       <div class="thumbnail thumbnail-product-pagination">

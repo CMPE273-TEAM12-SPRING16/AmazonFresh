@@ -1,4 +1,4 @@
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 .row-margin-none{
@@ -583,3 +583,16 @@ hr.seperator-line{
     left:2px;
 }
 /*Rating Over*/
+
+.breadcrumb > li > a.inactive{
+  color: #777777 !important;
+}
+.alert-search {
+  padding: 5px;
+  margin-bottom: 0px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: #3c763d;
+  background-color: #e2f5bc;
+  border-color: #d6e9c6;
+}

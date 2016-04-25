@@ -178,6 +178,7 @@ exports.doSearch = function(req, res){
     else
     {
       if(searchRes){
+        console.log("product.js : doSearch() --> " + searchRes);
         var jsonResponse = {
           "searchResults" : searchRes,
           "statusCode" : 200
@@ -227,6 +228,28 @@ exports.getProductDetails=function(req,res)
 		}
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
+}
+
+exports.doFetch10Products = function(req,res){
+
+  getProductJSON = {};
+	var callbackFunction = function (err, results) {
+           if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in doShowProductList");
+			res.send(json_responses);
+		}
+		else
+		{
+			json_responses = {"statusCode" : 200,"results":results};
+			res.send(json_responses);
+		}
+    }
+
+    mongo.find('PRODUCTS',getProductJSON,callbackFunction);
+
 }
 
 
@@ -290,6 +313,4 @@ exports.addProductReview = function(req,res){
 		}
     }
     mongo.updateOne('PRODUCTS',productWhereJSON,productSetJSON,callbackFunction);
-
-
 }
