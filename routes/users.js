@@ -128,7 +128,7 @@ console.log(email);
     }
     else {
 
-      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE,IS_APPROVED) values ('" + email + "','" + password + "','" + userType + "','" + 0 + "')";
+      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE,IS_APPROVED) values ('" + email + "','" + password + "','" + userType + "', 0 )";
       mysql.fetchData(function (err, results) {
 
         if (results.affectedRows > 0) {
