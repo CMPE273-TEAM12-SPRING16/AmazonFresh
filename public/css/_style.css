@@ -596,3 +596,12 @@ hr.seperator-line{
   background-color: #e2f5bc;
   border-color: #d6e9c6;
 }
+
+.thumbnail-no-result{
+  height: 358px !important;
+  background-color: #EFEFEF !important;
+  padding-top: 100px !important;
+  text-align: center !important;
+  font-size: 30px !important;
+  color: #999999 !important;
+}
