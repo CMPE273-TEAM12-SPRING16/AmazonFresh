@@ -66,7 +66,7 @@ exports.doAddProduct = function(req,res)
 					var productDescription = req.param("productDescription");
 					var farmerFirstName = req.session.firstName;
 					var farmerLastName = req.session.lastName;
-					var farmerId = req.session.user_id;
+					var farmerId = req.session.userId;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
 

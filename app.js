@@ -69,6 +69,10 @@ app.get('/farmerSignup', users.farmerSignup);
 
 app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
 
+app.get('/customerAccount', function(req, res){
+  res.render('customerAccount', {});
+});
+
 app.get('/adminHome', function(req, res){
   res.render('adminHome', {});
 });
