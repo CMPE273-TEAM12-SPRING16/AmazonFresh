@@ -26,21 +26,7 @@
 
 
   <div class="container-fluid container-main">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="nav nav-pills navbar-fixed-top header-nav">
-          <li>
-            <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="images/support_images/af-logo-white.png"><span></span></a>
-          </li>
-          <li class="text">
-            Already an AmazonFresh customer?
-          </li>
-          <li class="signin">
-            <a href="#modal-container-748235" data-toggle="modal">Sign in.</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <% include ./partial/header %>
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class="row">
@@ -340,6 +326,8 @@
     <div class="col-md-2"></div>
   </div>
 
+  <% include ./partial/footer %>
+
   <!-- _________________________________________________LOGIN MODAL____________________________________________ -->
   <div>
     <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -352,7 +340,7 @@
                 <!-- show a warning modal dialog when the third party account is connected with Amazon -->
                 <div class="a-section a-spacing-base auth-pagelet-container">
                   <div class="a-section">
-                    <form action="" class="a-spacing-none" id="signIn" method="post" name="signIn" novalidate="">
+                    <form class="a-spacing-none" id="signIn" name="signIn">
                       <div class="a-section">
                         <div class="a-box">
                           <div class="a-box-inner a-padding-extra-large">
@@ -385,7 +373,7 @@
                             <div class="a-section a-spacing-extra-large">
                               <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0"><span class="a-button-inner"><input aria-labelledby=
 
-                                "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="submit" ng-click="submit();"> <span aria-hidden="true" class=
+                                "a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="button" ng-click="submit();"> <span aria-hidden="true" class=
                                 "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
                               </div>
 
@@ -416,7 +404,7 @@
       </div>
     </div>
 
-    <% include ./partial/footer %>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
