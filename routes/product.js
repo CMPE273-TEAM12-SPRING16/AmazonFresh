@@ -225,8 +225,6 @@ exports.getProductDetails=function(req,res)
 		else {
 			
 			var reviews = getDateAndMonth(results);
-			console.log("Updated date");
-			//console.log(reviews);
 			res.send({"productDetails":results});
 		}
 	}
@@ -244,7 +242,6 @@ function getDateAndMonth(results){
 		var day = d.getDate();
 		var year = d.getFullYear();
 		var reviewDate = month+" "+day+", "+year;
-		console.log(reviewDate);
 		results.REVIEW_DETAILS[rev].REVIEWDATE = reviewDate;
 		
 	}
