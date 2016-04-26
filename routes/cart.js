@@ -283,7 +283,7 @@ exports.doOrder = function(req,res)
 			});
 		}
 
-		mongo.removeOne('CART',{"USER_ID" : req.session.userId},unction (err, results) {
+		mongo.removeOne('CART',{"USER_ID" : req.session.userId},function (err, results) {
 																					if (err) {
 																					        console.log(err);
 																						}
