@@ -72,7 +72,7 @@
                       SSN
                     </label>
 
-                    <input type="text" class="form-control" id="ssn" pattern="^d{3}-d{2}-d{4}$"
+                    <input type="text" class="form-control" id="ssn" ng-pattern="/[0-9]/"
                             placeholder="###-##-####" ng-model="userDetails.ssn"  value="{{userDetails.ssn}}"/>
 
                   </div>
@@ -104,7 +104,7 @@
                     <label for="exampleInputPassword1">
                       Password
                     </label>
-                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password" ng-model="password"/>
+                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password" ng-model="userDetails.password"/>
 
                     
                   </div>

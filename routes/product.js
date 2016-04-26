@@ -223,8 +223,10 @@ exports.getProductDetails=function(req,res)
 			console.log(err);
 		}
 		else {
+
 			
 			var reviews = getDateAndMonth(results);
+
 			res.send({"productDetails":results});
 		}
 	}
