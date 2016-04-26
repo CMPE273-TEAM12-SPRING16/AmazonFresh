@@ -2,6 +2,7 @@
  * Created by aneri on 17-04-2016.
  */
 var ejs = require('ejs');
+const crypto = require('crypto');
 var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
@@ -21,17 +22,27 @@ function login(req, res) {
 
 function doLogin(req, res) {
 
+  var loginSucess = false;
   var email = req.param("email");
   var password = req.param("password");
 
   console.log(email);
-  var  getLoginDetails = "SELECT * FROM USERS WHERE EMAIL='" + email + "' AND PASSWORD='" + password + "'";
+  var  getLoginDetails = "SELECT * FROM USERS WHERE EMAIL='" + email + "' LIMIT 1";
 
   mysql.fetchData(function (err, results) {
 
     if (results.length > 0)
     {
-      if(results[0].IS_APPROVED==1) {
+      var passwordDB = results[0].PASSWORD;
+      var saltDB = results[0].SALT;
+
+      passwordIN = crypto.pbkdf2Sync(password, saltDB, 100000, 64, 'sha256').toString('hex');
+
+      if (passwordIN == passwordDB){
+        loginSucess = true;
+      }
+
+      if(loginSucess && results[0].IS_APPROVED==1) {
 
         req.session.email = results[0].EMAIL;
         req.session.userType = results[0].USERTYPE;
@@ -76,13 +87,13 @@ function doLogin(req, res) {
           res.send(jsonResponse);
         }
       }
-      else if (results[0].IS_APPROVED==0)
+      else if (loginSucess && results[0].IS_APPROVED==0)
       {
         var isApproved={"isApproved" : 0};
   res.send(isApproved);
 
       }
-      else if (results[0].IS_APPROVED==2)
+      else if (loginSucess && results[0].IS_APPROVED==2)
       {
         console.log("rejected");
         var isApproved={"isApproved" : 2};
@@ -91,7 +102,7 @@ function doLogin(req, res) {
       }
 
     }
-    else
+    if(!loginSucess)
     {
       var jsonResponse={"statusCode":401};
       res.send(jsonResponse);
@@ -128,7 +139,14 @@ console.log(email);
     }
     else {
 
-      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,USERTYPE,IS_APPROVED) values ('" + email + "','" + password + "','" + userType + "', 0 )";
+      const salt = crypto.randomBytes(16).toString('hex');
+      const enPassword = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha256').toString('hex');
+
+      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,SALT,USERTYPE,IS_APPROVED) values ('" +
+      email + "','" +
+      enPassword + "','" +
+      salt + "','" +
+      userType + "', 0 )";
       mysql.fetchData(function (err, results) {
 
         if (results.affectedRows > 0) {
