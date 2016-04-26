@@ -30,7 +30,7 @@
   <title>Checkout</title>
 </head>
 
-<body ng-cloak>
+<body ng-controller="checkOutProcessController" ng-cloak>
   <div class="container-fluid nopadding">
   <div ng-hide="isLoggedIn">
     <div class="row">
@@ -58,7 +58,7 @@
         </li>
         <li class="dropdown">
                <a class="dropdown-toggle" data-toggle="dropdown">
-                 Hi, {{firstName}} {{lastName}}<span></span><strong class="caret"></strong>
+                 Hi, {{name}}<span></span><strong class="caret"></strong>
                </a>
               <ul class="dropdown-menu accout-dropdown-menu">
                 <li>
@@ -98,7 +98,7 @@
 
   <div class="container-fluid container-main">
     	<div class="row row-margin">
-        <div class="col-md-9" ng-controller="checkOutProcessController">
+        <div class="col-md-9">
 
           <div class="row row-margin">
           <div class="col-md-12">
@@ -165,27 +165,17 @@
           </div>
     	</div>
 
-      <div class="col-md-3" ng-show=true>
-          <div class="row">
-            <strong class="">Great news, we deliver to your area.</strong>
-            AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
-          </div>
-          <div class="row" ng-hide="isLoggedIn">
-            <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
-              Sign In
-            </button>
-        </div>
-
+      <div class="col-md-3" ng-show=true> 
+        <!-- Cart Start-->
         <div class="row" ng-show=true>
           <div class="thumbnail">
-						<div class="caption">
+            <div class="caption">
               <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
-							<button ng-class="checkOutBtnClass" enabled="isLoggedIn" ng-click="doProceedToCheckout()">Proceed to Checkout</button>
               <div ng-show="cart.length==0">
                 <center>Add products to Cart to checkout.</center>
               </div>
               <p>
-                  <span class="bill-subtotal">Subtotal $0.00</span><span class="bill-items pull-right">(0 Items)</span>
+                  <span class="bill-subtotal">Subtotal {{getTotal() | currency}}</span><span class="bill-items pull-right">( {{cart.length}} Items)</span>
                   <hr class="product-page-seperator"/>
               </p>
 
@@ -200,14 +190,17 @@
               <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
                 <div class="row">
                   <div class="col-md-2 bill-cart-qty-pad">
-                    <span class="bill-cart-qty-title">Qty</span>
-                    <select class="form-control bill-cart-qty" ng-model="item.QTY">
-                      <option ng-selected="item.QTY == 1">1</option>
-                      <option ng-selected="item.QTY == 2">2</option>
-                      <option ng-selected="item.QTY == 3">3</option>
-                      <option ng-selected="item.QTY == 4">4</option>
-                      <option ng-selected="item.QTY == 5">5</option>
-                    </select>
+                    <fieldset class="input-group-vertical">
+                      <button class="btn btn-default bill-cart-qty-btn" ng-click="plusQTY($index)">
+                        <span class="glyphicon glyphicon-plus gly-plus-minus"></span>
+                      </button>
+                      <div class="">
+                        <input type="text" class="form-control bill-cart-qty" ng-model="item.QTY" disabled/>
+                      </div>
+                      <button class="btn btn-default bill-cart-qty-btn" ng-click="minusQTY($index)">
+                        <span class="glyphicon glyphicon-minus gly-plus-minus"></span>
+                      </button>
+                    </fieldset>
                   </div>
                   <div class="col-md-8 bill-cart-item-pad">
                     <div class="media">
@@ -227,8 +220,9 @@
               </div>
 
             </div>
-					</div>
+          </div>
         </div>
+        <!-- Cart End-->
 
       </div>
     </div>
