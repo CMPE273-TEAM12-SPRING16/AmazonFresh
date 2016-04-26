@@ -80,6 +80,7 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                }
             });
 
+            //Cart start
             $http({
 
                 method: "POST",
@@ -281,6 +282,13 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 console.log(err);
             });
             }
+
+            $scope.doProceedToCheckout = function()
+            {
+                window.location.assign('/checkout');
+            }
+
+            //Cart End
     }
 ]);
 

@@ -280,6 +280,16 @@ exports.getLoggedInUserDetails = function(req,res)
   res.send(jsonResponse);
 }
 
+exports.getLoggedCartUserDetails = function(req,res)
+{
+  var jsonResponse={"statusCode" : 200,
+                    "firstName" : req.session.firstName,
+                    "lastName" : req.session.lastName,
+                    "email" : req.session.email,
+                    "city" : req.session.city,
+                    "userId" : req.session.userId};
+  res.send(jsonResponse);
+}
 
 function farmerHome(req,res)
 {
