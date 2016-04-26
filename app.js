@@ -73,6 +73,7 @@ app.get('/customerAccount', function(req, res){
   res.render('customerAccount', {});
 });
 
+
 app.get('/adminHome', function(req, res){
   res.render('adminHome', {});
 });
@@ -137,6 +138,7 @@ app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 app.post('/doSearch', product.doSearch);
+app.post('/doUpdateUserDetails',users.doUpdateUserDetails);
 
 
 //----Admin Module for Notification :  Customer-----

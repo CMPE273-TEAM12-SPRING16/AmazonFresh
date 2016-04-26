@@ -36,7 +36,8 @@ signUp.controller('signup',function($scope,$http,$rootScope)
                 "creditCardName":$scope.creditCardName,
                 "expiryMonth":$scope.expiryMonth,
                 "expiryYear":$scope.expiryYear,
-                "cvv":$scope.cvv
+                "cvv":$scope.cvv,
+                "IS_APPROVED":0
             }
 
         }).success(function(data)
@@ -58,10 +59,10 @@ signUp.controller('signup',function($scope,$http,$rootScope)
 
     };
 
-    $scope.match=function(x)
+    $scope.match=function()
     {
 
-
+        $scope.passwordMatch=false;
 
     if($scope.password!=$scope.confirmPassword)
     {

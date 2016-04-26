@@ -223,7 +223,7 @@ exports.getProductDetails=function(req,res)
 			console.log(err);
 		}
 		else {
-			console.log(results.PRODUCT_NAME);
+			//console.log(results.PRODUCT_NAME);
 			res.send({"productDetails":results});
 		}
 	}
