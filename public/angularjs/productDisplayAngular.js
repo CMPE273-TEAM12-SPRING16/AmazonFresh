@@ -59,7 +59,6 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
         $scope.reviewReq = true;
         $scope.cart = [];
         $scope.isLoggedIn = false;
-        $scope.noReview = true;
         $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
 
             $http({
@@ -72,11 +71,9 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
             }).then(function (res) {
                 $scope.displayProductDetails = res.data.productDetails;
-               if(res.data.productDetails.REVIEW_DETAILS.length!=0){
-                    $scope.noReview = false ;
-               }
             });
 
+            //Cart start
             $http({
 
                 method: "POST",
@@ -278,10 +275,15 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 console.log(err);
             });
             }
+
+            $scope.doProceedToCheckout = function()
+            {
+                window.location.assign('/checkout');
+            }
+
+            //Cart End
     }
 ]);
-
-
 
 
 productDisplayAngular.factory('socket', ['$rootScope', function ($rootScope) {
