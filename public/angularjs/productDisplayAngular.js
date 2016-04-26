@@ -281,6 +281,8 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 ]);
 
 
+
+
 productDisplayAngular.factory('socket', ['$rootScope', function ($rootScope) {
     var socket = io.connect();
     console.log("socket created");
