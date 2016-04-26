@@ -468,12 +468,25 @@ $scope.reviewProduct = function(){
 
 
 
-adminNgApp.controller('AdminPageCtrl', function($scope){
+adminNgApp.controller('AdminPageCtrl', function($scope, $http){
   $scope.activeCustomer = "active";
   $scope.activeFarmer = "";
   $scope.activeProduct = "";
 
+  //________________________SEARCH THINGS____________________//
+  $scope.isSearch = false;
+  $scope.isSearch1 = false;
+  $scope.isSearch2 = false;
+  $scope.searchResults = [];
+  $scope.searchType = 'Customers';
+  $scope.noSearchResult = false;
+  //________________________SEARCH THINGS OVER____________________//
+
   $scope.activateMe = function(option){
+    $scope.isSearch = false;
+    $scope.isSearch1 = false;
+    $scope.isSearch2 = false;
+    $scope.searchResult = null;
     if(option == 1){
       $scope.activeCustomer = "active";
       $scope.activeFarmer = "";
@@ -501,6 +514,52 @@ adminNgApp.controller('AdminPageCtrl', function($scope){
       $scope.activeRevCustomer = "";
       $scope.activeRevFarmer = "";
       $scope.activeRevProduct = "active";
+    }
+  }
+
+  //Search Function..........................................................//
+  $scope.doSearch = function(){
+    $scope.isSearch = true;
+    $scope.searchResults = null;
+    $scope.noSearchResult = false;
+    var searchString = $scope.searchString;
+    var searchType;
+    console.log($scope.searchType);
+    if($scope.searchType == 'Customers'){//Select search type
+      $scope.isSearch1 = true;
+      searchType = 1;
+    }else if($scope.searchType == 'Farmers'){
+      $scope.isSearch1 = true;
+      searchType = 2;
+    }else if($scope.searchType == 'Products'){
+      $scope.isSearch2 = true;
+      searchType = 3;
+    }
+
+    if(searchString != ""){
+      $http({
+        method : "POST",
+        url : '/doSearchAdmin',
+        data : {
+          "searchString" : searchString,
+          "searchType" : searchType
+        }
+
+      }).then(function(res) {
+        if(res.data.statusCode == 200){
+          $scope.searchResults = res.data.searchResults;
+          if($scope.searchResults.length == 0){
+            $scope.noSearchResult = true;
+          }
+        }
+
+      },function() {
+
+      });
+
+    }else{
+      $scope.isSearch = false;
+      $scope.searchResult = null;
     }
   }
 });

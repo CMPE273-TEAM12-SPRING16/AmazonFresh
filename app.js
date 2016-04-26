@@ -147,7 +147,8 @@ app.post('/getLoggedCartUserDetails',users.getLoggedCartUserDetails);
 app.post('/doSearch', product.doSearch);
 app.post('/doUpdateUserDetails',users.doUpdateUserDetails);
 
-
+//------Admin Module ----------//////
+app.post('/doSearchAdmin', admin.doSearchAdmin);
 //----Admin Module for Notification :  Customer-----
 app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);
 app.post('/doApproveCustomer',admin.doApproveCustomer);
