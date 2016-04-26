@@ -1,5 +1,4 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
-
 productDisplayAngular.controller('LoginController',function($scope,$http)
 {
     $scope.isNotApproved=true;
@@ -55,8 +54,6 @@ productDisplayAngular.controller('LoginController',function($scope,$http)
 
 });
 
-
-
 productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId','socket',function($scope,$http,sendProductId,socket)
 {
         $scope.reviewReq = true;
@@ -76,11 +73,10 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
             }).then(function (res) {
                 $scope.displayProductDetails = res.data.productDetails;
                if(res.data.productDetails.REVIEW_DETAILS.length!=0){
-                    $scope.noReview = false;
+                    $scope.noReview = false ;
                }
             });
 
-            //Cart start
             $http({
 
                 method: "POST",
@@ -282,13 +278,6 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 console.log(err);
             });
             }
-
-            $scope.doProceedToCheckout = function()
-            {
-                window.location.assign('/checkout');
-            }
-
-            //Cart End
     }
 ]);
 

@@ -1,6 +1,11 @@
 var mongo = require("./mongo");
 var mysql = require("./mysql");
-
+// var geocoderProvider = 'google';
+// var httpAdapter = 'http';
+// var extra = {
+//     apiKey: 'AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs', 
+//     formatter: null   
+// };
 exports.addToCart = function(req,res)
 {
 	productId = req.param("productId");
@@ -209,7 +214,8 @@ exports.doOrder = function(req,res)
 					"STATUS" : 1,
 					"TOTAL_AMOUNT" : totalAmount};
 	var query = "INSERT INTO PAYMENTS SET ? " ; 
-
+	var farmerIds = [];
+	var farmerIdsByUse = {};
 	mysql.insertData(query , paymentJSON ,function (err, results) {
 
 		var billId = results.insertId;
@@ -248,7 +254,11 @@ exports.doOrder = function(req,res)
 		{
 			mongo.findOneUsingId('PRODUCTS', products[i].PRODUCT_ID,function(err,results){
 																				farmerId = results.FARMER_ID;
-
+																				console.log("Farmer"+farmerId);
+																				if(!isInArray(farmerId,farmerIds)){
+																					console.log("Push Farmer");
+																					farmerIds.push(farmerId);
+																				}
 																				var insertFarmerDetailsJSON = {
 																					"DELIVERY_HISTORY" : {
 																						"BILL_ID" : billId,
@@ -269,18 +279,21 @@ exports.doOrder = function(req,res)
 																					}
 																				}
 
-																				mongo.updateOne('DELIVERY_HISTORY',{"FARMER_ID" : farmerId}
-																												  ,{$push : insertFarmerDetailsJSON}
+																				mongo.updateOne('FARMER_DETAILS',{"FARMER_ID" : farmerId}
+																												  ,{$push : {"DELIVERY_HISTORY": insertFarmerDetailsJSON}}
 																												  ,function (err, results) {
 																					if (err) {
 																					        console.log(err);
 																						}
 																					    else {
 																					    	console.log("purchase history inserted");
+																					  
 																					    }});
 
 
+			
 			});
+
 		}
 
 		mongo.removeOne('CART',{"USER_ID" : req.session.userId},function (err, results) {
@@ -291,6 +304,42 @@ exports.doOrder = function(req,res)
 																					    	console.log("cart cleared");
 																					    }});
 
+
+		console.log("---->>>Farmers");
+		var farmerJSON = {"USER_ID" : {$in : farmerIds}}
+		mongo.find('USER_DETAILS',farmerJSON,function(err,results){
+			if(err){
+				console.log(err);
+			}else{
+				console.log(results);
+				Object.keys(results).forEach(function(index){
+					var addJSON = getLocation(results[index].ADDRESS);
+					console.log("doOrder");
+					console.log(addJSON);
+				});
+  		}
 	});
 
+ 
+	});
+
+}
+
+function getLocation(address) {
+  					var geocoder = new google.maps.Geocoder();
+  					//var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, extra);
+  					geocoder.geocode( { 'address': address}, function(results, status) {
+
+  					if (status == google.maps.GeocoderStatus.OK) {
+      				var latitude = results[0].geometry.location.lat();
+      				var longitude = results[0].geometry.location.lng();
+      				console.log(latitude, longitude);
+      				var addJSON = {"latitude" : latitude, "longitude": longitude};
+      				return addJSON;
+      				} 
+  				});
+} 
+
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
 }
