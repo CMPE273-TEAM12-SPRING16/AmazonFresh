@@ -129,9 +129,11 @@ app.post('/addToCart',cart.addToCart);
 app.post('/getCartDetails',cart.getCartDetails);
 app.post('/removeItemFromCart',cart.removeItemFromCart);
 app.post('/minusQtyInCart',cart.minusQtyInCart);
+app.post('/doOrder',cart.doOrder);
 app.post('/doLogin',users.doLogin);
 app.post('/doSignup',users.doSignup);
 app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
+app.post('/getLoggedCartUserDetails',users.getLoggedCartUserDetails);
 app.post('/doSearch', product.doSearch);
 
 

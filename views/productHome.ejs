@@ -229,11 +229,12 @@
             </button>
         </div>
 
+        <!-- Cart Start -->
         <div class="row" ng-show=true>
           <div class="thumbnail">
 						<div class="caption">
               <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
-							<button ng-class="checkOutBtnClass" enabled="isLoggedIn" ng-click="doProceedToCheckout()">Proceed to Checkout</button>
+							<button ng-click="doProceedToCheckout();" ng-class="checkOutBtnClass" enabled="isLoggedIn">Proceed to Checkout</button>
               <div ng-show="cart.length==0">
                 <center>Add products to Cart to checkout.</center>
               </div>
@@ -285,6 +286,7 @@
             </div>
 					</div>
         </div>
+        <!-- Cart End -->
 
       </div>
     </div>

@@ -1,4 +1,5 @@
 var mongo = require("./mongo");
+var mysql = require("./mysql");
 
 exports.addToCart = function(req,res)
 {
@@ -53,12 +54,6 @@ exports.addToCart = function(req,res)
 			        	}
 			        	if(i==cartProductDetails.length && !found)
 			        	{
-			        		// cartProductDetails[i].PRODUCT_ID = productId;
-			        		// cartProductDetails[i].PRODUCT_NAME = productName;
-			        		// cartProductDetails[i].PRICE = price;
-			        		// cartProductDetails[i].QTY = 1;
-			        		// cartProductDetails[i].FILE_NAME = fileName;
-
 			        		var newJSON = {"PRODUCT_ID" : productId,"PRODUCT_NAME" : productName,"PRICE" : price,"QTY" : qty,"FILE_NAME" : fileName};
 			        		cartProductDetails[i] = newJSON;
 
@@ -186,5 +181,116 @@ exports.minusQtyInCart = function(req,res)
 																	    				}
 		);
 	}
+
+}
+
+exports.doOrder = function(req,res)
+{
+	var name = req.param("name");
+	var address = req.param("address");
+	var city = req.param("city");
+	var state= req.param("state");
+	var zip = req.param("zip");
+	var phone = req.param("phone");
+	var products = req.param("products");
+	var totalAmount = 0;
+
+	console.log("products"+JSON.stringify(products));
+	for(var i=0;i<products.length;i++)
+	{
+		console.log("TOTAL_AMOUNT "+totalAmount+" price "+products[i].PRICE+" qty "+products[i].QTY);
+		totalAmount += products[i].PRICE * products[i].QTY;
+	}
+
+	console.log("Total amount"+totalAmount);
+	paymentJSON = {"BILLING_DATE": new Date(),
+					"CUSTOMER_ID" : req.session.userId,
+					"IS_PAYMENT_DONE": 1,
+					"STATUS" : 1,
+					"TOTAL_AMOUNT" : totalAmount};
+	var query = "INSERT INTO PAYMENTS SET ? " ; 
+
+	mysql.insertData(query , paymentJSON ,function (err, results) {
+
+		var billId = results.insertId;
+
+		var insertBillJSON = {"BILL_ID" : billId,
+					  	"BILLING_DATE" : new Date(),
+					  	"PRODUCTS" : products,
+					  	"ADDRESS" : address,
+					  	"CITY" : city,
+						"STATE" : state,
+						"ZIP" : zip,
+						"PHONE" : phone,
+						"TOTAL_AMOUNT" : totalAmount,
+						"CUSTOMER_ID" : req.session.userId,
+						"CUSTOMER_NAME" : req.session.firstName +" "+req.session.lastName
+					};
+
+		mongo.insertOne('BILLING_INFORMATION',insertBillJSON,function (err, results) {
+																					if (err) {
+																					        console.log(err);
+																						}
+																					    else {
+																					    	var jsonResponse = {"statusCode":200};
+																					    	res.send(jsonResponse);
+																					    }});
+
+
+		mongo.updateOne('CUSTOMER_DETAILS', {"USER_ID" : req.session.userId}, {$push : {"PURCHASE_HISTORY":insertBillJSON}},function (err, results) {
+																					if (err) {
+																					        console.log(err);
+																						}
+																					    else {
+																					    	console.log("purchase history inserted");
+																					    }});
+		for(var i=0;i<products.length;i++)
+		{
+			mongo.findOneUsingId('PRODUCTS', products[i].PRODUCT_ID,function(err,results){
+																				farmerId = results.FARMER_ID;
+
+																				var insertFarmerDetailsJSON = {
+																					"DELIVERY_HISTORY" : {
+																						"BILL_ID" : billId,
+																						"BILL_DATE" : new Date(),
+																						"PRODUCT_ID" : results.PRODUCT_ID,
+																						"PRODUCT_NAME" : results.PRODUCT_NAME,
+																						"PRICE" : results.PRICE,
+																						"QTY" : results.QTY,
+																						"FILE_NAME" : results.FILE_NAME,
+																						"CUSTOMER_NAME" : req.session.firstName +" "+req.session.lastName,
+																						"ADDRESS" : address,
+																						"CITY" : city,
+																						"STATE" : state,
+																						"ZIP" : zip,
+																						"PHONE" : phone,
+																						"TOTAL_AMOUNT" : totalAmount,
+
+																					}
+																				}
+
+																				mongo.updateOne('DELIVERY_HISTORY',{"FARMER_ID" : farmerId}
+																												  ,{$push : insertFarmerDetailsJSON}
+																												  ,function (err, results) {
+																					if (err) {
+																					        console.log(err);
+																						}
+																					    else {
+																					    	console.log("purchase history inserted");
+																					    }});
+
+
+			});
+		}
+
+		mongo.removeOne('CART',{"USER_ID" : req.session.userId},unction (err, results) {
+																					if (err) {
+																					        console.log(err);
+																						}
+																					    else {
+																					    	console.log("cart cleared");
+																					    }});
+
+	});
 
 }

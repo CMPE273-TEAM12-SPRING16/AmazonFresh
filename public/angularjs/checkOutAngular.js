@@ -72,9 +72,220 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
       $scope.nextHREF = "#confirmDetails";
       $scope.buttonLabel = "Track Your Order";
       $scope.nextNUMBER = 4;
+      $http({
+
+        method: "POST",
+        url: '/doOrder',
+        data: {
+          "name" : $scope.name,
+          "address" : $scope.address,
+          "city" : $scope.city,
+          "state" : $scope.state,
+          "zip" : $scope.zip,
+          "phone" : $scope.phone,
+          "products" : $scope.cart
+        }
+        }).then(function (res) {
+          $scope.userDetails = res.data.userDetails;
+          console.log($scope.userDetails.FIRST_NAME);
+          $scope.customerDetails=res.data.customerDetails;
+        });
+
     } else if(currentPage == 4){
       $scope.nextHREF = "/trackOrder/XXXXXXXXXXXXXXXXXX"; //need to add order ID at the end somehow
     }
   }
+
+
+
+
+
+
+
+  //Checkout and cart related code
+  // Cart Start
+          $scope.cart = [];
+          $http({
+
+            method: "GET",
+            url: '/getCustomerAccountDetails',
+            data: {
+            }
+            }).then(function (res) {
+                $scope.name = res.data.userDetails.firstName +" " + res.data.userDetails.lastName;
+                $scope.address = res.data.userDetails.address;
+                $scope.city =res.data.userDetails.city;
+                $scope.state = res.data.userDetails.state;
+                $scope.zip = res.data.userDetails.zip;
+                $scope.phone = res.data.userDetails.phone;
+                $scope.isLoggedIn = false;
+                if($scope.name)
+                {
+                  $scope.isLoggedIn = true;
+                }
+                $scope.creditCardNumber = res.data.customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER;
+                $scope.creditCardName = res.data.customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NAME;
+                $scope.expiryMonth = res.data.customerDetails.CREDIT_CARD_DETAILS.EXPIRY_MONTH;
+                $scope.expiryYear = res.data.customerDetails.CREDIT_CARD_DETAILS.EXPIRY_YEAR;
+                $scope.cvv = res.data.customerDetails.CREDIT_CARD_DETAILS.CVV;
+               
+            });
+
+            $http({
+
+                method: "POST",
+                url: '/getCartDetails',
+                data: {
+                }
+
+            }).then(function (res) {
+                    $scope.cart = res.data.results.CART_PRODUCTS;
+            });
+
+            $scope.addToCart = function(productId){
+                console.log("Clicked"+productId);
+                $http({
+                    method:"POST",
+                    url:"/addToCart",
+                    data:{
+                        "productId" : productId
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+
+                            }
+                        else
+                            {
+                                var length = $scope.cart.length;
+                                console.log("cart length: "+$scope.cart.length);
+                                console.log("cart"+$scope.cart);
+                                $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-enabled";
+                                var productFound = false;
+                                for(var i=0;i<$scope.cart.length;i++)
+                                {
+                                    console.log("reached here");
+                                    console.log("product id from cart"+$scope.cart[i].PRODUCT_ID );
+                                    console.log("produc id passed for product"+productId);
+                                    if($scope.cart[i].PRODUCT_ID == productId)
+                                    {
+                                        $scope.cart[i].QTY += 1;
+                                        productFound = true;
+                                    }
+                                }
+                                if(!productFound)
+                                {
+                                    $scope.cart[length] = {"PRODUCT_ID" : productId,
+                                                        "PRODUCT_NAME" : $scope.displayProductDetails.PRODUCT_NAME,
+                                                        "PRICE" : $scope.displayProductDetails.PRICE,
+                                                        "QTY" : 1,
+                                                        "FILE_NAME" : $scope.displayProductDetails.FILE_NAME}; //change this
+                            }
+                                }
+                                socket.emit('test',{id:"test"});
+
+                    }).error(function(error){
+
+            });
+            }
+
+            $scope.removeItemFromCart = function(index){
+
+                $http({
+                    method:"POST",
+                    url:"/removeItemFromCart",
+                    data:{
+                        "product" : $scope.cart[index]
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+
+                            }
+                        else
+                            {
+
+                            }
+                    }).error(function(error){
+
+                });
+
+                console.log(index);
+                if($scope.cart.length == 1){
+                  $scope.checkOutBtnClass = "btn btn-primary btn-block btn-proceed-to-checkout-disabled";
+                  $scope.cart =[];
+                 }
+                var length = $scope.cart.length;
+                $scope.cart = $scope.cart.splice($scope.cart.indexOf($scope.cart[index],1)); //check this one
+
+            }
+
+            $scope.plusQTY = function(index){
+                console.log("index"+index);
+                $http({
+                    method:"POST",
+                    url:"/addToCart",
+                    data:{
+                        "productId" : $scope.cart[index].PRODUCT_ID
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+
+                            }
+                        else
+                            {
+                                $scope.cart[index].QTY+=1;
+                            }
+                    }).error(function(error){
+
+                });
+
+              
+            }
+            
+            $scope.minusQTY = function(index){
+    
+                $http({
+                    method:"POST",
+                    url:"/minusQtyInCart",
+                    data:{
+                        "product" : $scope.cart[index]
+                    }
+                    }).success(function(data){
+                        if(data.statusCode==401)
+                            {
+
+                            }
+                        else
+                            {                                   
+                                if($scope.cart[index].QTY == 1)
+                                {
+                                    $scope.cart = $scope.cart.splice(index,1);
+                                }
+                                else
+                                {
+                                    $scope.cart[index].QTY-=1;    
+                                }
+                            }
+                    }).error(function(error){
+
+                });
+            }
+
+
+            $scope.getTotal = function(){
+                var total = 0;
+                for(var i = 0; i < $scope.cart.length; i++){
+                    total += ($scope.cart[i].PRICE * $scope.cart[i].QTY);
+                }
+                return total;
+            }
+
+            $scope.doProceedToCheckout = function()
+            {
+                window.location.assign('/checkout');
+            }
+    //Cart End
 
 });
