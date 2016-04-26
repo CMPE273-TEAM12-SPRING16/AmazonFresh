@@ -63,6 +63,7 @@ app.get('/farmerHome',users.farmerHome);
 app.get('/redirectToHomepage',users.redirectToHomepage);
 
 app.get('/productHome',product.productHome);
+app.get('/farmerProfile', farmer.farmerProfile);
 
 app.get('/signup',users.signup);
 app.get('/farmerSignup', users.farmerSignup);

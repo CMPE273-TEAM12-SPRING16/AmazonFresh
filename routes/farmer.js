@@ -3,6 +3,12 @@ var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 
+
+//redirect to farmer profile page
+exports.farmerProfile = function(req, res){
+	res.render('farmerProfile');
+}
+
 //Retrive list of products
 exports.doShowProductList = function(req, res) {
 	var user_id = req.session.user_id;

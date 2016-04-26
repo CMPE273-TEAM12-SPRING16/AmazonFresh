@@ -208,7 +208,7 @@ exports.doOrder = function(req,res)
 					"IS_PAYMENT_DONE": 1,
 					"STATUS" : 1,
 					"TOTAL_AMOUNT" : totalAmount};
-	var query = "INSERT INTO PAYMENTS SET ? " ; 
+	var query = "INSERT INTO PAYMENTS SET ? " ;
 
 	mysql.insertData(query , paymentJSON ,function (err, results) {
 
@@ -283,7 +283,7 @@ exports.doOrder = function(req,res)
 			});
 		}
 
-		mongo.removeOne('CART',{"USER_ID" : req.session.userId},unction (err, results) {
+		mongo.removeOne('CART',{"USER_ID" : req.session.userId},function (err, results) {
 																					if (err) {
 																					        console.log(err);
 																						}

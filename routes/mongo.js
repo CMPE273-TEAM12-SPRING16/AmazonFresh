@@ -62,14 +62,16 @@ exports.findOne = function(collectionName,queryJSON,callbackFunction)
 }
 
 exports.searchIt = function(collectionName, searchString, searchType, callback){
-  //searchString = ''\.*''+ searchString + '.*\';
 
   var regexValue='\.*'+searchString+'\.*';
+//  var idString = new require('mongodb').ObjectID(searchString);
 
   if(searchType == 1){
     var queryJSON = { PRODUCT_NAME : new RegExp(regexValue, 'i'), IS_APPROVED : 1};
+  //  var queryJSON2 = {_id : idString};
   } else if(searchType == 2){
     var queryJSON = { FARMER_NAME : new RegExp(regexValue, 'i'), IS_APPROVED : 1};
+  //  var queryJSON2 = {_id : idString};
   }
 
 

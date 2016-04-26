@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+  <link href="../css/_style.css" rel="stylesheet">
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/signin.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="../angularjs/productDisplayAngular.js"></script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script>productDisplayAngular.value("sendProductId",'<%=sendProductId%>'); </script>
+
+
+
+
+
+  <link rel="shortcut icon" href="../images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="../images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Amazon Fresh</title>
+</head>
+
+<body ng-controller="ProductDisplayAngular" ng-cloak>
+  <div class="container-fluid nopadding">
+  <div ng-hide="isLoggedIn">
+    <div class="row">
+      <div class="col-md-12">
+          <ul class="nav nav-pills navbar-fixed-top header-nav">
+              <li>
+                  <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="../images/support_images/af-logo-white.png"><span></span></a>
+              </li>
+              <li class="text">
+                  Already have an AmazonFresh<sup class="sup-plus">+</sup> account?
+              </li>
+              <li class="signin">
+                  <a href="/signin">Sign in.</a>
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div ng-show="isLoggedIn">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-pills navbar-fixed-top header-nav">
+        <li>
+            <a class="img-logo" href="/" id=""><img alt="AmazonFresh Home" src="../images/support_images/af-logo-white.png"><span></span></a>
+        </li>
+        <li class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown">
+                 Hi, {{firstName}} {{lastName}}<span></span><strong class="caret"></strong>
+               </a>
+              <ul class="dropdown-menu accout-dropdown-menu">
+                <li>
+                  <a href="#">Your Account</a>
+                </li>
+                <li>
+                  <a href="#">Manage Your Dash</a>
+                </li>
+                <li>
+                  <a href="#">Help</a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                  <a href="/logout">Sign Out</a>
+                </li>
+              </ul>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/AllOrders">Your Deliveries</a>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/#" id="">Messages <span class="message-count"></span></a>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/MyList?ref_=nav_lists" id="">Your Lists</a>
+        </li>
+        <li>
+            <a href="https://fresh.amazon.com/Favorites?ref_=nav_pp&amp;resultsPerPage=40" id="">Past Purchases</a>
+        </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-fluid container-main">
+    	<div class="row row-margin">
+        <div class="col-md-9">
+          <div class="row">
+    					<ul class="nav navbar-nav">
+                <div class="col-md-2">
+    						<li class="dropdown">
+    							 <button class="btn btn-default btn-shop" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     Shop<strong class="caret caret-btn-shop pull-right"></strong>
+                   </button>
+    							<ul class="dropdown-menu">
+    								<li>
+    									<a href="#">Cat 1</a>
+    								</li>
+    								<li>
+    									<a href="#">Cat 2</a>
+    								</li>
+    								<li>
+    									<a href="#">Cat 3</a>
+    								</li>
+    								<li>
+    									<a href="#">Cat 4</a>
+    								</li>
+    							</ul>
+    						</li>
+                </div>
+                <div class="col-md-10">
+                <li>
+                  <div class="input-group">
+                    <input type="text" class="form-control"/>
+                    <span class="input-group-addon fa-serch-btn">
+                      <i class="fa fa-search">Go</i>
+                    </span>
+                  </div>
+                </li>
+                </div>
+              </ul>
+            </div>
+
+            <div class="row row-margin">
+              <div class="col-md-12">
+                <ol class="breadcrumb">
+                  <li><a href="/" class="inactive">Home</a></li>
+                  <li><a href="#" class="active">Product: "{{displayProductDetails.PRODUCT_NAME}}"</a></li>
+                </ol>
+              </div>
+            </div>
+
+          <div class="row row-margin">
+        		<div class="col-md-4">
+              <div class="">
+                <img ng-src="../uploads/{{displayProductDetails.FILE_NAME}}" />
+              </div>
+            </div>
+            <div class="col-md-8">
+              <h1 class="product-page-product-name">
+                  {{displayProductDetails.PRODUCT_NAME}}, {{displayProductDetails.UNIT}} oz
+              </h1>
+              <span class="product-page-other-products-by">Other products by </span>
+              <span class="product-page-farmer-name"><a href="/{{displayProductDetails.FARMER_ID}}">{{displayProductDetails.FARMER_NAME}}</a></span>
+              <div class="product-page-ratings-img">
+                <img src="../images/support_images/{{displayProductDetails.AVG_RATING}}-stars.png"/>
+                ({{displayProductDetails.AVG_RATING}})
+              </div>
+              <div class="product-page-price">
+                <span class="price">{{displayProductDetails.PRICE | currency}}</span>
+                <span class="unit-price">($0.77/oz)</span>
+              </div>
+              <div class="product-page-add">
+                <button class="btn btn-primary btn-add" enabled="isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
+                <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row-margin">
+            <div class="col-md-12">
+              <hr class="product-page-seperator">
+                <h3>Product Description</h2>
+                <p>{{displayProductDetails.PRODUCT_DESCRIPTION}}</p>
+            </div>
+          </div>
+          <div class="row row-margin">
+            <div class="col-md-12">
+              <hr class="product-page-seperator">
+                <h3>Product Details</h2>
+                <p><strong>ASIN:</strong>{{displayProductDetails._id}}</p>
+            </div>
+          </div>
+          <div class="row row-margin">
+            <div class="col-md-12">
+              <hr class="product-page-seperator">
+                <h3>Reviews & Ratings</h2>
+                  <!-- if no reviews -->
+                  <h6 ng-show="noReview">There are no customer reviews yet.  Add a Review</h6>
+                  <button id="modal-649609" href="#modal-container-649609" role="button" data-toggle="modal" class="btn btn-xs" >Add Review</button>
+
+                  <!-- If reviews are available -->
+
+                  <div class="product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS | orderBy : '-TIMESTAMP'">
+                   <hr class="product-page-seperator">
+                    <span><img src="../images/support_images/{{review.RATINGS}}-stars.png" /></span>
+                    <span><strong>{{review.TITLE}}</strong></span>
+                    <p class="product-page-review-by">
+                      By <a>{{review.CUSTOMER_NAME}}</a> on {{review.REVIEWDATE}}
+                    </p>
+                    <p>
+                      {{review.REVIEW}}
+                    </p>
+
+                  </div>
+            </div>
+          </div>
+    	</div>
+      <div class="col-md-3" ng-show=true>
+          <div class="row">
+            <strong class="">Great news, we deliver to your area.</strong>
+            AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
+          </div>
+          <div class="row" ng-hide="isLoggedIn">
+            <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
+              Sign In
+            </button>
+        </div>
+
+        <!-- Cart Start -->
+        <div class="row" ng-show=true>
+          <div class="thumbnail">
+						<div class="caption">
+              <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
+							<button ng-click="doProceedToCheckout();" ng-class="checkOutBtnClass" enabled="isLoggedIn">Proceed to Checkout</button>
+              <div ng-show="cart.length==0">
+                <center>Add products to Cart to checkout.</center>
+              </div>
+              <p>
+                  <span class="bill-subtotal">Subtotal {{getTotal() | currency}}</span><span class="bill-items pull-right">( {{cart.length}} Items)</span>
+                  <hr class="product-page-seperator"/>
+              </p>
+
+              <div ng-show="cart.length==0">
+                <p>
+                    There are currently no items in your cart. You can add an item by clicking on any <strong>Add to cart</strong> button.
+                  <hr class="product-page-seperator"/>
+                </p>
+              </div>
+
+              <!-- Items in the cart -->
+              <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
+                <div class="row">
+                  <div class="col-md-2 bill-cart-qty-pad">
+                    <fieldset class="input-group-vertical">
+                      <button class="btn btn-default bill-cart-qty-btn" ng-click="plusQTY($index)">
+                        <span class="glyphicon glyphicon-plus gly-plus-minus"></span>
+                      </button>
+                      <div class="">
+                        <input type="text" class="form-control bill-cart-qty" ng-model="item.QTY" disabled/>
+                      </div>
+                      <button class="btn btn-default bill-cart-qty-btn" ng-click="minusQTY($index)">
+                        <span class="glyphicon glyphicon-minus gly-plus-minus"></span>
+                      </button>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-8 bill-cart-item-pad">
+                    <div class="media">
+                      <a href="#" class="pull-left"><img alt="" src="../uploads/{{item.FILE_NAME}}" class="media-object bill-item-img"/></a>
+                      <div class="media-body">
+                          <a class="bill-cart-item-name">{{item.PRODUCT_NAME}}</a>
+                        <h6>
+                            <span class="bill-cart-item-price">{{item.PRICE | currency}}</span>
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 bill-cart-remove-pad">
+                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" ng-click="removeItemFromCart($index);" alt="x" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+					</div>
+        </div>
+        <!-- Cart End -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- __________________________________________REVIEW MODAL_____________________________________________ -->
+<div class="row">
+		<div class="col-md-12">
+			 <a></a>
+
+			<div class="modal fade" id="modal-container-649609" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								Write a Review for {{displayProductDetails.PRODUCT_NAME}}
+							</h4>
+						</div>
+						<div class="modal-body">
+            <form name="reviewForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="rating">
+                      Your Rating
+                    </label>
+                    <fieldset class="rating">
+                      <input type="radio" id="star5" ng-model="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                      <input type="radio" id="star4" ng-model="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                      <input type="radio" id="star3" ng-model="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                      <input type="radio" id="star2" ng-model="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                      <input type="radio" id="star1" ng-model="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="title">
+                      Title
+                    </label>
+                    <input type="text" class="form-control" placeholder="Title..." ng-model="title"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="review">
+                      Review
+                    </label>
+                    <textarea class="form-control textbox-address"  placeholder="Write your review here..." ng-model="review"  ng-required="reviewReq;"></textarea>
+                    <span ng-show="reviewForm.review.$touched && reviewForm.review.$invalid">Please enter the review.</span>
+                  </div>
+                </div>
+              </div>
+						</div>
+
+							<div class="_9b5ef6-textarea_btn _9b5ef6-not_focused">
+								<div class="_9b5ef6-transform_wrap">
+									<div class="_9b5ef6-status">
+									</div>
+								</div>
+							</div>
+
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								Cancel
+							</button>
+							<button type="submit" class="btn btn-primary btn-primary-theme" data-dismiss="modal" ng-disabled="reviewForm.$invalid" ng-click="addReview(displayProductDetails._id,displayProductDetails.AVG_RATING)">
+								Submit Review
+							</button>
+						</div>
+            </form>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+  <% include ./partial/footer %>
+
+<!-- _________________________________________________LOGIN MODAL____________________________________________ -->
+  <div ng-controller="LoginController">
+  <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                  <div class="a-section a-padding-medium auth-workflow container-fluid">
+                      <div class="a-section">
+                          <!-- show a warning modal dialog when the third party account is connected with Amazon -->
+                          <div class="a-section a-spacing-base auth-pagelet-container">
+                              <div class="a-section">
+                                  <form action="" class="a-spacing-none" name="signIn" >
+                                      <div class="a-section">
+                                          <div class="a-box">
+                                              <div class="a-box-inner a-padding-extra-large">
+                                                  <h1 class="a-spacing-small">Sign in</h1>
+                                                  <div class="a-row a-spacing-base">
+                                                      <div ng-hide="isPending">
+                                                          <strong>Your account is currently pending approval.</strong>
+                                                      </div>
+                                                      <div ng-hide="isNotApproved">
+                                                          <strong>Unfortunately,we couldn't approve your account.Please contact the help desk for more information. </strong>
+                                                      </div>
+                                                      <label for="ap_email">Email ID</label>
+                                                      <input class="a-input-text a-span12 auth-autofocus auth-required-field"
+                                                             id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
+                                                      <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email is required</span>
+                                                  </div>
+                                                  <div class="a-section a-spacing-large">
+                                                      <div class="a-row">
+                                                          <div class="a-column a-span5">
+                                                              <label for="ap_password">Password</label>
+                                                          </div>
+                                                          <div class="a-column a-span7 a-text-right a-span-last">
+                                                              <a class="a-spacing-null a-link-normal" href=
+                                                              "/forgotPassword"
+                                                                 id="auth-fpp-link-bottom">Forgot your password?</a>
+                                                          </div>
+                                                      </div>
+                                                      <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password" required>
+                                                      <span style="color:red" ng-show="signIn.password.$error.required && signIn.password.$dirty">Password is required</span>
+                                                      <div  ng-hide="invalidLogin">
+                                                          <strong>Incorrect username or password</strong>
+                                                      </div>
+
+                                                      <div ng-hide="unexpectedError">
+                                                          <strong>Unexpected error,try again</strong>
+                                                      </div>
+                                                  </div>
+                                                  <div class="a-section a-spacing-extra-large">
+                            <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0">
+                                <span class="a-button-inner"><input aria-labelledby="a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="button" ng-click="submit();"  ng-disabled="signIn.$invalid"> <span aria-hidden="true" class=
+                                    "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
+                                                  </div>
+
+
+                                                  <div class="a-divider a-divider-break">
+                                                      <h5>New to Amazon?</h5>
+                                                  </div>
+
+                            <span class="a-button a-button-span12" id="auth-create-account-link">
+                              <span class="a-button-inner">
+                                <a class="a-button-text" href="/signUp" id="createAccountSubmit" role="button" tabindex="6">
+                                    Create your Amazon account
+                                              </a>
+                                            </span>
+                                          </span>
+                                    </div>
+                                </div>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>
