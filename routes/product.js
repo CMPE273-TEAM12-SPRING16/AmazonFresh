@@ -64,8 +64,7 @@ exports.doAddProduct = function(req,res)
 					var unit = req.param("units");
 					var price = req.param("price");
 					var productDescription = req.param("productDescription");
-					var farmerFirstName = req.session.firstName;
-					var farmerLastName = req.session.lastName;
+					var farmerName = req.session.firstName + " " + req.session.lastName;
 					var farmerId = req.session.userId;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
@@ -76,8 +75,7 @@ exports.doAddProduct = function(req,res)
 
              			var insertJSON = {"PRODUCT_NAME" : productName,
 						"FARMER_ID" : farmerId,
-						"FARMER_FIRST_NAME" : farmerFirstName,
-						"FARMER_LAST_NAME" : farmerLastName,
+						"FARMER_NAME" : farmerName,
 						"PRICE" : price,
 						"NOOFUNITS" : noOfUnits,
 						"UNIT" : unit,
@@ -169,8 +167,9 @@ exports.doDeleteProduct = function(req,res){
 exports.doSearch = function(req, res){
 
   var searchString = req.param("searchString");
+  var searchType = req.param("searchType");
 
-  mongo.searchIt('PRODUCTS', searchString, function(err,searchRes){
+  mongo.searchIt('PRODUCTS', searchString, searchType, function(err,searchRes){
 
     if(err){
       throw err;
@@ -232,7 +231,7 @@ exports.getProductDetails=function(req,res)
 
 exports.doFetch10Products = function(req,res){
 
-  getProductJSON = {};
+  getProductJSON = {IS_APPROVED : 1};
 	var callbackFunction = function (err, results) {
            if(err)
 		{
@@ -248,7 +247,7 @@ exports.doFetch10Products = function(req,res){
 		}
     }
 
-    mongo.find('PRODUCTS',getProductJSON,callbackFunction);
+    mongo.find('PRODUCTS', getProductJSON, callbackFunction);
 
 }
 
@@ -260,7 +259,7 @@ exports.addProductReview = function(req,res){
 	var avgRating = Number(req.param("avg_rating"));
 	var avg = 0;
 	if(avgRating != 0){
-		avg = Math.round(ratings+avgRating)/2;
+		avg = Math.round((ratings+avgRating)/2);
 		console.log("Avg if !0"+avg);
 	}
 	else{

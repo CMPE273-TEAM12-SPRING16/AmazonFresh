@@ -67,9 +67,13 @@ app.controller('LoginController',function($scope,$http)
 app.controller('IndexPageController',function($scope,$http){
 
   $scope.isLoggedIn = false;
+
+  //________________________SEARCH THINGS____________________//
   $scope.isSearch = false;
   $scope.searchedProducts = {};
+  $scope.searchType = 'Name';
 
+  //________________________SEARCH THINGS OVER____________________//
 
   //___________________BREAD_CRUMB_START___________________//
   $scope.bcHomeClass = "active";
@@ -120,12 +124,20 @@ app.controller('IndexPageController',function($scope,$http){
       $scope.bcHomeClass = "inactive";
       $scope.bcSearchResultsClass = "active";
       var searchString = $scope.searchString;
+      var searchType;
+      if($scope.searchType == 'Name'){//Select search type
+        searchType = 1;
+      }else if($scope.searchType == 'Name'){
+        searchType = 2;
+      }
+
       if(searchString != ""){
         $http({
           method : "POST",
           url : '/doSearch',
           data : {
-            "searchString" : searchString
+            "searchString" : searchString,
+            "searchType" : searchType
           }
 
         }).then(function(res) {

@@ -2575,12 +2575,15 @@ output {
 .form-control::-moz-placeholder {
   color: #999;
   opacity: 1;
+  font-style: italic;
 }
 .form-control:-ms-input-placeholder {
   color: #999;
+  font-style: italic;
 }
 .form-control::-webkit-input-placeholder {
   color: #999;
+  font-style: italic;
 }
 .form-control::-ms-expand {
   background-color: transparent;

@@ -61,11 +61,17 @@ exports.findOne = function(collectionName,queryJSON,callbackFunction)
 
 }
 
-exports.searchIt = function(collectionName,searchString,callback){
+exports.searchIt = function(collectionName, searchString, searchType, callback){
   //searchString = ''\.*''+ searchString + '.*\';
 
   var regexValue='\.*'+searchString+'\.*';
-  var queryJSON = { PRODUCT_NAME : new RegExp(regexValue, 'i')};
+
+  if(searchType == 1){
+    var queryJSON = { PRODUCT_NAME : new RegExp(regexValue, 'i'), IS_APPROVED : 1};
+  } else if(searchType == 2){
+    var queryJSON = { FARMER_NAME : new RegExp(regexValue, 'i'), IS_APPROVED : 1};
+  }
+
 
   connect(mongoURL, function(db){
       var collectionObject = collection(collectionName);

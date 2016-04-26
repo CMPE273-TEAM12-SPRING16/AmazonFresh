@@ -45,7 +45,7 @@
 </head>
 
 <body ng-app="indexAngular" ng-controller="IndexPageController" ng-cloak>
-  <div class="container-fluid nopadding">
+  <div class="container-fluid">
     <div ng-hide="isLoggedIn">
       <% include ./partial/header %>
     </div>
@@ -81,7 +81,19 @@
               <div class="col-md-10">
                 <li>
                   <div class="input-group">
-                    <input type="text" class="form-control" ng-model="searchString"/>
+                    <span class="input-group-addon fa-serch-btn">
+                      <a  class="dropdown-toggle" data-toggle="dropdown" style="color: #FFFFFF; text-decoration: none;">
+                        <i class="fa fa-search">
+                          Search Produces by {{searchType}}<span class="caret caret-btn-search"></span>
+                        </i>
+                      </a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#" ng-click="searchType = 'Name'">Search Produces by Name</a></li>
+                          <li><a href="#" ng-click="searchType = 'Farmer'">Search Produces by Farmers</a></li>
+                        </ul>
+
+                    </span>
+                    <input type="text" class="form-control" placeholder="Type here..." ng-model="searchString"/>
                       <span class="input-group-addon fa-serch-btn">
                         <a ng-click="doSearch()" style="color: #FFFFFF; text-decoration: none;"><i class="fa fa-search">Go</i></a>
                       </span>
@@ -282,7 +294,7 @@
                           <div class="caption">
                             <h5>${{product.PRICE}}</h5>
                             <p  class="product_list_name"><a href="/products/{{product._id}}">{{product.PRODUCT_NAME}}</a></p>
-                            <p>Sold By <a href="">{{product.FARMER_FIRST_NAME}} {{product.FARMER_LAST_NAME}}</a></p>
+                            <p>Sold By <a href="">{{product.FARMER_NAME}}</a></p>
                             <div class="row">
                               <div class="col-md-3">
                                 <select class="form-control qty-select">
