@@ -12,11 +12,14 @@ signUp.controller('signup',function($scope,$http,$rootScope)
 {
     $scope.registeredEmail=true;
     $scope.unexpectedError=true;
-
+    $scope.invalidAddress = false;
     $scope.submit=function()
     {
-        console.log($scope.email);
-        $http({
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'address': $scope.address}, function(results, status) {
+            console.log(google.maps.GeocoderStatus);
+        if (status == google.maps.GeocoderStatus.OK) {
+       $http({
 
             method:"POST",
             url:'/doSignup',
@@ -36,7 +39,8 @@ signUp.controller('signup',function($scope,$http,$rootScope)
                 "creditCardName":$scope.creditCardName,
                 "expiryMonth":$scope.expiryMonth,
                 "expiryYear":$scope.expiryYear,
-                "cvv":$scope.cvv
+                "cvv":$scope.cvv,
+                "IS_APPROVED":0
             }
 
         }).success(function(data)
@@ -54,14 +58,26 @@ signUp.controller('signup',function($scope,$http,$rootScope)
                 $scope.unexpectedError = false;
                 $scope.registeredEmail = true;
             });
+      } else if(status == google.maps.GeocoderStatus.ZERO_RESULTS){
+        debugger;
+        console.log("Invalid Address");
+        $scope.invalidAddress = true;
+      }
+      else{
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+         console.log(geocoder);
+        console.log($scope.email);
+        
 
 
     };
 
-    $scope.match=function(x)
+    $scope.match=function()
     {
 
-
+        $scope.passwordMatch=false;
 
     if($scope.password!=$scope.confirmPassword)
     {

@@ -222,11 +222,31 @@ exports.getProductDetails=function(req,res)
 			console.log(err);
 		}
 		else {
-			console.log(results.PRODUCT_NAME);
+
+			
+			var reviews = getDateAndMonth(results);
+
 			res.send({"productDetails":results});
 		}
 	}
 	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
+}
+
+function getDateAndMonth(results){
+	console.log("getDateAndMonth");
+	var monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+	var reviewArr = results.REVIEW_DETAILS;
+	for(var rev in results.REVIEW_DETAILS){
+		var date = results.REVIEW_DETAILS[rev].TIMESTAMP;
+		var d = new Date(date);
+		var month = monthName[d.getMonth()];
+		var day = d.getDate();
+		var year = d.getFullYear();
+		var reviewDate = month+" "+day+", "+year;
+		results.REVIEW_DETAILS[rev].REVIEWDATE = reviewDate;
+		
+	}
+	return results;
 }
 
 exports.doFetch10Products = function(req,res){

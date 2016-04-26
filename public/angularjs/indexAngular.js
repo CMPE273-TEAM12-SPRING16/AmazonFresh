@@ -27,9 +27,11 @@ app.controller('LoginController',function($scope,$http)
 
         }).then(function(res){
             console.log(res.data.isApproved);
+            if (res.data.statusCode == 200) {
+
            if(res.data.isApproved==1) {
 
-               if (res.data.statusCode == 200) {
+
                    if (res.data.userType == 1) {
                        window.location.assign("/");
                    } else if (res.data.userType == 2) {
@@ -37,12 +39,14 @@ app.controller('LoginController',function($scope,$http)
                    } else if (res.data.userType == 0) {
                        window.location.assign("/adminHome");
                    }
-               } else if (res.data.statusCode == 401) {
+               } }
+           else if (res.data.statusCode == 401) {
+                   console.log("invalid login");
                    $scope.invalidLogin = false;
                    $scope.unexpectedError = true;
                }
 
-           }
+
             else if(res.data.isApproved==0)
            {
                $scope.isPending=false;

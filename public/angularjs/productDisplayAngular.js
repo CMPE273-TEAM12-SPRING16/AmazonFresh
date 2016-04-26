@@ -1,4 +1,62 @@
 var productDisplayAngular= angular.module("productDisplayAngular",[]);
+
+productDisplayAngular.controller('LoginController',function($scope,$http)
+{
+    $scope.isNotApproved=true;
+    $scope.isPending=true;
+    $scope.invalidLogin=true;
+    $scope.unexpectedError=true;
+
+    $scope.submit=function()
+    {
+
+
+        console.log($scope.email);
+
+        $http({
+
+            method:"POST",
+            url:'/doLogin',
+            data : {
+                "email":$scope.email,
+                "password":$scope.password
+            }
+
+
+        }).then(function(res){
+            console.log(res.data.isApproved);
+            if(res.data.isApproved==1) {
+
+                if (res.data.statusCode == 200) {
+
+                    console.log("valid login");
+                } else if (res.data.statusCode == 401) {
+                    $scope.invalidLogin = false;
+                    $scope.unexpectedError = true;
+                }
+
+            }
+            else if(res.data.isApproved==0)
+            {
+                $scope.isPending=false;
+            }
+            else if(res.data.isApproved==2)
+            {
+                console.log("is approved is 2")
+                $scope.isNotApproved=false;
+            }
+        }, function(res) { //this will be called on error
+            console.log(res.data);
+        });
+
+
+    };
+
+
+});
+
+
+
 productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId','socket',function($scope,$http,sendProductId,socket)
 {
         $scope.reviewReq = true;
@@ -221,6 +279,8 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
             }
     }
 ]);
+
+
 
 
 productDisplayAngular.factory('socket', ['$rootScope', function ($rootScope) {

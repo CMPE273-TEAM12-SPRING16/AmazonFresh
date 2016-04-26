@@ -33,6 +33,8 @@ function doLogin(req, res) {
 
     if (results.length > 0)
     {
+
+
       var passwordDB = results[0].PASSWORD;
       var saltDB = results[0].SALT;
 
@@ -43,6 +45,7 @@ function doLogin(req, res) {
       }
 
       if(loginSucess && results[0].IS_APPROVED==1) {
+
 
         req.session.email = results[0].EMAIL;
         req.session.userType = results[0].USERTYPE;
@@ -104,7 +107,9 @@ function doLogin(req, res) {
     }
     if(!loginSucess)
     {
-      var jsonResponse={"statusCode":401};
+
+      console.log("invalid login");
+      var jsonResponse={"statusCode":401, "isApproved":1};
       res.send(jsonResponse);
     }
   }, getLoginDetails);
@@ -173,7 +178,7 @@ console.log(email);
             "ZIP": zip,
             "PHONE_NUMBER": phone,
             "USER_TYPE": userType,
-            "IS_APPROVED" : 0
+            "IS_APPROVED":0
 
           };
 
@@ -320,6 +325,109 @@ exports.logout = function(req,res)
   req.session.destroy();
   res.redirect('/');
 }
+
+exports.doUpdateUserDetails = function(req, res) {
+console.log(req.param("ssn")+"ssn");
+  var firstName = req.param("firstName");
+  var lastName = req.param("lastName");
+  var ssn = req.param("ssn");
+  var password = req.param("password");
+  var address = req.param("address");
+  var city = req.param("city");
+  var state = req.param("state");
+  var zip = req.param("zip");
+  var phone = req.param("phone");
+  var userType = req.param("userType");
+console.log("password");
+  var updateSignUpDetails = "update users set PASSWORD= '" + password + "' where USER_ID='" + req.session.userId+ "' ";
+  mysql.fetchData(function (err, results) {
+
+    if (results.affectedRows > 0) {
+
+
+
+      console.log("values updated");
+
+console.log("ssn is"+ssn);
+
+      var userDetails = {
+        "USER_ID": req.session.userId,
+        "FIRST_NAME": firstName,
+        "LAST_NAME": lastName,
+        "SSN": ssn,
+        "ADDRESS": address,
+        "CITY": city,
+        "STATE": state,
+        "ZIP": zip,
+        "PHONE_NUMBER": phone,
+        "USER_TYPE": userType,
+        "IS_APPROVED":1
+      };
+      var whereJson={"USER_ID":req.session.userId};
+
+      var userDetailsCallbackFunction = function (err, results) {
+        var json_responses;
+
+        if (err) {
+          console.log(err);
+        }
+        else {
+
+          if(userType==1) {
+            var creditCardNumber = req.param("creditCardNumber");
+            var creditCardName = req.param("creditCardName");
+            var expiryMonth = req.param("expiryMonth");
+            var expiryYear = req.param("expiryYear");
+            var cvv = req.param("cvv");
+
+            var customerCreditCardDetails = {
+              "USER_ID": req.session.userId,
+              CREDIT_CARD_DETAILS:
+              {
+                "CREDIT_CARD_NUMBER": creditCardNumber,
+                "CREDIT_CARD_NAME": creditCardName,
+                "EXPIRY_MONTH": expiryMonth,
+                "EXPIRY_YEAR": expiryYear,
+                "CVV": cvv}
+            };
+
+            var customerCreditCardDetailsCallbackFunction = function (err, results) {
+              var json_responses;
+
+              if (err) {
+                console.log(err);
+              }
+              else {
+                console.log("creditCardDetailsInserted");
+              }
+            }
+            mongo.updateOne("CUSTOMER_DETAILS",whereJson, customerCreditCardDetails, customerCreditCardDetailsCallbackFunction);
+          }
+
+          json_responses = {"statusCode": 200};
+          res.send(json_responses);
+
+          //checking for credit card details and entering the details in CREDITCARDTABLE
+
+        }
+
+      }
+
+      mongo.updateOne("USER_DETAILS",whereJson, userDetails, userDetailsCallbackFunction);
+    }
+
+
+
+    else {
+      console.log("data update failed");
+    }
+  },  updateSignUpDetails);
+
+
+
+}
+
+
 
 exports.signup=signup;
 exports.login=login;

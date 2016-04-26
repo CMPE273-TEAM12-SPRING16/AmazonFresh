@@ -203,12 +203,12 @@
 
                   <!-- If reviews are available -->
 
-                  <div class="product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS">
+                  <div class="product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS | orderBy : '-TIMESTAMP'">
                    <hr class="product-page-seperator">
                     <span><img src="../images/support_images/{{review.RATINGS}}-stars.png" /></span>
                     <span><strong>{{review.TITLE}}</strong></span>
                     <p class="product-page-review-by">
-                      By <a>{{review.CUSTOMER_NAME}}</a> on {{review.TIMESTAMP}}
+                      By <a>{{review.CUSTOMER_NAME}}</a> on {{review.REVIEWDATE}}
                     </p>
                     <p>
                       {{review.REVIEW}}
