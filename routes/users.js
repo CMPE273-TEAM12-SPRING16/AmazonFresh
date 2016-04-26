@@ -6,6 +6,8 @@ const crypto = require('crypto');
 var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
+var passport = require('passport');
+require('./passport')(passport);
 
 function signup(req, res) {
   res.render('signup');
@@ -20,99 +22,97 @@ function login(req, res) {
 };
 
 
-function doLogin(req, res) {
-
+function doLogin(req, res,next) {
   var loginSucess = false;
   var email = req.param("email");
   var password = req.param("password");
-
-  console.log(email);
-  var  getLoginDetails = "SELECT * FROM USERS WHERE EMAIL='" + email + "' LIMIT 1";
-
-  mysql.fetchData(function (err, results) {
-
-    if (results.length > 0)
-    {
-
-
-      var passwordDB = results[0].PASSWORD;
-      var saltDB = results[0].SALT;
-
-      passwordIN = crypto.pbkdf2Sync(password, saltDB, 100000, 64, 'sha256').toString('hex');
-
-      if (passwordIN == passwordDB){
-        loginSucess = true;
+  passport.authenticate('doLogin', function (err, results, info) {
+    console.log(results);
+    req.logIn(results, {session: false}, function (err) {
+      if (err) {
+        return next(err);
       }
 
-      if(loginSucess && results[0].IS_APPROVED==1) {
+  else if(results.length>0) {
+        console.log("inside results.affrows>0");
+
+        var passwordDB = results[0].PASSWORD;
+        var saltDB = results[0].SALT;
+
+        passwordIN = crypto.pbkdf2Sync(password, saltDB, 100000, 64, 'sha256').toString('hex');
+
+        if (passwordIN == passwordDB) {
+          loginSucess = true;
+        }
+
+        if (loginSucess && results[0].IS_APPROVED == 1) {
 
 
-        req.session.email = results[0].EMAIL;
-        req.session.userType = results[0].USERTYPE;
-        req.session.userId = results[0].USER_ID;
+          req.session.email = results[0].EMAIL;
+          req.session.userType = results[0].USERTYPE;
+          req.session.userId = results[0].USER_ID;
 
-        if (results[0].USERTYPE != 0) {
-          var callbackFunction = function (err, resultsMongo) {
-            if (resultsMongo) {
-              console.log(resultsMongo);
-              req.session.firstName = resultsMongo.FIRST_NAME;
-              req.session.lastName = resultsMongo.LAST_NAME;
-              req.session.city = resultsMongo.CITY;
-              req.session.state = resultsMongo.STATE;
-              req.session.address = resultsMongo.ADDRESS;
-              req.session.zip = resultsMongo.ZIP;
-              req.session.phone = resultsMongo.PHONE_NUMBER;
-              req.session.ssn = resultsMongo.SSN;
+          if (results[0].USERTYPE != 0) {
+            var callbackFunction = function (err, resultsMongo) {
+              if (resultsMongo) {
+                console.log(resultsMongo);
+                req.session.firstName = resultsMongo.FIRST_NAME;
+                req.session.lastName = resultsMongo.LAST_NAME;
+                req.session.city = resultsMongo.CITY;
+                req.session.state = resultsMongo.STATE;
+                req.session.address = resultsMongo.ADDRESS;
+                req.session.zip = resultsMongo.ZIP;
+                req.session.phone = resultsMongo.PHONE_NUMBER;
+                req.session.ssn = resultsMongo.SSN;
 
-              var jsonResponse = {
-                "statusCode": 200,
-                "userType": results[0].USERTYPE,
-                "isApproved":1
-              };
+                var jsonResponse = {
+                  "statusCode": 200,
+                  "userType": results[0].USERTYPE,
+                  "isApproved": 1
+                };
 
-              res.send(jsonResponse);
-            }
-            else {
-              throw err;
-            }
-          };
+                res.send(jsonResponse);
+              }
+              else {
+                throw err;
+              }
+            };
 
-          var queryJSON = {"USER_ID": req.session.userId};
-          mongo.findOne('USER_DETAILS', queryJSON, callbackFunction);
+            var queryJSON = {"USER_ID": req.session.userId};
+            mongo.findOne('USER_DETAILS', queryJSON, callbackFunction);
 
 
-        } else if (results[0].USERTYPE == 0) {   ////FOR ADMIN USER/////////////
-          var jsonResponse = {
-            "statusCode": 200,
-            "userType": results[0].USERTYPE,
-            "isApproved":1
-          };
-          res.send(jsonResponse);
+          } else if (results[0].USERTYPE == 0) {   ////FOR ADMIN USER/////////////
+            var jsonResponse = {
+              "statusCode": 200,
+              "userType": results[0].USERTYPE,
+              "isApproved": 1
+            };
+            res.send(jsonResponse);
+          }
+        }
+        else if (loginSucess && results[0].IS_APPROVED == 0) {
+          var isApproved = {"isApproved": 0};
+          res.send(isApproved);
+
+        }
+        else if (loginSucess && results[0].IS_APPROVED == 2) {
+          console.log("rejected");
+          var isApproved = {"isApproved": 2};
+          res.send(isApproved);
+
         }
       }
-      else if (loginSucess && results[0].IS_APPROVED==0)
-      {
-        var isApproved={"isApproved" : 0};
-  res.send(isApproved);
+     if (!loginSucess) {
 
+        console.log("invalid login");
+        var jsonResponse = {"statusCode": 401, "isApproved": 1};
+        res.send(jsonResponse);
       }
-      else if (loginSucess && results[0].IS_APPROVED==2)
-      {
-        console.log("rejected");
-        var isApproved={"isApproved" : 2};
-        res.send(isApproved);
+    })
 
-      }
+  })(req, res, next);
 
-    }
-    if(!loginSucess)
-    {
-
-      console.log("invalid login");
-      var jsonResponse={"statusCode":401, "isApproved":1};
-      res.send(jsonResponse);
-    }
-  }, getLoginDetails);
 }
 
 

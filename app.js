@@ -15,16 +15,20 @@ var cart=require('./routes/cart');
 var farmer = require('./routes/farmer');
 var admin = require('./routes/admin');
 var users=require('./routes/users');
+var passport = require('passport');
+require('./routes/passport')(passport);
 
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
+    resave: false,
+    saveUninitialized: false,
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000,
 	store: new mongoStore({
 		url: mongoSessionConnectURL
 	})
 }));
-
+app.use(passport.initialize());
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -201,6 +205,17 @@ io.on('connection',function(socket){
     console.log(data);
   });
 });
+
+app.get('/doLogin',isAuthenticated,users.doLogin);
+
+function isAuthenticated(req, res, next) {
+  if(req.session.userId) {
+    console.log(req.session.userId);
+    return next();
+  }
+
+  res.redirect('/');
+};
 
 
 app.get('/:error',function(req, res){
