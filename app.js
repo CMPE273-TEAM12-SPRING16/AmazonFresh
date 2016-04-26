@@ -198,7 +198,12 @@ io.on('connection',function(socket){
 });
 
 
-
+app.get('/:error',function(req, res){
+  res.render('error');
+});
+app.post('/:error',function(req, res){
+  res.render('error');
+});
 http.listen(app.get('port'), function(){
 	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
 });

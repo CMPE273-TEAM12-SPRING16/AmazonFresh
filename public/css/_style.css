@@ -605,3 +605,15 @@ text-align: center !important;
 font-size: 30px !important;
 color: #999999 !important;
 }
+
+
+.error-page{
+  background-image: url("../images/support_images/error-page-bc.jpg");
+  background-size: 100%;
+  color: #999999 !important;
+}
+.error-404{
+  color: #A9E236;
+  font-weight: bold !important;
+  font-size: 100px !important;
+}
