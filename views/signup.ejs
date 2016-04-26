@@ -60,7 +60,7 @@
                     <input type="text" class="form-control" id="firstName" name="firstName" ng-maxlength="20"  ng-model="firstName" ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="First Name"  required/>
                     <span>
                     <span style="color:red" ng-show="signupForm.firstName.$error.pattern">First name must contain letters only</span>
-                    <span style="color:red" ng-show="signupForm.firstName.$error.required && signupForm.firstName.$dirty">First name is required</span>
+                    <span style="color:red" ng-show="signupForm.firstName.$error.required && signupForm.lastName.$dirty">First name is required</span>
                     </span>
                   </div>
                 </div>
@@ -73,7 +73,9 @@
                     <input type="text" class="form-control" id="lastName" name="lastName" ng-maxlength="20" ng-model="lastName"  ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="Last Name" required/>
                     <span>
                     <span style="color:red" ng-show="signupForm.lastName.$error.pattern">Last name must contain letters only</span>
-                    <span style="color:red" ng-show="signupForm.lastName.$error.required && signupForm.lasttName.$dirty">Last name is required</span>
+
+                    <span style="color:red" ng-show="signupForm.lastName.$error.required && signupForm.lastName.$dirty">Last name is required</span>
+
                     </span>
                   </div>
                 </div>
