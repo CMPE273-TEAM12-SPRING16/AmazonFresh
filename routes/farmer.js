@@ -11,10 +11,10 @@ exports.farmerProfile = function(req, res){
 
 //Retrive list of products
 exports.doShowProductList = function(req, res) {
-	var user_id = req.session.user_id;
+	var user_id = req.session.userId;
 	console.log(req.session.firstName);
 	var getProductJSON = {"FARMER_ID" : user_id}
-
+	console.log("products List");
 	var callbackFunction = function (err, results) {
            if(err)
 		{
@@ -25,6 +25,7 @@ exports.doShowProductList = function(req, res) {
 		}
 		else
 		{
+			console.log(results);
 			json_responses = {"statusCode" : 200,"results":results};
 			res.send(json_responses);
 		}
