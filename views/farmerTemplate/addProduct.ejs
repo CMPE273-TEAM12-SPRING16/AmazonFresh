@@ -2,7 +2,7 @@
             <div class="col-md-12">
                 <h1>Add Product</h1>
                 <div class="thumbnail thumbnail-signup">
-                    <form role="form">
+                    <form role="form" name="productForm">
                         <h3>
                             Product Details
                         </h3>
@@ -28,6 +28,7 @@
                                       ngf-pattern="'image/*'"
                                       accept="image/*"
                                       ngf-max-size="20MB"
+                                      required
                                   />
                               </div>
                           </div>
@@ -38,7 +39,12 @@
                                     <label for="productName">
                                         Product Name
                                     </label>
-                                    <input type="text" class="form-control" id="productName" placeholder="Product Name" ng-model="productName"/>
+                                    <input type="text" class="form-control" id="productName" name="productName" ng-maxlength="20" ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="Product Name" ng-model="productName" required/>
+                                    <span>
+                                         <span style="color:red" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>Product name must not be more than 20 characters </span>
+                    <span style="color:red" ng-show="productForm.productName.$error.pattern">Product name must contain letters only</span>
+                    <span style="color:red" ng-show="productForm.productName.$error.required && productForm.productName.$dirty">Please enter a name for your product</span>
+                                    </span>  <span style="color:red" ng-show="productForm.productName.$error.required && productForm.productName.$dirty">Please enter a name for your product</span>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +57,11 @@
                                     </label>
                                     <div class="input-group">
                                       <span class="input-group-addon">$</span>
-                                      <input type="text" class="form-control" placeholder="Price" aria-label="Price" ng-model="price">
+                                      <input type="text" class="form-control" ng-pattern="/[0-9]/"  autocomplete="on" autofocus aria-required="true" placeholder="Price" aria-label="Price" name="price" ng-model="price" required>
+                                         <span>
+                    <span style="color:red" ng-show="productForm.price.$error.pattern">Price must contain numbers only</span>
+                    <span style="color:red" ng-show="productForm.price.$error.required && productForm.price.$dirty">Please enter a price for your product</span>
+                                    </span>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +72,11 @@
                                     </label>
                                     <div class="input-group">
                                       <span class="input-group-addon">For</span>
-                                      <input type="text" class="form-control" placeholder="Number" aria-label="Price" ng-model="noOfUnits">
+                                      <input type="text" class="form-control" ng-pattern="/[0-9]/"  autocomplete="on" autofocus aria-required="true" placeholder="Number" name="noofunits" aria-label="Price" ng-model="noOfUnits" required>
+                                    <span>
+                    <span style="color:red" ng-show="productForm.noofunits.$error.pattern">Number Only</span>
+                    <span style="color:red" ng-show="productForm.noofunits.$error.required && productForm.noofunits.$dirty">Please enter number of units</span>
+                                    </span>
                                     </div>
                                 </div>
                             </div>
@@ -73,12 +87,16 @@
                                     </label>
                                     <div class="input-group">
                                       <span class="input-group-addon">Unit</span>
-                                      <select class="form-control" ng-model="units">
+                                      <select class="form-control" ng-model="units" name="units" required>
                                         <option value="ea">ea (each)</option>
                                         <option value="lbs">lb (pound)</option>
                                         <option value="bu">bu (bunch)</option>
                                         <option value="other">Other</option>
                                       </select>
+                                         <span>
+
+                    <span style="color:red" ng-show="productForm.units.$error.required && productForm.units.$dirty">Please enter appropriate unit for your product</span>
+                                    </span>
                                   </div>
                                 </div>
                             </div>
@@ -90,14 +108,15 @@
                                     <label for="productDescription">
                                         Product Description
                                     </label>
-                                    <textarea class="form-control add-prod-description"  placeholder="Product Description" ng-model="productDescription"></textarea>
+                                    <textarea class="form-control add-prod-description"  placeholder="Product Description" name="productName" ng-maxlength="140" ng-minlength="1" autocomplete="on" autofocus aria-required="true" ng-model="productDescription" required></textarea>
+                                    <span style="color:red" ng-show="productForm.ssn.$error.maxlength || productForm.ssn.$error.minlength"/>Product description must not be more than 140 characters</span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="addProduct();">Add Product</button>
+                                <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="addProduct();" ng-disabled="productForm.$invalid">Add Product</button>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
