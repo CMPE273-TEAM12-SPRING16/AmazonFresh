@@ -145,10 +145,10 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                                 if(!productFound)
                                 {
                                     $scope.cart[length] = {"PRODUCT_ID" : productId,
-                                                        "PRODUCT_NAME" : $scope.displayProductDetails.PRODUCT_NAME,
-                                                        "PRICE" : $scope.displayProductDetails.PRICE,
-                                                        "QTY" : 1,
-                                                        "FILE_NAME" : $scope.displayProductDetails.FILE_NAME}; //change this
+                                        "PRODUCT_NAME" : data.productName,
+                                        "PRICE" : data.price,
+                                        "QTY" : 1,
+                                        "FILE_NAME" : data.fileName}; //change this
                             }
                                 }
                                 socket.emit('test',{id:"test"});
