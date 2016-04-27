@@ -13,7 +13,7 @@ app.controller('rideControl', function($scope, $http, billId) {
      }).then(function (res) {
         console.log(res.data);
     console.log(res.data.TRIP_DETAILS);
-    var details = res.data.TRIP_DETAILS;   
+    var details = res.data.TRIP_DETAILS;
     var mapOptions = {
         zoom: 16,
         center: new google.maps.LatLng(res.data.TRIP_DETAILS[0].SOURCE_LOC.LATITUDE, res.data.TRIP_DETAILS[0].SOURCE_LOC.LONGITUDE),
@@ -34,17 +34,17 @@ app.controller('rideControl', function($scope, $http, billId) {
 
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
-    
-	
+
+
 	directionsDisplay.setMap(map);
-	
+
     var end = new google.maps.LatLng(Number(details[res].DESTINATION_LOC.LATITUDE),Number(details[res].DESTINATION_LOC.LONGITUDE));
 	waypts.push({
               location: details[res].DESTINATION_LOC.ADDRESS,
               stopover: true
             });
         }
-        
+
          var request = {
             origin: start,
             destination: end,
@@ -52,7 +52,7 @@ app.controller('rideControl', function($scope, $http, billId) {
             travelMode: google.maps.TravelMode.DRIVING
         };
         directionsService.route(request, function (response, status) {
-               
+
             if (status == google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
                 directionsDisplay.setMap($scope.map);
@@ -63,4 +63,3 @@ app.controller('rideControl', function($scope, $http, billId) {
     })
 
 });
-
