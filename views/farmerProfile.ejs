@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" ng-app="farmerDisplayAngular">
 
 <head>
 
@@ -23,11 +23,11 @@
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 
-    <script src="../angularjs/productDisplayAngular.js"></script>
+    <script src="../angularjs/farmerDisplayAngular.js"></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <script>productDisplayAngular.value("sendProductId",'<%=sendProductId%>'); </script>
+    <script>app.value("farmerId",'<%= farmerId%>'); </script>
 
 
 
@@ -38,7 +38,7 @@
   <title>Amazon Fresh</title>
 </head>
 
-<body ng-controller="ProductDisplayAngular" ng-cloak>
+<body ng-controller="farmerDisplayAngular" ng-cloak>
   <div class="container-fluid nopadding">
   <div ng-hide="isLoggedIn">
     <div class="row">
@@ -155,12 +155,12 @@
           <div class="row row-margin">
         		<div class="col-md-4">
               <div class="">
-                <img ng-src="../uploads/{{displayProductDetails.FILE_NAME}}" />
+                <img ng-src="../uploads/farmer-1.jpg" />
               </div>
             </div>
             <div class="col-md-8">
               <h1 class="product-page-product-name">
-                  {{displayProductDetails.PRODUCT_NAME}}, {{displayProductDetails.UNIT}} oz
+                   {{farmerFirstName}} {{farmerLastName}}
               </h1>
               <span class="product-page-other-products-by">Other products by </span>
               <span class="product-page-farmer-name"><a href="/{{displayProductDetails.FARMER_ID}}">{{displayProductDetails.FARMER_NAME}}</a></span>
@@ -190,7 +190,7 @@
             <div class="col-md-12">
               <hr class="product-page-seperator">
                 <h3>Product Details</h2>
-                <p><strong>ASIN:</strong>{{displayProductDetails._id}}</p>
+                <p><strong>ASIN:</strong>{{farmerId}}</p>
             </div>
           </div>
           <div class="row row-margin">
@@ -378,88 +378,6 @@
 	</div>
 
   <% include ./partial/footer %>
-
-<!-- _________________________________________________LOGIN MODAL____________________________________________ -->
-  <div ng-controller="LoginController">
-  <div class="modal fade" id="modal-container-748235" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="col-md-2"></div>
-              <div class="col-md-8">
-                  <div class="a-section a-padding-medium auth-workflow container-fluid">
-                      <div class="a-section">
-                          <!-- show a warning modal dialog when the third party account is connected with Amazon -->
-                          <div class="a-section a-spacing-base auth-pagelet-container">
-                              <div class="a-section">
-                                  <form action="" class="a-spacing-none" name="signIn" >
-                                      <div class="a-section">
-                                          <div class="a-box">
-                                              <div class="a-box-inner a-padding-extra-large">
-                                                  <h1 class="a-spacing-small">Sign in</h1>
-                                                  <div class="a-row a-spacing-base">
-                                                      <div ng-hide="isPending">
-                                                          <strong>Your account is currently pending approval.</strong>
-                                                      </div>
-                                                      <div ng-hide="isNotApproved">
-                                                          <strong>Unfortunately,we couldn't approve your account.Please contact the help desk for more information. </strong>
-                                                      </div>
-                                                      <label for="ap_email">Email ID</label>
-                                                      <input class="a-input-text a-span12 auth-autofocus auth-required-field"
-                                                             id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
-                                                      <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email is required</span>
-                                                  </div>
-                                                  <div class="a-section a-spacing-large">
-                                                      <div class="a-row">
-                                                          <div class="a-column a-span5">
-                                                              <label for="ap_password">Password</label>
-                                                          </div>
-                                                          <div class="a-column a-span7 a-text-right a-span-last">
-                                                              <a class="a-spacing-null a-link-normal" href=
-                                                              "/forgotPassword"
-                                                                 id="auth-fpp-link-bottom">Forgot your password?</a>
-                                                          </div>
-                                                      </div>
-                                                      <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password" required>
-                                                      <span style="color:red" ng-show="signIn.password.$error.required && signIn.password.$dirty">Password is required</span>
-                                                      <div  ng-hide="invalidLogin">
-                                                          <strong>Incorrect username or password</strong>
-                                                      </div>
-
-                                                      <div ng-hide="unexpectedError">
-                                                          <strong>Unexpected error,try again</strong>
-                                                      </div>
-                                                  </div>
-                                                  <div class="a-section a-spacing-extra-large">
-                            <span class="a-button a-button-span12 a-button-primary" id="a-autoid-0">
-                                <span class="a-button-inner"><input aria-labelledby="a-autoid-0-announce" class="a-button-input" id="signInSubmit" tabindex="5" type="button" ng-click="submit();"  ng-disabled="signIn.$invalid"> <span aria-hidden="true" class=
-                                    "a-button-text" id="a-autoid-0-announce">Sign in</span></span></span>
-                                                  </div>
-
-
-                                                  <div class="a-divider a-divider-break">
-                                                      <h5>New to Amazon?</h5>
-                                                  </div>
-
-                            <span class="a-button a-button-span12" id="auth-create-account-link">
-                              <span class="a-button-inner">
-                                <a class="a-button-text" href="/signUp" id="createAccountSubmit" role="button" tabindex="6">
-                                    Create your Amazon account
-                                              </a>
-                                            </span>
-                                          </span>
-                                    </div>
-                                </div>
-                              </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          <div class="col-md-2"></div>
-        </div>
-    </div>
-</div>
-
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
