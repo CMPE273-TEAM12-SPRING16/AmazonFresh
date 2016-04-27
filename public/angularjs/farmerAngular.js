@@ -215,20 +215,29 @@ farmer.controller('FarmerPageController',['Upload','$scope','$http',function(Upl
   $scope.active1 = "active";
   $scope.active2 = "";
   $scope.active3 = "";
+  $scope.active4 = "";
 
   $scope.activateMe = function(option){
     if(option == 1){
       $scope.active1 = "active";
       $scope.active2 = "";
       $scope.active3 = "";
+      $scope.active4 = "";
     }else if(option == 2){
       $scope.active1 = "";
       $scope.active2 = "active";
       $scope.active3 = "";
+      $scope.active4 = "";
     }else if(option == 3){
       $scope.active1 = "";
       $scope.active2 = "";
       $scope.active3 = "active";
+      $scope.active4 = "";
+    }else if(option == 4){
+      $scope.active1 = "";
+      $scope.active2 = "";
+      $scope.active3 = "";
+      $scope.active4 = "active";
     }
   }
 
