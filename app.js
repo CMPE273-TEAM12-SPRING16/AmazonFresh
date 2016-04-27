@@ -75,7 +75,6 @@ app.get('/farmerHome',users.farmerHome);
 app.get('/redirectToHomepage',users.redirectToHomepage);
 
 app.get('/productHome',product.productHome);
-app.get('/farmerProfile', farmer.farmerProfile);
 
 app.get('/signup',users.signup);
 app.get('/farmerSignup', users.farmerSignup);
@@ -132,7 +131,7 @@ app.get('/account', function(req, res){
 });
 
 app.get('/fetchPurchaseHistory', users.fetchPurchaseHistory);
-
+app.get('/farmerProfile/:id', farmer.farmerProfile);
 app.get('/logout',users.logout);
 
 
@@ -157,6 +156,8 @@ app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 app.post('/getLoggedCartUserDetails',users.getLoggedCartUserDetails);
 app.post('/doSearch', product.doSearch);
 app.post('/doUpdateUserDetails',users.doUpdateUserDetails);
+
+app.post('/getFarmerDetails',farmer.getFarmerDetails);
 
 //------Admin Module ----------//////
 app.post('/doSearchAdmin', admin.doSearchAdmin);
@@ -233,9 +234,12 @@ function isAuthenticated(req, res, next) {
   res.redirect('/');
 };
 
+
 app.get('/mymap', function(req, res){
   res.render('map');
 });
+
+
 app.get('/*',function(req, res){
   res.render('error');
 });
