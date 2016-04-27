@@ -61,6 +61,10 @@ app.get('/checkout', function(req, res){
 	res.render('checkout', {});
 });
 
+app.get('/PastPurchases', function(req, res){
+	res.render('purchaseHistory', {});
+});
+
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
@@ -122,6 +126,9 @@ app.get('/confirmDetailsCheckout', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
+
+app.get('/fetchPurchaseHistory', users.fetchPurchaseHistory);
+
 app.get('/logout',users.logout);
 
 

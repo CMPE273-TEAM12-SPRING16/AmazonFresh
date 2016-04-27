@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <link href="css/_style.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/signin.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!--Angular js scripts-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+
+  <script src="angularjs/purchaseHistoryAngular.js" type="text/javascript"></script>
+
+
+  <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
+  <title>Home | Purchase History</title>
+
+</head>
+
+<body ng-app="purchaseHistoryApp" ng-controller="purchaseHistoryController" ng-cloak>
+  <div class="container-fluid nopadding">
+    <% include ./partial/headerLoggedIn %>
+    <div class="container-fluid container-main">
+      <div class="row row-margin">
+        <div class="col-md-12">
+          <div class="row">
+            <ul class="nav navbar-nav">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-8">
+                <li>
+                  <div class="input-group">
+                    <span class="input-group-addon fa-serch-btn">
+                      <a  class="dropdown-toggle" style="color: #FFFFFF; text-decoration: none;">
+                        <i class="fa fa-search">
+                          Search your orders
+                        </i>
+                      </a>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Enter order number here.." ng-model="searchString"/>
+                      <span class="input-group-addon fa-serch-btn">
+                        <a ng-click="doSearch()" style="color: #FFFFFF; text-decoration: none;"><i class="fa fa-search">Go</i></a>
+                      </span>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+
+
+          <div class="thumbnail thumbnail-signup">
+            <div> <!-- add customer notifications -->
+              <span class="admin-page-title">Past Purchases</span>
+              <div class="thumbnail" ng-repeat="order in purchaseHistory">
+                <div class="row row-margin-none order-header">
+                  <div class="col-md-3">
+                    <h6>Order placed on</h6>
+                    <span>{{order.BILLING_DATE}}</span>
+                  </div>
+                  <div class="col-md-3">
+                    <h6>TOTAL PRICE</h6>
+                    <span>{{order.TOTAL_AMOUNT | currency}}</span>
+                  </div>
+                  <div class="col-md-3">
+                    <h6>Delivered To</h6>
+                    <span>{{order.CUSTOMER_NAME}}</span>
+                  </div>
+                  <div class="col-md-3">
+                    <h6>BILL ID # {{order.BILL_ID}}</h6>
+
+                  </div>
+                </div>
+                <div class="row row-margin-none" style="padding-top : 5px;">
+                  <div class="col-md-12">
+                    <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-3 approve-col-1">
+                        <h5>Address <span class="pull-right">:</span></h5>
+                      </div>
+                      <div class="col-md-9 address-line">
+                        <p>{{order.ADDRESS}}</p>
+                        <p>{{order.CITY}}, {{order.STATE}} {{order.ZIP}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3 approve-col-1">
+                        <h5>Phone <span class="pull-right">:</span></h5>
+                      </div>
+                      <div class="col-md-9">
+                        <span>{{order.PHONE}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <h3>Items ordered :</h3>
+                    <div class="row">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-10">
+                        <div class="thumbnail bill-cart" ng-repeat="product in order.PRODUCTS"> <!-- This will have ng-repeat. Remove the hardcoded items -->
+                          <div class="row">
+                            <div class="bill-cart-item-pad">
+                              <div class="media">
+                                <a href="#" class="pull-left"><img alt="" src="../uploads/{{product.FILE_NAME}}" class="media-object bill-item-img"></a>
+                                <div class="media-body">
+                                  <a class="bill-cart-item-name ng-binding">{{product.PRODUCT_NAME}}</a>
+                                  <h6>
+                                    <span class="bill-cart-item-price ng-binding">{{product.PRICE | currency}}</span>
+                                  </h6>
+                                  <h6>
+                                    <span class="bill-cart-item-price ng-binding">Qty : {{product.QTY}}</span>
+                                  </h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="thumbnail thumbnail-no-result" ng-show="noPurchaseHistory">
+                No past purchases.
+              </div>
+            </div><!-- FINISHED add customer notification -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% include ./partial/footer %>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+</html>
