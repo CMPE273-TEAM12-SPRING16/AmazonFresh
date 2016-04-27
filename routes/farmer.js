@@ -6,7 +6,15 @@ var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 
 //redirect to farmer profile page
 exports.farmerProfile = function(req, res){
-	res.render('farmerProfile');
+	var farmerId = req.param("id");
+	ejs.renderFile('./views/farmerProfile.ejs',{"farmerId":farmerId},function(err, results) {
+		if (!err) {
+			res.end(results);
+		}
+		else{
+			console.log("File rendered");
+		}
+	});
 }
 
 //Retrive list of products
@@ -59,7 +67,7 @@ exports.doShowProductList = function(req, res) {
 		}
 	}
 
-		mongo.findOne('USER_DETAILS',getProfileJSON,callbackFunction);
+		mongo.findOne('	TAILS',getProfileJSON,callbackFunction);
 
  };
 
@@ -109,3 +117,29 @@ exports.doShowProductList = function(req, res) {
 	mongo.updateOne('USERS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
 
  };
+
+
+exports.getFarmerDetails = function(req,res)
+{
+	var farmerId = req.param("farmerId");
+	console.log("farmerId:"+farmerId);
+ 	var getFarmerDetailsJSON = {"USER_ID" : req.param("farmerId")};
+
+ 	var callbackFunction = function (err, results) {
+           if(err)
+			{
+				throw err;
+				var json_responses = {"statusCode" : 401};
+				console.log("Error in getFarmerDetails");
+				res.send(json_responses);
+			}
+			else
+			{
+				console.log("result is:"+results);
+				var json_responses = {"statusCode" : 200,"results":results};
+				res.send(json_responses);
+			}
+		}
+		console.log("json"+JSON.stringify(getFarmerDetailsJSON));
+		mongo.findOne('USER_DETAILS',{'USER_ID' : Number(farmerId)},callbackFunction);
+}
