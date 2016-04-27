@@ -61,6 +61,15 @@ app.get('/checkout', function(req, res){
 	res.render('checkout', {});
 });
 
+app.get('/map', function(req, res){
+  res.render('trackOnMap', {});
+});
+
+app.get('/PastPurchases', function(req, res){
+	res.render('purchaseHistory', {});
+
+});
+
 app.get('/signup',users.signup);
 app.get('/login',users.login);
 app.get('/farmerHome',users.farmerHome);
@@ -121,6 +130,9 @@ app.get('/confirmDetailsCheckout', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
+
+app.get('/fetchPurchaseHistory', users.fetchPurchaseHistory);
+
 app.get('/logout',users.logout);
 
 
@@ -150,6 +162,7 @@ app.post('/getFarmerDetails',farmer.getFarmerDetails);
 
 //------Admin Module ----------//////
 app.post('/doSearchAdmin', admin.doSearchAdmin);
+
 //----Admin Module for Notification :  Customer-----
 app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);
 app.post('/doApproveCustomer',admin.doApproveCustomer);
@@ -192,8 +205,9 @@ app.get('/myProfile', function(req, res){
 
 app.get('/addProductTemplate', function(req, res) {
 	res.render('farmerTemplate/addProduct', {});
-})
-
+});
+app.get('/trackOrder/:billId',cart.doTrackOrder);
+app.post('/doTrackOrder',cart.getTrackOrder);
 app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);

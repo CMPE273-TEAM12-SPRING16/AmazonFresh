@@ -447,6 +447,7 @@ padding : 10px !important;
 
 .approve-col-1{
 font-weight: bold !important;
+color: #777777 !important;
 }
 .approve-col-1 > div.row > h5 {
 margin: 0px 5px 0px 5px;
@@ -619,4 +620,18 @@ color: #999999 !important;
   color: #A9E236;
   font-weight: bold !important;
   font-size: 100px !important;
+}
+
+.order-header{
+  background-color: #DDDDDD;
+  padding: 5px;
+}
+
+
+#sticky.stick {
+    margin-top: 45px !important;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    border-radius: 0 0 0.5em 0.5em;
 }

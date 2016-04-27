@@ -173,7 +173,7 @@
                 <span class="unit-price">($0.77/oz)</span>
               </div>
               <div class="product-page-add">
-                <button class="btn btn-primary btn-add" enabled="isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
+                <button class="btn btn-primary btn-add" ng-disabled="!isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
                 <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
               </div>
             </div>

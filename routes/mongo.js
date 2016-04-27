@@ -61,6 +61,18 @@ exports.findOne = function(collectionName,queryJSON,callbackFunction)
 
 }
 
+exports.findOneWithProjection = function(collectionName,queryJSON, projectionJSON, callbackFunction)
+{
+    connect(mongoURL, function(db){
+        console.log('Connected to mongo at: ' + mongoURL);
+        var collectionObject = collection(collectionName);
+        console.log(queryJSON);
+        collectionObject.findOne(queryJSON, projectionJSON, callbackFunction);
+    });
+
+}
+
+
 exports.searchIt = function(collectionName, searchString, searchType, callback){
 
   var regexValue='\.*'+searchString+'\.*';
