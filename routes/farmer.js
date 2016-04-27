@@ -13,7 +13,7 @@ exports.farmerProfile = function(req, res){
 exports.doShowProductList = function(req, res) {
 	var user_id = req.session.userId;
 	console.log(req.session.firstName);
-	var getProductJSON = {"FARMER_ID" : user_id}
+	var getProductJSON = {"FARMER_ID" : user_id,"IS_APPROVED": 1}
 	console.log("products List");
 	var callbackFunction = function (err, results) {
            if(err)
