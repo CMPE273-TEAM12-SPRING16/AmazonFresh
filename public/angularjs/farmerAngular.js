@@ -10,8 +10,12 @@ farmer.config(['$routeProvider', function($routeProvider) {
                     templateUrl: 'myProfile',
                     controller: 'EditProfileController'
                 }).
+                when('/myIntroduction', {
+                    templateUrl: 'myIntroduction',
+                    controller: 'IntroductionController'
+                }).
                 when('/addProduct', {
-                    templateUrl: 'addProductTemplate',
+                    templateUrl: 'addProduct',
                     controller: 'AddProductController'
                 }).
                 when('/',{
@@ -167,6 +171,37 @@ $scope.getProductList();
         });
 	}
     }]);
+
+
+farmer.controller("IntroductionController", ['Upload','$scope','$http',function(Upload,$scope,$http){
+ // $scope.successAddProduct = true;
+
+
+ // $scope.addIntroduction = function(){
+ //     Upload.upload({
+ //   url:"/doAddIntroduction",
+ //   data:{
+ //     "productName" : $scope.productName,
+ //     "noOfunits" : $scope.noOfUnits,
+ //     "units" : $scope.units,
+ //     "price" : $scope.price,
+ //     "productDescription" : $scope.productDescription,
+ //     "file" : $scope.file
+ //   }
+ //   }).then(function (resp) { //upload function returns a promise
+ //     console.log(resp.data.statusCode);
+ //           if(resp.data.statusCode == 200){ //validate success
+ //             console.log("Added");
+ //              $scope.successAddProduct = false;
+ //           } else {
+ //
+ //           }
+ //       });
+ // }
+
+
+}]);
+
 
 farmer.controller('FarmerPageController',['Upload','$scope','$http',function(Upload,$scope,$http)
 {

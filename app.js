@@ -67,7 +67,6 @@ app.get('/map', function(req, res){
 
 app.get('/PastPurchases', function(req, res){
 	res.render('purchaseHistory', {});
-
 });
 
 app.get('/signup',users.signup);
@@ -197,14 +196,16 @@ app.post('/reviewProduct',admin.reviewProduct);
 app.get('/productList', function(req, res){
   res.render('farmerTemplate/productList', {});
 });
-
 app.get('/myProfile', function(req, res){
   res.render('farmerTemplate/editFarmerDetails', {});
 });
-
-app.get('/addProductTemplate', function(req, res) {
+app.get('/myIntroduction', function(req, res) {
+	res.render('farmerTemplate/myIntroduction', {});
+});
+app.get('/addProduct', function(req, res) {
 	res.render('farmerTemplate/addProduct', {});
 });
+
 app.get('/trackOrder/:billId',cart.doTrackOrder);
 app.post('/doTrackOrder',cart.getTrackOrder);
 app.post('/getProductDetails',product.getProductDetails);
@@ -232,11 +233,13 @@ function isAuthenticated(req, res, next) {
   res.redirect('/');
 };
 
-
-app.get('/:error',function(req, res){
+app.get('/mymap', function(req, res){
+  res.render('map');
+});
+app.get('/*',function(req, res){
   res.render('error');
 });
-app.post('/:error',function(req, res){
+app.post('/*',function(req, res){
   res.render('error');
 });
 http.listen(app.get('port'), function(){

@@ -1,0 +1,103 @@
+<div class="row" >
+           <div class="col-md-12">
+               <div class="thumbnail thumbnail-signup">
+                 <h1>My Introduction</h1>
+                   <form role="form" name="productForm">
+                       <h3>
+                       </h3>
+                       <div class="row">
+                         <div class="col-md-4">
+                           <div class="thumbnail">
+                             <img ngf-thumbnail="file || 'images/products/product-1.jpg'"/>
+                           </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                               <label>
+                                 Upload a Profile Picture
+                               </label>
+                                 <p>
+                                 <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Picture</button>
+                                 </p>
+                                 <input
+                                     id="fileInput"
+                                     style="visibility:hidden"
+                                     type="file"
+                                     ngf-select
+                                     ng-model="file"
+                                     name="file"
+                                     ngf-pattern="'image/*'"
+                                     accept="image/*"
+                                     ngf-max-size="20MB"
+                                     required
+                                 />
+                             </div>
+                         </div>
+                       </div>
+
+                       <div class="row">
+                         <div class="col-md-8">
+                           <div class="thumbnail">
+                             <img ngf-thumbnail="file || 'images/support_images/video-placeholder.png'"/>
+                           </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                  <label>
+                                    Upload an Introduction Video
+                                  </label>
+                                 <p>
+                                 <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Video</button>
+                                 </p>
+                                 <input
+                                     id="fileInput"
+                                     style="visibility:hidden"
+                                     type="file"
+                                     ngf-select
+                                     ng-model="file"
+                                     name="file"
+                                     ngf-pattern="'image/*'"
+                                     accept="image/*"
+                                     ngf-max-size="20MB"
+                                     required
+                                 />
+                             </div>
+                         </div>
+                       </div>
+
+
+                       <div class="row">
+                           <div class="col-md-8">
+                               <div class="form-group">
+                                   <label for="productDescription">
+                                       Some Description of your Farming
+                                   </label>
+                                   <textarea class="form-control add-prod-description"  placeholder="Write here..." name="productName" ng-maxlength="140" ng-minlength="1" autocomplete="on" autofocus aria-required="true" ng-model="productDescription" required></textarea>
+                                   <span style="color:red" ng-show="productForm.ssn.$error.maxlength || productForm.ssn.$error.minlength"/>Product description must not be more than 140 characters</span>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-3"></div>
+                           <div class="col-md-6">
+                               <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="" ng-disabled="productForm.$invalid">Update Details</button>
+                           </div>
+                           <div class="col-md-3"></div>
+                       </div>
+
+                       <div class="row" ng-hide="successAddProduct">
+                          <div class="col-md-2"></div>
+                           <div class="col-md-8">
+                             <div class="alert alert-success" role="alert" style="margin-top: 30px">
+
+                                <center>Product will be listed once it is approved by the Admin!!!</center>
+
+                            </div>
+                           </div>
+                       <div class="col-md-2"></div>
+                     </div>
+                   </form>
+               </div>
+
+           </div>
+       </div>
