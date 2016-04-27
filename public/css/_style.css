@@ -625,5 +625,13 @@ color: #999999 !important;
 .order-header{
   background-color: #DDDDDD;
   padding: 5px;
+}
 
+
+#sticky.stick {
+    margin-top: 45px !important;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    border-radius: 0 0 0.5em 0.5em;
 }
