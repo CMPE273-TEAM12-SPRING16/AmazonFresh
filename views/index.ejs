@@ -37,6 +37,25 @@
     }
   });
   </script>
+  <script>
+  function sticky_relocate() {
+    var window_top = $(window).scrollTop();
+    var div_top = $('#sticky-anchor').offset().top;
+    if (window_top > div_top) {
+      $('#sticky').addClass('stick');
+      $('#sticky-anchor').height($('#sticky').outerHeight());
+    } else {
+      $('#sticky').removeClass('stick');
+      $('#sticky-anchor').height(0);
+    }
+  }
+
+  $(function() {
+    $(window).scroll(sticky_relocate);
+    sticky_relocate();
+  });
+  </script>
+
 
 
   <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
@@ -260,7 +279,7 @@
                           <div class="caption">
                             <h5>${{product.PRICE}}</h5>
                             <p  class="product_list_name"><a href="/products/{{product._id}}">{{product.PRODUCT_NAME}}</a></p>
-                            <p>Sold By <a href="">{{product.FARMER_FIRST_NAME}} {{product.FARMER_LAST_NAME}}</a></p>
+                            <p>Sold By <a href="/farmerHome/{{product.FARMER_ID}}">{{product.FARMER_NAME}}</a></p>
                             <div class="row">
                               <div class="col-md-3">
                                 <select class="form-control qty-select">
@@ -272,7 +291,10 @@
                                 </select>
                               </div>
                               <div class="col-md-3" style="padding: 0px 2px 0px 2px">
-                                <button class="btn nopadding nomargin btn-primary btn-theme"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                <button class="btn nopadding nomargin btn-primary btn-theme" ng-disabled="!isLoggedIn"  ng-click="addToCart(product._id)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                              </div>
+                              <div class="col-md-6"  style="font-size: 12px;">
+                                <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
                               </div>
                             </div>
                           </div>
@@ -306,7 +328,10 @@
                                 </select>
                               </div>
                               <div class="col-md-3" style="padding: 0px 2px 0px 2px">
-                                <button class="btn nopadding nomargin btn-primary btn-theme"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                <button class="btn nopadding nomargin btn-primary btn-theme" ng-disabled="!isLoggedIn"  ng-click="addToCart(product._id)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                              </div>
+                              <div class="col-md-6" style="font-size: 12px;">
+                                <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
                               </div>
                             </div>
                           </div>
@@ -319,19 +344,21 @@
 
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3" id="sticky-anchor">
               <div class="row">
                 <strong class="">Great news, we deliver to your area.</strong>
                 AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
               </div>
               <div class="row">
-                <div class="row" ng-hide="isLoggedIn">
+                <div class="row row-margin-none" ng-hide="isLoggedIn">
                 <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
                   Sign In
                 </button>
               </div>
               <!-- Cart Start -->
-              <div class="row" ng-show=true>
+
+              <div class="row row-margin-none" id="sticky" ng-show="isLoggedIn">
+
                 <div class="thumbnail">
                   <div class="caption">
                     <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>

@@ -63,6 +63,10 @@ app.get('/checkout', function(req, res){
 
 app.get('/map', function(req, res){
   res.render('trackOnMap', {});
+
+app.get('/PastPurchases', function(req, res){
+	res.render('purchaseHistory', {});
+
 });
 
 app.get('/signup',users.signup);
@@ -126,6 +130,9 @@ app.get('/confirmDetailsCheckout', function(req, res){
 app.get('/account', function(req, res){
   res.render('customerAccount', {});
 });
+
+app.get('/fetchPurchaseHistory', users.fetchPurchaseHistory);
+
 app.get('/logout',users.logout);
 
 
@@ -150,7 +157,9 @@ app.post('/getLoggedInUserDetails',users.getLoggedInUserDetails);
 app.post('/getLoggedCartUserDetails',users.getLoggedCartUserDetails);
 app.post('/doSearch', product.doSearch);
 app.post('/doUpdateUserDetails',users.doUpdateUserDetails);
-//app.post('/doTrackOrder',cart.doTrackOrder);
+
+//------Admin Module ----------//////
+app.post('/doSearchAdmin', admin.doSearchAdmin);
 
 //----Admin Module for Notification :  Customer-----
 app.post('/doShowPendingCustAprroval',admin.doShowPendingCustAprroval);

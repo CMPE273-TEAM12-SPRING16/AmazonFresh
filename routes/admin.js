@@ -4,6 +4,44 @@ var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var user_id_arr = [];
+
+
+exports.doSearchAdmin = function(req, res){
+  var searchString = req.param("searchString");
+  var searchType = req.param("searchType");
+	var collectionName;
+
+	if(searchType == 1){
+		collectionName = 'USER_DETAILS';
+	}else if(searchType == 2){
+		collectionName = 'USER_DETAILS';
+	}else if(searchType == 3){
+		collectionName = 'PRODUCTS';
+	}
+
+  mongo.searchItAdmin(collectionName, searchString, searchType, function(err,searchRes){
+
+    if(err){
+      throw err;
+    }
+    else
+    {
+      if(searchRes){
+        var jsonResponse = {
+          "searchResults" : searchRes,
+          "statusCode" : 200
+        };
+        res.send(jsonResponse);
+      }
+      else {
+        jsonResponse = {result : "Nothing Found", "status" : "OK"};
+        res.send(jsonResponse);
+      }
+    }
+  });
+}
+
+
 exports.doShowPendingCustAprroval = function(req, res) {
 	var user_id = req.session.userId;
 	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":1}]};
@@ -37,8 +75,8 @@ exports.doShowPendingCustAprroval = function(req, res) {
 					}
 					else{
 
-					
-						
+
+
 						Object.keys(results).forEach(function(user) {
 							Object.keys(userDetails).forEach(function(card) {
 								if(userDetails[card].USER_ID == results[user].USER_ID){
@@ -48,13 +86,13 @@ exports.doShowPendingCustAprroval = function(req, res) {
 								}
 									});
 								});
-						
-						results.CARD_NUMBER = userDetails;	
+
+						results.CARD_NUMBER = userDetails;
 						json_responses = {"statusCode" : 200,"results":results};
 						res.send(json_responses);
 					}
 				});
-		
+
     }
 }
     mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
@@ -99,7 +137,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 
  exports.doRejectCustomer = function(req,res){
  	var cust_id = req.param("customer_id");
- 	
+
 
  	var callbackFunction = function (err, results) {
            if(err)
@@ -133,7 +171,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
     mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
  }
 
-// Farmer approval/reject 
+// Farmer approval/reject
 exports.doShowPendingFarmerAprroval = function(req, res) {
 	var user_id = req.session.userId;
 	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":2}]};
@@ -158,7 +196,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
  exports.doApproveFarmer = function(req,res){
  	var cust_id = req.param("customer_id");
- 	
+
 
  	var callbackFunction = function (err, results) {
            if(err)
@@ -194,7 +232,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
  exports.doRejectFarmer = function(req,res){
  	var cust_id = req.param("customer_id");
- 	
+
 
  	var callbackFunction = function (err, results) {
            if(err)
@@ -253,7 +291,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
  };
 
  exports.doApproveProduct = function(req,res){
- 	
+
  	var product_id = new require('mongodb').ObjectID(req.param("product_id"));
  	var callbackFunction = function (err, results) {
            if(err)
@@ -324,7 +362,7 @@ var getCustomerPendingJSON = {"USER_TYPE":1};
 								var id = results[index].USER_ID;
 								user_id_arr.push(id);
 							});
-			
+
 			var cardDetailJSON = {"USER_ID" : {$in : user_id_arr}};
 			console.log(user_id_arr);
 			mongo.find('CUSTOMER_DETAILS',cardDetailJSON,function(err,userDetails){
@@ -337,24 +375,24 @@ var getCustomerPendingJSON = {"USER_TYPE":1};
 					}
 					else{
 
-					
-						
+
+
 						Object.keys(results).forEach(function(user) {
 							Object.keys(userDetails).forEach(function(card) {
 								if(userDetails[card].USER_ID == results[user].USER_ID){
-									
+
 									results[user].CARD_NUMBER = userDetails[card].CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER;
 
 								}
 									});
 								});
-						
-						results.CARD_NUMBER = userDetails;	
+
+						results.CARD_NUMBER = userDetails;
 						json_responses = {"statusCode" : 200,"results":results};
 						res.send(json_responses);
 					}
 				});
-		
+
     }
 }
     mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
@@ -384,7 +422,7 @@ exports.reviewFarmer = function(req, res) {
  };
 
  exports.reviewProduct = function(req, res) {
-	
+
 	var getProductPendingJSON = {};
 
 	console.log("review product");

@@ -61,6 +61,18 @@ exports.findOne = function(collectionName,queryJSON,callbackFunction)
 
 }
 
+exports.findOneWithProjection = function(collectionName,queryJSON, projectionJSON, callbackFunction)
+{
+    connect(mongoURL, function(db){
+        console.log('Connected to mongo at: ' + mongoURL);
+        var collectionObject = collection(collectionName);
+        console.log(queryJSON);
+        collectionObject.findOne(queryJSON, projectionJSON, callbackFunction);
+    });
+
+}
+
+
 exports.searchIt = function(collectionName, searchString, searchType, callback){
 
   var regexValue='\.*'+searchString+'\.*';
@@ -81,6 +93,26 @@ exports.searchIt = function(collectionName, searchString, searchType, callback){
   });
 }
 
+exports.searchItAdmin = function(collectionName, searchString, searchType, callback){
+
+  var regexValue = new RegExp('\.*'+searchString+'\.*', 'i');
+
+  if(searchType == 1){
+    var queryJSON = { $or : [{FIRST_NAME : regexValue}, {LAST_NAME : regexValue}], USER_TYPE : 1};
+  //  var queryJSON2 = {_id : idString};
+  } else if(searchType == 2){
+    var queryJSON = { $or : [{FIRST_NAME : regexValue}, {LAST_NAME : regexValue}], USER_TYPE : 2};
+  //  var queryJSON2 = {_id : idString};
+  } else if (searchType == 3) {
+    var queryJSON = {PRODUCT_NAME : regexValue};
+  }
+
+
+  connect(mongoURL, function(db){
+      var collectionObject = collection(collectionName);
+    	collectionObject.find(queryJSON).toArray(callback);
+  });
+}
 
 exports.find = function(collectionName,queryJSON,callbackFunction)
 {
