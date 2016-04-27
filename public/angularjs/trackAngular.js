@@ -27,7 +27,8 @@ app.controller('rideControl', function($scope, $http, billId) {
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: start,
-        title: res.data.TRIP_DETAILS[0].SOURCE_LOC.ADDRESS
+        title: res.data.TRIP_DETAILS[0].SOURCE_LOC.ADDRESS,
+        icon : '../images/support_images/map-pin-farmer.png'
     });
     var waypts = [];
     for(var res in details){
