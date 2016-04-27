@@ -248,6 +248,12 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 return total;
             }
 
+            $scope.doProceedToCheckout = function()
+            {
+                window.location.assign('/checkout');
+            }
+
+            //Cart End
             $scope.addReview = function(product_id,avg_rating){
                 console.log("product_id"+avg_rating);
                 
@@ -275,13 +281,7 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 console.log(err);
             });
             }
-
-            $scope.doProceedToCheckout = function()
-            {
-                window.location.assign('/checkout');
-            }
-
-            //Cart End
+           
     }
 ]);
 
