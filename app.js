@@ -63,6 +63,7 @@ app.get('/checkout', function(req, res){
 
 app.get('/map', function(req, res){
   res.render('trackOnMap', {});
+});
 
 app.get('/PastPurchases', function(req, res){
 	res.render('purchaseHistory', {});
@@ -203,7 +204,7 @@ app.get('/myProfile', function(req, res){
 
 app.get('/addProductTemplate', function(req, res) {
 	res.render('farmerTemplate/addProduct', {});
-})
+});
 app.get('/trackOrder/:billId',cart.doTrackOrder);
 app.post('/doTrackOrder',cart.getTrackOrder);
 app.post('/getProductDetails',product.getProductDetails);
