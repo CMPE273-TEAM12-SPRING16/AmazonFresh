@@ -20,6 +20,7 @@ exports.addToCart = function(req,res)
         	price = results.PRICE;
         	fileName = results.FILE_NAME; //change filename
         	qty = 1;
+			var productDetails={"productName":productName,"price":price,"fileName":fileName,"qty":qty};
 
         	mongo.findOne("CART",{"USER_ID":req.session.userId},function (cartErr, cartResults) {
         		console.log("Cart Results"+JSON.stringify(cartResults));
@@ -50,7 +51,7 @@ exports.addToCart = function(req,res)
 							        else {
 							        	var jsonResponse = {"statusCode":200};
 							        	console.log("Updated database successfully");
-							        	res.send(jsonResponse);
+							        	res.send(jsonResponse,productDetails);
 							        }
 		    					});
 		    					break;
@@ -70,7 +71,7 @@ exports.addToCart = function(req,res)
 						        }
 						        else {
 						        	var jsonResponse = {"statusCode":200};
-						        	res.send(jsonResponse);
+						        	res.send(jsonResponse,productDetails);
 						        }
 	    					});
 			        	}
@@ -90,7 +91,7 @@ exports.addToCart = function(req,res)
 						        }
 						        else {
 						        	var jsonResponse = {"statusCode":200};
-						        	res.send(jsonResponse);
+						        	res.send(jsonResponse,productDetails);
 						        }
 	    					});
 			        }
@@ -109,7 +110,7 @@ exports.addToCart = function(req,res)
 					        }
 					        else {
 					        	var jsonResponse = {"statusCode":200};
-					        	res.send(jsonResponse);
+					        	res.send(jsonResponse,productDetails);
 					        }
 	    				});
 		        }
