@@ -329,6 +329,27 @@ console.log(userDetails.firstName);
 
 }
 
+
+exports.fetchPurchaseHistory = function(req, res){
+  console.log("In : user.js-->" + "fetchPurchaseHistory");
+  var userId = req.session.userId;
+  var queryJSON = {USER_ID : userId};
+  var projectionJSON = {PURCHASE_HISTORY : 1};
+  mongo.findOneWithProjection("CUSTOMER_DETAILS", queryJSON, projectionJSON, function(err, result){
+    if(err){
+      console.log(err);
+    } else {
+      var jsonResponse = {
+        statusCode : 200,
+        result : result
+      };
+      res.send(jsonResponse);
+    }
+  });
+
+}
+
+
 exports.logout = function(req,res)
 {
   console.log("in logout");
