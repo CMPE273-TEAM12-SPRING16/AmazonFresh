@@ -356,7 +356,9 @@
                 </button>
               </div>
               <!-- Cart Start -->
-              <div class="row row-margin-none" id="sticky" ng-show=true>
+
+              <div class="row row-margin-none" id="sticky" ng-show="isLoggedIn">
+
                 <div class="thumbnail">
                   <div class="caption">
                     <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
