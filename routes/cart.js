@@ -1,11 +1,12 @@
 var mongo = require("./mongo");
 var mysql = require("./mysql");
-// var geocoderProvider = 'google';
-// var httpAdapter = 'http';
-// var extra = {
-//     apiKey: 'AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs', 
-//     formatter: null   
-// };
+var geocoderProvider = 'google';
+var ejs = require("ejs");
+var httpAdapter = 'https';
+var extra = {
+	apiKey: 'AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs', 
+	  formatter: null   
+	};
 exports.addToCart = function(req,res)
 {
 	productId = req.param("productId");
@@ -192,6 +193,7 @@ exports.minusQtyInCart = function(req,res)
 exports.doOrder = function(req,res)
 {
 	var name = req.param("name");
+	var userId = req.session.userId
 	var address = req.param("address");
 	var city = req.param("city");
 	var state= req.param("state");
@@ -199,6 +201,18 @@ exports.doOrder = function(req,res)
 	var phone = req.param("phone");
 	var products = req.param("products");
 	var totalAmount = 0;
+	var cust_lat,cust_long,sourceLocJSON;
+	var cust_address = address+" ,"+city+" ,"+state+" "+zip;
+	var geocoder = require('node-geocoder')(geocoderProvider,httpAdapter,extra);
+	geocoder.geocode( { 'address': address}, function(err, results) {
+  									
+      								cust_lat = results[0].latitude;
+      								cust_long = results[0].longitude; 
+      								
+      								sourceLocJSON = {"ADDRESS": address,"LATITUDE" : cust_lat,"LONGITUDE" : cust_long};
+      								console.log('---->>>>SOURCE LOCATION SET');
+      								
+     });
 
 	console.log("products"+JSON.stringify(products));
 	for(var i=0;i<products.length;i++)
@@ -239,7 +253,7 @@ exports.doOrder = function(req,res)
 																					        console.log(err);
 																						}
 																					    else {
-																					    	var jsonResponse = {"statusCode":200};
+																					    	var jsonResponse = {"statusCode":200,"BILL_ID" : billId};
 																					    	res.send(jsonResponse);
 																					    }});
 
@@ -254,48 +268,85 @@ exports.doOrder = function(req,res)
 		for(var i=0;i<products.length;i++)
 		{
 			mongo.findOneUsingId('PRODUCTS', products[i].PRODUCT_ID,function(err,results){
-																				farmerId = results.FARMER_ID;
-																				console.log("Farmer"+farmerId);
-																				if(!isInArray(farmerId,farmerIds)){
-																					console.log("Push Farmer");
-																					farmerIds.push(farmerId);
-																				}
-																				var insertFarmerDetailsJSON = {
-																					"DELIVERY_HISTORY" : {
-																						"BILL_ID" : billId,
-																						"BILL_DATE" : new Date(),
-																						"PRODUCT_ID" : results.PRODUCT_ID,
-																						"PRODUCT_NAME" : results.PRODUCT_NAME,
-																						"PRICE" : results.PRICE,
-																						"QTY" : results.QTY,
-																						"FILE_NAME" : results.FILE_NAME,
-																						"CUSTOMER_NAME" : req.session.firstName +" "+req.session.lastName,
-																						"ADDRESS" : address,
-																						"CITY" : city,
-																						"STATE" : state,
-																						"ZIP" : zip,
-																						"PHONE" : phone,
-																						"TOTAL_AMOUNT" : totalAmount,
+					farmerId = results.FARMER_ID;
+					console.log("Farmer"+farmerId);
+					if(!isInArray(farmerId,farmerIds)){
+					console.log("Push Farmer");
+					farmerIds.push(farmerId);
+				}
+				var insertFarmerDetailsJSON = {
+					"DELIVERY_HISTORY" : {
+					"BILL_ID" : billId,
+					"BILL_DATE" : new Date(),
+					"PRODUCT_ID" : results.PRODUCT_ID,
+					"PRODUCT_NAME" : results.PRODUCT_NAME,
+					"PRICE" : results.PRICE,
+					"QTY" : results.QTY,
+					"FILE_NAME" : results.FILE_NAME,
+					"CUSTOMER_NAME" : req.session.firstName +" "+req.session.lastName,
+					"ADDRESS" : address,
+					"CITY" : city,
+					"STATE" : state,
+					"ZIP" : zip,
+					"PHONE" : phone,
+					"TOTAL_AMOUNT" : totalAmount,
+				}
+			}
 
-																					}
-																				}
+		mongo.updateOne('FARMER_DETAILS',{"FARMER_ID" : farmerId}
+			,{$push : {"DELIVERY_HISTORY": insertFarmerDetailsJSON}}
+			 ,function (err, results) {
+				if (err) {
+					console.log(err);
+				}
+				else {
+					console.log("purchase history inserted");
+					console.log("---->>>Farmers");
+					var farmerJSON = {"USER_ID" : {$in : farmerIds}}
+					mongo.find('USER_DETAILS',farmerJSON,function(err,results){
+						if(err){
+							console.log(err);
+						}
+						else{
+							console.log(results);
+							var deliveryDate = new Date();
+							deliveryDate.setDate(deliveryDate.getDate() + 1);
+							
+							Object.keys(results).forEach(function(index){
+								console.log("ADDRESS "+results[index].ADDRESS);
+								var address = results[index].ADDRESS+", "+results[index].CITY+" ,"+results[index].STATE+" "+results[index].ZIP
+  								geocoder.geocode( { 'address': address}, function(err, results) {
+  									console.log(results);
+      								var latitude = results[0].latitude;
+      								var longitude = results[0].longitude; 
+      								console.log(latitude, longitude);
+      								console.log(sourceLocJSON);
+      								var destLocJSON = {"ADDRESS": address,"LATITUDE" : latitude, "LONGITUDE": longitude};
+      								var insertTripJSON = {
+      									"TRUCK_ID" : 1,
+      									"DRIVER_ID" : 1,
+      									"SOURCE_LOC" : sourceLocJSON,
+      									"DESTINATION_LOC" : destLocJSON,
+      									"DELIVERY_DATE" : deliveryDate,
+      									"CUSTOMER_ID" : userId,
+      									"BILLING_ID" : billId
 
-																				mongo.updateOne('FARMER_DETAILS',{"FARMER_ID" : farmerId}
-																												  ,{$push : {"DELIVERY_HISTORY": insertFarmerDetailsJSON}}
-																												  ,function (err, results) {
-																					if (err) {
-																					        console.log(err);
-																						}
-																					    else {
-																					    	console.log("purchase history inserted");
-																					  
-																					    }});
-
-
-			
-			});
-
-		}
+      								}
+      								mongo.insertOne('TRIP_DETAILS',insertTripJSON,function(err,tripResults){
+      									if(err){
+      										console.log(err);
+      									}	
+      									else{
+      										console.log("Trip inserted");
+      									}
+      								});
+      							});
+      						});
+  						}
+				});
+		 }});
+		});
+	}
 
 		mongo.removeOne('CART',{"USER_ID" : req.session.userId},function (err, results) {
 																					if (err) {
@@ -304,45 +355,46 @@ exports.doOrder = function(req,res)
 																					    else {
 																					    	console.log("cart cleared");
 																					    }});
-
-
-		console.log("---->>>Farmers");
-		var farmerJSON = {"USER_ID" : {$in : farmerIds}}
-		mongo.find('USER_DETAILS',farmerJSON,function(err,results){
-			if(err){
-				console.log(err);
-			}else{
-				console.log(results);
-				Object.keys(results).forEach(function(index){
-					var addJSON = getLocation(results[index].ADDRESS);
-					console.log("doOrder");
-					console.log(addJSON);
 				});
-  		}
-	});
-
- 
-	});
 
 }
 
 
 function getLocation(address) {
-  					var geocoder = new google.maps.Geocoder();
-  					//var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, extra);
-  					geocoder.geocode( { 'address': address}, function(results, status) {
-
-  					if (status == google.maps.GeocoderStatus.OK) {
-      				var latitude = results[0].geometry.location.lat();
-      				var longitude = results[0].geometry.location.lng();
-      				console.log(latitude, longitude);
-      				var addJSON = {"latitude" : latitude, "longitude": longitude};
-      				return addJSON;
-      				} 
-  				});
+  					
+  					
+  				
 } 
 
 function isInArray(value, array) {
   return array.indexOf(value) > -1;
 }
 
+exports.doTrackOrder = function(req,res){
+
+	var billId = req.param("billId");
+	ejs.renderFile('./views/trackOnMap.ejs',{billId:billId},function(err, results) {
+		if (!err) {
+			res.end(results);
+		}
+		else{
+			console.log("entered");
+		}
+	});
+}
+
+exports.getTrackOrder = function(req,res){
+		var billId = Number(req.param("billId"));
+		console.log("Billing id "+billId);
+		var tripJSON = {"BILLING_ID" : billId};
+		mongo.find('TRIP_DETAILS',tripJSON,function(err,results){
+		if(err){
+	 		console.log(err);
+	 	}
+	 	else{
+	 		console.log(results);
+	 		json_responses = {"statusCode" : 200,"TRIP_DETAILS":results};
+	 		res.send(json_responses);
+	 	}
+	 });
+}

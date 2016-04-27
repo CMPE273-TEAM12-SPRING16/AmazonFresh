@@ -51,6 +51,7 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
   $scope.nextHREF = "#paymentDetails";
   $scope.nextNUMBER = 1;
   $scope.buttonLabel = "Next";
+  var billId;
 
   $scope.checkOutNext = function(currentPage){
 
@@ -87,12 +88,15 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
         }
         }).then(function (res) {
           $scope.userDetails = res.data.userDetails;
-          console.log($scope.userDetails.FIRST_NAME);
+          console.log("Billing id "+res.data.BILL_ID);
           $scope.customerDetails=res.data.customerDetails;
+          billId = res.data.BILL_ID;
+
         });
 
     } else if(currentPage == 4){
-      $scope.nextHREF = "/trackOrder/XXXXXXXXXXXXXXXXXX"; //need to add order ID at the end somehow
+      console.log("Billing id "+billId);
+        window.location.assign('/trackOrder/'+billId);
     }
   }
 
