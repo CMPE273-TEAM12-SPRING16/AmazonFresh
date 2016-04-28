@@ -2,7 +2,7 @@ var ejs = require('ejs');
 var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
-
+var objectID = require('mongodb').ObjectID;
 
 //redirect to farmer profile page
 exports.farmerProfile = function(req, res){
@@ -119,27 +119,30 @@ exports.doShowProductList = function(req, res) {
  };
 
 
-exports.getFarmerDetails = function(req,res)
-{
+exports.getFarmerDetails = function(req,res) {
 	var farmerId = req.param("farmerId");
-	console.log("farmerId:"+farmerId);
- 	var getFarmerDetailsJSON = {"USER_ID" : req.param("farmerId")};
+	console.log("farmerId:" + farmerId);
 
- 	var callbackFunction = function (err, results) {
-           if(err)
-			{
+	if (objectID.isValid(farmerId)) {
+		var getFarmerDetailsJSON = {"USER_ID": req.param("farmerId")};
+
+		var callbackFunction = function (err, results) {
+			if (err) {
 				throw err;
-				var json_responses = {"statusCode" : 401};
+				var json_responses = {"statusCode": 401};
 				console.log("Error in getFarmerDetails");
 				res.send(json_responses);
 			}
-			else
-			{
-				console.log("result is:"+results);
-				var json_responses = {"statusCode" : 200,"results":results};
+			else {
+				console.log("result is:" + results);
+				var json_responses = {"statusCode": 200, "results": results};
 				res.send(json_responses);
 			}
 		}
-		console.log("json"+JSON.stringify(getFarmerDetailsJSON));
-		mongo.findOne('USER_DETAILS',{'USER_ID' : Number(farmerId)},callbackFunction);
-}
+		console.log("json" + JSON.stringify(getFarmerDetailsJSON));
+		mongo.findOne('USER_DETAILS', {'USER_ID': Number(farmerId)}, callbackFunction);
+	}
+	else {
+		res.send({"statusCode": 401});
+		console.log("invalid id format");
+	}}

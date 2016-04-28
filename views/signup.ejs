@@ -55,26 +55,26 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="firstName">
-                      First Name
+                      First Name *
                     </label>
                     <input type="text" class="form-control" id="firstName" name="firstName" ng-maxlength="20"  ng-model="firstName" ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="First Name"  required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.firstName.$error.pattern">First name must contain letters only</span>
-                    <span style="color:red" ng-show="signupForm.firstName.$error.required && signupForm.lastName.$dirty">First name is required</span>
+                    <span style="color:maroon" ng-show="signupForm.firstName.$error.pattern">First name must contain letters only</span>
+                    <span style="color:maroon" ng-show="signupForm.firstName.$error.required && signupForm.lastName.$dirty">First name is required</span>
                     </span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="lastName">
-                      Last Name
+                      Last Name *
                     </label>
 
                     <input type="text" class="form-control" id="lastName" name="lastName" ng-maxlength="20" ng-model="lastName"  ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="Last Name" required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.lastName.$error.pattern">Last name must contain letters only</span>
+                    <span style="color:maroon" ng-show="signupForm.lastName.$error.pattern">Last name must contain letters only</span>
 
-                    <span style="color:red" ng-show="signupForm.lastName.$error.required && signupForm.lastName.$dirty">Last name is required</span>
+                    <span style="color:maroon" ng-show="signupForm.lastName.$error.required && signupForm.lastName.$dirty">Last name is required</span>
 
                     </span>
                   </div>
@@ -85,7 +85,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="ssn">
-                      SSN
+                      SSN *
                     </label>
 
                     <!-- <input type="text" class="form-control" id="ssn" name="ssn" autocomplete="on" ng-maxlength="9" ng-minlength="9" ng-pattern="/[0-9]/" placeholder="###-##-####" ng-model="ssn" required/> -->
@@ -93,9 +93,9 @@
                             autofocus aria-required="true" placeholder="###-##-####" ng-model="ssn" ng-maxlength=9 ng-minlength=9 maxlength=9 ng-pattern="/[0-9]/"
                             required />
 									<span>
-                                      <span style="color:red" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
-                                      <span style="color:red" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
-                                      <span style="color:red" ng-show="signupForm.ssn.$error.pattern">SSN must contain numbers only</span>
+                                      <span style="color:maroon" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
+                                      <span style="color:maroon" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
+                                      <span style="color:maroon" ng-show="signupForm.ssn.$error.pattern">SSN must contain numbers only</span>
     								</span>
 
 
@@ -112,16 +112,16 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Email address
+                      Email ID *
                     </label>
 
 
                     <input type="email" id="email" name="email" class="form-control"  placeholder="Email ID" ng-model="email" maxlength=30 autocomplete="on"  autofocus aria-required="true" ng-pattern="/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/" required/>
 
 <span>
-                    <span style="color:red" ng-show="signupForm.email.$error.pattern">Please enter valid email</span>
+                    <span style="color:maroon" ng-show="signupForm.email.$error.pattern">Please enter valid Email ID</span>
 
-                    <span style="color:red"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email is required</span>
+                    <span style="color:maroon"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email ID is required</span>
 </span>
                     <div ng-hide="registeredEmail">
                       <strong>An account is already registered with this email</strong>
@@ -134,12 +134,12 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">
-                      Password
+                      Password *
                     </label>
                     <input type="password" class="form-control" id="password" name ="password" autocomplete="on"
                            autofocus aria-required="true" placeholder="Password" ng-model="password"  required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.password.$error.required && signupForm.password.$dirty">Password is required</span>
+                    <span style="color:maroon" ng-show="signupForm.password.$error.required && signupForm.password.$dirty">Password is required</span>
                     </span>
                     <div ng-hide="unexpectedError">
                       <strong>Unexpected error,try again</strong>
@@ -150,12 +150,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword2">
-                      Confirm Password
+                      Confirm Password *
                     </label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"  ng-model="confirmPassword" ng-change="match();" required>
 
                     <div ng-show="passwordMatch" >
-                      <strong >Password doesn't match</strong>
+                      <span>
+                    <span style="color:maroon">Password doesn't match</span>
+                    </span>
+
                     </div></br></br>
                 </div>
               </div>
@@ -171,13 +174,13 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="address">
-                      Address
+                      Address *
                     </label>
                     <textarea class="form-control textbox-address" id="address" name="address" placeholder="Address" ng-model="address"  autocomplete="on"
                               autofocus aria-required="true"  ng-maxlength="1050"  required></textarea>
                     <span>
-                     <span style="color:red" ng-show="invalidAddress">Please add a valid address. We cannot find you.</span>
-                      <span style="color:red" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
+                     <span style="color:maroon" ng-show="invalidAddress">Please add a valid address. We cannot find you.</span>
+                      <span style="color:maroon" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
                     </span>
                   </div>
                 </div>
@@ -187,42 +190,42 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="city">
-                      City
+                      City *
                     </label>
                     <input type="text" class="form-control" id="city" name="city" placeholder="City" ng-model="city" autocomplete="on"
                            autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required/>
                     <span>
-                      <span style="color:red" ng-show="signupForm.city.$error.pattern">City name must contain letters only</span>
-                      <span style="color:red" ng-show="signupForm.city.$error.required && signupForm.city.$dirty">City name is required</span>
+                      <span style="color:maroon" ng-show="signupForm.city.$error.pattern">City name must contain letters only</span>
+                      <span style="color:maroon" ng-show="signupForm.city.$error.required && signupForm.city.$dirty">City name is required</span>
                     </span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="state">
-                      State
+                      State *
                     </label>
                     <input type="text" class="form-control"id="state" name="state"  placeholder="State" ng-model="state" autocomplete="on"
                            autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required/>
                      <span>
-                      <span style="color:red" ng-show="signupForm.state.$error.pattern">State name must contain letters only</span>
-                      <span style="color:red" ng-show="signupForm.state.$error.required && signupForm.state.$dirty">State name is required</span>
+                      <span style="color:maroon" ng-show="signupForm.state.$error.pattern">State name must contain letters only</span>
+                      <span style="color:maroon" ng-show="signupForm.state.$error.required && signupForm.state.$dirty">State name is required</span>
                     </span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="zip">
-                      Zip
+                      Zip *
                     </label>
 
 
                     <input type="text" class="form-control" id ="zip" name="zip" placeholder="5 digit zip code" ng-model="zip"  autocomplete="on"
                            autofocus aria-required="true"  ng-maxlength=5 ng-minlength="5" ng-pattern="/^\d{5}$/"required/>
                     <span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 digit long</span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.required && signupForm.zip.$dirty">Zip code is required</span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.pattern">Invalid zip code </span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 digit long</span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.required && signupForm.zip.$dirty">Zip code is required</span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.pattern">Invalid zip code </span>
                     </span>
 
                   </div>
@@ -233,7 +236,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Phone
+                      Phone *
                     </label>
                     <!-- <input type="text" class="form-control"  autocomplete="on" name="phone" id="phone"
                            autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/" required/> -->
@@ -241,9 +244,9 @@
                            autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/"
                            required />
                   <span>
-                    <span style="color:red" ng-show="signupForm.phone.$error.maxlength || signupForm.phone.$error.minlength">Phone number must be 10 digit long</span>
-                    <span style="color:red" ng-show="signupForm.phone.$error.required && signupForm.phone.$dirty">Phone number is required</span>
-                    <span style="color:red" ng-show="signupForm.phone.$error.pattern">Phone number must contain numbers only</span>
+                    <span style="color:maroon" ng-show="signupForm.phone.$error.maxlength || signupForm.phone.$error.minlength">Phone number must be 10 digit long</span>
+                    <span style="color:maroon" ng-show="signupForm.phone.$error.required && signupForm.phone.$dirty">Phone number is required</span>
+                    <span style="color:maroon" ng-show="signupForm.phone.$error.pattern">Phone number must contain numbers only</span>
                   </span>
                   </div>
                 </div>
@@ -260,13 +263,13 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="credit-card-labels">Card Number</label>
+                          <label class="credit-card-labels">Card Number *</label>
                           <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" placeholder="Card Number" ng-model="creditCardNumber" autocomplete=off  ng-minlength=16 ng-maxlength=16 ng-pattern="/[0-9]/" required/>
                           <span>
 
-										<span style="color:red" ng-show="signupForm.creditCardNumber.$error.maxlength || signupForm.creditCardNumber.$error.minlength">Credit Card number must be 16 digit long</span>
-										<span style="color:red" ng-show="signupForm.creditCardNumber.$error.required && signupForm.creditCardNumber.$dirty"> Credit Card number is required</span>
-                                        <span style="color:red" ng-show="signupForm.creditCardNumber.$error.pattern">Credit Card number must contain numbers only</span>
+										<span style="color:maroon" ng-show="signupForm.creditCardNumber.$error.maxlength || signupForm.creditCardNumber.$error.minlength">Credit Card number must be 16 digit long</span>
+										<span style="color:maroon" ng-show="signupForm.creditCardNumber.$error.required && signupForm.creditCardNumber.$dirty"> Credit Card number is required</span>
+                                        <span style="color:maroon" ng-show="signupForm.creditCardNumber.$error.pattern">Credit Card number must contain numbers only</span>
 
                          </span>
                         </div>
@@ -275,11 +278,11 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="credit-card-labels">Name on the Card</label>
+                          <label class="credit-card-labels">Name on the Card *</label>
                           <input type="text" class="form-control" placeholder="Name on the Card" name="creditCardName" id="creditCardName" ng-model="creditCardName"  ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.creditCardName.$error.pattern">Name must contain letters only</span>
-                    <span style="color:red" ng-show="signupForm.creditCardName.$error.required && signupForm.creditCardName.$dirty">Card Holder name is required</span>
+                    <span style="color:maroon" ng-show="signupForm.creditCardName.$error.pattern">Name must contain letters only</span>
+                    <span style="color:maroon" ng-show="signupForm.creditCardName.$error.required && signupForm.creditCardName.$dirty">Card Holder name is required</span>
                     </span>
                         </div>
                       </div>
@@ -289,8 +292,8 @@
                       <div class="form-group">
 
                         <div class="col-md-3">
-                          <label class="credit-card-labels">Expiry Date</label>
-                          <select class="form-control" id="sel1" ng-model="expiryMonth"  required>
+                          <label class="credit-card-labels">Expiry Date *</label>
+                          <select class="form-control" id="sel1" ng-model="expiryMonth" name="expiryMonth" required>
                             <option>01</option>
                             <option>02</option>
                             <option>03</option>
@@ -304,24 +307,30 @@
                             <option>11</option>
                             <option>12</option>
                           </select>
+                          <span>
+                            <span style="color:maroon" ng-show="signupForm.expiryMonth.$error.required && signupForm.expiryMonth.$dirty">Expiry Month is required</span>
+                          </span>
                         </div>
 
                         <div class="col-md-4">
                           <label class="credit-card-labels">&nbsp;</label>
-                          <select class="form-control" id="sel1" ng-model="expiryYear"  required>
+                          <select class="form-control" id="sel1" ng-model="expiryYear" name="expiryYear"  required>
                             <option selected="true">2016</option>
                             <option>2017</option>
                             <option>2018</option>
                           </select>
+                           <span>
+                            <span style="color:maroon" ng-show="signupForm.expiryYear.$error.required && signupForm.expiryYear.$dirty">Expiry Year is required</span>
+                          </span>
                         </div>
                         <div class="col-md-2"></div>
                         <div class="col-md-3">
-                          <label class="credit-card-labels">CVV</label>
+                          <label class="credit-card-labels">CVV *</label>
                           <input type="password" class="form-control" placeholder="CVV" name="cvv" id="cvv" ng-model="cvv" autocomplete=off ng-minlength=3 ng-maxlength=3 maxlength=3 ng-pattern=" /^\d{3}$/" required />
                          <span>
-                           <span style="color:red" ng-show="signupForm.cvv.$error.maxlength || signupForm.cvv.$error.minlength">cvv number must be 3 digit long</span>
-                         <span style="color:red" ng-show="signupForm.cvv.$error.pattern">Numbers only</span>
-                         <span style="color:red" ng-show="signupForm.creditCardName.$error.required && signupForm.creditCardName.$dirty">cvv number is required</span>
+                           <span style="color:maroon" ng-show="signupForm.cvv.$error.maxlength || signupForm.cvv.$error.minlength">cvv number must be 3 digit long</span>
+                         <span style="color:maroon" ng-show="signupForm.cvv.$error.pattern">Numbers only</span>
+                         <span style="color:maroon" ng-show="signupForm.creditCardName.$error.required && signupForm.creditCardName.$dirty">cvv number is required</span>
                          </span>
                         </div>
 
@@ -340,6 +349,7 @@
                 </div>
                 <div class="col-md-2"></div>
               </div>
+                </div>
             </form>
           </div>
 
