@@ -9,7 +9,7 @@
                 <label for="city">
                   Name
                 </label>
-                <input type="text" class="form-control" placeholder="Name" ng-model="name"/>
+                <input type="text" class="form-control" placeholder="Name" ng-model="deliveryDetails.name"/>
               </div>
             </div>
           </div>
@@ -19,7 +19,8 @@
                 <label for="address">
                   Address
                 </label>
-                <textarea class="form-control textbox-address"  placeholder="Address" ng-model="address"></textarea>
+                <textarea class="form-control textbox-address"  placeholder="Address" ng-model="deliveryDetails.address"></textarea>
+                <span style="color:red" ng-show="invalidAddress">Please add a valid address. We cannot find you.</span>
               </div>
             </div>
           </div>
@@ -30,7 +31,7 @@
                 <label for="city">
                   City
                 </label>
-                <input type="text" class="form-control" placeholder="City" ng-model="city"/>
+                <input type="text" class="form-control" placeholder="City" ng-model="deliveryDetails.city"/>
               </div>
             </div>
             <div class="col-md-4">
@@ -38,7 +39,7 @@
                 <label for="state">
                   State
                 </label>
-                <input type="text" class="form-control" placeholder="State" ng-model="state"/>
+                <input type="text" class="form-control" placeholder="State" ng-model="deliveryDetails.state"/>
               </div>
             </div>
             <div class="col-md-4">
@@ -48,7 +49,7 @@
                 </label>
 
 
-                <input type="text" class="form-control" placeholder="Zip" ng-model="zip"/>
+                <input type="text" class="form-control" placeholder="Zip" ng-model="deliveryDetails.zip" />
 
               </div>
             </div>
@@ -60,7 +61,7 @@
                 <label for="exampleInputEmail">
                   Phone
                 </label>
-                <input type="text" class="form-control" placeholder="Phone" ng-model="phone"/>
+                <input type="text" class="form-control" placeholder="Phone" ng-model="deliveryDetails.phone" ng-focus="validateLocation()"/>
               </div>
             </div>
           </div>

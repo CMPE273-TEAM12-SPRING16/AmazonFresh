@@ -63,6 +63,7 @@ app.get('/checkout', function(req, res){
 
 app.get('/map', function(req, res){
   res.render('trackOnMap', {});
+});
 
 app.get('/PastPurchases', function(req, res){
 	res.render('purchaseHistory', {});
