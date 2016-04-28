@@ -133,18 +133,19 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
       $scope.nextHREF = "#confirmDetails";
       $scope.buttonLabel = "Track Your Order";
       $scope.nextNUMBER = 4;
+      console.log("Name ---> "+$scope.deliveryDetails.name);
       $http({
 
         method: "POST",
         url: '/doOrder',
         data: {
-          "name" : $scope.userDetails.name,
-          "address" : $scope.userDetails.address,
-          "city" : $scope.userDetails.city,
-          "state" : $scope.userDetails.state,
-          "zip" : $scope.userDetails.zip,
-          "phone" : $scope.userDetails.phone,
-          "products" : $scope.userDetails.cart
+          "name" : $scope.deliveryDetails.name,
+          "address" : $scope.deliveryDetails.address,
+          "city" : $scope.deliveryDetails.city,
+          "state" : $scope.deliveryDetails.state,
+          "zip" : $scope.deliveryDetails.zip,
+          "phone" : $scope.deliveryDetails.phone,
+          "products" : $scope.cart
         }
         }).then(function (res) {
           $scope.userDetails = res.data.userDetails;
@@ -177,9 +178,11 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
             data: {
             }
             }).then(function (res) {
+
                 $scope.deliveryDetails = res.data.userDetails;
                 $scope.deliveryDetails.name = res.data.userDetails.firstName +" " + res.data.userDetails.lastName;
                 $scope.isLoggedIn = false;
+                console.log("Name--->>> "+$scope.deliveryDetails.name);
                 if($scope.name)
                 {
                   $scope.isLoggedIn = true;
