@@ -3,6 +3,42 @@ var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var objectID = require('mongodb').ObjectID;
+var multer = require('multer');
+imageFilename = "";
+videoFilename = "";
+
+var storage = multer.diskStorage({ //multers disk storage settings
+        destination: function (req, file, cb) {
+            cb(null, './public/uploads/');
+        },
+        filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            filename = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+            console.log("File name"+videoFilename);
+            if(file.mimetype.startsWith("image"))
+            {
+            	imageFilename = filename;
+            }
+			else if(file.mimetype.startsWith("video"))
+            {
+            	videoFilename = filename;
+            }
+            else
+            {
+            	console.log("Unexpected file received");
+            }
+            cb(null, filename);
+        }
+    });
+
+var uploadFiles = multer({ //multer settings
+                    storage: storage
+                }).fields([
+  { name: 'imageFile', maxCount: 1 },
+  { name: 'videoFile', maxCount: 1 }
+]);
+
+
 
 //redirect to farmer profile page
 exports.farmerProfile = function(req, res){
@@ -67,7 +103,7 @@ exports.doShowProductList = function(req, res) {
 		}
 	}
 
-		mongo.findOne('	TAILS',getProfileJSON,callbackFunction);
+		mongo.findOne('USER_DETAILS',getProfileJSON,callbackFunction);
 
  };
 
@@ -139,6 +175,7 @@ exports.getFarmerDetails = function(req,res) {
 				res.send(json_responses);
 			}
 		}
+
 		console.log("json" + JSON.stringify(getFarmerDetailsJSON));
 		mongo.findOne('USER_DETAILS', {'USER_ID': Number(farmerId)}, callbackFunction);
 	}
@@ -146,3 +183,58 @@ exports.getFarmerDetails = function(req,res) {
 		res.send({"statusCode": 401});
 		console.log("invalid id format");
 	}}
+
+exports.doAddIntroduction = function(req,res)
+{
+
+	console.log("clicked");
+	uploadFiles(req,res,function(err){
+            if(err){
+                	console.log("code has some errors");
+                	console.log(err);
+                 return err;
+            }
+             else
+             	{
+
+     //         		var productName = req.param("productName");
+					// var unit = req.param("units");
+					// var price = req.param("price");
+					// var productDescription = req.param("productDescription");
+					// var farmerName = req.session.firstName + " " + req.session.lastName;
+					// var farmerId = req.session.userId;
+					// var noOfUnits = req.param("noOfunits");
+     //         		console.log("File uploaded successfully"+noOfUnits);
+
+					// var ingredients = req.param("ingredients");
+
+     //         		console.log("File uploaded successfully");
+
+     //         			var insertJSON = {"PRODUCT_NAME" : productName,
+					// 	"FARMER_ID" : farmerId,
+					// 	"FARMER_NAME" : farmerName,
+					// 	"PRICE" : price,
+					// 	"NOOFUNITS" : noOfUnits,
+					// 	"UNIT" : unit,
+					// 	"PRODUCT_DESCRIPTION" : productDescription,
+					// 	"FILE_NAME" : uploadFilename,
+					// 	"IS_APPROVED" : 0,
+					// 	"AVG_RATING" : 0,
+					// 	"REVIEW_DETAILS" : []
+
+					// 	};
+     //         		mongo.insertOne('PRODUCTS',insertJSON,callbackFunction);
+
+							             		json_responses = {"statusCode" : 200};
+												// console.log("result is:"+results);
+												res.send(json_responses);
+												console.log("imageFilename"+imageFilename);
+												console.log("videoFilename"+videoFilename);
+							             	
+             	}
+        });
+
+
+
+}
+
