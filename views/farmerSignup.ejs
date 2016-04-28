@@ -71,25 +71,25 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="firstName">
-                      First Name
+                      First Name *
                     </label>
                     <input type="text" class="form-control" id="firstName" name="firstName" maxlength="10" ng-model="firstName" ng-maxlength="20"  ng-model="firstName" ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="First Name" required />
                      <span>
-                    <span style="color:red" ng-show="signupForm.firstName.$error.pattern">First name must contain letters only</span>
-                    <span style="color:red" ng-show="signupForm.firstName.$error.required && signupForm.firstName.$dirty">First name is required</span>
+                    <span style="color:maroon" ng-show="signupForm.firstName.$error.pattern">First name must contain letters only</span>
+                    <span style="color:maroon" ng-show="signupForm.firstName.$error.required && signupForm.firstName.$dirty">First name is required</span>
                     </span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="lastName">
-                      Last Name
+                      Last Name *
                     </label>
 
                     <input type="text" class="form-control" id="lastName" name="lastName" ng-maxlength="20" ng-model="lastName"  ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" maxlength="10" ng-model="lastName"  placeholder="Last Name" required/>
                    <span>
-                    <span style="color:red" ng-show="signupForm.lastName.$error.pattern">Last name must contain letters only</span>
-                    <span style="color:red" ng-show="signupForm.lastName.$error.required && signupForm.lastName.$dirty">Last name is required</span>
+                    <span style="color:maroon" ng-show="signupForm.lastName.$error.pattern">Last name must contain letters only</span>
+                    <span style="color:maroon" ng-show="signupForm.lastName.$error.required && signupForm.lastName.$dirty">Last name is required</span>
                     </span>
                   </div>
                 </div>
@@ -99,20 +99,20 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="ssn">
-                      SSN
+                      SSN *
                     </label>
 <!--
                     <input type="text" class="form-control" id="ssn"  name="ssn" autocomplete="on" ng-maxlength="9" ng-minlength="9" ng-pattern="/[0-9]/"
                     placeholder="###-##-####" ng-model="ssn"/> -->
                     <input type="text" class="form-control" autocomplete="on" name="ssn" id="ssn" onblur="formatSSN(this);"
-                            autofocus aria-required="true" placeholder="###-##-####" ng-model="ssn" ng-maxlength=9 ng-minlength=9 maxlength=9 ng-pattern="/[0-9]/"
-                            required />
+                    autofocus aria-required="true" placeholder="###-##-####" ng-model="ssn" ng-maxlength=9 ng-minlength=9 maxlength=9 ng-pattern="/[0-9]/"
+                    required />
 
 
                     <span>
-                                      <span style="color:red" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
-                    <span style="color:red" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
-                    <span style="color:red" ng-show="signupForm.ssn.$error.pattern">SSN must contain numbers only</span>
+                      <span style="color:maroon" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
+                      <span style="color:maroon" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
+                      <span style="color:maroon" ng-show="signupForm.ssn.$error.pattern">SSN must contain numbers only</span>
                     </span>
                   </div>
                 </div>
@@ -127,19 +127,18 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Email address
+                      Email ID *
                     </label>
 
 
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email ID" ng-model="email"  maxlength=30 autocomplete="on"  autofocus aria-required="true" ng-pattern="/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/" required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.email.$error.pattern">Please enter valid email</span>
-
-                    <span style="color:red"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email is required</span>
-</span>
+                      <span style="color:maroon" ng-show="signupForm.email.$error.pattern">Please enter a valid Email ID.</span>
+                      <span style="color:maroon"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email ID is required.</span>
+                    </span>
 
                     <div ng-hide="registeredEmail">
-                      <strong>An account is already registered with this email</strong>
+                      <strong>An account is already registered with this Email ID.</strong>
                     </div></br></br>
 
                   </div>
@@ -149,15 +148,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">
-                      Password
+                      Password *
                     </label>
-                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password"name ="password" autocomplete="on"
+                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password" name ="password" autocomplete="on"
                            autofocus aria-required="true"  ng-model="password" required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.password.$error.required && signupForm.password.$dirty">Password is required</span>
+                    <span style="color:maroon" ng-show="signupForm.password.$error.required && signupForm.password.$dirty">Password is required</span>
                     </span>
                     <div ng-hide="unexpectedError">
-                      <strong>Unexpected error,try again</strong>
+                      <strong>Unexpected error,try again later.</strong>
                     </div></br></br>
 
                   </div>
@@ -165,11 +164,11 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword2">
-                      Confirm Password
+                      Confirm Password *
                     </label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"  ng-model="confirmPassword" ng-change="match();">
                     <div ng-show="passwordMatch">
-                      <strong>Password Doesn't Match</strong>
+                      <strong>Password doesn't match.</strong>
                     </div></br></br>
                   </div>
                 </div>
@@ -186,12 +185,28 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="address">
-                      Address
+                      Address *
                     </label>
                     <textarea class="form-control textbox-address" name="address" placeholder="Address" ng-model="address" autocomplete="on"
-                              autofocus aria-required="true"  ng-maxlength="1050" required></textarea>
+                              autofocus aria-required="true"  ng-maxlength="1050" required ng-focus="removeValidation()"></textarea>
                     <span>
-                      <span style="color:red" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+
+
+
+                      <span style="color:maroon" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required.</span>
+                      <span style="color:maroon" ng-show="invalidAddress">Please add a valid address. We cannot find you.</span>
+
+
+
+
+=======
+                      <span style="color:maroon" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
+>>>>>>> Stashed changes
+=======
+                      <span style="color:maroon" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
+>>>>>>> Stashed changes
                     </span>
                   </div>
                 </div>
@@ -201,42 +216,42 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="city">
-                      City
+                      City *
                     </label>
                     <input type="text" class="form-control" placeholder="City" ng-model="city" name="city" autocomplete="on"
                     autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required>
                     <span>
-                      <span style="color:red" ng-show="signupForm.city.$error.pattern">City name must contain letters only</span>
-                      <span style="color:red" ng-show="signupForm.city.$error.required && signupForm.city.$dirty">City name is required</span>
+                      <span style="color:maroon" ng-show="signupForm.city.$error.pattern">City name must contain letters only.</span>
+                      <span style="color:maroon" ng-show="signupForm.city.$error.required && signupForm.city.$dirty">City name is required</span>
                     </span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="state">
-                      State
+                      State *
                     </label>
                     <input type="text" class="form-control" placeholder="State" ng-model="state" autocomplete="on"
                            autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required/>
                      <span>
-                      <span style="color:red" ng-show="signupForm.state.$error.pattern">State name must contain letters only</span>
-                      <span style="color:red" ng-show="signupForm.state.$error.required && signupForm.state.$dirty">State name is required</span>
+                      <span style="color:maroon" ng-show="signupForm.state.$error.pattern">State name must contain letters only</span>
+                      <span style="color:maroon" ng-show="signupForm.state.$error.required && signupForm.state.$dirty">State name is required</span>
                     </span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="zip">
-                      Zip
+                      Zip *
                     </label>
 
 
                     <input type="text" class="form-control" id ="zip" name="zip" placeholder="5 digit zip code" ng-model="zip"  autocomplete="on"
                            autofocus aria-required="true"  ng-maxlength=5 ng-minlength="5" ng-pattern="/^\d{5}$/"required/>
                     <span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 digit long</span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.required && signupForm.zip.$dirty">Zip code is required</span>
-                      <span style="color:red" ng-show="signupForm.zip.$error.pattern">Invalid zip code </span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 digit long</span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.required && signupForm.zip.$dirty">Zip code is required</span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.pattern">Invalid zip code </span>
                     </span>
 
 
@@ -248,7 +263,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Phone
+                      Phone *
                     </label>
                     <!-- <input type="text" class="form-control" placeholder="Phone"  autocomplete="on" name="phone" id="phone"
                            autofocus aria-required="true"  ng-model="phone" ng-maxlength=10 ng-minlength=10 ng-pattern="/[0-9]/" required/> -->
@@ -257,9 +272,9 @@
                            required />
 
                      <span>
-                    <span style="color:red" ng-show="signupForm.phone.$error.maxlength || signupForm.phone.$error.minlength">Phone number must be 10 digit long</span>
-                    <span style="color:red" ng-show="signupForm.phone.$error.required && signupForm.phone.$dirty">Phone number is required</span>
-                    <span style="color:red" ng-show="signupForm.phone.$error.pattern">Phone number must contain numbers only</span>
+                    <span style="color:maroon" ng-show="signupForm.phone.$error.maxlength || signupForm.phone.$error.minlength">Phone number must be 10 digit long</span>
+                    <span style="color:maroon" ng-show="signupForm.phone.$error.required && signupForm.phone.$dirty">Phone number is required</span>
+                    <span style="color:maroon" ng-show="signupForm.phone.$error.pattern">Phone number must contain numbers only</span>
                   </span>
                   </div>
                 </div>
@@ -306,7 +321,7 @@
                               <label for="ap_email">Email ID</label>
                               <input class="a-input-text a-span12 auth-autofocus auth-required-field"
                                      id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
-                              <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email is required</span>
+                              <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email ID is required</span>
                             </div>
                             <div class="a-section a-spacing-large">
                               <div class="a-row">
@@ -367,5 +382,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs"></script>
   </body>
   </html>

@@ -6,10 +6,20 @@ signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
 {
     $scope.registeredEmail=true;
     $scope.unexpectedError=true;
+    $scope.invalidAddress = false;
+
+    $scope.removeValidation = function(){
+         $scope.invalidAddress = false;
+    }
+
 
     $scope.submit=function()
     {
-        console.log($scope.email);
+       var address = $scope.address+" ,"+$scope.city+" ,"+$scope.state+" "+$scope.zip;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'address': $scope.address}, function(results, status) {
+            console.log(google.maps.GeocoderStatus);
+        if (status == google.maps.GeocoderStatus.OK) {
         $http({
 
             method:"POST",
@@ -32,8 +42,10 @@ signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
         }).success(function(data)
         {
             if (data.statusCode == 401) {
-                $scope.registeredEmail = false;
-                $scope.unexpectedError = true;
+                 $scope.$apply(function(){
+                    $scope.registeredEmail = false;
+                    $scope.unexpectedError = true;
+                });
             }
             if(data.statusCode==200)
             {
@@ -41,13 +53,25 @@ signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
             }
         })
             .error(function(error) {
-                $scope.unexpectedError = false;
-                $scope.registeredEmail = true;
-            });
-
-
-    };
-
+                $scope.$apply(function(){
+                    $scope.unexpectedError = false;
+                    $scope.registeredEmail = true;
+                });
+            }); 
+        }else if(status == google.maps.GeocoderStatus.ZERO_RESULTS){
+        
+        console.log("Invalid Address");
+        $scope.$apply(function(){
+             $scope.invalidAddress = true;
+         });
+       
+      }
+      else{
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    
+    });
+}
     $scope.match=function()
     {
 

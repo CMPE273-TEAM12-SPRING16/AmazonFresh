@@ -362,7 +362,7 @@
                 <div class="thumbnail">
                   <div class="caption">
                     <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
-                    <button ng-click="doProceedToCheckout();" ng-class="checkOutBtnClass" enabled="isLoggedIn">Proceed to Checkout</button>
+                    <button  ng-disabled="cart.length==0" ng-click="doProceedToCheckout();" ng-class="checkOutBtnClass">Proceed to Checkout</button>
                     <div ng-show="cart.length==0">
                       <center>Add products to Cart to checkout.</center>
                     </div>

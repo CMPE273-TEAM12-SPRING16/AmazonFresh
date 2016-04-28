@@ -9,6 +9,7 @@ var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var passport = require('passport');
 require('./passport')(passport);
 
+
 function signup(req, res) {
   res.render('signup');
 };
