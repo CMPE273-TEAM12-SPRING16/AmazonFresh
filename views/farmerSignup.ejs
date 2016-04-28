@@ -105,14 +105,14 @@
                     <input type="text" class="form-control" id="ssn"  name="ssn" autocomplete="on" ng-maxlength="9" ng-minlength="9" ng-pattern="/[0-9]/"
                     placeholder="###-##-####" ng-model="ssn"/> -->
                     <input type="text" class="form-control" autocomplete="on" name="ssn" id="ssn" onblur="formatSSN(this);"
-                            autofocus aria-required="true" placeholder="###-##-####" ng-model="ssn" ng-maxlength=9 ng-minlength=9 maxlength=9 ng-pattern="/[0-9]/"
-                            required />
+                    autofocus aria-required="true" placeholder="###-##-####" ng-model="ssn" ng-maxlength=9 ng-minlength=9 maxlength=9 ng-pattern="/[0-9]/"
+                    required />
 
 
                     <span>
-                                      <span style="color:red" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
-                    <span style="color:red" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
-                    <span style="color:red" ng-show="signupForm.ssn.$error.pattern">SSN must contain numbers only</span>
+                      <span style="color:red" ng-show="signupForm.ssn.$error.maxlength || signupForm.ssn.$error.minlength"/>SSN must be 9 digit long</span>
+                      <span style="color:red" ng-show="signupForm.ssn.$error.required && signupForm.ssn.$dirty">SSN is required</span>
+                      <span style="color:red" ng-show="signupForm.ssn.$error.pattern">SSN must contain numbers only</span>
                     </span>
                   </div>
                 </div>
@@ -127,19 +127,18 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Email address
+                      Email ID
                     </label>
 
 
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email ID" ng-model="email"  maxlength=30 autocomplete="on"  autofocus aria-required="true" ng-pattern="/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/" required/>
                     <span>
-                    <span style="color:red" ng-show="signupForm.email.$error.pattern">Please enter valid email</span>
-
-                    <span style="color:red"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email is required</span>
-</span>
+                      <span style="color:red" ng-show="signupForm.email.$error.pattern">Please enter a valid Email ID.</span>
+                      <span style="color:red"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email ID is required.</span>
+                    </span>
 
                     <div ng-hide="registeredEmail">
-                      <strong>An account is already registered with this email</strong>
+                      <strong>An account is already registered with this Email ID.</strong>
                     </div></br></br>
 
                   </div>
@@ -151,13 +150,13 @@
                     <label for="exampleInputPassword1">
                       Password
                     </label>
-                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password"name ="password" autocomplete="on"
+                    <input type="password" class="form-control" id="exampleInputPassword1"  placeholder="Password" name ="password" autocomplete="on"
                            autofocus aria-required="true"  ng-model="password" required/>
                     <span>
                     <span style="color:red" ng-show="signupForm.password.$error.required && signupForm.password.$dirty">Password is required</span>
                     </span>
                     <div ng-hide="unexpectedError">
-                      <strong>Unexpected error,try again</strong>
+                      <strong>Unexpected error,try again later.</strong>
                     </div></br></br>
 
                   </div>
@@ -169,7 +168,7 @@
                     </label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"  ng-model="confirmPassword" ng-change="match();">
                     <div ng-show="passwordMatch">
-                      <strong>Password Doesn't Match</strong>
+                      <strong>Password doesn't match.</strong>
                     </div></br></br>
                   </div>
                 </div>
@@ -191,7 +190,7 @@
                     <textarea class="form-control textbox-address" name="address" placeholder="Address" ng-model="address" autocomplete="on"
                               autofocus aria-required="true"  ng-maxlength="1050" required></textarea>
                     <span>
-                      <span style="color:red" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
+                      <span style="color:red" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required.</span>
                     </span>
                   </div>
                 </div>
@@ -206,7 +205,7 @@
                     <input type="text" class="form-control" placeholder="City" ng-model="city" name="city" autocomplete="on"
                     autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required>
                     <span>
-                      <span style="color:red" ng-show="signupForm.city.$error.pattern">City name must contain letters only</span>
+                      <span style="color:red" ng-show="signupForm.city.$error.pattern">City name must contain letters only.</span>
                       <span style="color:red" ng-show="signupForm.city.$error.required && signupForm.city.$dirty">City name is required</span>
                     </span>
                   </div>
