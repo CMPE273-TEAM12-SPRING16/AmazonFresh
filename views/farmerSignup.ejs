@@ -190,8 +190,6 @@
                     <textarea class="form-control textbox-address" name="address" placeholder="Address" ng-model="address" autocomplete="on"
                               autofocus aria-required="true"  ng-maxlength="1050" required ng-focus="removeValidation()"></textarea>
                     <span>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
 
 
@@ -201,12 +199,9 @@
 
 
 
-=======
+
                       <span style="color:maroon" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
->>>>>>> Stashed changes
-=======
-                      <span style="color:maroon" ng-show="signupForm.address.$error.required && signupForm.address.$dirty">Address is required</span>
->>>>>>> Stashed changes
+
                     </span>
                   </div>
                 </div>
@@ -318,15 +313,15 @@
                           <div class="a-box-inner a-padding-extra-large">
                             <h1 class="a-spacing-small">Sign in</h1>
                             <div class="a-row a-spacing-base">
-                              <label for="ap_email">Email ID</label>
+                              <label for="ap_email">Email ID *</label>
                               <input class="a-input-text a-span12 auth-autofocus auth-required-field"
                                      id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
-                              <span style="color:red" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email ID is required</span>
+                              <span style="color:maroon" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email ID is required</span>
                             </div>
                             <div class="a-section a-spacing-large">
                               <div class="a-row">
                                 <div class="a-column a-span5">
-                                  <label for="ap_password">Password</label>
+                                  <label for="ap_password">Password *</label>
                                 </div>
                                 <div class="a-column a-span7 a-text-right a-span-last">
                                   <a class="a-spacing-null a-link-normal" href=
@@ -335,7 +330,7 @@
                                 </div>
                               </div>
                               <input class="a-input-text a-span12 auth-required-field" id="ap_password" name="password" tabindex="2" type="password" ng-model="password" required>
-                              <span style="color:red" ng-show="signIn.password.$error.required && signIn.password.$dirty">Password is required</span>
+                              <span style="color:maroon" ng-show="signIn.password.$error.required && signIn.password.$dirty">Password is required</span>
                               <div  ng-hide="invalidLogin">
                                 <strong>Incorrect username or password</strong>
                               </div>
