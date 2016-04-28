@@ -629,7 +629,7 @@ color: #999999 !important;
 
 
 #sticky.stick {
-    margin-top: 45px !important;
+    margin-top: 45px;
     position: fixed;
     top: 0;
     z-index: 2;
