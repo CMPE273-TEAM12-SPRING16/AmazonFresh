@@ -8,7 +8,7 @@
                        <div class="row">
                          <div class="col-md-4">
                            <div class="thumbnail">
-                             <img ngf-thumbnail="file || 'images/products/product-1.jpg'"/>
+                             <img ngf-thumbnail="imageFile || 'images/products/product-1.jpg'"/>
                            </div>
                          </div>
                          <div class="col-md-6">
@@ -17,19 +17,17 @@
                                  Upload a Profile Picture
                                </label>
                                  <p>
-                                 <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Picture</button>
+                                 <button class="btn btn-default btn-sm" onclick="$('#imageFile').click();">Upload Picture</button>
                                  </p>
                                  <input
-                                     id="fileInput"
+                                     id="imageFile"
                                      style="visibility:hidden"
                                      type="file"
                                      ngf-select
-                                     ng-model="file"
-                                     name="file"
+                                     ng-model="imageFile"
+                                     name="imageFile"
                                      ngf-pattern="'image/*'"
-                                     accept="image/*"
-                                     ngf-max-size="20MB"
-                                     required
+                                     ng-required
                                  />
                              </div>
                          </div>
@@ -38,7 +36,9 @@
                        <div class="row">
                          <div class="col-md-8">
                            <div class="thumbnail">
-                             <img ngf-thumbnail="file || 'images/support_images/video-placeholder.png'"/>
+                           <div class="embed-responsive embed-responsive-16by9">
+                             <video class="embed-responsive-item" ngf-thumbnail="videoFile || 'images/support_images/video-placeholder.png'"/>
+                           </div>
                            </div>
                          </div>
                          <div class="col-md-4">
@@ -47,19 +47,17 @@
                                     Upload an Introduction Video
                                   </label>
                                  <p>
-                                 <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Video</button>
+                                 <button class="btn btn-default btn-sm" onclick="$('#videoFile').click();">Upload Video</button>
                                  </p>
                                  <input
-                                     id="fileInput"
+                                     id="videoFile"
                                      style="visibility:hidden"
                                      type="file"
                                      ngf-select
-                                     ng-model="file"
-                                     name="file"
-                                     ngf-pattern="'image/*'"
-                                     accept="image/*"
-                                     ngf-max-size="20MB"
-                                     required
+                                     ng-model="videoFile"
+                                     name="videoFile"
+                                     ngf-pattern="'video/*'"
+                                     ng-required
                                  />
                              </div>
                          </div>
@@ -72,7 +70,7 @@
                                    <label for="productDescription">
                                        Some Description of your Farming
                                    </label>
-                                   <textarea class="form-control add-prod-description"  placeholder="Write here..." name="productName" ng-maxlength="140" ng-minlength="1" autocomplete="on" autofocus aria-required="true" ng-model="productDescription" required></textarea>
+                                   <textarea class="form-control add-prod-description"  placeholder="Write here..." name="productName" ng-maxlength="140" ng-minlength="1" autocomplete="on" autofocus aria-required="true" ng-model="farmerDescription" required></textarea>
                                    <span style="color:red" ng-show="productForm.ssn.$error.maxlength || productForm.ssn.$error.minlength"/>Product description must not be more than 140 characters</span>
                                </div>
                            </div>
@@ -80,7 +78,7 @@
                        <div class="row">
                            <div class="col-md-3"></div>
                            <div class="col-md-6">
-                               <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="" ng-disabled="productForm.$invalid">Update Details</button>
+                               <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="addIntroduction();" ng-disabled="productForm.$invalid">Update Details</button>
                            </div>
                            <div class="col-md-3"></div>
                        </div>
