@@ -30,7 +30,11 @@ app.controller('rideControl', function($scope, $http, billId) {
         title: res.data.TRIP_DETAILS[0].SOURCE_LOC.ADDRESS,
         icon : '../images/support_images/map-pin-farmer.png'
     });
+
+
+
     var waypts = [];
+    var end;
     for(var res in details){
 
     var directionsService = new google.maps.DirectionsService();
@@ -39,7 +43,8 @@ app.controller('rideControl', function($scope, $http, billId) {
 
 	directionsDisplay.setMap(map);
 
-    var end = new google.maps.LatLng(Number(details[res].DESTINATION_LOC.LATITUDE),Number(details[res].DESTINATION_LOC.LONGITUDE));
+	
+     end = new google.maps.LatLng(Number(details[res].DESTINATION_LOC.LATITUDE),Number(details[res].DESTINATION_LOC.LONGITUDE));
 	waypts.push({
               location: details[res].DESTINATION_LOC.ADDRESS,
               stopover: true

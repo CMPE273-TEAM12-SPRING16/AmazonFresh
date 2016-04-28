@@ -51,16 +51,76 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
   $scope.nextHREF = "#paymentDetails";
   $scope.nextNUMBER = 1;
   $scope.buttonLabel = "Next";
+  $scope.invalidAddress = false;
+  $scope.disableNext = false;
   var billId;
+
+  $scope.validateLocation = function(){
+    var address = $scope.deliveryDetails.address;
+      console.log("Address "+address);
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode( { 'address': address}, function(results, status) {
+      console.log(google.maps.GeocoderStatus);
+      if (status == google.maps.GeocoderStatus.OK) {
+          console.log("Valid Address");
+            geocoder.geocode( { 'address': $scope.deliveryDetails.city}, function(results, status) {
+             
+                if (status == google.maps.GeocoderStatus.OK) {
+                     console.log("Valid City");
+                     geocoder.geocode( { 'address': $scope.deliveryDetails.state}, function(results, status) {
+                    
+                       if (status == google.maps.GeocoderStatus.OK) {
+                            console.log("Valid State");
+                           geocoder.geocode( { 'address': $scope.deliveryDetails.zip}, function(results, status) {
+                         
+                            if (status == google.maps.GeocoderStatus.OK) {
+                               console.log("All Valid zip");
+                             }
+                             else{
+                              $scope.$apply(function(){
+                                $scope.invalidAddress = true;
+                                $scope.disableNext = true;
+                              });
+                          }
+                        });
+                      }else{
+                            $scope.$apply(function(){
+                              $scope.invalidAddress = true;
+                              $scope.disableNext = true;
+                           });
+                     }
+              });
+                }else{
+                      $scope.$apply(function(){
+                              $scope.invalidAddress = true;
+                              $scope.disableNext = true;
+                           });
+              }
+      });
+    }
+      else if(status == google.maps.GeocoderStatus.ZERO_RESULTS){
+        
+        console.log("Invalid Address");
+        $scope.$apply(function(){
+             $scope.invalidAddress = true;
+             $scope.disableNext = true;
+         });
+       
+      }
+  });
+}
+
 
   $scope.checkOutNext = function(currentPage){
 
     if(currentPage == 1){
+      
       $scope.classDeliveryAddress = "col-xs-3 bs-wizard-step complete";
       $scope.classPaymentDetails = "col-xs-3 bs-wizard-step active";
       $scope.nextHREF = "#paymentDetails";
       $scope.buttonLabel = "Next";
       $scope.nextNUMBER = 2;
+                
     } else if(currentPage == 2){
       $scope.classPaymentDetails = "col-xs-3 bs-wizard-step complete";
       $scope.classReviewDetails = "col-xs-3 bs-wizard-step active";
@@ -78,13 +138,13 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
         method: "POST",
         url: '/doOrder',
         data: {
-          "name" : $scope.name,
-          "address" : $scope.address,
-          "city" : $scope.city,
-          "state" : $scope.state,
-          "zip" : $scope.zip,
-          "phone" : $scope.phone,
-          "products" : $scope.cart
+          "name" : $scope.userDetails.name,
+          "address" : $scope.userDetails.address,
+          "city" : $scope.userDetails.city,
+          "state" : $scope.userDetails.state,
+          "zip" : $scope.userDetails.zip,
+          "phone" : $scope.userDetails.phone,
+          "products" : $scope.userDetails.cart
         }
         }).then(function (res) {
           $scope.userDetails = res.data.userDetails;
@@ -94,7 +154,8 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
 
         });
 
-    } else if(currentPage == 4){
+    }  
+  else if(currentPage == 4){
       console.log("Billing id "+billId);
         window.location.assign('/trackOrder/'+billId);
     }
@@ -116,12 +177,8 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
             data: {
             }
             }).then(function (res) {
-                $scope.name = res.data.userDetails.firstName +" " + res.data.userDetails.lastName;
-                $scope.address = res.data.userDetails.address;
-                $scope.city =res.data.userDetails.city;
-                $scope.state = res.data.userDetails.state;
-                $scope.zip = res.data.userDetails.zip;
-                $scope.phone = res.data.userDetails.phone;
+                $scope.deliveryDetails = res.data.userDetails;
+                $scope.deliveryDetails.name = res.data.userDetails.firstName +" " + res.data.userDetails.lastName;
                 $scope.isLoggedIn = false;
                 if($scope.name)
                 {
