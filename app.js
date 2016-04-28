@@ -174,6 +174,7 @@ app.post('/doRejectCustomer',admin.doRejectCustomer);
 app.post('/doShowPendingFarmerAprroval',admin.doShowPendingFarmerAprroval);
 app.post('/doApproveFarmer',admin.doApproveFarmer);
 app.post('/doRejectFarmer',admin.doRejectFarmer);
+app.post('/doAddIntroduction',farmer.doAddIntroduction);
 
 //------Admin Module for Notification : Products ----
 app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
