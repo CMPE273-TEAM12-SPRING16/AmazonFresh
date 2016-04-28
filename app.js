@@ -111,7 +111,10 @@ app.get('/reviewProduct', function(req, res){
   res.render('adminTemplates/reviewProduct', {});
 });
 
-
+app.get('/showBills', function(req, res){
+  res.render('adminTemplates/showBills', {});
+});
+app.get('/fetchAllBills', admin.fetchAllBills);
 
 app.get('/deliveryDetailsCheckout', function(req, res){
   res.render('checkOutTemplates/deliveryDetails', {});
