@@ -21,6 +21,9 @@ adminNgApp.config(['$routeProvider', function($routeProvider) {
    when('/reviewProduct', {
       templateUrl: 'reviewProduct', controller: 'ReviewProduct'
    }).
+   when('/showBills', {
+      templateUrl: 'showBills', controller: 'ShowBillsCtrl'
+   }).
    when('/',{
       templateUrl: 'apprReqCustomer', controller: 'ApprReqCustomer'
    })
@@ -462,6 +465,25 @@ $scope.reviewProduct = function(){
 });
 
 
+adminNgApp.controller('ShowBillsCtrl', function($scope,$http) {
+  $scope.noBills = false;
+  $http({
+    method : "GET",
+    url : '/fetchAllBills',
+
+  }).then(function(res) {
+    if(res.data.statusCode == 200){
+      $scope.allBills = res.data.result;
+      console.log($scope.purchaseHistory);
+      if($scope.allBills.length == 0){
+        $scope.noBills = true;
+      }
+    }
+  },function(err) {
+    console.log(err);
+  });
+
+});
 
 
 
@@ -478,7 +500,7 @@ adminNgApp.controller('AdminPageCtrl', function($scope, $http){
   $scope.isSearch1 = false;
   $scope.isSearch2 = false;
   $scope.searchResults = [];
-  $scope.searchType = 'Customers';
+  $scope.searchType = 'Customer Name';
   $scope.noSearchResult = false;
   //________________________SEARCH THINGS OVER____________________//
 
@@ -486,6 +508,7 @@ adminNgApp.controller('AdminPageCtrl', function($scope, $http){
     $scope.isSearch = false;
     $scope.isSearch1 = false;
     $scope.isSearch2 = false;
+    $scope.isSearch3 = false;
     $scope.searchResult = null;
     if(option == 1){
       $scope.activeCustomer = "active";
@@ -525,15 +548,26 @@ adminNgApp.controller('AdminPageCtrl', function($scope, $http){
     var searchString = $scope.searchString;
     var searchType;
     console.log($scope.searchType);
-    if($scope.searchType == 'Customers'){//Select search type
+    if($scope.searchType == 'Customer Name'){//Select search type
       $scope.isSearch1 = true;
+      $scope.isSearch2 = false;
+      $scope.isSearch3 = false;
       searchType = 1;
-    }else if($scope.searchType == 'Farmers'){
+    }else if($scope.searchType == 'Farmer Name'){
       $scope.isSearch1 = true;
+      $scope.isSearch2 = false;
+      $scope.isSearch3 = false;
       searchType = 2;
-    }else if($scope.searchType == 'Products'){
+    }else if($scope.searchType == 'Product Name'){
+      $scope.isSearch1 = false;
       $scope.isSearch2 = true;
+      $scope.isSearch3 = false;
       searchType = 3;
+    }else if($scope.searchType == 'Bill ID'){
+      $scope.isSearch1 = false;
+      $scope.isSearch2 = false;
+      $scope.isSearch3 = true;
+      searchType = 4;
     }
 
     if(searchString != ""){

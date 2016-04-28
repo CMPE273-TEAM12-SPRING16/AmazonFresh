@@ -17,6 +17,8 @@ exports.doSearchAdmin = function(req, res){
 		collectionName = 'USER_DETAILS';
 	}else if(searchType == 3){
 		collectionName = 'PRODUCTS';
+	}else if(searchType == 4){
+		collectionName = 'BILLING_INFORMATION';
 	}
 
   mongo.searchItAdmin(collectionName, searchString, searchType, function(err,searchRes){
@@ -27,6 +29,7 @@ exports.doSearchAdmin = function(req, res){
     else
     {
       if(searchRes){
+        console.log(JSON.stringify(searchRes));
         var jsonResponse = {
           "searchResults" : searchRes,
           "statusCode" : 200
@@ -444,3 +447,21 @@ exports.reviewFarmer = function(req, res) {
 
     mongo.find('PRODUCTS',getProductPendingJSON,callbackFunction);
  };
+
+//FETCH ALL BILLS
+exports.fetchAllBills = function(req, res){
+
+  var queryJSON = {};
+  mongo.find("BILLING_INFORMATION", queryJSON, function(err, result){
+    if(err){
+      console.log(err);
+    } else {
+      console.log(JSON.stringify(result));
+      var jsonResponse = {
+        "statusCode" : 200,
+        "result" : result
+      };
+      res.send(jsonResponse);
+    }
+  });
+};

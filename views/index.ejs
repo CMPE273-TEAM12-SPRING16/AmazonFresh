@@ -64,7 +64,7 @@
 </head>
 
 <body ng-app="indexAngular" ng-controller="IndexPageController" ng-cloak>
-  <div class="container-fluid">
+  <div class="container-fluid nopadding">
     <div ng-hide="isLoggedIn">
       <% include ./partial/header %>
     </div>
@@ -418,8 +418,9 @@
             </div>
           </div>
         </div>
-        <% include ./partial/footer %>
   </div>
+  <% include ./partial/footer %>
+</div>
 
       <!-- <% include ./partial/footer %> -->
       <!-- <div class="row">
