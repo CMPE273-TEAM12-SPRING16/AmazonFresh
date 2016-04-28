@@ -162,35 +162,32 @@
               <h1 class="product-page-product-name">
                    {{farmerFirstName}} {{farmerLastName}}
               </h1>
-              <span class="product-page-other-products-by">Other products by </span>
-              <span class="product-page-farmer-name"><a href="/{{displayProductDetails.FARMER_ID}}">{{displayProductDetails.FARMER_NAME}}</a></span>
               <div class="product-page-ratings-img">
-                <img src="../images/support_images/{{displayProductDetails.AVG_RATING}}-stars.png"/>
-                ({{displayProductDetails.AVG_RATING}})
+                <img src="../images/support_images/3-stars.png"/>
+                (3)
               </div>
-              <div class="product-page-price">
-                <span class="price">{{displayProductDetails.PRICE | currency}}</span>
-                <span class="unit-price">($0.77/oz)</span>
-              </div>
-              <div class="product-page-add">
-                <button class="btn btn-primary btn-add" enabled="isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
-                <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
-              </div>
+              <p>Address Line 1</p>
+              <p>Address Line 2</p>
+              <p>San Jose, CA 95126</p>
             </div>
           </div>
 
           <div class="row row-margin">
             <div class="col-md-12">
               <hr class="product-page-seperator">
-                <h3>Product Description</h2>
+                <h3>About {{farmerFirstName}} {{farmerLastName}}</h2>
                 <p>{{displayProductDetails.PRODUCT_DESCRIPTION}}</p>
             </div>
           </div>
           <div class="row row-margin">
             <div class="col-md-12">
               <hr class="product-page-seperator">
-                <h3>Product Details</h2>
-                <p><strong>ASIN:</strong>{{farmerId}}</p>
+                <h3>Introduction Video</h2>
+                <div class="col-md-8">
+                  <div class="thumbnail">
+                    <img src="../images/support_images/video-placeholder.png"/>
+                  </div>
+                </div>
             </div>
           </div>
           <div class="row row-margin">
@@ -307,7 +304,7 @@
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 							<h4 class="modal-title" id="myModalLabel">
-								Write a Review for {{displayProductDetails.PRODUCT_NAME}}
+								Write a Review for {{farmerFirstName}} {{farmerLastName}}
 							</h4>
 						</div>
 						<div class="modal-body">
