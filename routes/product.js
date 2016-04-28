@@ -5,6 +5,10 @@ var ejs = require('ejs');
 var mongo = require('./mongo');
 var multer = require('multer');
 uploadFilename = "";
+//var mongodb = require("mongodb");
+//objectid = mongodb.BSONPure.ObjectID;
+var objectID = require('mongodb').ObjectID;
+
 
 var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
@@ -205,6 +209,7 @@ exports.getProductId=function(req,res)
 
 	var productId = req.param("id");
 	console.log(productId);
+
 	ejs.renderFile('./views/productHome.ejs',{sendProductId:productId},function(err, results) {
 		if (!err) {
 			res.end(results);
@@ -213,28 +218,38 @@ exports.getProductId=function(req,res)
 			console.log("entered");
 		}
 	});
+
 }
 
-exports.getProductDetails=function(req,res)
-{
-
+exports.getProductDetails=function(req,res) {
 	var productId = req.param("productId");
-	var callbackFunction = function (err, results) {
 
-		if (err) {
-			console.log(err);
+	if (objectID.isValid(productId)) {
+
+		console.log(productId + "product id is");
+		var callbackFunction = function (err, results) {
+			console.log(results);
+			if (results) {
+				var reviews = getDateAndMonth(results);
+
+				res.send({"productDetails": results});
+			}
+
+			else {
+				res.send({"statusCode": 401});
+			}
+
+
 		}
-		else {
 
-			
-			var reviews = getDateAndMonth(results);
-
-			res.send({"productDetails":results});
-		}
+		mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
 	}
-	mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
-}
 
+	else {
+	res.send({"statusCode": 401});
+	console.log("invalid id format");
+	}
+}
 function getDateAndMonth(results){
 	console.log("getDateAndMonth");
 	var monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];

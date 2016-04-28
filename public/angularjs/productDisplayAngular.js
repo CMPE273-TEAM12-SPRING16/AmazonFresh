@@ -70,7 +70,14 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 }
 
             }).then(function (res) {
-                $scope.displayProductDetails = res.data.productDetails;
+                if(res.data.statusCode=="401")
+                {
+                    window.location.assign('/:error');
+                }
+                else {
+                    console.log("inside succed function");
+                    $scope.displayProductDetails = res.data.productDetails;
+                }
             });
 
             //Cart start
