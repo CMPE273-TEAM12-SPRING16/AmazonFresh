@@ -201,6 +201,8 @@ exports.doOrder = function(req,res)
 	var zip = req.param("zip");
 	var phone = req.param("phone");
 	var products = req.param("products");
+	console.log("Products --->> ");
+	console.log(products);
 	var totalAmount = 0;
 	var cust_lat,cust_long,sourceLocJSON;
 	var cust_address = address+" ,"+city+" ,"+state+" "+zip;
