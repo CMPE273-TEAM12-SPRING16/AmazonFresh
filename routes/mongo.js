@@ -61,6 +61,15 @@ exports.findOne = function(collectionName,queryJSON,callbackFunction)
 
 }
 
+exports.findWithProjection = function(collectionName,queryJSON, projectionJSON, callbackFunction)
+{
+    connect(mongoURL, function(db){
+        var collectionObject = collection(collectionName);
+        collectionObject.find(queryJSON, projectionJSON, callbackFunction);
+    });
+
+}
+
 exports.findOneWithProjection = function(collectionName,queryJSON, projectionJSON, callbackFunction)
 {
     connect(mongoURL, function(db){
@@ -105,6 +114,8 @@ exports.searchItAdmin = function(collectionName, searchString, searchType, callb
   //  var queryJSON2 = {_id : idString};
   } else if (searchType == 3) {
     var queryJSON = {PRODUCT_NAME : regexValue};
+  } else if (searchType == 4) {
+    var queryJSON = {BILL_ID : Number(searchString)};
   }
 
 
