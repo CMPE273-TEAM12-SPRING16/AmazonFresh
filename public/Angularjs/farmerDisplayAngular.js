@@ -27,7 +27,10 @@ app.controller('farmerDisplayAngular',function($scope,$http,farmerId)
  
 			}
            else if (res.data.statusCode == 401) {
-                   
+
+
+                    window.location.assign('/:error');
+
             }
 
         }, function(res) { //this will be called on error
