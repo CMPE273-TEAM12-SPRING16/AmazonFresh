@@ -65,7 +65,7 @@ exports.findWithProjection = function(collectionName,queryJSON, projectionJSON, 
 {
     connect(mongoURL, function(db){
         var collectionObject = collection(collectionName);
-        collectionObject.find(queryJSON, projectionJSON, callbackFunction);
+        collectionObject.find(queryJSON).project(projectionJSON).toArray(callbackFunction);
     });
 
 }
