@@ -173,8 +173,6 @@ exports.removeOne = function(collectionName,queryJSON,callbackFunction)
 
 exports.updateOne = function(collectionName,queryJSON,updateJSON,callbackFunction)
 {
-  console.log(JSON.stringify(queryJSON));
-  console.log(JSON.stringify(updateJSON));
     connect(mongoURL, function(db){
         console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
