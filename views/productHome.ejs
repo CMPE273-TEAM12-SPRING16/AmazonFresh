@@ -22,6 +22,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
 
     <script src="../angularjs/productDisplayAngular.js"></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -349,14 +351,64 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row row-margin-none">
+              <div class="col-md-3">
+                <div class="row">
+                    <div class="form-group">
+                        <p>
+                        <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Picture</button>
+                        </p>
+                        <input
+                            id="fileInput"
+                            style="visibility:hidden"
+                            type="file"
+                            ngf-select
+                            ng-model="file"
+                            name="file"
+                            ngf-pattern="'image/*'"
+                            accept="image/*"
+                            ngf-max-size="20MB"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="thumbnail">
+                    <img ngf-thumbnail="file || 'images/products/product-1.jpg'"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-9">
+                <div class="row">
+                    <div class="form-group">
+
+                        <p>
+                        <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Picture</button>
+                        </p>
+                        <input
+                            id="fileInput"
+                            style="visibility:hidden"
+                            type="file"
+                            ngf-select
+                            ng-model="file"
+                            name="file"
+                            ngf-pattern="'image/*'"
+                            accept="image/*"
+                            ngf-max-size="20MB"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="thumbnail">
+                    <img ngf-thumbnail="file || 'images/support_images/video-placeholder.jpg'"/>
+                  </div>
+                </div>
+              </div>
+            </div>
 						</div>
 
-							<div class="_9b5ef6-textarea_btn _9b5ef6-not_focused">
-								<div class="_9b5ef6-transform_wrap">
-									<div class="_9b5ef6-status">
-									</div>
-								</div>
-							</div>
+
 
 						<div class="modal-footer">
 

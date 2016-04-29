@@ -354,7 +354,6 @@ console.log(userDetails.firstName);
 
 
 exports.fetchPurchaseHistory = function(req, res){
-  console.log("In : user.js-->" + "fetchPurchaseHistory");
   var userId = req.session.userId;
   var queryJSON = {USER_ID : userId};
   var projectionJSON = {PURCHASE_HISTORY : 1};
