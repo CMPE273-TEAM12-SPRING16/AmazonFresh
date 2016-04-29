@@ -220,9 +220,31 @@ console.log(email);
                 }
                 mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, customerCreditCardDetailsCallbackFunction);
               }
+              if(userType==2) {
 
-              json_responses = {"statusCode": 200};
-              res.send(json_responses);
+
+                var farmerDetails = {
+                  "USER_ID": userId,
+                  "AVERAGE_RATING": 0,
+                  "REVIEW_DETAILS": [],
+                  "INTRODUCTION_DETAILS":""
+                }
+                var FarmerDetailsCallbackFunction = function (err, results) {
+                  var json_responses;
+
+                  if (err) {
+                    console.log(err);
+                  }
+                  else {
+                    console.log("farmerInserted");
+                    json_responses = {"statusCode": 200};
+                    res.send(json_responses);
+                  }
+                }
+                mongo.insertOne("FARMER_DETAILS",farmerDetails, FarmerDetailsCallbackFunction);
+              }
+
+
 
              //checking for credit card details and entering the details in CREDITCARDTABLE
 

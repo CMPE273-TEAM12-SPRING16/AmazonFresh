@@ -15,8 +15,12 @@ var cart=require('./routes/cart');
 var farmer = require('./routes/farmer');
 var admin = require('./routes/admin');
 var users=require('./routes/users');
+var cronRoute=require('./routes/cron');
 var passport = require('passport');
 require('./routes/passport')(passport);
+var cron = require('cron');
+var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount); 
+//discountCronJob.start();
 
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -36,7 +40,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 //All GET methods...........................//
 app.get('/', function(req, res){
@@ -93,11 +96,16 @@ app.get('/customerAccount', function(req, res){
 
 
 app.get('/adminHome', function(req, res){
-  res.render('adminHome', {});
+
+    res.render('adminHome', {});
+
 });
 app.get('/apprReqCustomer', function(req, res){
-  res.render('adminTemplates/apprReqCustomer', {});
-});
+
+
+    res.render('adminTemplates/apprReqCustomer', {});
+
+  });
 app.get('/apprReqFarmer', function(req, res){
   res.render('adminTemplates/apprReqFarmer', {});
 });
@@ -223,6 +231,7 @@ app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
 app.post('/addProductReview', product.addProductReview);
+app.post('/addFarmerReview', farmer.addFarmerReview);
 
 
 //Socket inplementation

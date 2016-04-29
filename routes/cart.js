@@ -17,10 +17,12 @@ exports.addToCart = function(req,res)
         }
         else {
 
-        	productName = results.PRODUCT_NAME;
-        	price = results.PRICE;
-        	fileName = results.FILE_NAME; //change filename
-        	qty = 1;
+        	var productName = results.PRODUCT_NAME;
+        	var price = results.PRICE;
+        	var fileName = results.FILE_NAME; //change filename
+        	var qty = 1;
+        	var insertionDate = new Date();
+
 			var productDetails={"productName":productName,"price":price,"fileName":fileName,"qty":qty};
 
         	mongo.findOne("CART",{"USER_ID":req.session.userId},function (cartErr, cartResults) {
@@ -61,7 +63,12 @@ exports.addToCart = function(req,res)
 			        	}
 			        	if(i==cartProductDetails.length && !found)
 			        	{
-			        		var newJSON = {"PRODUCT_ID" : productId,"PRODUCT_NAME" : productName,"PRICE" : price,"QTY" : qty,"FILE_NAME" : fileName};
+			        		var newJSON = {"PRODUCT_ID" : productId,
+			        						"PRODUCT_NAME" : productName,
+			        						"PRICE" : price,
+			        						"QTY" : qty,
+			        						"FILE_NAME" : fileName,
+			        						"INSERTION_DATE":new Date()};
 			        		cartProductDetails[i] = newJSON;
 
 			        		console.log("add new product to cart");
@@ -80,7 +87,11 @@ exports.addToCart = function(req,res)
 			        }
 			        else if(cartProductDetails.length == 0)
 			        {
-			         		var newJSON = {"PRODUCT_ID" : productId,"PRODUCT_NAME" : productName,"PRICE" : price,"QTY" : qty,"FILE_NAME" : fileName};
+			         		var newJSON = {"PRODUCT_ID" : productId,
+			         						"PRODUCT_NAME" : productName,
+			         						"PRICE" : price,"QTY" : qty,
+			         						"FILE_NAME" : fileName,
+			         						"INSERTION_DATE":new Date()};
 			        		cartProductDetails[0] = newJSON;
 
 			        		console.log("add new product to cart");
@@ -104,7 +115,8 @@ exports.addToCart = function(req,res)
 			        																		"PRODUCT_NAME" : productName,
 			        																		"PRICE" : price,
 			        																		"QTY" : qty,
-			        																		"FILE_NAME" : fileName}]};
+			        																		"FILE_NAME" : fileName,
+			        																		"INSERTION_DATE":new Date()}]};
 						mongo.insertOne('CART',insertCartJSON,function (err, results) {
 					        if (err) {
 					        console.log(err);
@@ -138,7 +150,8 @@ exports.getCartDetails = function(req,res)
 
 exports.removeItemFromCart = function(req,res)
 {
-	mongo.updateOne('CART',{"USER_ID" : req.session.userId},{$pull : { "CART_PRODUCTS" : req.param("product")}},function (err, results) {
+	console.log(JSON.stringify(req.param("product")));
+	mongo.updateOne('CART',{"USER_ID" : req.session.userId},{$pull : { "CART_PRODUCTS" : {"PRODUCT_ID" : req.param("product").PRODUCT_ID }}},function (err, results) {
 																					        if (err) {
 																					        console.log(err);
 																					        }
@@ -154,12 +167,7 @@ exports.removeItemFromCart = function(req,res)
 exports.minusQtyInCart = function(req,res)
 {
 	var productOld = req.param("product");
-	var product = productOld.constructor();
-
-	for (var attr in productOld) {
-        if (productOld.hasOwnProperty(attr)) product[attr] = productOld[attr];
-    }
-
+	
     product.QTY -= 1;
 
     if(productOld.QTY != 1)
@@ -177,7 +185,7 @@ exports.minusQtyInCart = function(req,res)
 	}
 	else
 	{
-		mongo.updateOne('CART',{"USER_ID" : req.session.userId},{$pull : { "CART_PRODUCTS" : req.param("product")}},function (err, results) {
+		mongo.updateOne('CART',{"USER_ID" : req.session.userId},{$pull : { "CART_PRODUCTS" : {"PRODUCT_ID" : req.param("product").PRODUCT_ID }}},function (err, results) {
 																					        if (err) {
 																					        console.log(err);
 																					        }
