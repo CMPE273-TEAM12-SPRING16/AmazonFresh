@@ -465,3 +465,56 @@ exports.fetchAllBills = function(req, res){
     }
   });
 };
+
+//FETCH DAILY Revenue
+exports.fetchDailyRevenue = function(req, res){
+  var month = req.param("chartMonth");
+  //var month = "04";
+  var start = "2016-" + month + "-01T00:00:00.000+0000";
+  var end = "2016-" + month + "-31T00:00:00.000+0000";
+
+  var queryJSON = {BILLING_DATE: { $gte:new Date(start), $lt: new Date(end) }};
+  var projectionJSON = { _id : 0, BILLING_DATE : 1, TOTAL_AMOUNT : 1 };
+
+  mongo.findWithProjection("BILLING_INFORMATION", queryJSON, projectionJSON, function(err, results){
+    if(err){
+      console.log(err);
+    } else {
+
+      var currentAmount = 0;
+      var catArray = [];
+      var valArray = [];
+      var average = 0;
+      var found = false;
+      var i = 1;
+      for(i=1; i<=31; i++){
+
+        catArray.push({
+            "label": "'" + i + "'"
+        });
+
+        for (j=0; j<results.length; j++) {
+          var d = new Date(results[j].BILLING_DATE);
+            if(d.getDate() == i){
+              currentAmount = currentAmount + results[j].TOTAL_AMOUNT;
+            }
+        }
+
+        valArray.push({
+          "value" : currentAmount
+        });
+        average = average + currentAmount
+        currentAmount = 0;
+      }
+
+      average = average/i;
+      var jsonResponse = {
+        "statusCode" : 200,
+        "catArray" : catArray,
+        "valArray" : valArray,
+        "average" : average
+      };
+      res.send(jsonResponse);
+    }
+  });
+};
