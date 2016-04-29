@@ -15,8 +15,12 @@ var cart=require('./routes/cart');
 var farmer = require('./routes/farmer');
 var admin = require('./routes/admin');
 var users=require('./routes/users');
+var cronRoute=require('./routes/cron');
 var passport = require('passport');
 require('./routes/passport')(passport);
+var cron = require('cron');
+var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount); 
+//discountCronJob.start();
 
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -36,7 +40,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 //All GET methods...........................//
 app.get('/', function(req, res){
