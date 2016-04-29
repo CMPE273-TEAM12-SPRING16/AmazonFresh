@@ -65,6 +65,12 @@ app.get('/map', function(req, res){
   res.render('trackOnMap', {});
 });
 
+app.get('/DailyRevenue', function(req, res){
+  res.render('adminTemplates/dailyRevenue');
+  res.end();
+});
+app.post('/fetchDailyRevenue', admin.fetchDailyRevenue);
+
 app.get('/PastPurchases', function(req, res){
 	res.render('purchaseHistory', {});
 });
