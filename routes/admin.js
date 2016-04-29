@@ -451,7 +451,13 @@ exports.reviewFarmer = function(req, res) {
 //FETCH ALL BILLS
 exports.fetchAllBills = function(req, res){
 
-  var queryJSON = {};
+  if(req.param("billId")){
+    var billId = req.param("billId");
+    var queryJSON = { BILL_ID : Number(billId)};
+  } else {
+    var queryJSON = {};
+  }
+
   mongo.find("BILLING_INFORMATION", queryJSON, function(err, result){
     if(err){
       console.log(err);

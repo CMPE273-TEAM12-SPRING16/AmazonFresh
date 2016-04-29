@@ -470,7 +470,7 @@ $scope.reviewProduct = function(){
 adminNgApp.controller('ShowBillsCtrl', function($scope,$http) {
   $scope.noBills = false;
   $http({
-    method : "GET",
+    method : "POST",
     url : '/fetchAllBills',
 
   }).then(function(res) {

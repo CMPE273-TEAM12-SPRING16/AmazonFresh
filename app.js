@@ -19,7 +19,7 @@ var cronRoute=require('./routes/cron');
 var passport = require('passport');
 require('./routes/passport')(passport);
 var cron = require('cron');
-var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount); 
+var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount);
 //discountCronJob.start();
 
 app.use(expressSession({
@@ -128,7 +128,6 @@ app.get('/reviewProduct', function(req, res){
 app.get('/showBills', function(req, res){
   res.render('adminTemplates/showBills', {});
 });
-app.get('/fetchAllBills', admin.fetchAllBills);
 
 app.get('/deliveryDetailsCheckout', function(req, res){
   res.render('checkOutTemplates/deliveryDetails', {});
@@ -206,6 +205,7 @@ app.post('/reviewFarmer',admin.reviewFarmer);
 // app.post('/doApproveFarmer',admin.doApproveFarmer);
 // app.post('/doRejectFarmer',admin.doRejectFarmer);
 app.post('/reviewProduct',admin.reviewProduct);
+app.post('/fetchAllBills', admin.fetchAllBills);
 //------Admin Module for Review : Products ----
 // app.post('/doShowPendingProductAprroval',admin.doShowPendingProductAprroval);
 // app.post('/doApproveProduct',admin.doApproveProduct);
