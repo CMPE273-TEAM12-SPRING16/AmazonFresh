@@ -285,7 +285,8 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="credit-card-labels-account">Card Number <span style="color:maroon">*</span></label>
+                    <label class="credit-card-labels-account">Card Number <span style="color:maroon">*</span></label>
+
                             <!-- <input type="text" class="form-control" placeholder="Card Number" ng-model="customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER"  value="{{customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER}}"/> -->
 
                             <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" placeholder="Card Number" ng-model="customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER"
@@ -305,7 +306,9 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
+
                             <label class="credit-card-labels-account">Name on the Card <span style="color:maroon">*</span></label>
+
                               <!-- <input type="text" class="form-control" placeholder="Name on the Card" ng-model="customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NAME" value="{{customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NAME}}"/> -->
 
                           <input type="text" class="form-control" placeholder="Name on the Card" name="creditCardName" id="creditCardName" ng-model="customerDetails.CREDIT_CARD_DETAILS.CREDIT_CARD_NAME"
@@ -350,12 +353,14 @@
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-3">
+
                               <label class="credit-card-labels-account">CVV <span style="color:maroon">*</span></label>
 
                               <!-- <input type="password" class="form-control" placeholder="CVV" ng-model="customerDetails.CREDIT_CARD_DETAILS.CVV" value="{{customerDetails.CREDIT_CARD_DETAILS.CVV}}"/> -->
 
+
                               <input type="password" class="form-control" placeholder="CVV" name="cvv" id="cvv" ng-model="cvv" autocomplete=off ng-minlength=3 ng-maxlength=3 maxlength=3 ng-pattern=" /^\d{3}$/"
-                              value="{{customerDetails.CREDIT_CARD_DETAILS.CVV}}""            required />
+                              value="{{customerDetails.CREDIT_CARD_DETAILS.CVV}}"         required />
                              <span>
                                <span style="color:maroon" ng-show="customerAccountForm.cvv.$error.maxlength || customerAccountForm.cvv.$error.minlength">cvv number must be 3 digit long</span>
                              <span style="color:maroon" ng-show="customerAccountForm.cvv.$error.pattern">Numbers only</span>
