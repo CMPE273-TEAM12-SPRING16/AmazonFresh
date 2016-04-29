@@ -87,11 +87,16 @@ app.get('/customerAccount', function(req, res){
 
 
 app.get('/adminHome', function(req, res){
-  res.render('adminHome', {});
+
+    res.render('adminHome', {});
+
 });
 app.get('/apprReqCustomer', function(req, res){
-  res.render('adminTemplates/apprReqCustomer', {});
-});
+
+
+    res.render('adminTemplates/apprReqCustomer', {});
+
+  });
 app.get('/apprReqFarmer', function(req, res){
   res.render('adminTemplates/apprReqFarmer', {});
 });
@@ -217,6 +222,7 @@ app.post('/getProductDetails',product.getProductDetails);
 app.get('/products/:id',product.getProductId);
 app.post('/doFetch10ProductsOnIndex', product.doFetch10Products);
 app.post('/addProductReview', product.addProductReview);
+app.post('/addFarmerReview', farmer.addFarmerReview);
 
 
 //Socket inplementation

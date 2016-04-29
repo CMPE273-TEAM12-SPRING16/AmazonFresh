@@ -147,7 +147,7 @@
               <div class="col-md-12">
                 <ol class="breadcrumb">
                   <li><a href="/" class="inactive">Home</a></li>
-                  <li><a href="#" class="active">Product: "{{displayProductDetails.PRODUCT_NAME}}"</a></li>
+                  <li><a href="#" class="active">Farmer: "{{farmerFirstName}}  {{farmerLastName}}"</a></li>
                 </ol>
               </div>
             </div>
@@ -155,7 +155,7 @@
           <div class="row row-margin">
         		<div class="col-md-4">
               <div class="">
-                <img ng-src="../uploads/farmer-1.jpg" />
+                <img ng-src="../uploads/{{farmerImage}}" />
               </div>
             </div>
             <div class="col-md-8">
@@ -163,12 +163,12 @@
                    {{farmerFirstName}} {{farmerLastName}}
               </h1>
               <div class="product-page-ratings-img">
-                <img src="../images/support_images/3-stars.png"/>
-                (3)
+                <img src="../images/support_images/{{farmerAverageRating}}-stars.png"/>
+                  ({{farmerAverageRating}})
               </div>
-              <p>Address Line 1</p>
-              <p>Address Line 2</p>
-              <p>San Jose, CA 95126</p>
+              <p>{{farmerAddress}}</p>
+              <p>{{farmerCity}}, {{farmerState}} {{farmerZip}}</p>
+
             </div>
           </div>
 
@@ -176,7 +176,7 @@
             <div class="col-md-12">
               <hr class="product-page-seperator">
                 <h3>About {{farmerFirstName}} {{farmerLastName}}</h2>
-                <p>{{displayProductDetails.PRODUCT_DESCRIPTION}}</p>
+                <p>{{farmerIntroductionDetails}}</p>
             </div>
           </div>
           <div class="row row-margin">
@@ -185,7 +185,10 @@
                 <h3>Introduction Video</h2>
                 <div class="col-md-8">
                   <div class="thumbnail">
-                    <img src="../images/support_images/video-placeholder.png"/>
+                      <video controls>
+                         <!-- <source src="../uploads/{{farmerVideo}}" type="video/mp4"  autoplay="autoplay" preload="auto" />-->
+
+                      </video>
                   </div>
                 </div>
             </div>
@@ -200,7 +203,7 @@
 
                   <!-- If reviews are available -->
 
-                  <div class="product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS | orderBy : '-TIMESTAMP'">
+                  <div class="product-page-user-reviews" ng-repeat = "review in farmerReviewDetails | orderBy : '-TIMESTAMP'">
                    <hr class="product-page-seperator">
                     <span><img src="../images/support_images/{{review.RATINGS}}-stars.png" /></span>
                     <span><strong>{{review.TITLE}}</strong></span>
@@ -215,77 +218,7 @@
             </div>
           </div>
     	</div>
-      <div class="col-md-3" ng-show=true>
-          <div class="row">
-            <strong class="">Great news, we deliver to your area.</strong>
-            AmazonFresh is available exclusively to Prime Fresh members in eligible zip codes.
-          </div>
-          <div class="row" ng-hide="isLoggedIn">
-            <button class="btn btn-sm btn-block btn-signin" id="modal-748235" href="#modal-container-748235" role="button" data-toggle="modal">
-              Sign In
-            </button>
-        </div>
 
-        <!-- Cart Start -->
-        <div class="row" ng-show=true>
-          <div class="thumbnail">
-						<div class="caption">
-              <span class="bill-deliver-to">Deliver to <strong>{{firstName}} {{lastName}}-{{city}}</strong></span>
-							<button ng-click="doProceedToCheckout();" ng-class="checkOutBtnClass" enabled="isLoggedIn">Proceed to Checkout</button>
-              <div ng-show="cart.length==0">
-                <center>Add products to Cart to checkout.</center>
-              </div>
-              <p>
-                  <span class="bill-subtotal">Subtotal {{getTotal() | currency}}</span><span class="bill-items pull-right">( {{cart.length}} Items)</span>
-                  <hr class="product-page-seperator"/>
-              </p>
-
-              <div ng-show="cart.length==0">
-                <p>
-                    There are currently no items in your cart. You can add an item by clicking on any <strong>Add to cart</strong> button.
-                  <hr class="product-page-seperator"/>
-                </p>
-              </div>
-
-              <!-- Items in the cart -->
-              <div class="thumbnail bill-cart " ng-repeat = "item in cart"> <!-- This will have ng-repeat. Remove the hardcoded items -->
-                <div class="row">
-                  <div class="col-md-2 bill-cart-qty-pad">
-                    <fieldset class="input-group-vertical">
-                      <button class="btn btn-default bill-cart-qty-btn" ng-click="plusQTY($index)">
-                        <span class="glyphicon glyphicon-plus gly-plus-minus"></span>
-                      </button>
-                      <div class="">
-                        <input type="text" class="form-control bill-cart-qty" ng-model="item.QTY" disabled/>
-                      </div>
-                      <button class="btn btn-default bill-cart-qty-btn" ng-click="minusQTY($index)">
-                        <span class="glyphicon glyphicon-minus gly-plus-minus"></span>
-                      </button>
-                    </fieldset>
-                  </div>
-                  <div class="col-md-8 bill-cart-item-pad">
-                    <div class="media">
-                      <a href="#" class="pull-left"><img alt="" src="../uploads/{{item.FILE_NAME}}" class="media-object bill-item-img"/></a>
-                      <div class="media-body">
-                          <a class="bill-cart-item-name">{{item.PRODUCT_NAME}}</a>
-                        <h6>
-                            <span class="bill-cart-item-price">{{item.PRICE | currency}}</span>
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-2 bill-cart-remove-pad">
-                    <img class="bill-cart-remove-item" src="../images/support_images/remove-item.png" ng-click="removeItemFromCart($index);" alt="x" />
-                  </div>
-                </div>
-              </div>
-
-            </div>
-					</div>
-        </div>
-        <!-- Cart End -->
-
-      </div>
     </div>
   </div>
 </div>
@@ -360,7 +293,7 @@
 							<button type="button" class="btn btn-default" data-dismiss="modal">
 								Cancel
 							</button>
-							<button type="submit" class="btn btn-primary btn-primary-theme" data-dismiss="modal" ng-disabled="reviewForm.$invalid" ng-click="addReview(displayProductDetails._id,displayProductDetails.AVG_RATING)">
+							<button type="submit" class="btn btn-primary btn-primary-theme" data-dismiss="modal" ng-disabled="reviewForm.$invalid" ng-click="addReview(farmerUserId,farmerAverageRating)">
 								Submit Review
 							</button>
 						</div>

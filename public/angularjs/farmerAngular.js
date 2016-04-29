@@ -179,6 +179,8 @@ farmer.controller("IntroductionController", ['Upload','$scope','$http',function(
 
  $scope.addIntroduction = function(){
   console.log("button clicked");
+     console.log("farmer Description"+$scope.farmerDescription);
+
      Upload.upload({
    url:"/doAddIntroduction",
    data:{
