@@ -1,4 +1,4 @@
-var adminNgApp = angular.module("adminNgApp", ['ngRoute']);
+var adminNgApp = angular.module("adminNgApp", ['ngRoute', 'ng-fusioncharts']);
 
 adminNgApp.config(['$routeProvider', function($routeProvider) {
    $routeProvider.
@@ -20,6 +20,9 @@ adminNgApp.config(['$routeProvider', function($routeProvider) {
    }).
    when('/reviewProduct', {
       templateUrl: 'reviewProduct', controller: 'ReviewProduct'
+   }).
+   when('/dailyRevenue', {
+      templateUrl: 'DailyRevenue', controller: 'DailyRevenueCtrl'
    }).
    when('/showBills', {
       templateUrl: 'showBills', controller: 'ShowBillsCtrl'
@@ -464,7 +467,6 @@ $scope.reviewProduct = function(){
 
 });
 
-
 adminNgApp.controller('ShowBillsCtrl', function($scope,$http) {
   $scope.noBills = false;
   $http({
@@ -482,6 +484,185 @@ adminNgApp.controller('ShowBillsCtrl', function($scope,$http) {
   },function(err) {
     console.log(err);
   });
+});
+
+
+adminNgApp.controller('DailyRevenueCtrl', function($scope,$http) {
+
+  var monthDisplay = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var monthData = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  $scope.chartMonth = "5";
+  $scope.monthDisplay = "May";
+  var catArray = [];
+  var valArray = [];
+  var average = 0;
+  for(i=0; i<30; i++){
+    catArray.push({
+        "label": "'"+i+"'"
+    });
+    valArray.push({
+      "value" : 0
+    });
+  }
+
+  $scope.myDataSource = {
+    "chart": {
+      "caption": "Comparison of Daily Revenue",
+      "xAxisname": "Date",
+      "yAxisName": "Revenues (In USD)",
+      "numberPrefix": "$",
+      "plotFillAlpha": "80",
+      "paletteColors": "#0075c2,#1aaf5d",
+      "baseFontColor": "#333333",
+      "baseFont": "Helvetica Neue,Arial",
+      "captionFontSize": "14",
+      "subcaptionFontSize": "14",
+      "subcaptionFontBold": "0",
+      "showBorder": "0",
+      "bgColor": "#ffffff",
+      "showShadow": "0",
+      "canvasBgColor": "#ffffff",
+      "canvasBorderAlpha": "0",
+      "divlineAlpha": "100",
+      "divlineColor": "#999999",
+      "divlineThickness": "1",
+      "divLineDashed": "1",
+      "divLineDashLen": "1",
+      "divLineGapLen": "1",
+      "usePlotGradientColor": "0",
+      "showplotborder": "0",
+      "valueFontColor": "#ffffff",
+      "placeValuesInside": "1",
+      "showHoverEffect": "1",
+      "rotateValues": "1",
+      "showXAxisLine": "1",
+      "xAxisLineThickness": "1",
+      "xAxisLineColor": "#999999",
+      "showAlternateHGridColor": "0",
+      "legendBgAlpha": "0",
+      "legendBorderAlpha": "0",
+      "legendShadow": "0",
+      "legendItemFontSize": "10",
+      "legendItemFontColor": "#666666"
+    },
+    "categories": [
+      {
+        "category": catArray
+      }
+    ],
+    "dataset": [
+      {
+        "seriesname": "Month of "+$scope.monthDisplay,
+        "data": valArray
+      }
+    ],
+    "trendlines": [
+      {
+        "line": [
+          {
+            "startvalue": average,
+            "color": "#1aaf5d",
+            "displayvalue": "Daily {br}Average",
+            "valueOnRight": "1",
+            "thickness": "3",
+            "showBelow": "1",
+            "tooltext": "Average revenue per Day: "+average
+          }
+        ]
+      }
+    ]
+  };
+
+  $scope.fetchChart = function(){
+    var index = parseInt($scope.chartMonth);
+    index = index - 1;
+    var month = monthData[index];
+    $http({
+      method : "POST",
+      url : '/fetchDailyRevenue',
+      data : {
+        "chartMonth" : month
+      }
+
+    }).then(function(res) {
+      if(res.data.statusCode == 200){
+        var catArray = res.data.catArray;
+        var valArray = res.data.valArray;
+        var average = res.data.average;
+        $scope.myDataSource = {
+          "chart": {
+            "caption": "Comparison of Daily Revenue",
+            "xAxisname": "Date",
+            "yAxisName": "Revenues (In USD)",
+            "numberPrefix": "$",
+            "plotFillAlpha": "80",
+            "paletteColors": "#0075c2,#1aaf5d",
+            "baseFontColor": "#333333",
+            "baseFont": "Helvetica Neue,Arial",
+            "captionFontSize": "14",
+            "subcaptionFontSize": "14",
+            "subcaptionFontBold": "0",
+            "showBorder": "0",
+            "bgColor": "#ffffff",
+            "showShadow": "0",
+            "canvasBgColor": "#ffffff",
+            "canvasBorderAlpha": "0",
+            "divlineAlpha": "100",
+            "divlineColor": "#999999",
+            "divlineThickness": "1",
+            "divLineDashed": "1",
+            "divLineDashLen": "1",
+            "divLineGapLen": "1",
+            "usePlotGradientColor": "0",
+            "showplotborder": "0",
+            "valueFontColor": "#ffffff",
+            "placeValuesInside": "1",
+            "showHoverEffect": "1",
+            "rotateValues": "1",
+            "showXAxisLine": "1",
+            "xAxisLineThickness": "1",
+            "xAxisLineColor": "#999999",
+            "showAlternateHGridColor": "0",
+            "legendBgAlpha": "0",
+            "legendBorderAlpha": "0",
+            "legendShadow": "0",
+            "legendItemFontSize": "10",
+            "legendItemFontColor": "#666666"
+          },
+          "categories": [
+            {
+              "category": catArray
+            }
+          ],
+          "dataset": [
+            {
+              "seriesname": "Month of "+$scope.monthDisplay,
+              "data": valArray
+            }
+          ],
+          "trendlines": [
+            {
+              "line": [
+                {
+                  "startvalue": average,
+                  "color": "#1aaf5d",
+                  "displayvalue": "Month{br}Average",
+                  "valueOnRight": "1",
+                  "thickness": "3",
+                  "showBelow": "1",
+                  "tooltext": "Current year quarterly target "+average
+                }
+              ]
+            }
+          ]
+        };
+
+      }
+    },function(err) {
+      console.log(err);
+    });
+  }
+  $scope.fetchChart();
 
 });
 
