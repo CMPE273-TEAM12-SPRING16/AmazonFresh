@@ -496,14 +496,6 @@ adminNgApp.controller('DailyRevenueCtrl', function($scope,$http) {
   var catArray = [];
   var valArray = [];
   var average = 0;
-  for(i=0; i<30; i++){
-    catArray.push({
-        "label": "'"+i+"'"
-    });
-    valArray.push({
-      "value" : 0
-    });
-  }
 
   $scope.myDataSource = {
     "chart": {
