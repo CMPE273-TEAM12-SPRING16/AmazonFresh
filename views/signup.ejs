@@ -55,7 +55,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="firstName">
-                      First Name *
+                      First Name <span style="color:maroon">*</span>
                     </label>
                     <input type="text" class="form-control" id="firstName" name="firstName" ng-maxlength="20"  ng-model="firstName" ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="First Name"  required/>
                     <span>
@@ -67,7 +67,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="lastName">
-                      Last Name *
+                      Last Name <span style="color:maroon">*</span>
                     </label>
 
                     <input type="text" class="form-control" id="lastName" name="lastName" ng-maxlength="20" ng-model="lastName"  ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" placeholder="Last Name" required/>
@@ -85,7 +85,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="ssn">
-                      SSN *
+                      SSN <span style="color:maroon">*</span>
                     </label>
 
                     <!-- <input type="text" class="form-control" id="ssn" name="ssn" autocomplete="on" ng-maxlength="9" ng-minlength="9" ng-pattern="/[0-9]/" placeholder="###-##-####" ng-model="ssn" required/> -->
@@ -112,7 +112,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Email ID *
+                      Email ID <span style="color:maroon">*</span>
                     </label>
 
 
@@ -134,7 +134,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">
-                      Password *
+                      Password <span style="color:maroon">*</span>
                     </label>
                     <input type="password" class="form-control" id="password" name ="password" autocomplete="on"
                            autofocus aria-required="true" placeholder="Password" ng-model="password"  required/>
@@ -150,7 +150,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword2">
-                      Confirm Password *
+                      Confirm Password <span style="color:maroon">*</span>
                     </label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"  ng-model="confirmPassword" ng-change="match();" required>
 
@@ -174,7 +174,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="address">
-                      Address *
+                      Address <span style="color:maroon">*</span>
                     </label>
                     <textarea class="form-control textbox-address" id="address" name="address" placeholder="Address" ng-model="address"  autocomplete="on"
                               autofocus aria-required="true"  ng-maxlength="1050" required></textarea>
@@ -191,7 +191,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="city">
-                      City *
+                      City <span style="color:maroon">*</span>
                     </label>
                     <input type="text" class="form-control" id="city" name="city" placeholder="City" ng-model="city" autocomplete="on"
                            autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required/>
@@ -204,7 +204,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="state">
-                      State *
+                      State <span style="color:maroon">*</span>
                     </label>
                     <input type="text" class="form-control"id="state" name="state"  placeholder="State" ng-model="state" autocomplete="on"
                            autofocus aria-required="true" ng-pattern="/[A-Za-z. ]/" required/>
@@ -217,7 +217,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="zip">
-                      Zip *
+                      Zip <span style="color:maroon">*</span>
                     </label>
 
 
@@ -237,7 +237,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputEmail">
-                      Phone *
+                      Phone <span style="color:maroon">*</span>
                     </label>
                     <!-- <input type="text" class="form-control"  autocomplete="on" name="phone" id="phone"
                            autofocus aria-required="true" placeholder="Phone" ng-model="phone" ng-maxlength=10 ng-minlength=10 maxlength=10 ng-pattern="/[0-9]/" required/> -->
@@ -264,7 +264,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="credit-card-labels">Card Number *</label>
+                          <label class="credit-card-labels">Card Number <span style="color:maroon">*</span></label>
                           <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" placeholder="Card Number" ng-model="creditCardNumber" autocomplete=off  ng-minlength=16 ng-maxlength=16 ng-pattern="/[0-9]/" required/>
                           <span>
 
@@ -279,7 +279,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="credit-card-labels">Name on the Card *</label>
+                          <label class="credit-card-labels">Name on the Card <span style="color:maroon">*</span></label>
                           <input type="text" class="form-control" placeholder="Name on the Card" name="creditCardName" id="creditCardName" ng-model="creditCardName"  ng-pattern="/[A-Za-z ]/"  autocomplete="on" autofocus aria-required="true" required/>
                     <span>
                     <span style="color:maroon" ng-show="signupForm.creditCardName.$error.pattern">Name must contain letters only</span>
@@ -293,7 +293,7 @@
                       <div class="form-group">
 
                         <div class="col-md-3">
-                          <label class="credit-card-labels">Expiry Date *</label>
+                          <label class="credit-card-labels">Expiry Date <span style="color:maroon">*</span></label>
                           <select class="form-control" id="sel1" ng-model="expiryMonth" name="expiryMonth" required>
                             <option>01</option>
                             <option>02</option>
@@ -326,7 +326,7 @@
                         </div>
                         <div class="col-md-2"></div>
                         <div class="col-md-3">
-                          <label class="credit-card-labels">CVV *</label>
+                          <label class="credit-card-labels">CVV <span style="color:maroon">*</span></label>
                           <input type="password" class="form-control" placeholder="CVV" name="cvv" id="cvv" ng-model="cvv" autocomplete=off ng-minlength=3 ng-maxlength=3 maxlength=3 ng-pattern=" /^\d{3}$/" required />
                          <span>
                            <span style="color:maroon" ng-show="signupForm.cvv.$error.maxlength || signupForm.cvv.$error.minlength">cvv number must be 3 digit long</span>
