@@ -1,4 +1,4 @@
-var productDisplayAngular= angular.module("productDisplayAngular",['ngFileUpload']);
+var productDisplayAngular= angular.module("productDisplayAngular",['ngFileUpload', 'ngSanitize']);
 productDisplayAngular.controller('LoginController',function($scope,$http)
 {
     $scope.isNotApproved=true;
@@ -54,7 +54,7 @@ productDisplayAngular.controller('LoginController',function($scope,$http)
 
 });
 
-productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId','socket','Upload',function($scope,$http,sendProductId,socket,Upload)
+productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','sendProductId','socket','Upload','$sce',function($scope,$http,sendProductId,socket,Upload,$sce)
 {
         $scope.reviewReq = true;
         $scope.cart = [];
@@ -214,11 +214,11 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
                 });
 
-              
+
             }
-            
+
             $scope.minusQTY = function(index){
-    
+
                 $http({
                     method:"POST",
                     url:"/minusQtyInCart",
@@ -231,14 +231,14 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 
                             }
                         else
-                            {                                   
+                            {
                                 if($scope.cart[index].QTY == 1)
                                 {
                                     $scope.cart = $scope.cart.splice(index,1);
                                 }
                                 else
                                 {
-                                    $scope.cart[index].QTY-=1;    
+                                    $scope.cart[index].QTY-=1;
                                 }
                             }
                     }).error(function(error){
@@ -288,7 +288,25 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                 console.log(err);
             });
             }
-           
+
+            $scope.trustHtml = function(html) {
+                // Sanitize manually if necessary. It's likely this
+                // html has already been sanitized server side
+                // before it went into your database.
+                // Don't hold me liable for XSS... never assume :~)
+                return $sce.trustAsHtml(html);
+            };
+
+            $scope.videoResourceUrl = function(url) {
+                // Sanitize manually if necessary. It's likely this
+                // html has already been sanitized server side
+                // before it went into your database.
+                // Don't hold me liable for XSS... never assume :~)
+                //console.log($scope.farmerVideo);
+                console.log(url);
+                return $sce.trustAsResourceUrl("../uploads/"+url);
+            };
+
     }
 ]);
 
@@ -296,7 +314,7 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
 productDisplayAngular.factory('socket', ['$rootScope', function ($rootScope) {
     var socket = io.connect();
     console.log("socket created");
- 
+
     return {
         on: function (eventName, callback) {
             function wrapper() {
@@ -305,14 +323,14 @@ productDisplayAngular.factory('socket', ['$rootScope', function ($rootScope) {
                     callback.apply(socket, args);
                 });
             }
- 
+
             socket.on(eventName, wrapper);
- 
+
             return function () {
                 socket.removeListener(eventName, wrapper);
             };
         },
- 
+
         emit: function (eventName, data, callback) {
             socket.emit(eventName, data, function () {
                 var args = arguments;

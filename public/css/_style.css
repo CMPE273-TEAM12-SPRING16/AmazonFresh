@@ -267,6 +267,11 @@ margin-top: 10px;
 font-size: 10px !important;
 font-weight: bold !important;
 }
+.img-review{
+  margin: 5px;
+  height: 100px;
+  width: 100px;
+}
 
 
 .bill-deliver-to{
