@@ -224,27 +224,32 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
  //Product approve/reject
 
  exports.doShowPendingProductAprroval = function(req, res) {
-	var user_id = req.session.userId;
+	var userId = req.session.userId;
 	var getProductPendingJSON = {"IS_APPROVED" : 0};
 
-	console.log("doShowPendingProductAprroval" +user_id);
-	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowPendingProductAprroval");
-			res.send(json_responses);
-		}
-		else
-		{
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
+	var msg_payload = {"userId" : userId , "functionName" : "doShowPendingProductAprroval"};
 
-    mongo.find('PRODUCTS',getProductPendingJSON,callbackFunction);
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+	    console.log(results);
+	    if (err) {
+	      throw err;
+	    }
+	    else {
+	      if (results.statusCode == 200) {
+	        console.log("value inserted");
+	        res.send(results);
+	      }
+
+	      else {
+	        var json_response={"statusCode":401};
+	        res.send(json_response)
+
+	      }
+	    }
+
+
+	  });
+	
  };
 
  exports.doApproveProduct = function(req,res){
