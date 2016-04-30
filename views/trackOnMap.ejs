@@ -83,7 +83,7 @@
                   <span>{{bill.TOTAL_AMOUNT | currency}}</span>
                 </div>
                 <div class="col-md-3">
-                  <h6>Delivered To</h6>
+                  <h6>Deliver To</h6>
                   <span>{{bill.CUSTOMER_NAME}}</span>
                 </div>
                 <div class="col-md-3">
@@ -113,6 +113,16 @@
                   <div class="row">
                     <div class="col-md-9">
                       <span>{{bill.PHONE}}</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 approve-col-1">
+                      <h5>Delivery Date <span class="pull-right">:</span></h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <span>{{bill.DELIVERY_DATE}}</span>
                     </div>
                   </div>
                 </div>
