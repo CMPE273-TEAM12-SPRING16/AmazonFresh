@@ -251,7 +251,7 @@ var msg_payload={"userId":userId, "functionToBeImplemented":"getCustomerAccountD
     "address":req.session.address,
     "ssn":req.session.ssn,
     "phone":req.session.phone,
-    "zip":req.session.zip,
+    "zip":req.session.zip
 
   };
 
