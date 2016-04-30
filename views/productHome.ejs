@@ -22,6 +22,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
     <script type="text/javascript" src="../js/ng-file-upload.min.js"></script>
     <script type="text/javascript" src="../js/ng-file-upload-shim.min.js"></script>
 
@@ -205,7 +206,7 @@
 
                   <!-- If reviews are available -->
 
-                  <div class="product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS | orderBy : '-TIMESTAMP'">
+                  <div class="row row-margin-none product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS | orderBy : '-TIMESTAMP'">
                    <hr class="product-page-seperator">
                     <span><img src="../images/support_images/{{review.RATINGS}}-stars.png" /></span>
                     <span><strong>{{review.TITLE}}</strong></span>
@@ -214,6 +215,19 @@
                     </p>
                     <p>
                       {{review.REVIEW}}
+                    </p>
+                    <p>
+                      <div ng-show='review.IMAGE != ""'>
+                          <img class="img-review" ng-src="../uploads/{{review.IMAGE}}" />
+                      </div>
+                    </p>
+                    <p>
+                      <div class="col-md-5" ng-show='review.VIDEO != ""'>
+                        <div class="thumbnail">
+                            <video ng-src="{{videoResourceUrl(review.VIDEO)}}" type="video/mp4" preload="auto" height="100%" width="100%" controls>
+                            </video>
+                        </div>
+                      </div>
                     </p>
 
                   </div>
