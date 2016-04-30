@@ -76,7 +76,7 @@
               <div class="row row-margin-none order-header">
                 <div class="col-md-3">
                   <h6>Order placed on</h6>
-                  <span>{{bill.BILLING_DATE}}</span>
+                  <span>{{bill.BILLING_DATE | date : 'MMM d, y h:mm:ss a' : '-0700'}}</span>
                 </div>
                 <div class="col-md-3">
                   <h6>TOTAL PRICE</h6>
@@ -156,8 +156,8 @@
           <span class="admin-page-title">Our truck is on the way :</span>
           <div id="controls">
             <form  action="#">
-              <input type="hidden" size="80" maxlength="200" id="startpoint" value="{{source_address}}" />
-              <input type="hidden" size="80" maxlength="200" id="endpoint" value="{{dest_address}}" />
+              <input type="hidden" size="80" maxlength="200" id="endpoint" value="{{source_address}}" />
+              <input type="hidden" size="80" maxlength="200" id="startpoint" value="{{dest_address}}" />
             </form>
           </div>
           <div id="map" style="width: 100%; height: 470px"></div>
