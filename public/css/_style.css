@@ -153,6 +153,13 @@ font-size: 20px;
 background-color: #A9E236 !important;
 border-color: #7FAA29!important;
 }
+
+.btn-delete{
+color: #000000;
+font-size: 20px;
+border-color: #7FAA29!important;
+}
+
 .btn-signup:focus,
 .btn-signup.focus {
 color: #000000 !important;
