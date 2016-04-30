@@ -25,10 +25,9 @@
   <link rel="shortcut icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <link rel="icon" href="images/support_images/icons/favicon.ico" type="image/vnd.microsoft.icon">
   <title>Home | Admin</title>
-
 </head>
 
-<body ng-app="adminNgApp" ng-controller="AdminPageCtrl" ng-cloak>
+<body ng-app="adminNgApp" ng-controller="AdminPageCtrl" ng-cloak onload="initMap()">
   <div class="container-fluid nopadding">
     <% include ./partial/headerAdmin %>
     <div class="container-fluid container-main">
@@ -137,7 +136,8 @@
                       <a href="#/dailyRevenue">Daily Revenue</a>
                     </li>
                     <li class="">
-                      <a href="#">Stats2<span class="badge pull-right">1</span></a>
+            
+                      <a href="#" onclick="initMap();">Deliveries<span class="badge pull-right">1</span></a>
                     </li>
                     <li class="">
                       <a href="#">Stats3<span class="badge pull-right">1</span></a>
@@ -171,6 +171,7 @@
           <div ng-view class="thumbnail thumbnail-signup" ng-hide="isSearch">
 
           </div>
+          
 
           <div class="thumbnail thumbnail-signup" ng-show="isSearch1"> <!-- add customer notifications -->
             <span class="admin-page-title">Search Results:</span><span class="admin-page-title-cat"> {{searchType}}</span>
@@ -375,15 +376,66 @@
 
               </div> <!-- FINISHED Add product notofications -->
 
+
+              <input type="hidden" name="jsonData" value="{{allDeliveries}}" id="deliveries" />
+              <div id="map" style="width: 100%;height: 100%">
+            
+
+              </div>
+
         </div>
       </div>
     </div>
   </div>
+<script type="text/javascript">
 
+      // This example creates a 2-pixel-wide red polyline showing the path of William
+      // Kingsford Smith's first trans-Pacific flight between Oakland, CA, and
+      // Brisbane, Australia.
+
+      function initMap() {
+        console.log("InitMap");
+        //var tripJSON = document.getElementById("deliveries");
+        debugger;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: 0, lng: -180},
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+        });
+
+        var flightPlanCoordinates = [
+          {lat: 37.3340839, lng: -121.9108836},
+          {lat: 37.329792, lng: -121.9193209}
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+         flightPath.setMap(map);
+        var flightPlanCoordinates = [
+          {lat: 37.3340839, lng: -121.9108836},
+          {lat: 37.350393, lng: -121.9929866}
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+      }
+    </script>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs">
+    </script>
 </body>
 </html>
