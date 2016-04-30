@@ -81,7 +81,8 @@ exports.doShowProductList = function(req, res) {
 
 // show farmer profile details for update
  exports.doShowFarmerProfile = function(req,res){
- 	var user_id = req.session.user_id;
+ 	var user_id = req.session.userId;
+ 	console.log(user_id);
  	var getProfileJSON = {"USER_ID" : user_id};
 
  	console.log("User_ID "+user_id);
@@ -266,6 +267,39 @@ exports.doAddIntroduction = function(req,res)
         });
 
 
+
+}
+
+exports.doDeleteProfile = function(req,res){
+	var farmer_id = req.param("farmer_id");
+	console.log("Farmer "+farmer_id);
+	var deleteWhereJSON = {USER_ID : farmer_id};
+	var deleteSetJSON = {$set : {IS_APPROVED : 0}};
+	var deleteQuery = "UPDATE USERS SET IS_APPROVED = " + 0 +" WHERE USER_ID = "+ farmer_id;
+	var callbackFunction = function (err, results) {
+           if(err)
+		{
+			throw err;
+			json_responses = {"statusCode" : 401};
+			console.log("Error in doShowProductList");
+			res.send(json_responses);
+		}
+		else
+		{
+
+			console.log(results);
+			res.redirect("/logout");
+		}
+    }
+    mysql.updateData(deleteQuery,function (err, results) {
+    	if(err){
+    		console.log(err);
+    	}
+    	else{
+    		 mongo.updateOne('USER_DETAILS',deleteWhereJSON,deleteSetJSON,callbackFunction);
+    	}
+    })
+   
 
 }
 

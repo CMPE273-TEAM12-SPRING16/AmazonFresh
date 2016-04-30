@@ -86,11 +86,20 @@
                   </div>
                 </div>
               </div>
+              <input type="hidden" ng-model="">
               <hr>
               <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                   <button type="button" class="btn btn-primary btn-block btn-signup" ng-click="updateProfile()">Update</button>
+                </div>
+                <div class="col-md-2"></div>
+              </div>
+
+               <div class="row row-margin">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                  <button type="button" class="btn btn-danger btn-block btn-delete" id="modal-6492209" href="#modal-container-6492209" data-toggle="modal">Delete My Account</button>
                 </div>
                 <div class="col-md-2"></div>
               </div>
@@ -109,3 +118,43 @@
               </div>
             </form>
           </div>
+
+
+  <!-- ---------------DELETE MODAL --------- -->
+
+  <div class="modal fade" id="modal-container-6492209" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+            <form name="reviewForm">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <center>
+                     <h2> Are you sure you want to delete your account?</h2>
+                    <center>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-danger" data-dismiss="modal" ng-click="deleteProfile()">
+                Delete
+              </button>
+            </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>      

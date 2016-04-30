@@ -136,6 +136,8 @@ app.get('/showMap', function(req, res){
 
 app.post('/showDeliveriesStat',admin.showDeliveriesStat);
 
+app.post('/doDeleteProfile',farmer.doDeleteProfile);
+
 
 app.get('/fetchAllBills', admin.fetchAllBills);
 

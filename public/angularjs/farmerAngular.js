@@ -86,6 +86,7 @@ $scope.getProductList();
 
  farmer.controller("EditProfileController", function($scope,$http) {
         console.log("Edit Profile");
+        $scope.farmer_id="";
        $http({
 
             method:"POST",
@@ -96,7 +97,7 @@ $scope.getProductList();
             console.log(data);
             if(data.statusCode==200)
             {
-
+               $scope.farmer_id = data.results.USER_ID;
                $scope.first_name = data.results.FIRST_NAME;
                $scope.last_name = data.results.LAST_NAME;
                $scope.ssn = data.results.SSN;
@@ -142,6 +143,22 @@ $scope.getProductList();
 
             });
 	}
+
+  $scope.deleteProfile = function(){
+    console.log("Farmer ID "+$scope.farmer_id);
+    $http({
+
+            method:"POST",
+            url:'/doDeleteProfile',
+            data: {
+              "farmer_id" : $scope.farmer_id
+            }
+          }).then(function(res){
+             window.location.assign('/');
+            })
+  }
+
+
     });
 
 
@@ -194,7 +211,8 @@ farmer.controller("IntroductionController", ['Upload','$scope','$http',function(
              console.log("Added");
               $scope.successAddProduct = false;
            } else {
- 
+              
+
            }
        });
  }
