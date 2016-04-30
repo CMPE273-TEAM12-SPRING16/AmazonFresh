@@ -239,7 +239,7 @@ res.render('farmerHome');
 function getCustomerAccountDetails(req,res)
 {
   var userId=({USER_ID:req.session.userId});
-var msg_payload={"userId":userId, "functionToBeImplemented":"getCustomerAccountDetails"};
+var msg_payload={"userId":req.session.userId, "functionToBeImplemented":"getCustomerAccountDetails"};
 
   var userDetails= {
     "firstName" : req.session.firstName,
