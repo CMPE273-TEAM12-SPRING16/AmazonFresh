@@ -26,7 +26,7 @@ exports.doSearchAdmin = function(req, res){
 	var msg_payload = {"searchString":searchString,"searchType":searchType,"collectionName":collectionName};
 
 
-	mq_client.make_request('doSearchAdminQueue', msg_payload, function (err, results) {
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
     console.log(results);
     if (err) {
       throw err;
@@ -51,60 +51,34 @@ exports.doSearchAdmin = function(req, res){
 
 
 exports.doShowPendingCustAprroval = function(req, res) {
-	var user_id = req.session.userId;
+	var userId = req.session.userId;
 	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":1}]};
+	var functionName = "doShowPendingCustAprroval";
 
-	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			//res.send(json_responses);
-		}
-		else
-		{
-			Object.keys(results).forEach(function(index) {
-								// here, we'll first bit a list of all LogIds
+	var msg_payload = {"userId":userId,"getCustomerPendingJSON":getCustomerPendingJSON,"functionName":functionName};
 
-								var id = results[index].USER_ID;
-								user_id_arr.push(id);
-							});
-			console.log(user_id_arr);
-			var cardDetailJSON = {"USER_ID" : {$in : user_id_arr}};
-			console.log(user_id_arr);
-			mongo.find('CUSTOMER_DETAILS',cardDetailJSON,function(err,userDetails){
-					 if(err)
-					{
-						throw err;
-						json_responses = {"statusCode" : 401};
-						console.log("Error in doShowProductList");
-						res.send(json_responses);
-					}
-					else{
-
-
-
-						Object.keys(results).forEach(function(user) {
-							Object.keys(userDetails).forEach(function(card) {
-								if(userDetails[card].USER_ID == results[user].USER_ID){
-									console.log(userDetails[card].CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER);
-									results[user].CARD_NUMBER = userDetails[card].CREDIT_CARD_DETAILS.CREDIT_CARD_NUMBER;
-
-								}
-									});
-								});
-
-						results.CARD_NUMBER = userDetails;
-						json_responses = {"statusCode" : 200,"results":results};
-						res.send(json_responses);
-					}
-				});
-
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (err) {
+      throw err;
     }
-}
-    mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
- };
+    else {
+      if (results.statusCode == 200) {
+        console.log("value inserted");
+        res.send(results);
+      }
+
+      else {
+        var json_response={"statusCode":401};
+        res.send(json_response)
+
+      }
+    }
+
+
+  });
+	
+};
 
  exports.doApproveCustomer = function(req,res){
  	var cust_id = req.param("customer_id");
@@ -114,7 +88,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
            if(err)
 		{
 			throw err;
-			json_responses = {"statusCode" : 401};
+			var json_responses = {"statusCode" : 401};
 			console.log("Error in doShowProductList");
 			res.send(json_responses);
 		}
@@ -129,7 +103,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 
 			   console.log("Approve Requests ");
 			   console.log(results);
-			   json_responses = {"statusCode": 200, "results": results};
+			   var json_responses = {"statusCode": 200, "results": results};
 			   res.send(json_responses);
 		   }
 			   },approveUser);
