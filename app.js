@@ -1,7 +1,20 @@
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+    console.log("Core------->" + i);
+  }
+
+  cluster.on("exit", function(worker, code, signal) {
+    cluster.fork();
+  });
+} else {
 
 var express = require('express')
   ,  app = express()
-	, http = require('http').Server(app)
   , io = require('socket.io')(http) //socket Implementation
 	, path = require('path');
 
@@ -278,6 +291,10 @@ app.get('/*',function(req, res){
 app.post('/*',function(req, res){
   res.render('error');
 });
-http.listen(app.get('port'), function(){
-	console.log('AmazonFresh Node-Server listening on port ' + app.get('port'));
-});
+
+
+
+  http.createServer(app).listen(app.get('port'), function(){
+    console.log('Amazon Fresh Server: ' + app.get('port'));
+  });
+}

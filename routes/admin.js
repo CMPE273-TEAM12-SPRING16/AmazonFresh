@@ -77,7 +77,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 
 
   });
-	
+
 };
 
  exports.doApproveCustomer = function(req,res){
@@ -140,7 +140,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":2}]};
 
 	var msg_payload = {"userId" : userId , "getCustomerPendingJSON" : getCustomerPendingJSON ,"functionName":"doShowPendingFarmerAprroval"};
-	
+
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
     console.log(results);
     if (err) {
@@ -190,14 +190,14 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
 	  });
 
- 	
+
  }
 
  exports.doRejectFarmer = function(req,res){
  	var customerId = req.param("customer_id");
 
  	var msg_payload = {"customerId" : customerId , "functionName" : "doRejectFarmer"};
- 
+
  	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
 	    console.log(results);
 	    if (err) {
@@ -249,7 +249,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
 
 	  });
-	
+
  };
 
  exports.doApproveProduct = function(req,res){
