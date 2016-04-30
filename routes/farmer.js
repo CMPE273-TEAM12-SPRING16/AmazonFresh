@@ -163,18 +163,15 @@ exports.getFarmerDetails = function(req,res) {
 			if (results) {
 
 				console.log("result is:" + results);
-				//var json_responses = {"statusCode": 200, "results": results};
-				//res.send(json_responses);
 				var callbackFunctionFarmerDetails = function (err, result) {
 					if (result) {
-
-						console.log("result is:" + result.IMAGE);
+console.log(result.USER_ID);
+						//console.log("result is:" + result.IMAGE);
 						var json_responses = {"statusCode": 200, "result": result,"results":results};
-						res.send(json_responses);
+						 res.send(json_responses);
 					}
 					else {
-						var json_responses={"statusCode":401};
-						res.send(json_responses);
+						console.log("video and image not found");
 					}
 				}
 
