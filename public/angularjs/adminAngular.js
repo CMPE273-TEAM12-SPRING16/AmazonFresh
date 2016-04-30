@@ -27,9 +27,6 @@ adminNgApp.config(['$routeProvider', function($routeProvider) {
    when('/showBills', {
       templateUrl: 'showBills', controller: 'ShowBillsCtrl'
    }).
-   when('/deliveries', {
-      templateUrl: 'showDeliveries', controller: 'DeliveriesCtrl'
-   }).
    when('/',{
       templateUrl: 'apprReqCustomer', controller: 'ApprReqCustomer'
    })
@@ -661,70 +658,25 @@ adminNgApp.controller('DailyRevenueCtrl', function($scope,$http) {
 
 });
 
-adminNgApp.controller('DeliveriesCtrl', function($scope,$http) {
-
-  function initMap() {
-
-      var deliveries = document.getElementById("deliveries");
-      console.log(deliveries.length);
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: 0, lng: -180},
-          mapTypeId: google.maps.MapTypeId.TERRAIN
-        });
-
-        var flightPlanCoordinates = [
-          {lat: 37.3340839, lng: -121.9108836},
-          {lat: 37.329792, lng: -121.9193209}
-        ];
-        var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-         flightPath.setMap(map);
-        var flightPlanCoordinates = [
-          {lat: 37.3340839, lng: -121.9108836},
-          {lat: 37.350393, lng: -121.9929866}
-        ];
-        var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-
-        flightPath.setMap(map);
-      }
-
-
-  console.log("---DeliveriesCtrl---");
- 
-});
-
-
 
 
 adminNgApp.controller('AdminPageCtrl', function($scope, $http){
 
-$scope.allDeliveries = [{ 
-    "TRUCK_ID" : 1, 
-    "DRIVER_ID" : 1, 
+$scope.allDeliveries = [{
+    "TRUCK_ID" : 1,
+    "DRIVER_ID" : 1,
     "SOURCE_LOC" : {
-        "ADDRESS" : "1322 The Alameda", 
-        "LATITUDE" : 37.3340839, 
+        "ADDRESS" : "1322 The Alameda",
+        "LATITUDE" : 37.3340839,
         "LONGITUDE" : -121.9108836
-    }, 
+    },
     "DESTINATION_LOC" : {
-        "ADDRESS" : "San Jose State University", 
-        "latitude" : 37.3229926, 
+        "ADDRESS" : "San Jose State University",
+        "latitude" : 37.3229926,
         "longitude" : -121.8832
-    }, 
-    "DELIVERY_DATE" : "2016-04-28T02:03:18.503+0000", 
-    "CUSTOMER_ID" : 2, 
+    },
+    "DELIVERY_DATE" : "2016-04-28T02:03:18.503+0000",
+    "CUSTOMER_ID" : 2,
     "BILLING_ID" : 29
 }];
 
@@ -742,10 +694,11 @@ $http({
   });
 
 
-  
+
   $scope.activeCustomer = "active";
   $scope.activeFarmer = "";
   $scope.activeProduct = "";
+  $scope.showDeliveries = false;
 
   //________________________SEARCH THINGS____________________//
   $scope.isSearch = false;
@@ -757,6 +710,7 @@ $http({
   //________________________SEARCH THINGS OVER____________________//
 
   $scope.activateMe = function(option){
+    $scope.showDeliveries = false;
     $scope.isSearch = false;
     $scope.isSearch1 = false;
     $scope.isSearch2 = false;
@@ -790,10 +744,20 @@ $http({
       $scope.activeRevFarmer = "";
       $scope.activeRevProduct = "active";
     }
+    else if(option == 7){
+      $scope.activeDailyRevenue = "active";
+      $scope.activeShowDeliveries = "";
+    }
+    else if(option == 8){
+      $scope.activeDailyRevenue = "";
+      $scope.activeShowDeliveries = "active";
+      $scope.showDeliveries = true;
+    }
   }
 
   //Search Function..........................................................//
   $scope.doSearch = function(){
+    $scope.showDeliveries = false;
     $scope.isSearch = true;
     $scope.searchResults = null;
     $scope.noSearchResult = false;

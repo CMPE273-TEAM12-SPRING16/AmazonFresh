@@ -272,7 +272,10 @@ font-weight: bold !important;
   height: 100px;
   width: 100px;
 }
-
+.admin-review-img{
+  height: 100%;
+  width: 100%;
+}
 
 .bill-deliver-to{
 font-size: 12px !important;
