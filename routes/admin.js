@@ -136,29 +136,36 @@ exports.doRejectCustomer = function(req,res){
 
 // Farmer approval/reject
 exports.doShowPendingFarmerAprroval = function(req, res) {
-	var user_id = req.session.userId;
+	var userId = req.session.userId;
 	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":2}]};
 
-	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			res.send(json_responses);
-		}
-		else
-		{
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
+	var msg_payload = {"userId" : userId , "getCustomerPendingJSON" : getCustomerPendingJSON ,"functionName":"doShowPendingFarmerAprroval"};
+	
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (err) {
+      throw err;
+    }
+    else {
+      if (results.statusCode == 200) {
+        console.log("value inserted");
+        res.send(results);
+      }
+
+      else {
+        var json_response={"statusCode":401};
+        res.send(json_response)
+
+      }
     }
 
-    mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
+
+  });
+
  };
 
  exports.doApproveFarmer = function(req,res){
- 	var cust_id = req.param("customer_id");
+ 	var customerId = req.param("customer_id");
 
 
  	var callbackFunction = function (err, results) {
