@@ -239,6 +239,7 @@ res.render('farmerHome');
 function getCustomerAccountDetails(req,res)
 {
   var userId=({USER_ID:req.session.userId});
+var msg_payload={"userId":userId, "functionToBeImplemented":"getCustomerAccountDetails"};
 
   var userDetails= {
     "firstName" : req.session.firstName,
@@ -254,17 +255,17 @@ function getCustomerAccountDetails(req,res)
 
   };
 
-      var callbackFunction = function (err, result) {
-
-        if (err) {
-          console.log(err);
-        }
-        else {
-console.log(userDetails.firstName);
-          res.send({"userDetails":userDetails,"customerDetails":result});
-        }
+  mq_client.make_request('usersQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (results) {
+      console.log(results.CVV);
+      var details={"userDetails":userDetails,"customerDetails":results};
+      res.send(details);
+    }
+    else {
+      console.log("get customer details failed");
       }
-      mongo.findOne("CUSTOMER_DETAILS",userId, callbackFunction);
+  });
 
 }
 
