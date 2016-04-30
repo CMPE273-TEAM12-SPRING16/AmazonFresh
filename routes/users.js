@@ -8,7 +8,7 @@ var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var passport = require('passport');
 require('./passport')(passport);
-
+var mq_client = require('../rpc/client');
 
 function signup(req, res) {
   res.render('signup');
@@ -130,140 +130,56 @@ function doSignup(req, res) {
   var zip=req.param("zip");
   var phone=req.param("phone");
   var userType=req.param("userType");
+  var creditCardNumber = req.param("creditCardNumber");
+  var creditCardName = req.param("creditCardName");
+  var expiryMonth = req.param("expiryMonth");
+  var expiryYear = req.param("expiryYear");
+  var cvv = req.param("cvv");
 
-console.log(email);
+var msg_payload =
+{
+  "firstName":firstName,
+  "lastName":lastName,
+  "ssn":ssn,
+  "email": email,
+  "password":password,
+  "address":address,
+  "city":city,
+  "state": state,
+  "zip": zip,
+  "phone":phone,
+  "userType":userType,
+  "creditCardNumber" : creditCardNumber,
+  "creditCardName" : creditCardName,
+  "expiryMonth" : expiryMonth,
+  "expiryYear" : expiryYear,
+    "cvv" : cvv,
+  "functionToBeImplemented":"signup"
 
-  var emailExists = "select 'x' from users where email='" + email + "'";
-  mysql.fetchData(function (err, results) {
+}
 
-    if (results.length > 0) {
-      console.log("email exists");
-      json_responses = {"statusCode": 401};
-      res.send(json_responses);
-
-
+  mq_client.make_request('loginSignupQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (err) {
+      throw err;
     }
     else {
+      if (results.code == 200) {
+        console.log("value inserted");
+        var json_response={"statusCode":200};
+        res.send(json_response);
+      }
 
-      const salt = crypto.randomBytes(16).toString('hex');
-      const enPassword = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha256').toString('hex');
+      else {
+        var json_response={"statusCode":401};
+        res.send(json_response)
 
-      var insertSignUpDetails = "insert into users(EMAIL,PASSWORD,SALT,USERTYPE,IS_APPROVED) values ('" +
-      email + "','" +
-      enPassword + "','" +
-      salt + "','" +
-      userType + "', 0 )";
-      mysql.fetchData(function (err, results) {
-
-        if (results.affectedRows > 0) {
-
-
-          console.log(results);
-          console.log(results.insertId);
-          var userId = results.insertId;
-          req.session.userType = userType;
-          req.session.userId = userId;
-          console.log("sql values inserted");
-
-          //insert remaining values in mongo
-
-          var userDetails = {
-            "USER_ID": userId,
-            "FIRST_NAME": firstName,
-            "LAST_NAME": lastName,
-            "EMAIL_ID": email,
-            "SSN": ssn,
-            "ADDRESS": address,
-            "CITY": city,
-            "STATE": state,
-            "ZIP": zip,
-            "PHONE_NUMBER": phone,
-            "USER_TYPE": userType,
-            "IS_APPROVED":0
-
-          };
-
-          var userDetailsCallbackFunction = function (err, results) {
-            var json_responses;
-
-            if (err) {
-              console.log(err);
-            }
-            else {
-
-              if(userType==1) {
-                var creditCardNumber = req.param("creditCardNumber");
-                var creditCardName = req.param("creditCardName");
-                var expiryMonth = req.param("expiryMonth");
-                var expiryYear = req.param("expiryYear");
-                var cvv = req.param("cvv");
-
-                var customerCreditCardDetails = {
-                  "USER_ID": userId,
-                  CREDIT_CARD_DETAILS:
-                {
-                  "CREDIT_CARD_NUMBER": creditCardNumber,
-                  "CREDIT_CARD_NAME": creditCardName,
-                  "EXPIRY_MONTH": expiryMonth,
-                  "EXPIRY_YEAR": expiryYear,
-                  "CVV": cvv}
-                };
-                var customerCreditCardDetailsCallbackFunction = function (err, results) {
-                  var json_responses;
-
-                  if (err) {
-                    console.log(err);
-                  }
-                  else {
-                    console.log("creditCardDetailsInserted");
-                  }
-                }
-                mongo.insertOne("CUSTOMER_DETAILS", customerCreditCardDetails, customerCreditCardDetailsCallbackFunction);
-              }
-              if(userType==2) {
-
-
-                var farmerDetails = {
-                  "USER_ID": userId,
-                  "AVERAGE_RATING": 0,
-                  "REVIEW_DETAILS": [],
-                  "INTRODUCTION_DETAILS":""
-                }
-                var FarmerDetailsCallbackFunction = function (err, results) {
-                  var json_responses;
-
-                  if (err) {
-                    console.log(err);
-                  }
-                  else {
-                    console.log("farmerInserted");
-                    json_responses = {"statusCode": 200};
-                    res.send(json_responses);
-                  }
-                }
-                mongo.insertOne("FARMER_DETAILS",farmerDetails, FarmerDetailsCallbackFunction);
-              }
-
-
-
-             //checking for credit card details and entering the details in CREDITCARDTABLE
-
-            }
-
-          }
-
-          mongo.insertOne("USER_DETAILS", userDetails, userDetailsCallbackFunction);
-        }
-
-
-
-        else {
-          console.log("data insertion failed");
-        }
-      }, insertSignUpDetails);
+      }
     }
 
-  }, emailExists);
+
+  });
+
 }
 
 function redirectToHomepage(req,res)
