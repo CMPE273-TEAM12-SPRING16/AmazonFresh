@@ -1,10 +1,10 @@
 <div> <!-- add customer notifications -->
   <span class="admin-page-title">Bills :</span>
-  <div class="thumbnail" ng-repeat="bill in allBills">
+  <div class="thumbnail" ng-repeat="bill in allBills | orderBy : 'BILL_ID'">
     <div class="row row-margin-none order-header">
       <div class="col-md-3">
         <h6>Order placed on</h6>
-        <span>{{bill.BILLING_DATE}}</span>
+        <span>{{bill.BILLING_DATE | date : 'MMM d, y h:mm:ss a' : '-0700'}}</span>
       </div>
       <div class="col-md-3">
         <h6>TOTAL PRICE</h6>
