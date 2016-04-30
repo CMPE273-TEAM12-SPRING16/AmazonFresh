@@ -69,7 +69,7 @@ customerAccount.controller("customerAccount",function($scope,$http)
 
         $scope.passwordMatch=false;
 
-        if($scope.password!=$scope.confirmPassword)
+        if($scope.userDetails.password!=$scope.confirmPassword)
         {
 
             $scope.passwordMatch=true;

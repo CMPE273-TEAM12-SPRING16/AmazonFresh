@@ -310,92 +310,43 @@ console.log(req.param("ssn")+"ssn");
   var zip = req.param("zip");
   var phone = req.param("phone");
   var userType = req.param("userType");
+  var creditCardNumber = req.param("creditCardNumber");
+  var creditCardName = req.param("creditCardName");
+  var expiryMonth = req.param("expiryMonth");
+  var expiryYear = req.param("expiryYear");
+  var cvv = req.param("cvv");
+
 console.log("password");
-  var updateSignUpDetails = "update users set PASSWORD= '" + password + "' where USER_ID='" + req.session.userId+ "' ";
-  mysql.fetchData(function (err, results) {
 
-    if (results.affectedRows > 0) {
+  var msg_payload={
+      "firstName" : firstName,
+      "lastName" : lastName,
+      "ssn" : ssn,
+      "password" : password,
+       "address" : address,
+       "city" :city,
+       "state" : state,
+       "zip" : zip,
+      "phone" : phone,
+     "userType" : userType,
+     "userId":req.session.userId,
+    "creditCardNumber" : creditCardNumber,
+    "creditCardName" : creditCardName,
+    "expiryMonth" : expiryMonth,
+    "expiryYear" : expiryYear,
+    "cvv" : cvv,
+    "functionToBeImplemented":"doUpdateUserDetails"
+  }
+  mq_client.make_request('usersQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (results) {
 
-
-
-      console.log("values updated");
-
-console.log("ssn is"+ssn);
-
-      var userDetails = {
-        "USER_ID": req.session.userId,
-        "FIRST_NAME": firstName,
-        "LAST_NAME": lastName,
-        "SSN": ssn,
-        "ADDRESS": address,
-        "CITY": city,
-        "STATE": state,
-        "ZIP": zip,
-        "PHONE_NUMBER": phone,
-        "USER_TYPE": userType,
-        "IS_APPROVED":1
-      };
-      var whereJson={"USER_ID":req.session.userId};
-
-      var userDetailsCallbackFunction = function (err, results) {
-        var json_responses;
-
-        if (err) {
-          console.log(err);
-        }
-        else {
-
-          if(userType==1) {
-            var creditCardNumber = req.param("creditCardNumber");
-            var creditCardName = req.param("creditCardName");
-            var expiryMonth = req.param("expiryMonth");
-            var expiryYear = req.param("expiryYear");
-            var cvv = req.param("cvv");
-
-            var customerCreditCardDetails = {
-              "USER_ID": req.session.userId,
-              CREDIT_CARD_DETAILS:
-              {
-                "CREDIT_CARD_NUMBER": creditCardNumber,
-                "CREDIT_CARD_NAME": creditCardName,
-                "EXPIRY_MONTH": expiryMonth,
-                "EXPIRY_YEAR": expiryYear,
-                "CVV": cvv}
-            };
-
-            var customerCreditCardDetailsCallbackFunction = function (err, results) {
-              var json_responses;
-
-              if (err) {
-                console.log(err);
-              }
-              else {
-                console.log("creditCardDetailsInserted");
-              }
-            }
-            mongo.updateOne("CUSTOMER_DETAILS",whereJson, customerCreditCardDetails, customerCreditCardDetailsCallbackFunction);
-          }
-
-          json_responses = {"statusCode": 200};
-          res.send(json_responses);
-
-          //checking for credit card details and entering the details in CREDITCARDTABLE
-
-        }
-
-      }
-
-      mongo.updateOne("USER_DETAILS",whereJson, userDetails, userDetailsCallbackFunction);
+      res.send(results);
     }
-
-
-
     else {
-      console.log("data update failed");
+      console.log("update customer details failed");
     }
-  },  updateSignUpDetails);
-
-
+  });
 
 }
 
