@@ -258,8 +258,8 @@ var msg_payload={"userId":userId, "functionToBeImplemented":"getCustomerAccountD
   mq_client.make_request('usersQueue', msg_payload, function (err, results) {
     console.log(results);
     if (results) {
-      console.log(results.CVV);
-      var details={"userDetails":userDetails,"customerDetails":results};
+     // console.log(results.customerDetails);
+      var details={"userDetails":userDetails,"customerDetails": results.customerDetails};
       res.send(details);
     }
     else {
@@ -272,17 +272,19 @@ var msg_payload={"userId":userId, "functionToBeImplemented":"getCustomerAccountD
 
 exports.fetchPurchaseHistory = function(req, res){
   var userId = req.session.userId;
-  var queryJSON = {USER_ID : userId};
-  var projectionJSON = {PURCHASE_HISTORY : 1};
-  mongo.findOneWithProjection("CUSTOMER_DETAILS", queryJSON, projectionJSON, function(err, result){
-    if(err){
-      console.log(err);
-    } else {
-      var jsonResponse = {
-        statusCode : 200,
-        result : result
-      };
-      res.send(jsonResponse);
+
+  var msg_payload={"userId":userId, "functionToBeImplemented":"fetchPurchaseHistory"};
+  mq_client.make_request('usersQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (results) {
+      console.log(results+"result is");
+      var projection={"statusCode":results.code,"result":results.projection};
+      res.send(projection);
+
+    }
+    else {
+
+      console.log("fetch purchase history failed");
     }
   });
 
