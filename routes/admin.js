@@ -227,7 +227,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 	var userId = req.session.userId;
 	var getProductPendingJSON = {"IS_APPROVED" : 0};
 
-	var msg_payload = {"userId" : userId , "functionName" : "doShowPendingProductAprroval"};
+	var msg_payload = {"userId" : userId , "getProductPendingJSON" : getProductPendingJSON ,"functionName" : "doShowPendingProductAprroval"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
 	    console.log(results);
@@ -254,28 +254,29 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
  exports.doApproveProduct = function(req,res){
 
- 	var product_id = new require('mongodb').ObjectID(req.param("product_id"));
- 	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doApproveProduct");
-			res.send(json_responses);
-		}
-		else
-		{
-			console.log("Pending customer requests ");
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
+ 	var productId = req.param("product_id");
+ 	var msg_payload = {"productId":productId,"functionName":"doApproveProduct"};
 
-    var approvalWhereJSON = {"_id" : product_id};
-    var approvalSetJSON = {$set : {"IS_APPROVED" : 1}};
+ 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+	    console.log(results);
+	    if (err) {
+	      throw err;
+	    }
+	    else {
+	      if (results.statusCode == 200) {
+	        console.log("value inserted");
+	        res.send(results);
+	      }
 
-    mongo.updateOne('PRODUCTS',approvalWhereJSON,approvalSetJSON,callbackFunction);
+	      else {
+	        var json_response={"statusCode":401};
+	        res.send(json_response)
+
+	      }
+	    }
+
+
+	  });
  }
 
  exports.doRejectProduct = function(req,res){

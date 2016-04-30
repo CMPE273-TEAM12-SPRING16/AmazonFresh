@@ -81,7 +81,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
             if(data.statusCode==200)
             {
-
+              console.log("Request Approved ");
                 $scope.showPendingCustReq();
             }
         }).error(function(error) {
@@ -104,7 +104,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
             if(data.statusCode==200)
             {
-
+              consolelog("Request Rejecetd");
                 $scope.showPendingCustReq();
             }
         }).error(function(error) {
@@ -118,7 +118,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
 adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
-
+      
           console.log("ApprReqFarmer");
            $http({
 
@@ -226,7 +226,7 @@ $scope.showPendingProductReq = function(){
 
         }).success(function(data)
         {
-
+            console.log(data);
             if(data.statusCode==200)
             {
 
