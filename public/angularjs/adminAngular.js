@@ -27,6 +27,9 @@ adminNgApp.config(['$routeProvider', function($routeProvider) {
    when('/showBills', {
       templateUrl: 'showBills', controller: 'ShowBillsCtrl'
    }).
+   when('/deliveries', {
+      templateUrl: 'showDeliveries', controller: 'DeliveriesCtrl'
+   }).
    when('/',{
       templateUrl: 'apprReqCustomer', controller: 'ApprReqCustomer'
    })
@@ -658,12 +661,88 @@ adminNgApp.controller('DailyRevenueCtrl', function($scope,$http) {
 
 });
 
+adminNgApp.controller('DeliveriesCtrl', function($scope,$http) {
 
+  function initMap() {
+
+      var deliveries = document.getElementById("deliveries");
+      console.log(deliveries.length);
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: 0, lng: -180},
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+        });
+
+        var flightPlanCoordinates = [
+          {lat: 37.3340839, lng: -121.9108836},
+          {lat: 37.329792, lng: -121.9193209}
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+         flightPath.setMap(map);
+        var flightPlanCoordinates = [
+          {lat: 37.3340839, lng: -121.9108836},
+          {lat: 37.350393, lng: -121.9929866}
+        ];
+        var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+      }
+
+
+  console.log("---DeliveriesCtrl---");
+ 
+});
 
 
 
 
 adminNgApp.controller('AdminPageCtrl', function($scope, $http){
+
+$scope.allDeliveries = [{ 
+    "TRUCK_ID" : 1, 
+    "DRIVER_ID" : 1, 
+    "SOURCE_LOC" : {
+        "ADDRESS" : "1322 The Alameda", 
+        "LATITUDE" : 37.3340839, 
+        "LONGITUDE" : -121.9108836
+    }, 
+    "DESTINATION_LOC" : {
+        "ADDRESS" : "San Jose State University", 
+        "latitude" : 37.3229926, 
+        "longitude" : -121.8832
+    }, 
+    "DELIVERY_DATE" : "2016-04-28T02:03:18.503+0000", 
+    "CUSTOMER_ID" : 2, 
+    "BILLING_ID" : 29
+}];
+
+$http({
+    method : "POST",
+    url : '/showDeliveriesStat',
+
+  }).then(function(res) {
+    if(res.data.statusCode == 200){
+      $scope.allDeliveries = res.data.result;
+      initMap($scope);
+    }
+  },function(err) {
+    console.log(err);
+  });
+
+
+  
   $scope.activeCustomer = "active";
   $scope.activeFarmer = "";
   $scope.activeProduct = "";

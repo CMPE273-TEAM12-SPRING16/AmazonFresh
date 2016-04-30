@@ -1,9 +1,5 @@
-var app= angular.module("farmerDisplayAngular",[]).filter("trustUrl", ['$sce', function ($sce) {
-    return function (recordingUrl) {
-        return $sce.trustAsResourceUrl(recordingUrl);
-    };
-}]);
-app.controller('farmerDisplayAngular',function($scope,$http,farmerId)
+var app= angular.module("farmerDisplayAngular",['ngSanitize']);
+app.controller('farmerDisplayAngular',['$scope','$http','farmerId','$sce',function($scope,$http,farmerId,$sce)
 {
 	console.log('farmerId:'+farmerId);
 	$http({
@@ -74,4 +70,21 @@ app.controller('farmerDisplayAngular',function($scope,$http,farmerId)
         });
     }
 
-});
+    $scope.trustHtml = function(html) {
+        // Sanitize manually if necessary. It's likely this 
+        // html has already been sanitized server side 
+        // before it went into your database. 
+        // Don't hold me liable for XSS... never assume :~) 
+        return $sce.trustAsHtml(html);
+    };
+
+    $scope.videoResourceUrl = function() {
+        // Sanitize manually if necessary. It's likely this 
+        // html has already been sanitized server side 
+        // before it went into your database. 
+        // Don't hold me liable for XSS... never assume :~) 
+        console.log($scope.farmerVideo);
+        return $sce.trustAsResourceUrl("../uploads/"+$scope.farmerVideo);
+    };
+
+}]);

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+  <script type="text/javascript" src="angularjs/charts/angular-fusioncharts.min.js"></script>
+  <script src="angularjs/adminAngular.js" type="text/javascript"></script>
+
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs">
+    </script>
+
+    <title>Simple Polylines</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body ng-app="adminNgApp" ng-controller="AdminPageCtrl">
+  <input type="hidden" name="jsonData" value="{{allDeliveries}}" id="deliveries" />
+    <div id="map"></div>
+
+    <script>
+
+      // This example creates a 2-pixel-wide red polyline showing the path of William
+      // Kingsford Smith's first trans-Pacific flight between Oakland, CA, and
+      // Brisbane, Australia.
+
+      function initMap(deliveries) {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 37.3340839, lng: -121.9108836},
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+        });
+         var flightPlanCoordinates = [];
+        console.log(deliveries.allDeliveries);
+        var deliveryJSON = deliveries.allDeliveries;
+       for(var i =0;i<deliveryJSON.length;i++){
+          console.log(deliveryJSON[i].SOURCE_LOC.LATITUDE);
+          var sLat = Number(deliveryJSON[i].SOURCE_LOC.LATITUDE);
+          var sLon = Number(deliveryJSON[i].SOURCE_LOC.LONGITUDE);
+          var dLat = Number(deliveryJSON[i].DESTINATION_LOC.LATITUDE);
+          var dLon = Number(deliveryJSON[i].DESTINATION_LOC.LONGITUDE);
+          var sourceJSON = {lat: sLat,lng : sLon};
+          var destJSON = {lat: dLat,lng:dLon};
+          if(deliveryJSON[i].SOURCE_LOC.LATITUDE!=null || deliveryJSON[i].SOURCE_LOC.LONGITUDE!=null || deliveryJSON[i].DELIVERY_DATE.LATITUDE!= null || deliveryJSON[i].DELIVERY_DATE.LONGITUDE!=null){
+          flightPlanCoordinates.push(sourceJSON);
+          flightPlanCoordinates.push(destJSON); 
+         console.log(flightPlanCoordinates);
+         var color = getRandomColor();
+         console.log(color);
+         var flightPath = new google.maps.Polyline({
+           path: flightPlanCoordinates,
+           geodesic: true,
+           strokeColor: '#FF0000',
+           strokeOpacity: 1.0,
+           strokeWeight: 2
+         });
+          flightPath.setMap(map);
+          }
+        }
+      }
+
+    function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+    </script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+   
+  </body>
+</html>
