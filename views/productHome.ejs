@@ -22,8 +22,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
-    <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
+    <script type="text/javascript" src="../js/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="../js/ng-file-upload-shim.min.js"></script>
 
     <script src="../angularjs/productDisplayAngular.js"></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -357,19 +357,17 @@
                 <div class="row">
                     <div class="form-group">
                         <p>
-                        <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Picture</button>
+                        <button class="btn btn-default btn-sm" onclick="$('#imageFile').click();">Upload Picture</button>
                         </p>
-                        <input
-                            id="fileInput"
-                            style="visibility:hidden"
-                            type="file"
-                            ngf-select
-                            ng-model="file"
-                            name="file"
-                            ngf-pattern="'image/*'"
-                            accept="image/*"
-                            ngf-max-size="20MB"
-                        />
+                         <input
+                                     id="imageFile"
+                                     style="visibility:hidden"
+                                     type="file"
+                                     ngf-select
+                                     ng-model="imageFile"
+                                     name="imageFile"
+                                     ngf-pattern="'image/*'"
+                                     />
                     </div>
                 </div>
                 <div class="row">
@@ -384,19 +382,17 @@
                     <div class="form-group">
 
                         <p>
-                        <button class="btn btn-default btn-sm" onclick="$('#fileInput').click();">Upload Picture</button>
+                        <button class="btn btn-default btn-sm" onclick="$('#videoFile').click();">Upload Video</button>
                         </p>
-                        <input
-                            id="fileInput"
-                            style="visibility:hidden"
-                            type="file"
-                            ngf-select
-                            ng-model="file"
-                            name="file"
-                            ngf-pattern="'image/*'"
-                            accept="image/*"
-                            ngf-max-size="20MB"
-                        />
+                         <input
+                             id="videoFile"
+                             style="visibility:hidden"
+                             type="file"
+                             ngf-select
+                             ng-model="videoFile"
+                             name="videoFile"
+                             ngf-pattern="'video/*'"
+                           />
                     </div>
                 </div>
                 <div class="row">
