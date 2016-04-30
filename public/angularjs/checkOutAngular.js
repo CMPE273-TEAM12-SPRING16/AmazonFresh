@@ -1,4 +1,4 @@
-var checkOutApp = angular.module("checkoutAngular", ['ngRoute']);
+var checkOutApp = angular.module("checkoutAngular", ['ngRoute', 'ui.bootstrap.datetimepicker']);
 
 checkOutApp.config(['$routeProvider', function($routeProvider) {
    $routeProvider.
@@ -53,7 +53,41 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
   $scope.buttonLabel = "Next";
   $scope.invalidAddress = false;
   $scope.disableNext = false;
+  $scope.changeDate = false;
+  $scope.displayDate1 = (new Date()).toLocaleString();
+  $scope.displayDate2 = null;
+
+
   var billId;
+
+  $http({ //GET LOGGED IN USER DETAILS
+
+      method: "POST",
+      url: '/getLoggedInUserDetails',
+      data: {
+      }
+
+  }).then(function (res) {
+          $scope.firstName = res.data.firstName;
+          $scope.lastName = res.data.lastName;
+          $scope.email = res.data.email;
+          $scope.city = res.data.city;
+          $scope.userId = res.data.userId;
+          if(res.data.firstName)
+          {
+              $scope.isLoggedIn = true;
+          }
+          console.log("first name"+$scope.firstName+"lastName"+$scope.lastName+" isLoggedIn "+$scope.isLoggedIn);
+  });
+
+
+  $scope.doChangeDate = function(){
+    $scope.changeDate = true;
+    var date = new Date($scope.data.date);
+    $scope.displayDate2 = date.toLocaleString();
+
+  }
+
 
   $scope.validateLocation = function(){
     var address = $scope.deliveryDetails.address;
@@ -64,15 +98,15 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
       if (status == google.maps.GeocoderStatus.OK) {
           console.log("Valid Address");
             geocoder.geocode( { 'address': $scope.deliveryDetails.city}, function(results, status) {
-             
+
                 if (status == google.maps.GeocoderStatus.OK) {
                      console.log("Valid City");
                      geocoder.geocode( { 'address': $scope.deliveryDetails.state}, function(results, status) {
-                    
+
                        if (status == google.maps.GeocoderStatus.OK) {
                             console.log("Valid State");
                            geocoder.geocode( { 'address': $scope.deliveryDetails.zip}, function(results, status) {
-                         
+
                             if (status == google.maps.GeocoderStatus.OK) {
                                console.log("All Valid zip");
                              }
@@ -99,28 +133,27 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
       });
     }
       else if(status == google.maps.GeocoderStatus.ZERO_RESULTS){
-        
+
         console.log("Invalid Address");
         $scope.$apply(function(){
              $scope.invalidAddress = true;
              $scope.disableNext = true;
          });
-       
+
       }
   });
 }
 
 
   $scope.checkOutNext = function(currentPage){
-
     if(currentPage == 1){
-      
+
       $scope.classDeliveryAddress = "col-xs-3 bs-wizard-step complete";
       $scope.classPaymentDetails = "col-xs-3 bs-wizard-step active";
       $scope.nextHREF = "#paymentDetails";
       $scope.buttonLabel = "Next";
       $scope.nextNUMBER = 2;
-                
+
     } else if(currentPage == 2){
       $scope.classPaymentDetails = "col-xs-3 bs-wizard-step complete";
       $scope.classReviewDetails = "col-xs-3 bs-wizard-step active";
@@ -145,6 +178,7 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
           "state" : $scope.deliveryDetails.state,
           "zip" : $scope.deliveryDetails.zip,
           "phone" : $scope.deliveryDetails.phone,
+          "deliveryDate" : $scope.data.date,
           "products" : $scope.cart
         }
         }).then(function (res) {
@@ -155,7 +189,7 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
 
         });
 
-    }  
+    }
   else if(currentPage == 4){
       console.log("Billing id "+billId);
         window.location.assign('/trackOrder/'+billId);
@@ -192,7 +226,7 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
                 $scope.expiryMonth = res.data.customerDetails.CREDIT_CARD_DETAILS.EXPIRY_MONTH;
                 $scope.expiryYear = res.data.customerDetails.CREDIT_CARD_DETAILS.EXPIRY_YEAR;
                 $scope.cvv = res.data.customerDetails.CREDIT_CARD_DETAILS.CVV;
-               
+
             });
 
             $http({
@@ -305,11 +339,11 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
 
                 });
 
-              
+
             }
-            
+
             $scope.minusQTY = function(index){
-    
+
                 $http({
                     method:"POST",
                     url:"/minusQtyInCart",
@@ -322,14 +356,14 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
 
                             }
                         else
-                            {                                   
+                            {
                                 if($scope.cart[index].QTY == 1)
                                 {
                                     $scope.cart = $scope.cart.splice(index,1);
                                 }
                                 else
                                 {
-                                    $scope.cart[index].QTY-=1;    
+                                    $scope.cart[index].QTY-=1;
                                 }
                             }
                     }).error(function(error){

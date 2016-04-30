@@ -399,6 +399,9 @@ margin: 3px !important;
 .btn-theme-narrow{
 width: 80% !important;
 }
+.btn-change-date{
+  padding: 0px !important;
+}
 .btn-theme:focus,
 .btn-theme.focus {
 color: #000000 !important;

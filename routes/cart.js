@@ -4,8 +4,8 @@ var geocoderProvider = 'google';
 var ejs = require("ejs");
 var httpAdapter = 'https';
 var extra = {
-	apiKey: 'AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs', 
-	  formatter: null   
+	apiKey: 'AIzaSyD8Tz_zXflokyLiIqLdW02Oj5Y44T_GCCs',
+	  formatter: null
 	};
 exports.addToCart = function(req,res)
 {
@@ -167,7 +167,7 @@ exports.removeItemFromCart = function(req,res)
 exports.minusQtyInCart = function(req,res)
 {
 	var productOld = req.param("product");
-	
+
     product.QTY -= 1;
 
     if(productOld.QTY != 1)
@@ -208,6 +208,7 @@ exports.doOrder = function(req,res)
 	var state= req.param("state");
 	var zip = req.param("zip");
 	var phone = req.param("phone");
+	var deliveryDate = req.param("deliveryDate");
 	var products = req.param("products");
 	console.log("Products --->> ");
 	console.log(products);
@@ -216,13 +217,13 @@ exports.doOrder = function(req,res)
 	var cust_address = address+" ,"+city+" ,"+state+" "+zip;
 	var geocoder = require('node-geocoder')(geocoderProvider,httpAdapter,extra);
 	geocoder.geocode( { 'address': address}, function(err, results) {
-  									
+
       								cust_lat = results[0].latitude;
-      								cust_long = results[0].longitude; 
-      								
+      								cust_long = results[0].longitude;
+
       								sourceLocJSON = {"ADDRESS": address,"LATITUDE" : cust_lat,"LONGITUDE" : cust_long};
       								console.log('---->>>>SOURCE LOCATION SET');
-      								
+
      });
 
 	console.log("products"+JSON.stringify(products));
@@ -239,7 +240,7 @@ exports.doOrder = function(req,res)
 					"STATUS" : 1,
 					"TOTAL_AMOUNT" : totalAmount};
 
-	var query = "INSERT INTO PAYMENTS SET ? " ; 
+	var query = "INSERT INTO PAYMENTS SET ? " ;
 	var farmerIds = [];
 	var farmerIdsByUse = {};
 	mysql.insertData(query , paymentJSON ,function (err, results) {
@@ -254,6 +255,7 @@ exports.doOrder = function(req,res)
 						"STATE" : state,
 						"ZIP" : zip,
 						"PHONE" : phone,
+						"DELIVERY_DATE" : deliveryDate,
 						"TOTAL_AMOUNT" : totalAmount,
 						"CUSTOMER_ID" : req.session.userId,
 						"CUSTOMER_NAME" : req.session.firstName +" "+req.session.lastName
@@ -322,14 +324,14 @@ exports.doOrder = function(req,res)
 							console.log(results);
 							var deliveryDate = new Date();
 							deliveryDate.setDate(deliveryDate.getDate() + 1);
-							
+
 							Object.keys(results).forEach(function(index){
 								console.log("ADDRESS "+results[index].ADDRESS);
 								var address = results[index].ADDRESS+", "+results[index].CITY+" ,"+results[index].STATE+" "+results[index].ZIP
   								geocoder.geocode( { 'address': address}, function(err, results) {
   									console.log(results);
       								var latitude = results[0].latitude;
-      								var longitude = results[0].longitude; 
+      								var longitude = results[0].longitude;
       								console.log(latitude, longitude);
       								console.log(sourceLocJSON);
       								var destLocJSON = {"ADDRESS": address,"LATITUDE" : latitude, "LONGITUDE": longitude};
@@ -346,7 +348,7 @@ exports.doOrder = function(req,res)
       								mongo.insertOne('TRIP_DETAILS',insertTripJSON,function(err,tripResults){
       									if(err){
       										console.log(err);
-      									}	
+      									}
       									else{
       										console.log("Trip inserted");
       									}
@@ -372,10 +374,10 @@ exports.doOrder = function(req,res)
 
 
 function getLocation(address) {
-  					
-  					
-  				
-} 
+
+
+
+}
 
 function isInArray(value, array) {
   return array.indexOf(value) > -1;
