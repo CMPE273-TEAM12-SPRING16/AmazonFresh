@@ -275,14 +275,22 @@ exports.doAddIntroduction = function(req,res)
 								res.send(json_responses);
 							}
 							else {
-								console.log("image and video inserted");
+								if (results.statusCode == 200) {
+							
+									console.log("image and video inserted");
+								}
+								else {
+       								consolr.log("Error");
+								}
+								
 
 							}
 						}
 					    var WhereJSON = {"USER_ID" : farmerId};
 						var introductionSetJSON = {$set : {"INTRODUCTION_DETAILS":farmerDescription,"IMAGE" : imageFilename ,"VIDEO" : videoFilename}};
-
-						mongo.updateOne('FARMER_DETAILS',WhereJSON,introductionSetJSON,callbackFunction);
+						var msg_payload = {"WhereJSON" : WhereJSON, "introductionSetJSON" : introductionSetJSON,"functionName" : "doAddIntroduction"};
+						mq_client.make_request('farmer_queue', msg_payload, callbackFunction);	
+						//mongo.updateOne('FARMER_DETAILS',WhereJSON,introductionSetJSON,callbackFunction);
 					}
 
 
@@ -299,7 +307,8 @@ exports.doDeleteProfile = function(req,res){
 	console.log("Farmer "+farmer_id);
 	var deleteWhereJSON = {USER_ID : farmer_id};
 	var deleteSetJSON = {$set : {IS_APPROVED : 0}};
-	var deleteQuery = "UPDATE USERS SET IS_APPROVED = " + 0 +" WHERE USER_ID = "+ farmer_id;
+	var msg_payload = {"deleteWhereJSON" : deleteWhereJSON, "deleteSetJSON" : deleteSetJSON, "functionName" : "doDeleteProfile"};
+	//var deleteQuery = "UPDATE USERS SET IS_APPROVED = " + 0 +" WHERE USER_ID = "+ farmer_id;
 	var callbackFunction = function (err, results) {
            if(err)
 		{
@@ -310,19 +319,27 @@ exports.doDeleteProfile = function(req,res){
 		}
 		else
 		{
+			if (results.statusCode == 200) {
+				console.log("Results received");
+				res.redirect("/logout");
+			}
+			else {
+       			console.log("Error");
 
-			console.log(results);
-			res.redirect("/logout");
+		     }
+			
 		}
     }
-    mysql.updateData(deleteQuery,function (err, results) {
-    	if(err){
-    		console.log(err);
-    	}
-    	else{
-    		 mongo.updateOne('USER_DETAILS',deleteWhereJSON,deleteSetJSON,callbackFunction);
-    	}
-    })
+
+    mq_client.make_request('farmer_queue', msg_payload, callbackFunction);
+    // mysql.updateData(deleteQuery,function (err, results) {
+    // 	if(err){
+    // 		console.log(err);
+    // 	}
+    // 	else{
+    // 		 mongo.updateOne('USER_DETAILS',deleteWhereJSON,deleteSetJSON,callbackFunction);
+    // 	}
+    // })
    
 
 }
