@@ -3,6 +3,7 @@ var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var multer = require('multer');
+var mq_client = require('../rpc/client');
 imageFilename = "";
 videoFilename = "";
 
@@ -68,13 +69,22 @@ exports.doShowProductList = function(req, res) {
 		}
 		else
 		{
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
+			if (results.statusCode == 200) {
+				console.log("Results received");
+				json_responses = {"statusCode" : 200,"results":results.searchResults};
+				res.send(json_responses);
+			}
+			else {
+       			var json_response={"statusCode":401};
+        		res.send(json_response)
+
+		      }
 		}
     }
+    var msg_payload = {"FARMER_ID" : user_id,"IS_APPROVED": 1,functionName : "doShowProductList"};
 
-    mongo.find('PRODUCTS',getProductJSON,callbackFunction);
+    mq_client.make_request('farmer_queue', msg_payload, callbackFunction)
+    //mongo.find('PRODUCTS',getProductJSON,callbackFunction);
 
 
  };
@@ -83,7 +93,7 @@ exports.doShowProductList = function(req, res) {
  exports.doShowFarmerProfile = function(req,res){
  	var user_id = req.session.userId;
  	console.log(user_id);
- 	var getProfileJSON = {"USER_ID" : user_id};
+ 	var msg_payload = {"USER_ID" : user_id,"functionName" : "doShowFarmerProfile"};
 
  	console.log("User_ID "+user_id);
 
@@ -96,14 +106,20 @@ exports.doShowProductList = function(req, res) {
 			res.send(json_responses);
 		}
 		else
-		{
-			json_responses = {"statusCode" : 200,"results":results};
-			console.log("result is:"+results);
-			res.send(json_responses);
+		{if (results.statusCode == 200) {
+				console.log("Results received");
+				json_responses = {"statusCode" : 200,"results":results.searchResults};
+				res.send(json_responses);
+			}
+			else {
+       			var json_response={"statusCode":401};
+        		res.send(json_response)
+
+		     }
 		}
 	}
-
-		mongo.findOne('USER_DETAILS',getProfileJSON,callbackFunction);
+	mq_client.make_request('farmer_queue', msg_payload, callbackFunction);
+		//mongo.findOne('USER_DETAILS',getProfileJSON,callbackFunction);
 
  };
 
@@ -131,9 +147,16 @@ exports.doShowProductList = function(req, res) {
 		else
 		{
 
-			json_responses = {"statusCode" : 200,"results":results};
-			console.log("result is:"+results);
-			res.send(json_responses);
+			if (results.statusCode == 200) {
+				console.log("Results received");
+				json_responses = {"statusCode" : 200,"results":results.searchResults};
+				res.send(json_responses);
+			}
+			else {
+       			var json_response={"statusCode":401};
+        		res.send(json_response)
+
+		     }
 		}
 	}
 
@@ -149,8 +172,9 @@ exports.doShowProductList = function(req, res) {
 			"PHONE" : phone
 			}
 		};
-
-	mongo.updateOne('USERS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
+		var msg_payload = {"updatedWhereJSON" : updatedWhereJSON, "updatedDetailJSON" : updatedDetailJSON, "functionName" : "doUpdateProfile"};
+	mq_client.make_request('farmer_queue', msg_payload, callbackFunction);
+	//mongo.updateOne('USERS',updatedWhereJSON,updatedDetailJSON,callbackFunction);
 
  };
 
