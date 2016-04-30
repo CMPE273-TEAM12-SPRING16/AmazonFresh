@@ -20,7 +20,8 @@
     "passport":"0.3.2",
     "passport-local":"1.0.0",
     "node-geocoder": "3.9.1",
-    "cron" : "1.1.0"
+    "cron" : "1.1.0",
+    "amqp" : "0.2.4"
 
   },
   "repository": {
