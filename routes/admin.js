@@ -4,6 +4,7 @@ var mysql = require('./mysql');
 var mongo = require("./mongo");
 var mongoURL = "mongodb://localhost:27017/amazon_fresh";
 var user_id_arr = [];
+var mq_client = require('../rpc/client');
 
 
 exports.doSearchAdmin = function(req, res){
@@ -21,26 +22,30 @@ exports.doSearchAdmin = function(req, res){
 		collectionName = 'BILLING_INFORMATION';
 	}
 
-  mongo.searchItAdmin(collectionName, searchString, searchType, function(err,searchRes){
 
-    if(err){
+	var msg_payload = {"searchString":searchString,"searchType":searchType,"collectionName":collectionName};
+
+
+	mq_client.make_request('doSearchAdminQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (err) {
       throw err;
     }
-    else
-    {
-      if(searchRes){
-        console.log(JSON.stringify(searchRes));
-        var jsonResponse = {
-          "searchResults" : searchRes,
-          "statusCode" : 200
-        };
-        res.send(jsonResponse);
+    else {
+      if (results.statusCode == 200) {
+        console.log("value inserted");
+        var json_response={"statusCode":200};
+        res.send(results);
       }
+
       else {
-        jsonResponse = {result : "Nothing Found", "status" : "OK"};
-        res.send(jsonResponse);
+        var json_response={"statusCode":401};
+        res.send(json_response)
+
       }
     }
+
+
   });
 }
 
