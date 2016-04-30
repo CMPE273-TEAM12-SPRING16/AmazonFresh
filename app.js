@@ -74,6 +74,14 @@ app.get('/DailyRevenue', function(req, res){
 });
 app.post('/fetchDailyRevenue', admin.fetchDailyRevenue);
 
+app.get('/showTripsChart', function(req, res){
+  res.render('adminTemplates/trips');
+  res.end();
+});
+app.post('/fetchTripsChart',function(req, res){
+
+});
+
 app.get('/PastPurchases', function(req, res){
 	res.render('purchaseHistory', {});
 });

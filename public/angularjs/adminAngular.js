@@ -21,6 +21,9 @@ adminNgApp.config(['$routeProvider', function($routeProvider) {
    when('/reviewProduct', {
       templateUrl: 'reviewProduct', controller: 'ReviewProduct'
    }).
+   when('/trips', {
+      templateUrl: 'showTripsChart', controller: 'TripsCtrl'
+   }).
    when('/dailyRevenue', {
       templateUrl: 'DailyRevenue', controller: 'DailyRevenueCtrl'
    }).
@@ -658,6 +661,142 @@ adminNgApp.controller('DailyRevenueCtrl', function($scope,$http) {
 
 });
 
+//______________________________TRIPS CHART______________________________________________//
+
+adminNgApp.controller('TripsCtrl', function($scope,$http) {
+
+
+  var catArray = [];
+  var valArray = [];
+
+  $scope.myDataSource = {
+    "chart": {
+      "caption": "Comparison of Daily Revenue",
+      "xAxisname": "Date",
+      "yAxisName": "Revenues (In USD)",
+      "numberPrefix": "$",
+      "plotFillAlpha": "80",
+      "paletteColors": "#0075c2,#1aaf5d",
+      "baseFontColor": "#333333",
+      "baseFont": "Helvetica Neue,Arial",
+      "captionFontSize": "14",
+      "subcaptionFontSize": "14",
+      "subcaptionFontBold": "0",
+      "showBorder": "0",
+      "bgColor": "#ffffff",
+      "showShadow": "0",
+      "canvasBgColor": "#ffffff",
+      "canvasBorderAlpha": "0",
+      "divlineAlpha": "100",
+      "divlineColor": "#999999",
+      "divlineThickness": "1",
+      "divLineDashed": "1",
+      "divLineDashLen": "1",
+      "divLineGapLen": "1",
+      "usePlotGradientColor": "0",
+      "showplotborder": "0",
+      "valueFontColor": "#ffffff",
+      "placeValuesInside": "1",
+      "showHoverEffect": "1",
+      "rotateValues": "1",
+      "showXAxisLine": "1",
+      "xAxisLineThickness": "1",
+      "xAxisLineColor": "#999999",
+      "showAlternateHGridColor": "0",
+      "legendBgAlpha": "0",
+      "legendBorderAlpha": "0",
+      "legendShadow": "0",
+      "legendItemFontSize": "10",
+      "legendItemFontColor": "#666666"
+    },
+    "categories": [
+      {
+        "category": catArray
+      }
+    ],
+    "dataset": [
+      {
+        "seriesname": "Month of "+$scope.monthDisplay,
+        "data": valArray
+      }
+    ]
+  };
+
+  $scope.fetchChartTrips = function(){
+
+    $http({
+      method : "POST",
+      url : '/fetchTripsChart',
+
+
+    }).then(function(res) {
+      if(res.data.statusCode == 200){
+        var catArray = res.data.catArray;
+        var valArray = res.data.valArray;
+        $scope.myDataSource = {
+          "chart": {
+            "caption": "Trips to Zips",
+            "xAxisname": "Date",
+            "yAxisName": "Revenues (In USD)",
+            "numberPrefix": "$",
+            "plotFillAlpha": "80",
+            "paletteColors": "#0075c2,#1aaf5d",
+            "baseFontColor": "#333333",
+            "baseFont": "Helvetica Neue,Arial",
+            "captionFontSize": "14",
+            "subcaptionFontSize": "14",
+            "subcaptionFontBold": "0",
+            "showBorder": "0",
+            "bgColor": "#ffffff",
+            "showShadow": "0",
+            "canvasBgColor": "#ffffff",
+            "canvasBorderAlpha": "0",
+            "divlineAlpha": "100",
+            "divlineColor": "#999999",
+            "divlineThickness": "1",
+            "divLineDashed": "1",
+            "divLineDashLen": "1",
+            "divLineGapLen": "1",
+            "usePlotGradientColor": "0",
+            "showplotborder": "0",
+            "valueFontColor": "#ffffff",
+            "placeValuesInside": "1",
+            "showHoverEffect": "1",
+            "rotateValues": "1",
+            "showXAxisLine": "1",
+            "xAxisLineThickness": "1",
+            "xAxisLineColor": "#999999",
+            "showAlternateHGridColor": "0",
+            "legendBgAlpha": "0",
+            "legendBorderAlpha": "0",
+            "legendShadow": "0",
+            "legendItemFontSize": "10",
+            "legendItemFontColor": "#666666"
+          },
+          "categories": [
+            {
+              "category": catArray
+            }
+          ],
+          "dataset": [
+            {
+              "seriesname": "Zips_______",
+              "data": valArray
+            }
+          ]
+        };
+
+      }
+    },function(err) {
+      console.log(err);
+    });
+  }
+  $scope.fetchChartTrips();
+
+});
+//_____________________________________________________________________________________//
+
+
 
 
 adminNgApp.controller('AdminPageCtrl', function($scope, $http){
@@ -747,11 +886,18 @@ $http({
     else if(option == 7){
       $scope.activeDailyRevenue = "active";
       $scope.activeShowDeliveries = "";
+      $scope.activeTrips = "";
     }
     else if(option == 8){
       $scope.activeDailyRevenue = "";
       $scope.activeShowDeliveries = "active";
+      $scope.activeTrips = "";
       $scope.showDeliveries = true;
+    }
+    else if(option == 9){
+      $scope.activeDailyRevenue = "";
+      $scope.activeShowDeliveries = "";
+      $scope.activeTrips = "active";
     }
   }
 
