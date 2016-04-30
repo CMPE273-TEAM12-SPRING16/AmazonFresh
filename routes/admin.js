@@ -466,6 +466,25 @@ exports.fetchAllBills = function(req, res){
   });
 };
 
+//FETCH ALL TRIPS
+
+exports.showDeliveriesStat = function(req,res){
+	 var queryJSON = {};
+  mongo.find("TRIP_DETAILS", queryJSON, function(err, result){
+    if(err){
+      console.log(err);
+    } else {
+      console.log(JSON.stringify(result));
+      var jsonResponse = {
+        "statusCode" : 200,
+        "result" : result
+      };
+      res.send(jsonResponse);
+    }
+  });
+}
+
+
 //FETCH DAILY Revenue
 exports.fetchDailyRevenue = function(req, res){
   var month = req.param("chartMonth");

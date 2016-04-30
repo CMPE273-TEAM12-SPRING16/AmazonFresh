@@ -128,6 +128,14 @@ app.get('/reviewProduct', function(req, res){
 app.get('/showBills', function(req, res){
   res.render('adminTemplates/showBills', {});
 });
+
+app.get('/showMap', function(req, res){
+  res.render('poly', {});
+});
+
+app.post('/showDeliveriesStat',admin.showDeliveriesStat);
+
+
 app.get('/fetchAllBills', admin.fetchAllBills);
 
 app.get('/deliveryDetailsCheckout', function(req, res){
