@@ -81,77 +81,58 @@ exports.doShowPendingCustAprroval = function(req, res) {
 };
 
  exports.doApproveCustomer = function(req,res){
- 	var cust_id = req.param("customer_id");
- 	console.log("customer is id"+cust_id);
+ 	var customerId = req.param("customer_id");
+ 	var msg_payload = {"customerId":customerId,"functionName":"doApproveCustomer"};
 
- 	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			var json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			res.send(json_responses);
-		}
-		else {
-			   var approveUser = "UPDATE USERS set IS_APPROVED= 1 where USER_ID='" + cust_id + "'";
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+	    console.log(results);
+	    if (err) {
+	      throw err;
+	    }
+	    else {
+	      if (results.statusCode == 200) {
+	        console.log("value inserted");
+	        res.send(results);
+	      }
 
-			   mysql.fetchData(function (err, results) {
+	      else {
+	        var json_response={"statusCode":401};
+	        res.send(json_response)
 
-				   if (results.affectedRows > 0) {
+	      }
+	    }
 
-			   console.log(results.IS_APPROVED);
 
-			   console.log("Approve Requests ");
-			   console.log(results);
-			   var json_responses = {"statusCode": 200, "results": results};
-			   res.send(json_responses);
-		   }
-			   },approveUser);
-		}
+  });
+
+}
+
+exports.doRejectCustomer = function(req,res){
+ 	var customerId = req.param("customer_id");
+ 	var msg_payload = {"customerId":customerId,"functionName":"doRejectCustomer"};
+
+ 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+    console.log(results);
+    if (err) {
+      throw err;
     }
-		console.log("doApproveCustomer "+cust_id);
+    else {
+      if (results.statusCode == 200) {
+        console.log("value inserted");
+        res.send(results);
+      }
 
-    var approvalWhereJSON = {"USER_ID" : cust_id};
-    var approvalSetJSON = {$set : {"IS_APPROVED" : 1}};
+      else {
+        var json_response={"statusCode":401};
+        res.send(json_response)
 
-    mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
- }
-
- exports.doRejectCustomer = function(req,res){
- 	var cust_id = req.param("customer_id");
-
-
- 	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			res.send(json_responses);
-		}
-		else
-		{
-			var rejectUser = "update USERS set IS_APPROVED= 2 where USER_ID='" + cust_id + "'";
-
-			mysql.fetchData(function (err, results) {
-
-				if (results.affectedRows > 0) {
-
-					console.log(results.IS_APPROVED);
-			console.log("Pending customer requests ");
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-				}
-			},rejectUser);
-		}
+      }
     }
 
-    var approvalWhereJSON = {"USER_ID" : cust_id};
-    var approvalSetJSON = {$set : {"IS_APPROVED" : 2}};
 
-    mongo.updateOne('USER_DETAILS',approvalWhereJSON,approvalSetJSON,callbackFunction);
- }
+  });
+
+}
 
 // Farmer approval/reject
 exports.doShowPendingFarmerAprroval = function(req, res) {
