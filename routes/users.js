@@ -241,6 +241,7 @@ function getCustomerAccountDetails(req,res)
   var userId=({USER_ID:req.session.userId});
 var msg_payload={"userId":req.session.userId, "functionToBeImplemented":"getCustomerAccountDetails"};
 
+
   var userDetails= {
     "firstName" : req.session.firstName,
     "lastName" : req.session.lastName,
@@ -317,6 +318,15 @@ console.log(req.param("ssn")+"ssn");
   var cvv = req.param("cvv");
 
 console.log("password");
+  req.session.firstName =  req.param("firstName");
+  req.session.lastName =req.param("lastName");
+  req.session.city = req.param("city");
+  req.session.state = req.param("state");
+  req.session.address = req.param("address");
+  req.session.zip = req.param("zip");
+  req.session.phone = req.param("phone");
+  req.session.ssn = req.param("ssn");
+
 
   var msg_payload={
       "firstName" : firstName,
@@ -340,7 +350,7 @@ console.log("password");
   mq_client.make_request('usersQueue', msg_payload, function (err, results) {
     console.log(results);
     if (results) {
-
+console.log("data update succeded")
       res.send(results);
     }
     else {
