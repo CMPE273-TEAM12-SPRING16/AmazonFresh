@@ -4,6 +4,7 @@
 var customerAccount= angular.module("customerAccount",[]);
 customerAccount.controller("customerAccount",function($scope,$http)
 {
+    $scope.customer_id="";
     $http({
 
         method: "GET",
@@ -12,7 +13,9 @@ customerAccount.controller("customerAccount",function($scope,$http)
         }
 
     }).then(function (res) {
+        console.log(res.data.userDetails);
         $scope.userDetails = res.data.userDetails;
+         $scope.customer_id = res.data.userDetails.userId;
         console.log($scope.userDetails.FIRST_NAME);
         $scope.customerDetails=res.data.customerDetails;
        
@@ -63,6 +66,21 @@ customerAccount.controller("customerAccount",function($scope,$http)
 
 
     };
+
+    $scope.deleteProfile = function(){
+    console.log("Farmer ID "+$scope.farmer_id);
+    $http({
+
+            method:"POST",
+            url:'/doDeleteProfile',
+            data: {
+              "farmer_id" : $scope.customer_id
+            }
+          }).then(function(res){
+             window.location.assign('/');
+            })
+  }
+
 
     $scope.match=function()
     {
