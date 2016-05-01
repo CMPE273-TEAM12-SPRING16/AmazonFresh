@@ -10,7 +10,7 @@ var mysql= require("mysql");
 function getConnection()
 {
     var connection = mysql.createConnection({
-        host     : '10.0.0.175', //host where mysql server is running
+        host     : 'localhost', //host where mysql server is running
         user     : 'root', //user for the mysql application
         password : 'root', //password for the mysql application
         database : 'amazon_fresh', //database name
