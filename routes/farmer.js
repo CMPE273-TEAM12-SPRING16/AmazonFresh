@@ -182,35 +182,25 @@ exports.doShowProductList = function(req, res) {
 exports.getFarmerDetails = function(req,res) {
 	var farmerId = req.param("farmerId");
 	console.log("farmerId:" + farmerId);
-
+	var detailJSON = {'USER_ID': Number(farmerId)}; 
 	var getFarmerDetailsJSON = {"USER_ID": req.param("farmerId")};
 	var callbackFunction = function (err, results) {
+			console.log("------------");
+			console.log(results);
 			if (results) {
-
-				console.log("result is:" + results);
-				var callbackFunctionFarmerDetails = function (err, result) {
-					if (result) {
-						console.log(result);
-						//console.log("result is:" + result.IMAGE);
-						var json_responses = {"statusCode": 200, "result": result,"results":results};
-						 res.send(json_responses);
-					}
-					else {
-						console.log("video and image not found");
-					}
+					var json_responses = {"statusCode": 200, "result": results.results,"results":results.searchResults};
+					res.send(json_responses);
 				}
-
-				mongo.findOne('FARMER_DETAILS', {'USER_ID': Number(farmerId)},callbackFunctionFarmerDetails);
-			}
-			else {
-                var json_responses={"statusCode":401};
-				res.send(json_responses);
-			}
-		}
-
+				else{
+						console.log("video and image not found");
+						var json_responses={"statusCode":401};
+						res.send(json_responses);
+					}
+		};
+		var msg_payload = {"detailJSON": detailJSON, "functionName" : "getFarmerDetails"};
 		console.log("json" + JSON.stringify(getFarmerDetailsJSON));
-		mongo.findOne('USER_DETAILS', {'USER_ID': Number(farmerId)}, callbackFunction);
-
+		//mongo.findOne('USER_DETAILS', {'USER_ID': Number(farmerId)}, callbackFunction);
+		mq_client.make_request('farmer_queue', msg_payload, callbackFunction);
 
 
 	}
