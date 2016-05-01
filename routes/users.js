@@ -279,7 +279,7 @@ exports.fetchPurchaseHistory = function(req, res){
     console.log(results);
     if (results) {
       console.log(results+"result is");
-      var projection={"statusCode":results.code,"result":results.projection};
+      var projection={"statusCode":200,"result":results.projection};
       res.send(projection);
 
     }
