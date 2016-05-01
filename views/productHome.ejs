@@ -201,9 +201,10 @@
               <hr class="product-page-seperator">
                 <h3>Reviews & Ratings</h2>
                   <!-- if no reviews -->
+                    <div ng-show="isLoggedIn">
                   <h6 ng-show="noReview">There are no customer reviews yet.  Add a Review</h6>
-                  <button id="modal-649609" href="#modal-container-649609" role="button" data-toggle="modal" class="btn btn-xs" >Add Review</button>
-
+                    <button id="modal-649609" href="#modal-container-649609" role="button" data-toggle="modal" class="btn btn-xs" >Add Review</button>
+                    </div>
                   <!-- If reviews are available -->
 
                   <div class="row row-margin-none product-page-user-reviews" ng-repeat = "review in displayProductDetails.REVIEW_DETAILS | orderBy : '-TIMESTAMP'">
@@ -312,7 +313,9 @@
 </div>
 
 <!-- __________________________________________REVIEW MODAL_____________________________________________ -->
-<div class="row">
+
+
+  <div class="row">
 		<div class="col-md-12">
 			 <a></a>
 

@@ -337,48 +337,57 @@ exports.doShowAllCustomer = function(req,res){
 
 exports.reviewFarmer = function(req, res) {
 	var user_id = req.session.userId;
-	var getCustomerPendingJSON = {"USER_TYPE":2};
+	var msg_payload = {"functionName" : "reviewFarmer"};
 
-	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			res.send(json_responses);
-		}
-		else
-		{
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+	    console.log(results);
+	    if (err) {
+	      throw err;
+	    }
+	    else {
+	      if (results.statusCode == 200) {
+	        console.log("value inserted");
+	        res.send(results);
+	      }
 
-    mongo.find('USER_DETAILS',getCustomerPendingJSON,callbackFunction);
+	      else {
+	        var json_response={"statusCode":401};
+	        res.send(json_response)
+
+	      }
+	    }
+
+
+	  });
+
  };
 
  exports.reviewProduct = function(req, res) {
 
-	var getProductPendingJSON = {};
+	var msg_payload = {"functionName" : "reviewProduct"};
 
-	console.log("review product");
-	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowPendingProductAprroval");
-			res.send(json_responses);
-		}
-		else
-		{
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
 
-    mongo.find('PRODUCTS',getProductPendingJSON,callbackFunction);
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+	    console.log(results);
+	    if (err) {
+	      throw err;
+	    }
+	    else {
+	      if (results.statusCode == 200) {
+	        console.log("value inserted");
+	        res.send(results);
+	      }
+
+	      else {
+	        var json_response={"statusCode":401};
+	        res.send(json_response)
+
+	      }
+	    }
+
+
+	  });
+
  };
 
 //FETCH ALL BILLS

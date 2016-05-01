@@ -214,26 +214,25 @@ exports.getProductId=function(req,res)
 
 exports.getProductDetails=function(req,res) {
 	var productId = req.param("productId");
+	console.log(productId + "product id is");
 
 	if (objectID.isValid(productId)) {
 
-		console.log(productId + "product id is");
-		var callbackFunction = function (err, results) {
+		var msg_payload={"product_id":productId,"functionToBeImplemented":"getProductDetails"};
+
+		mq_client.make_request('productsQueue', msg_payload, function (err, results) {
 			console.log(results);
 			if (results) {
 				var reviews = getDateAndMonth(results);
-
-				res.send({"productDetails": results});
+				res.send(results);
 			}
-
 			else {
-				res.send({"statusCode": 401});
+
+				console.log("get product details failed");
 			}
+		});
 
 
-		}
-
-		mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
 	}
 
 	else {
@@ -260,23 +259,18 @@ function getDateAndMonth(results){
 
 exports.doFetch10Products = function(req,res){
 
-  getProductJSON = {IS_APPROVED : 1};
-	var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			res.send(json_responses);
+	var msg_payload={"functionToBeImplemented":"doFetch10Products"};
+	mq_client.make_request('productsQueue', msg_payload, function (err, results) {
+		console.log(results);
+		if (results) {
+			var reviews = getDateAndMonth(results);
+			res.send(results);
 		}
-		else
-		{
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
+		else {
 
-    mongo.find('PRODUCTS', getProductJSON, callbackFunction);
+			console.log("doFetch10Products failed");
+		}
+	});
 
 }
 
