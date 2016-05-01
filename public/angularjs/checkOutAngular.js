@@ -55,8 +55,6 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
   $scope.disableNext = false;
   $scope.changeDate = false;
   $scope.displayDate1 = (new Date()).toLocaleString();
-  $scope.displayDate2 = null;
-
 
   var billId;
 
@@ -83,8 +81,7 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
 
   $scope.doChangeDate = function(){
     $scope.changeDate = true;
-    var date = new Date($scope.data.date);
-    $scope.displayDate2 = date.toLocaleString();
+    $scope.displayDate1 = $scope.data.date;
 
   }
 
@@ -166,9 +163,8 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
       $scope.nextHREF = "#confirmDetails";
       $scope.buttonLabel = "Track Your Order";
       $scope.nextNUMBER = 4;
-      console.log("Name ---> "+$scope.deliveryDetails.name);
+      
       $http({
-
         method: "POST",
         url: '/doOrder',
         data: {
@@ -178,14 +174,14 @@ checkOutApp.controller('checkOutProcessController', function($scope, $http){
           "state" : $scope.deliveryDetails.state,
           "zip" : $scope.deliveryDetails.zip,
           "phone" : $scope.deliveryDetails.phone,
-          "deliveryDate" : $scope.data.date,
+          "deliveryDate" : $scope.displayDate1,
           "products" : $scope.cart
         }
         }).then(function (res) {
           $scope.userDetails = res.data.userDetails;
-          console.log("Billing id "+res.data.BILL_ID);
           $scope.customerDetails=res.data.customerDetails;
           billId = res.data.BILL_ID;
+          console.log("Billing id "+billId);
 
         });
 

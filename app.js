@@ -79,7 +79,7 @@ app.get('/showTripsChart', function(req, res){
   res.end();
 });
 app.post('/fetchTripsChart',function(req, res){
-
+  
 });
 
 app.get('/PastPurchases', function(req, res){
