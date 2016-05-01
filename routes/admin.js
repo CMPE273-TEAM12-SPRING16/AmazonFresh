@@ -280,28 +280,30 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
  }
 
  exports.doRejectProduct = function(req,res){
- var product_id = new require('mongodb').ObjectID(req.param("product_id"));
- var callbackFunction = function (err, results) {
-           if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in doShowProductList");
-			res.send(json_responses);
-		}
-		else
-		{
-			console.log("Pending customer requests ");
-			console.log(results);
-			json_responses = {"statusCode" : 200,"results":results};
-			res.send(json_responses);
-		}
-    }
+	var productId = new require('mongodb').ObjectID(req.param("product_id"));
+	var msg_payload = {"productId":productId , "functionName" : "doRejectProduct"};
+ 	
+ 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+	    console.log(results);
+	    if (err) {
+	      throw err;
+	    }
+	    else {
+	      if (results.statusCode == 200) {
+	        console.log("value inserted");
+	        res.send(results);
+	      }
 
-    var approvalWhereJSON = {"_id" : product_id};
-    var approvalSetJSON = {$set : {"IS_APPROVED" : 2}};
+	      else {
+	        var json_response={"statusCode":401};
+	        res.send(json_response)
 
-    mongo.updateOne('PRODUCTS',approvalWhereJSON,approvalSetJSON,callbackFunction);
+	      }
+	    }
+
+
+	  });
+
  }
 
 //------------------Reveiw----------------------------
