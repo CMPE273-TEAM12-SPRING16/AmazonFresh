@@ -52,11 +52,8 @@ signUp.controller('signup',function($scope,$http,$rootScope)
         {
             console.log($scope.firstName)
             if (data.statusCode == 401) {
-                $scope.$apply(function(){
-                    $scope.registeredEmail = false;
-                    $scope.unexpectedError = true;
-                });
-                
+                $scope.registeredEmail = false;
+                $scope.unexpectedError = true;
             }
             if(data.statusCode==200)
             {
@@ -64,19 +61,16 @@ signUp.controller('signup',function($scope,$http,$rootScope)
             }
         })
             .error(function(error) {
-                $scope.$apply(function(){
+               
+                    
                     $scope.unexpectedError = false;
                     $scope.registeredEmail = true;
-                });
                
             });
       } else if(status == google.maps.GeocoderStatus.ZERO_RESULTS){
         
         console.log("Invalid Address");
-        $scope.$apply(function(){
-             $scope.invalidAddress = true;
-         });
-       
+        $scope.invalidAddress = true; 
       }
       else{
         alert("Geocode was not successful for the following reason: " + status);
