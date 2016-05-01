@@ -57,6 +57,7 @@ customerAccount.controller("customerAccount",function($scope,$http)
             if(data.statusCode==200)
             {
                 console.log("details updated");
+                window.location.assign("/customerAccount");
             }
         })
             .error(function(error) {
