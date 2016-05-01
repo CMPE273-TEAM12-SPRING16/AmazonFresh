@@ -392,44 +392,65 @@ exports.reviewFarmer = function(req, res) {
 
 //FETCH ALL BILLS
 exports.fetchAllBills = function(req, res){
+var billId=req.param("billId");
+
 
   if(req.param("billId")){
     var billId = req.param("billId");
+	  console.log("billid"+billId);
     var queryJSON = { BILL_ID : Number(billId)};
   } else {
     var queryJSON = {};
   }
+	var msg_payload={"queryJSON":queryJSON,"functionName" : "fetchAllBills"};
 
-  mongo.find("BILLING_INFORMATION", queryJSON, function(err, result){
-    if(err){
-      console.log(err);
-    } else {
-      console.log(JSON.stringify(result));
-      var jsonResponse = {
-        "statusCode" : 200,
-        "result" : result
-      };
-      res.send(jsonResponse);
-    }
-  });
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+		console.log(results);
+		if (err) {
+			throw err;
+		}
+		else {
+			if (results.statusCode == 200) {
+				console.log("value fetched");
+				res.send(results);
+			}
+
+			else {
+				var json_response={"statusCode":401};
+				res.send(json_response)
+
+			}
+		}
+
+
+	});
+
+
+
+
 };
 
 //FETCH ALL TRIPS
 
 exports.showDeliveriesStat = function(req,res){
+	var msg_payload={"functionName" : "showDeliveriesStat"};
 	 var queryJSON = {};
-  mongo.find("TRIP_DETAILS", queryJSON, function(err, result){
-    if(err){
-      console.log(err);
-    } else {
-      console.log(JSON.stringify(result));
-      var jsonResponse = {
-        "statusCode" : 200,
-        "result" : result
-      };
-      res.send(jsonResponse);
-    }
-  });
+
+	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
+		console.log(results);
+		if (err) {
+			throw err;
+		}
+		else {
+
+				console.log("delivery stats");
+				res.send(results);
+
+		}
+
+
+	});
+
 }
 
 

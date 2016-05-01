@@ -42,10 +42,10 @@ signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
         }).success(function(data)
         {
             if (data.statusCode == 401) {
-                 $scope.$apply(function(){
+                 
                     $scope.registeredEmail = false;
                     $scope.unexpectedError = true;
-                });
+            
             }
             if(data.statusCode==200)
             {
@@ -53,17 +53,17 @@ signupFarmer.controller('SignupFarmerCntrl',function($scope,$http)
             }
         })
             .error(function(error) {
-                $scope.$apply(function(){
+               
                     $scope.unexpectedError = false;
                     $scope.registeredEmail = true;
-                });
+                
             }); 
         }else if(status == google.maps.GeocoderStatus.ZERO_RESULTS){
         
         console.log("Invalid Address");
-        $scope.$apply(function(){
+        
              $scope.invalidAddress = true;
-         });
+        
        
       }
       else{
