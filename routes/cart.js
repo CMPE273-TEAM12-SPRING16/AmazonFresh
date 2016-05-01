@@ -167,6 +167,11 @@ exports.removeItemFromCart = function(req,res)
 exports.minusQtyInCart = function(req,res)
 {
 	var productOld = req.param("product");
+	var product = productOld.constructor();
+
+	for (var attr in productOld) {
+        if (productOld.hasOwnProperty(attr)) product[attr] = productOld[attr];
+    }
 
     product.QTY -= 1;
 
