@@ -652,3 +652,10 @@ color: #999999 !important;
     z-index: 2;
     border-radius: 0 0 0.5em 0.5em;
 }
+
+.thumbnail-review-video{
+  background-image: url("../images/support_images/video-placeholder.png");
+  background-size: 100%;
+  height: 143px;
+  width: 100%;
+}

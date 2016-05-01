@@ -163,7 +163,7 @@
             </div>
             <div class="col-md-8">
               <h1 class="product-page-product-name">
-                  {{displayProductDetails.PRODUCT_NAME}}, {{displayProductDetails.UNIT}} oz
+                  {{displayProductDetails.PRODUCT_NAME}}
               </h1>
               <span class="product-page-other-products-by">Other products by </span>
               <span class="product-page-farmer-name"><a href="/{{displayProductDetails.FARMER_ID}}">{{displayProductDetails.FARMER_NAME}}</a></span>
@@ -173,7 +173,7 @@
               </div>
               <div class="product-page-price">
                 <span class="price">{{displayProductDetails.PRICE | currency}}</span>
-                <span class="unit-price">($0.77/oz)</span>
+                <span class="unit-price">for {{displayProductDetails.UNIT}}</span>
               </div>
               <div class="product-page-add">
                 <button class="btn btn-primary btn-add" ng-disabled="!isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
@@ -224,8 +224,10 @@
                     <p>
                       <div class="col-md-5" ng-show='review.VIDEO != ""'>
                         <div class="thumbnail">
-                            <video ng-src="{{videoResourceUrl(review.VIDEO)}}" type="video/mp4" preload="auto" height="100%" width="100%" controls>
+                          <div class="embed-responsive embed-responsive-16by9">
+                            <video class="embed-responsive-item" ng-src="{{videoResourceUrl(review.VIDEO)}}" type="video/mp4" preload="auto" height="100%" width="100%" controls>
                             </video>
+                          </div>
                         </div>
                       </div>
                     </p>
@@ -386,12 +388,12 @@
                 </div>
                 <div class="row">
                   <div class="thumbnail">
-                    <img ngf-thumbnail="file || 'images/products/product-1.jpg'"/>
+                    <img ngf-thumbnail="imageFile || '../images/products/product-1.jpg'"/>
                   </div>
                 </div>
               </div>
-
-              <div class="col-md-9">
+              <div class="col-md-1"></div>
+              <div class="col-md-6">
                 <div class="row">
                     <div class="form-group">
 
@@ -410,11 +412,14 @@
                     </div>
                 </div>
                 <div class="row">
-                  <div class="thumbnail">
-                    <img ngf-thumbnail="file || 'images/support_images/video-placeholder.jpg'"/>
+                  <div class="thumbnail thumbnail-review-video">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <video class="embed-responsive-item" style="height: 100%; width:100%;" ngf-thumbnail="videoFile"/>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="col-md-2"></div>
             </div>
 						</div>
 
