@@ -8,7 +8,7 @@ uploadFilename = "";
 //var mongodb = require("mongodb");
 //objectid = mongodb.BSONPure.ObjectID;
 var objectID = require('mongodb').ObjectID;
-
+var mq_client = require('../rpc/client');
 
 var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
@@ -151,23 +151,19 @@ exports.doDeleteProduct = function(req,res){
 	console.log("product.doDeleteProduct");
 	var product_id = new require('mongodb').ObjectID(req.param("product_id"));
 		console.log("product_id "+product_id);
-	var deleteProductJSON = {"_id" : product_id};
-	var callbackFunction = function(err, results) {
-		if(err)
-		{
-			throw err;
-			json_responses = {"statusCode" : 401};
-			console.log("Error in renderHomepage");
-			res.send(json_responses);
+
+	var msg_payload={"product_id":product_id,"functionToBeImplemented":"doDeleteProduct"};
+
+	mq_client.make_request('productsQueue', msg_payload, function (err, results) {
+		console.log(results);
+		if (results) {
+
+			res.send(results);
 		}
-		else
-		{
-			json_responses = {"statusCode" : 200,"results":results};
-			console.log("result is:"+results);
-			res.send(json_responses);
+		else {
+			console.log("delete product failed");
 		}
-	}
-		mongo.removeOne('PRODUCTS',deleteProductJSON,callbackFunction);
+	});
 
 };
 
@@ -175,28 +171,23 @@ exports.doSearch = function(req, res){
 
   var searchString = req.param("searchString");
   var searchType = req.param("searchType");
+	var msg_payload={"searchString":searchString,"searchType":searchType,"functionToBeImplemented":"doSearch"};
 
-  mongo.searchIt('PRODUCTS', searchString, searchType, function(err,searchRes){
 
-    if(err){
-      throw err;
-    }
-    else
-    {
-      if(searchRes){
-        console.log("product.js : doSearch() --> " + searchRes);
-        var jsonResponse = {
-          "searchResults" : searchRes,
-          "statusCode" : 200
-        };
-        res.send(jsonResponse);
-      }
-      else {
-        jsonResponse = {result : "Nothing Found", "status" : "OK"};
-        res.send(jsonResponse);
-      }
-    }
-  });
+	mq_client.make_request('productsQueue', msg_payload, function (err, results) {
+		console.log(results);
+		if (results) {
+
+			res.send(results);
+		}
+		else {
+			console.log("delete product failed");
+		}
+	});
+
+
+
+
 }
 
 exports.productHome = function(req, res)
