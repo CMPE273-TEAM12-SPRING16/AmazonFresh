@@ -110,8 +110,8 @@
                                     <label for="productDescription">
                                         Product Description
                                     </label>
-                                    <textarea class="form-control add-prod-description"  placeholder="Product Description" name="productDescription" ng-maxlength="140" ng-minlength="1" autocomplete="on" autofocus aria-required="true" ng-model="productDescription" required></textarea>
-                                    <span style="color:red" ng-show="productForm.productDescription.$error.maxlength || productForm.productDescription.$error.minlength"/>Product description must not be more than 140 characters</span>
+                                    <textarea class="form-control add-prod-description"  placeholder="Product Description" name="productDescription"  ng-minlength="1" autocomplete="on" autofocus aria-required="true" ng-model="productDescription" required></textarea>
+                                    <span style="color:red" ng-show="productForm.productDescription.$error.minlength"/>Product description must not be more than 140 characters</span>
                                 </div>
                             </div>
                         </div>
