@@ -214,26 +214,25 @@ exports.getProductId=function(req,res)
 
 exports.getProductDetails=function(req,res) {
 	var productId = req.param("productId");
+	console.log(productId + "product id is");
 
 	if (objectID.isValid(productId)) {
 
-		console.log(productId + "product id is");
-		var callbackFunction = function (err, results) {
+		var msg_payload={"product_id":productId,"functionToBeImplemented":"getProductDetails"};
+
+		mq_client.make_request('productsQueue', msg_payload, function (err, results) {
 			console.log(results);
 			if (results) {
 				var reviews = getDateAndMonth(results);
-
-				res.send({"productDetails": results});
+				res.send(results);
 			}
-
 			else {
-				res.send({"statusCode": 401});
+
+				console.log("get product details failed");
 			}
+		});
 
 
-		}
-
-		mongo.findOneUsingId("PRODUCTS", productId, callbackFunction);
 	}
 
 	else {
