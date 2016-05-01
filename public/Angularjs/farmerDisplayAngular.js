@@ -1,7 +1,29 @@
 var app= angular.module("farmerDisplayAngular",['ngSanitize']);
 app.controller('farmerDisplayAngular',['$scope','$http','farmerId','$sce',function($scope,$http,farmerId,$sce)
 {
+    $scope.isLoggedIn = false;
 	console.log('farmerId:'+farmerId);
+
+    $http({
+
+        method: "POST",
+        url: '/getLoggedInUserDetails',
+        data: {
+        }
+
+    }).then(function (res) {
+        $scope.firstName = res.data.firstName;
+        $scope.lastName = res.data.lastName;
+        $scope.email = res.data.email;
+        $scope.city = res.data.city;
+        $scope.userId = res.data.userId;
+        if(res.data.firstName)
+        {
+            $scope.isLoggedIn = true;
+        }
+    });
+
+
 	$http({
 
             method:"POST",
@@ -32,6 +54,9 @@ app.controller('farmerDisplayAngular',['$scope','$http','farmerId','$sce',functi
                 $scope.farmerAverageRating = res.data.result.AVERAGE_RATING;
                 $scope.farmerReviewDetails = res.data.result.REVIEW_DETAILS;
                 console.log();
+
+
+
 			}
            else if (res.data.statusCode == 401) {
 
