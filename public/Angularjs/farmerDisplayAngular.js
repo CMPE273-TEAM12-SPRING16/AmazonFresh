@@ -12,9 +12,9 @@ app.controller('farmerDisplayAngular',['$scope','$http','farmerId','$sce',functi
 
 
         }).then(function(res){
-            console.log(res.data.isApproved);
 
             if (res.data.statusCode == 200) {
+                console.log(res.data);
             	$scope.farmerId = farmerId;
            		$scope.farmerFirstName = res.data.results.FIRST_NAME;
             	$scope.farmerLastName = res.data.results.LAST_NAME;

@@ -190,7 +190,7 @@ exports.getFarmerDetails = function(req,res) {
 				console.log("result is:" + results);
 				var callbackFunctionFarmerDetails = function (err, result) {
 					if (result) {
-console.log(result.USER_ID);
+						console.log(result);
 						//console.log("result is:" + result.IMAGE);
 						var json_responses = {"statusCode": 200, "result": result,"results":results};
 						 res.send(json_responses);
@@ -374,6 +374,7 @@ exports.addFarmerReview = function(req,res){
 	}
 	var productWhereJSON = {"USER_ID" : farmer_id};
 	var productSetJSON = {$push : {"REVIEW_DETAILS" : reviewJSON}};
+	var updateAvgRating = {$set : {"AVERAGE_RATING" : avg}};
 	var callbackFunction = function (err, results) {
 		if(err)
 		{
@@ -384,25 +385,13 @@ exports.addFarmerReview = function(req,res){
 		}
 		else
 		{
-			console.log("---->>>>"+results);
-			var updateAvgRating = {$set : {"AVERAGE_RATING" : avg}};
-			mongo.updateOne('PRODUCTS',productWhereJSON,updateAvgRating,function(err,reviews){
-				if(err){
-					throw err;
-					json_responses = {"statusCode" : 401};
-					console.log("Error in doShowProductList");
-					res.send(json_responses);
-				}
-				else{
-					console.log("----->>>> send "+reviews.AVG_RATING);
-					json_responses = {"statusCode" : 200,"results":reviews};
-					res.send(json_responses);
-				}
-
-
-			});
+			console.log(results.searchResults);
+          	json_responses = {"statusCode" : 200,"results":results.searchResults};
+          	res.send(json_responses);
 		}
 	}
-	mongo.updateOne('FARMER_DETAILS',productWhereJSON,productSetJSON,callbackFunction);
+	var msg_payload = {"productWhereJSON" : productWhereJSON, "productSetJSON" : productSetJSON,"updateAvgRating" : updateAvgRating ,"functionName" : "addFarmerReview"};
+	mq_client.make_request('farmer_queue', msg_payload, callbackFunction);
+	//mongo.updateOne('FARMER_DETAILS',productWhereJSON,productSetJSON,callbackFunction);
 }
 
