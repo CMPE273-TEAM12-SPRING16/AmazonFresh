@@ -35,12 +35,12 @@ AmqpRpc.prototype.makeRequest = function(queue_name, content, callback){
     var tId = setTimeout(function(corr_id){
         //if this ever gets called we didn't get a response in a
         //timely fashion
-        console.log("andaarr");
+
         callback(new Error("timeout " + corr_id));
         //delete the entry from hash
         delete self.requests[corr_id];
     }, TIMEOUT, correlationId);
-    console.log("andar");
+
     //create a request entry to store in a hash
     var entry = {
         callback:callback,
