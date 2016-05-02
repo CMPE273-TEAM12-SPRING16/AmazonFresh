@@ -311,7 +311,7 @@ exports.doOrder = function(req,res)
 				}
 			}
 
-		mongo.updateOne('FARMER_DETAILS',{"FARMER_ID" : farmerId}
+		mongo.updateOne('FARMER_DETAILS',{"USER_ID" : farmerId}
 			,{$push : {"DELIVERY_HISTORY": insertFarmerDetailsJSON}}
 			 ,function (err, results) {
 				if (err) {
