@@ -221,10 +221,10 @@
                     </label>
 
 
-                    <input type="text" class="form-control" id ="zip" name="zip" placeholder="5 digit zip code" ng-model="zip"  autocomplete="on"
-                           autofocus aria-required="true" ng-maxlength=5 ng-minlength="5" ng-pattern="/^\d{5}$/"required/>
+                    <input type="text" class="form-control" id ="zip" name="zip" placeholder="5 or 9 digit zip code" ng-model="zip"  autocomplete="on"
+                           autofocus aria-required="true"  ng-minlength=5 ng-pattern="/^[0-9]{5}(?:-[0-9]{4})?$/" required/>
                     <span>
-                      <span style="color:maroon" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 digit long</span>
+                      <span style="color:maroon" ng-show="signupForm.zip.$error.maxlength || signupForm.zip.$error.minlength">Zip code must be 5 or 9 digit long</span>
                       <span style="color:maroon" ng-show="signupForm.zip.$error.required && signupForm.zip.$dirty">Zip code is required</span>
                       <span style="color:maroon" ng-show="signupForm.zip.$error.pattern">Invalid zip code </span>
                     </span>
