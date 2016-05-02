@@ -117,7 +117,7 @@ exports.searchItAdmin = function(collectionName, searchString, searchType, callb
   } else if (searchType == 4) {
     var queryJSON = {BILL_ID : Number(searchString)};
   }
-
+  console.log(queryJSON);
 
   connect(mongoURL, function(db){
       var collectionObject = collection(collectionName);
