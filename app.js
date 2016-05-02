@@ -20,7 +20,7 @@ var passport = require('passport');
 require('./routes/passport')(passport);
 var cron = require('cron');
 var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount);
-//discountCronJob.start();
+discountCronJob.start();
 
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
@@ -79,7 +79,7 @@ app.get('/showTripsChart', function(req, res){
   res.end();
 });
 app.post('/fetchTripsChart',function(req, res){
-  
+
 });
 
 app.get('/PastPurchases', function(req, res){

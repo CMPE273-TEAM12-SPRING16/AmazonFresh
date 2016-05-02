@@ -17,53 +17,42 @@ exports.processDiscount =  function(){
 					var addedDate = cartProductDetails[j].INSERTION_DATE;
 					var timeDiff = Math.abs(now.getTime() - addedDate.getTime());
 					var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-
-					if(diffDays>3)
-					{
-						console.log(cartProductDetails[j].PRODUCT_ID);
-						// var productId = cartProductDetails[j].PRODUCT_ID.copy();
-						var productId = JSON.parse(cartProductDetails[j]);
-						console.log(productId);
-						mongo.findOneUsingId('PRODUCTS',productId,function(errResults, searchResults){
-							if(errResults)
-							{
-								console.log(errResults);
-							}
-							else
-							{
-								console.log(JSON.stringify(cartProductDetails[j]));
-								console.log(searchResults.PRICE+"price is");
-							//if(searchResults.PRICE==cartProductDetails[j].PRICE)
-							//{
-								cartProductDetails[j].PRICE = cartProductDetails[j].PRICE - cartProductDetails[j].PRICE * 0.1 ;
-								updateCART = false;	
-							//}
-							}
-						});
-						console.log(JSON.stringify(cartProductDetails[j].PRICE));
-					}
-
+					updateDiscount(cartProductDetails[j],results[i].USER_ID,diffDays);
 
 				}
-				if(updateCART)
-				{
-					updateJSON = {"CART_PRODUCTS" : cartProductDetails};
-					mongo.updateOne('CART',{ "USER_ID" : results[i].USER_ID },{$set : updateJSON},function(err, updateResults){
-
-							if(err)
-							{
-								console.log(err);
-							}
-							else
-							{
-								console.log("records updated successfully");
-							}
-						});
+					
 				}
 			}
 
-		}
-	});
+		});
 
     console.info('Cron done');
+}
+
+function updateDiscount(cartProductDetails,userId,diffDays)
+{
+	mongo.findOneUsingId('PRODUCTS',cartProductDetails.PRODUCT_ID,function(errFind,resultsFind){
+
+						if(diffDays>3 && resultsFind.PRICE <= cartProductDetails.PRICE)
+						{
+							
+							cartProductDetails.PRICE = cartProductDetails.PRICE - cartProductDetails.PRICE * 0.1; 
+							updateJSON = {"CART_PRODUCTS.$.PRICE" : cartProductDetails.PRICE};
+							mongo.updateOne('CART',{ "USER_ID" : userId,"CART_PRODUCTS.PRODUCT_ID" : cartProductDetails.PRODUCT_ID}
+												,{$set : updateJSON},function(err, updateResults){
+
+									if(err)
+									{
+										console.log(err);
+									}
+									else
+									{
+										console.log("records updated successfully");
+									}
+								});
+						}
+							
+						console.log(JSON.stringify(cartProductDetails.PRICE));
+					});
+
 }
