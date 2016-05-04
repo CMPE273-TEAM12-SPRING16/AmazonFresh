@@ -131,7 +131,7 @@
                     </label>
 
 
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email ID" ng-model="email"  maxlength=30 autocomplete="on"  autofocus aria-required="true" ng-pattern="/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/" required/>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email ID" ng-model="email"  maxlength=30 autocomplete="on"  autofocus aria-required="true" ng-pattern="/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}/" required/>
                     <span>
                       <span style="color:maroon" ng-show="signupForm.email.$error.pattern">Please enter a valid Email ID.</span>
                       <span style="color:maroon"  ng-show="signupForm.email.$error.required && signupForm.email.$dirty">Email ID is required.</span>
@@ -315,7 +315,7 @@
                             <div class="a-row a-spacing-base">
                               <label for="ap_email">Email ID *</label>
                               <input class="a-input-text a-span12 auth-autofocus auth-required-field"
-                                     id="ap_email" maxlength="128" name="email" tabindex="1" type="email" ng-model="email" required>
+                                     id="ap_email" maxlength="128" name="email" tabindex="1" type="text" ng-model="email" required>
                               <span style="color:maroon" ng-show="signIn.email.$error.required && signIn.email.$dirty">Email ID is required</span>
                             </div>
                             <div class="a-section a-spacing-large">
