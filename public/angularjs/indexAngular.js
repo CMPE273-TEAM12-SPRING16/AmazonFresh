@@ -70,7 +70,8 @@ app.controller('LoginController',function($scope,$http)
 
 
 app.controller('IndexPageController',function($scope,$http){
-
+var product_count = 0;
+$scope.products = [];
   $scope.isLoggedIn = false;
     $scope.cart = [];
 
@@ -111,7 +112,10 @@ app.controller('IndexPageController',function($scope,$http){
     $http({ // GET PRODUCTS
 
       method:"POST",
-      url:'/doFetch10ProductsOnIndex'
+      url:'/doFetch10ProductsOnIndex',
+      data : {
+        "count" : product_count
+      }
 
     }).success(function(data)
     {
@@ -119,8 +123,11 @@ app.controller('IndexPageController',function($scope,$http){
       if(data.statusCode==200)
       {
         console.log(data.results);
-        $scope.products = data.results;
-
+        for(i=0;i<30;i++){
+        $scope.products.push(data.results[i]);
+        }
+        product_count = product_count + data.results.length;
+        console.log($scope.length);
       }
     }).error(function(error) {
       console.log(error);
@@ -129,6 +136,7 @@ app.controller('IndexPageController',function($scope,$http){
     //Search Function..........................................................//
     $scope.doSearch = function(){
       $scope.isSearch = true;
+      $scope.searchedProducts = [];
       $scope.bcHomeClass = "inactive";
       $scope.bcSearchResultsClass = "active";
       var searchString = $scope.searchString;
@@ -162,6 +170,31 @@ app.controller('IndexPageController',function($scope,$http){
         $scope.searchResult = null;
       }
     }
+
+    $scope.loadProducts = function(){
+         $http({ // GET PRODUCTS
+
+      method:"POST",
+      url:'/doFetch10ProductsOnIndex',
+      data : {
+        "count" : product_count
+      }
+
+    }).success(function(data)
+    {
+        if(data.statusCode==200)
+      {
+        for(i=0;i<30;i++){
+            $scope.products.push(data.results[i]);
+            $scope.length = data.results.length;
+            }
+             product_count = product_count + data.results.length;
+             console.log(product_count);
+        }
+    });
+}
+
+
     //Cart start
     $http({
 

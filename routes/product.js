@@ -259,7 +259,8 @@ function getDateAndMonth(results){
 
 exports.doFetch10Products = function(req,res){
 
-	var msg_payload={"functionToBeImplemented":"doFetch10Products"};
+	var count = req.param("count");
+	var msg_payload={"functionToBeImplemented":"doFetch10Products", "count" : count};
 	mq_client.make_request('productsQueue', msg_payload, function (err, results) {
 		console.log(results);
 		if (results) {
