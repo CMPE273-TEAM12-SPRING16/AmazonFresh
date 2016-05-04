@@ -71,7 +71,7 @@
           <div class="thumbnail thumbnail-signup">
             <div> <!-- add customer notifications -->
               <span class="admin-page-title">Past Purchases</span>
-              <div class="thumbnail" ng-repeat="order in purchaseHistory">
+              <div class="thumbnail" ng-repeat="order in purchaseHistory | orderBy : '-BILL_ID'">
                 <div class="row row-margin-none order-header">
                   <div class="col-md-3">
                     <h6>Order placed on</h6>
@@ -87,7 +87,7 @@
                   </div>
                   <div class="col-md-3">
                     <h6>BILL ID # {{order.BILL_ID}}</h6>
-
+                    <h6 ng-show="$index == 0"><a href="/trackOrder/{{order.BILL_ID}}">TRACK THIS ORDER</a></h6>
                   </div>
                 </div>
                 <div class="row row-margin-none" style="padding-top : 5px;">
