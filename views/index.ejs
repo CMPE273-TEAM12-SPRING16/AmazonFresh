@@ -304,7 +304,7 @@
 
 
                   <div class="row row-margin"  ng-show="isSearch">
-                    <div class="alert-search" role="alert"><strong>Serch Results :</strong> "{{searchString}}"</div>
+                    <div class="alert-search" role="alert"><strong>Search Results :</strong> "{{searchString}}"</div>
                   </div>
                   <div class="row row-margin" ng-show="isSearch">
                     <div class="col-md-4"  ng-repeat="product in searchedProducts" >
@@ -317,7 +317,7 @@
                           <div class="caption">
                             <h5>${{product.PRICE}}</h5>
                             <p  class="product_list_name"><a href="/products/{{product._id}}">{{product.PRODUCT_NAME}}</a></p>
-                            <p>Sold By <a href="">{{product.FARMER_NAME}}</a></p>
+                            <p>Sold By <a href="/farmerProfile/{{product.FARMER_ID}}">{{product.FARMER_NAME}}</a></p>
                             <div class="row">
                               <div class="col-md-3">
                                 <select class="form-control qty-select">
