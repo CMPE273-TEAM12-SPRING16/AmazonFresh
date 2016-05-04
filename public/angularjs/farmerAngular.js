@@ -138,6 +138,7 @@ $scope.getProductList();
             {
             	console.log("Updated!!!");
             	$scope.successUpdateProfile = false;
+                window.location.assign("/farmerHome");
             }
         }).error(function(error) {
 

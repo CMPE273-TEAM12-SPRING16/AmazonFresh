@@ -125,7 +125,8 @@ exports.doShowProductList = function(req, res) {
 
 //update farmer profile details.
  exports.doUpdateProfile = function(req,res){
- 	var user_id = req.session.user_id;
+
+ 	var user_id = req.session.userId;
  	var first_name = req.param("first_name");
  	var last_name = req.param("last_name");
  	var ssn = req.param("ssn");
@@ -149,6 +150,14 @@ exports.doShowProductList = function(req, res) {
 
 			if (results.statusCode == 200) {
 				console.log("Results received");
+				req.session.firstName =  first_name;
+				req.session.lastName =last_name;
+				req.session.city = city;
+				req.session.state = state;
+				req.session.address = address;
+				req.session.zip = zip;
+				req.session.phone = phone;
+				req.session.ssn = ssn;
 				json_responses = {"statusCode" : 200,"results":results.searchResults};
 				res.send(json_responses);
 			}
@@ -160,16 +169,16 @@ exports.doShowProductList = function(req, res) {
 		}
 	}
 
-	var updatedWhereJSON = {"USERID" : user_id};
+	var updatedWhereJSON = {"USER_ID" : user_id};
 	var updatedDetailJSON = {$set : {
-			"FIRSTNAME" : first_name,
-			"LASTNAME" : last_name,
+			"FIRST_NAME" : first_name,
+			"LAST_NAME" : last_name,
 			"SSN" : ssn,
 			"ADDRESS" : address,
 			"CITY" : city,
 			"STATE" : state,
 			"ZIP" : zip,
-			"PHONE" : phone
+			"PHONE_NUMBER" : phone
 			}
 		};
 		var msg_payload = {"updatedWhereJSON" : updatedWhereJSON, "updatedDetailJSON" : updatedDetailJSON, "functionName" : "doUpdateProfile"};
