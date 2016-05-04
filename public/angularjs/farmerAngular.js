@@ -260,6 +260,27 @@ farmer.controller('FarmerPageController',['Upload','$scope','$http',function(Upl
     }
   }
 
+
+    $http({
+
+                method: "POST",
+                url: '/getLoggedInUserDetails',
+                data: {
+                }
+
+            }).then(function (res) {
+                    $scope.firstName = res.data.firstName;
+                    $scope.lastName = res.data.lastName;
+                    $scope.email = res.data.email;
+                    $scope.city = res.data.city;
+                    $scope.userId = res.data.userId;
+                    $scope.userType = res.data.userType;
+                    if(res.data.firstName)
+                    {
+                        $scope.isLoggedIn = true;
+                    }
+            });
+
     $scope.edit_product = function(product){
 
     	console.log(product)
