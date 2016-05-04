@@ -127,7 +127,7 @@ $scope.products = [];
         $scope.products.push(data.results[i]);
         }
         product_count = product_count + data.results.length;
-        console.log($scope.length);
+
       }
     }).error(function(error) {
       console.log(error);
