@@ -175,9 +175,8 @@ exports.doSearch = function(req, res){
 
 
 	mq_client.make_request('productsQueue', msg_payload, function (err, results) {
-		console.log(results);
-		if (results) {
 
+		if (results) {
 			res.send(results);
 		}
 		else {

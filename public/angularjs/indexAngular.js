@@ -146,7 +146,7 @@ $scope.products = [];
       var searchType;
       if($scope.searchType == 'Name'){//Select search type
         searchType = 1;
-      }else if($scope.searchType == 'Name'){
+      }else if($scope.searchType == 'Farmer'){
         searchType = 2;
       }
 
