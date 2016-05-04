@@ -81,20 +81,6 @@
                   <button class="btn btn-default btn-shop" href="#" class="dropdown-toggle" data-toggle="dropdown">
                     Shop<strong class="caret caret-btn-shop pull-right"></strong>
                   </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#">Cat 1</a>
-                    </li>
-                    <li>
-                      <a href="#">Cat 2</a>
-                    </li>
-                    <li>
-                      <a href="#">Cat 3</a>
-                    </li>
-                    <li>
-                      <a href="#">Cat 4</a>
-                    </li>
-                  </ul>
                 </li>
               </div>
               <div class="col-md-10">
@@ -273,7 +259,7 @@
                       <div class="thumbnail thumbnail-product-pagination">
                         <div class="img-container-product-pagination">
                           <a href="/products/{{product._id}}" >
-                            <img class="thumbnail-image-product-pagination" src="uploads\{{product.FILE_NAME}}" alt="">
+                            <img class="thumbnail-image-product-pagination" ng-src="uploads/{{product.FILE_NAME}}" altSrc="images/support_images/default-product-img.png" onerror="this.src = $(this).attr('altSrc')">
                           </a>
                         </div>
                           <div class="caption">
@@ -319,7 +305,7 @@
                       <div class="thumbnail thumbnail-product-pagination">
                         <div class="img-container-product-pagination">
                           <a href="/products/{{product._id}}" >
-                            <img class="thumbnail-image-product-pagination" src="uploads\{{product.FILE_NAME}}" alt="">
+                            <img class="thumbnail-image-product-pagination" ng-src="uploads/{{product.FILE_NAME}}" altSrc="images/support_images/default-product-img.png" onerror="this.src = $(this).attr('altSrc')">
                           </a>
                         </div>
                           <div class="caption">

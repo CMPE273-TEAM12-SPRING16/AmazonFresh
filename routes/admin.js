@@ -22,8 +22,8 @@ exports.doSearchAdmin = function(req, res){
 		collectionName = 'BILLING_INFORMATION';
 	}
 
-
-	var msg_payload = {"searchString":searchString,"searchType":searchType,"collectionName":collectionName};
+  var functionName = "doSearchAdmin";
+	var msg_payload = {"searchString":searchString,"searchType":searchType,"collectionName":collectionName,"functionName":functionName};
 
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
@@ -77,7 +77,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 
 
   });
-	
+
 };
 
  exports.doApproveCustomer = function(req,res){
@@ -140,7 +140,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 	var getCustomerPendingJSON = {$and : [{"IS_APPROVED" : 0},{"USER_TYPE":2}]};
 
 	var msg_payload = {"userId" : userId , "getCustomerPendingJSON" : getCustomerPendingJSON ,"functionName":"doShowPendingFarmerAprroval"};
-	
+
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
     console.log(results);
     if (err) {
@@ -190,14 +190,14 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
 	  });
 
- 	
+
  }
 
  exports.doRejectFarmer = function(req,res){
  	var customerId = req.param("customer_id");
 
  	var msg_payload = {"customerId" : customerId , "functionName" : "doRejectFarmer"};
- 
+
  	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
 	    console.log(results);
 	    if (err) {
@@ -249,7 +249,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 
 
 	  });
-	
+
  };
 
  exports.doApproveProduct = function(req,res){
@@ -282,7 +282,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
  exports.doRejectProduct = function(req,res){
 	var productId = new require('mongodb').ObjectID(req.param("product_id"));
 	var msg_payload = {"productId":productId , "functionName" : "doRejectProduct"};
- 	
+
  	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
 	    console.log(results);
 	    if (err) {
@@ -309,7 +309,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 //------------------Reveiw----------------------------
 
 exports.doShowAllCustomer = function(req,res){
-	
+
 	var msg_payload = {"functionName" : "doShowAllCustomer"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
