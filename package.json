@@ -21,7 +21,9 @@
     "passport-local":"1.0.0",
     "node-geocoder": "3.9.1",
     "cron" : "1.1.0",
-    "amqp" : "0.2.4"
+    "amqp" : "0.2.4",
+    "mocha":"2.4.5",
+    "request":"2.72.0"
 
   },
   "repository": {
