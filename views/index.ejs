@@ -68,8 +68,14 @@
     <div ng-hide="isLoggedIn">
       <% include ./partial/header %>
     </div>
-    <div ng-show="isLoggedIn">
+    <div ng-show="isLoggedIn && userType==1">
       <% include ./partial/headerLoggedIn %>
+    </div>
+    <div ng-show="isLoggedIn && userType==2">
+      <% include ./partial/farmerLoggedIn %>
+    </div>
+    <div ng-show="isLoggedIn && userType==0">
+      <% include ./partial/headerAdmin %>
     </div>
     <div class="container-fluid container-main">
       <div class="row row-margin">
