@@ -958,4 +958,96 @@ $http({
       $scope.searchResult = null;
     }
   }
+
+  $scope.approveCustomer = function(customer_id){
+          console.log("approveCustomer"+customer_id);
+          $http({
+
+            method:"POST",
+            url:'/doApproveCustomer',
+            data : {"customer_id" : customer_id}
+
+        }).success(function(data)
+        {
+
+            if(data.statusCode==200)
+            {
+
+                $scope.showAllCustomer();
+            }
+        }).error(function(error) {
+                $scope.unexpectedError = false;
+                $scope.invalidLogin = true;
+            });
+        }
+
+        $scope.rejectCustomer = function(customer_id){
+
+          console.log("RejectCustomer"+customer_id);
+          $http({
+
+            method:"POST",
+            url:'/doRejectCustomer',
+            data : {"customer_id" : customer_id}
+
+        }).success(function(data)
+        {
+
+            if(data.statusCode==200)
+            {
+
+                $scope.showPendingCustReq();
+            }
+        }).error(function(error) {
+                $scope.unexpectedError = false;
+                $scope.invalidLogin = true;
+            });
+        }
+
+        $scope.approveProduct = function(product_id){
+          console.log("approveProduct"+product_id);
+          $http({
+
+            method:"POST",
+            url:'/doApproveProduct',
+            data : {"product_id" : product_id}
+
+        }).success(function(data)
+        {
+
+            if(data.statusCode==200)
+            {
+
+                $scope.showPendingProductReq();
+            }
+        }).error(function(error) {
+                $scope.unexpectedError = false;
+                $scope.invalidLogin = true;
+            });
+        }
+
+        $scope.rejectProduct = function(product_id){
+
+          console.log("rejectProduct"+product_id);
+          $http({
+
+            method:"POST",
+            url:'/doRejectProduct',
+            data : {"product_id" : product_id}
+
+        }).success(function(data)
+        {
+
+            if(data.statusCode==200)
+            {
+
+                $scope.showPendingProductReq();
+            }
+        }).error(function(error) {
+                $scope.unexpectedError = false;
+                $scope.invalidLogin = true;
+            });
+        }
+
+
 });

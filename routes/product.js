@@ -127,14 +127,13 @@ exports.doEditProduct = function(req,res)
 					var unit = req.param("units");
 					var price = req.param("price");
 					var productDescription = req.param("productDescription");
-					var farmerId = req.session.user_id;
+					var farmerId = req.session.userId;
 					var noOfUnits = req.param("noOfunits");
              		console.log("File uploaded successfully"+noOfUnits);
 
 					var updatedWhereJSON = {"_id" : productId};
 					var updatedDetailJSON = {$set : {
 						"PRODUCT_NAME" : productName,
-						"FARMER_ID" : farmerId,
 						"PRICE" : price,
 						"NOOFUNITS" : noOfUnits,
 						"UNIT" : unit,
