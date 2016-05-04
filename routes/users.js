@@ -215,7 +215,8 @@ exports.getLoggedInUserDetails = function(req,res)
                     "lastName" : req.session.lastName,
                     "email" : req.session.email,
                     "city" : req.session.city,
-                    "userId" : req.session.userId};
+                    "userId" : req.session.userId,
+                    "userType" : req.session.userType};
   res.send(jsonResponse);
 }
 

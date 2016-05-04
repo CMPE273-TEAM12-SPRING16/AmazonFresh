@@ -94,6 +94,7 @@ productDisplayAngular.controller("ProductDisplayAngular",['$scope','$http','send
                     $scope.email = res.data.email;
                     $scope.city = res.data.city;
                     $scope.userId = res.data.userId;
+                    $scope.userType = res.data.userType;
                     if(res.data.firstName)
                     {
                         $scope.isLoggedIn = true;
