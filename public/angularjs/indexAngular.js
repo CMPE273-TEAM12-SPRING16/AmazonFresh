@@ -212,6 +212,8 @@ $scope.products = [];
         $scope.email = res.data.email;
         $scope.city = res.data.city;
         $scope.userId = res.data.userId;
+        $scope.userType = res.data.userType;
+        console.log($scope.userType);
         if(res.data.firstName)
         {
             $scope.isLoggedIn = true;

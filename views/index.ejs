@@ -277,7 +277,7 @@
                                 </select>
                               </div>
                               <div class="col-md-3" style="padding: 0px 2px 0px 2px">
-                                <button class="btn nopadding nomargin btn-primary btn-theme" ng-disabled="!isLoggedIn"  ng-click="addToCart(product._id)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                <button class="btn nopadding nomargin btn-primary btn-theme" ng-disabled="!isLoggedIn || (userType!=1)"  ng-click="addToCart(product._id)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
                               </div>
                               <div class="col-md-6"  style="font-size: 12px;">
                                 <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
