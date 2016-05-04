@@ -252,7 +252,7 @@ function getDateAndMonth(results){
 		var year = d.getFullYear();
 		var reviewDate = month+" "+day+", "+year;
 		results.REVIEW_DETAILS[rev].REVIEWDATE = reviewDate;
-		
+
 	}
 	return results;
 }
@@ -262,13 +262,11 @@ exports.doFetch10Products = function(req,res){
 	var count = req.param("count");
 	var msg_payload={"functionToBeImplemented":"doFetch10Products", "count" : count};
 	mq_client.make_request('productsQueue', msg_payload, function (err, results) {
-		console.log(results);
 		if (results) {
 			var reviews = getDateAndMonth(results);
 			res.send(results);
 		}
 		else {
-
 			console.log("doFetch10Products failed");
 		}
 	});
@@ -301,7 +299,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
             {
             	console.log("Unexpected file received");
             }
-            
+
         }
     });
 

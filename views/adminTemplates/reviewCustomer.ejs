@@ -7,7 +7,7 @@
           <div class="col-md-2 approve-col-1">
             <h5>Name <span class="pull-right">:</span></h5>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 row-margin">
             <span>{{customer.FIRST_NAME}} {{customer.LAST_NAME}}</span>
           </div>
         </div>
@@ -15,7 +15,7 @@
           <div class="col-md-2 approve-col-1">
             <h5>Email Id <span class="pull-right">:</span></h5>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 row-margin">
             <span>{{customer.EMAIL_ID}}</span>
           </div>
         </div>
@@ -23,7 +23,7 @@
           <div class="col-md-2 approve-col-1">
             <h5>Address <span class="pull-right">:</span></h5>
           </div>
-          <div class="col-md-6 address-line">
+          <div class="col-md-6 address-line row-margin">
             <p>{{customer.ADDRESS}}</p>
             <p>Apt 332</p>
             <p>San Jose, CA 95112</p>
@@ -33,7 +33,7 @@
           <div class="col-md-2 approve-col-1">
             <h5>Phone <span class="pull-right">:</span></h5>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 row-margin">
             <span>{{customer.PHONE_NUMBER}}</span>
           </div>
         </div>
@@ -41,7 +41,7 @@
           <div class="col-md-2 approve-col-1">
             <h5>SSN <span class="pull-right">:</span></h5>
           </div>
-          <div class="col-md-6  ">
+          <div class="col-md-6 row-margin">
             <span>XX-XX-XXX</span>
           </div>
         </div>
@@ -49,7 +49,7 @@
           <div class="col-md-2 approve-col-1">
             <h5>Credit Card <span class="pull-right">:</span></h5>
           </div>
-          <div class="col-md-6  ">
+          <div class="col-md-6 row-margin">
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
             <span>XXXX-XXXX-XXXX-{{customer.CARD_NUMBER | limitTo:-4}} (Validated)</span>
           </div>

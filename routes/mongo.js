@@ -13,7 +13,6 @@ function connect(url, callback){
         if (err) { throw new Error('Could not connect: '+err); }
         db = _db;
         connected = true;
-        console.log(connected +" is connected?");
         callback(db);
     });
 };
@@ -33,7 +32,6 @@ function collection(name){
 exports.insertMany = function(collectionName,insertJSONArray,callbackFunction){
 
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
         collectionObject.insertMany(insertJSONArray,callbackFunction);//native object call for NPM
 //		db.close();
@@ -43,7 +41,7 @@ exports.insertMany = function(collectionName,insertJSONArray,callbackFunction){
 exports.insertOne = function(collectionName,insertJSON,callbackFunction){
 
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
         collectionObject.insertOne(insertJSON,callbackFunction);//native object call for NPM
 //		db.close();
@@ -53,9 +51,9 @@ exports.insertOne = function(collectionName,insertJSON,callbackFunction){
 exports.findOne = function(collectionName,queryJSON,callbackFunction)
 {
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+        //console.log(queryJSON);
         collectionObject.findOne(queryJSON,callbackFunction);
     });
 
@@ -73,9 +71,9 @@ exports.findWithProjection = function(collectionName,queryJSON, projectionJSON, 
 exports.findOneWithProjection = function(collectionName,queryJSON, projectionJSON, callbackFunction)
 {
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+      //  console.log(queryJSON);
         collectionObject.findOne(queryJSON, projectionJSON, callbackFunction);
     });
 
@@ -128,9 +126,9 @@ exports.searchItAdmin = function(collectionName, searchString, searchType, callb
 exports.find = function(collectionName,queryJSON,callbackFunction)
 {
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+      //  console.log(queryJSON);
         collectionObject.find(queryJSON).toArray(callbackFunction);
     });
 
@@ -142,9 +140,9 @@ exports.findOneUsingId = function(collectionName,idString,callbackFunction) {
     var queryJSON = {_id : o_id};
 
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+      //  console.log(queryJSON);
         collectionObject.findOne(queryJSON,callbackFunction);
     });
 }
@@ -152,9 +150,9 @@ exports.findOneUsingId = function(collectionName,idString,callbackFunction) {
 exports.count = function(collectionName,queryJSON,callbackFunction)
 {
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+      //  console.log(queryJSON);
         collectionObject.count(queryJSON,callbackFunction);
     });
 
@@ -163,9 +161,9 @@ exports.count = function(collectionName,queryJSON,callbackFunction)
 exports.removeOne = function(collectionName,queryJSON,callbackFunction)
 {
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+      //  console.log(queryJSON);
         collectionObject.removeOne(queryJSON,callbackFunction);
     });
 
@@ -174,9 +172,9 @@ exports.removeOne = function(collectionName,queryJSON,callbackFunction)
 exports.updateOne = function(collectionName,queryJSON,updateJSON,callbackFunction)
 {
     connect(mongoURL, function(db){
-        console.log('Connected to mongo at: ' + mongoURL);
+      //  console.log('Connected to mongo at: ' + mongoURL);
         var collectionObject = collection(collectionName);
-        console.log(queryJSON);
+      //  console.log(queryJSON);
         collectionObject.updateOne(queryJSON,updateJSON,callbackFunction);
     });
 

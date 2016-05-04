@@ -123,9 +123,12 @@ $scope.products = [];
       if(data.statusCode==200)
       {
         console.log(data.results);
-        for(i=0;i<30;i++){
-        $scope.products.push(data.results[i]);
-        }
+
+          for(i=0; i<data.results.length; i++){
+            $scope.products.push(data.results[i]);
+          }
+
+
         product_count = product_count + data.results.length;
 
       }
