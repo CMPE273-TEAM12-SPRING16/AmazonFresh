@@ -410,7 +410,7 @@ exports.getTrackOrder = function(req,res){
 	 		console.log(err);
 	 	}
 	 	else{
-	 		console.log(results);
+
 	 		json_responses = {"statusCode" : 200,"TRIP_DETAILS":results};
 	 		res.send(json_responses);
 	 	}

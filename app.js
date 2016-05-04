@@ -79,9 +79,7 @@ app.get('/showTripsChart', function(req, res){
   res.render('adminTemplates/trips');
   res.end();
 });
-app.post('/fetchTripsChart',function(req, res){
-
-});
+app.post('/fetchTripsChart',admin.fetchTripsChart);
 
 app.get('/PastPurchases', function(req, res){
 	res.render('purchaseHistory', {});

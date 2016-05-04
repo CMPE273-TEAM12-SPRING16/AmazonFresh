@@ -42,7 +42,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
 
         $scope.showPendingCustReq = function(){
-          console.log("ApprReqCustomer");
+        //  console.log("ApprReqCustomer");
            $http({
 
             method:"POST",
@@ -69,7 +69,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
       $scope.showPendingCustReq();
 
         $scope.approveCustomer = function(customer_id){
-          console.log("approveCustomer"+customer_id);
+      //    console.log("approveCustomer"+customer_id);
           $http({
 
             method:"POST",
@@ -81,7 +81,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
             if(data.statusCode==200)
             {
-              console.log("Request Approved ");
+            //  console.log("Request Approved ");
                 $scope.showPendingCustReq();
             }
         }).error(function(error) {
@@ -92,7 +92,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
         $scope.rejectCustomer = function(customer_id){
 
-          console.log("RejectCustomer"+customer_id);
+        //  console.log("RejectCustomer"+customer_id);
           $http({
 
             method:"POST",
@@ -118,7 +118,7 @@ adminNgApp.controller('ApprReqCustomer', function($scope,$http) {
 
 adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 
-      
+
           console.log("ApprReqFarmer");
            $http({
 
@@ -192,7 +192,7 @@ adminNgApp.controller('ApprReqFarmer', function($scope,$http) {
 adminNgApp.controller('ApprReqProduct', function($scope,$http) {
 
 $scope.showPendingProductReq = function(){
-          console.log("showPendingProductReq");
+        //  console.log("showPendingProductReq");
            $http({
 
             method:"POST",
@@ -265,7 +265,7 @@ $scope.showPendingProductReq = function(){
 adminNgApp.controller('ReviewCustomer', function($scope,$http) {
 
    $scope.showAllCustomer = function(){
-          console.log("ReviewCustomer");
+        //  console.log("ReviewCustomer");
            $http({
 
             method:"POST",
@@ -276,7 +276,7 @@ adminNgApp.controller('ReviewCustomer', function($scope,$http) {
 
             if(data.statusCode==200)
             {
-                console.log(data);
+            //    console.log(data);
                 $scope.pendingCustomers = data.results
             }
         }).error(function(error) {
@@ -671,10 +671,10 @@ adminNgApp.controller('TripsCtrl', function($scope,$http) {
 
   $scope.myDataSource = {
     "chart": {
-      "caption": "Comparison of Daily Revenue",
-      "xAxisname": "Date",
-      "yAxisName": "Revenues (In USD)",
-      "numberPrefix": "$",
+      "caption": "Trips by Area",
+      "xAxisname": "Zip",
+      "yAxisName": "Number of Trips",
+      "numberPrefix": "",
       "plotFillAlpha": "80",
       "paletteColors": "#0075c2,#1aaf5d",
       "baseFontColor": "#333333",
@@ -716,7 +716,7 @@ adminNgApp.controller('TripsCtrl', function($scope,$http) {
     ],
     "dataset": [
       {
-        "seriesname": "Month of "+$scope.monthDisplay,
+        "seriesname": "",
         "data": valArray
       }
     ]
@@ -735,10 +735,10 @@ adminNgApp.controller('TripsCtrl', function($scope,$http) {
         var valArray = res.data.valArray;
         $scope.myDataSource = {
           "chart": {
-            "caption": "Trips to Zips",
-            "xAxisname": "Date",
-            "yAxisName": "Revenues (In USD)",
-            "numberPrefix": "$",
+            "caption": "Trips by Area",
+            "xAxisname": "Zip",
+            "yAxisName": "Number of Trips",
+            "numberPrefix": "",
             "plotFillAlpha": "80",
             "paletteColors": "#0075c2,#1aaf5d",
             "baseFontColor": "#333333",
@@ -780,7 +780,7 @@ adminNgApp.controller('TripsCtrl', function($scope,$http) {
           ],
           "dataset": [
             {
-              "seriesname": "Zips_______",
+              "seriesname": "",
               "data": valArray
             }
           ]

@@ -29,8 +29,6 @@ AmqpRpc.prototype.makeRequest = function(queue_name, content, callback){
     self = this;
     //generate a unique correlation id for this call
     var correlationId = crypto.randomBytes(16).toString('hex');
-    console.log("inside amqprc");
-    console.log("in");
     //create a timeout for what should happen if we don't get a response
     var tId = setTimeout(function(corr_id){
         //if this ever gets called we didn't get a response in a
@@ -59,7 +57,6 @@ AmqpRpc.prototype.makeRequest = function(queue_name, content, callback){
             contentType:CONTENT_TYPE,
             contentEncoding:CONTENT_ENCODING,
             replyTo:self.response_queue});
-        console.log("published");
     });
 };
 
@@ -97,4 +94,3 @@ AmqpRpc.prototype.setupResponseQueue = function(next){
 };
 
 //tweeet queue
-

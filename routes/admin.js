@@ -27,7 +27,7 @@ exports.doSearchAdmin = function(req, res){
 
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-    console.log(results);
+
     if (err) {
       throw err;
     }
@@ -58,7 +58,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
 	var msg_payload = {"userId":userId,"getCustomerPendingJSON":getCustomerPendingJSON,"functionName":functionName};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-    console.log(results);
+
     if (err) {
       throw err;
     }
@@ -85,7 +85,7 @@ exports.doShowPendingCustAprroval = function(req, res) {
  	var msg_payload = {"customerId":customerId,"functionName":"doApproveCustomer"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-	    console.log(results);
+	    //console.log(results);
 	    if (err) {
 	      throw err;
 	    }
@@ -142,7 +142,7 @@ exports.doShowPendingFarmerAprroval = function(req, res) {
 	var msg_payload = {"userId" : userId , "getCustomerPendingJSON" : getCustomerPendingJSON ,"functionName":"doShowPendingFarmerAprroval"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-    console.log(results);
+  //  console.log(results);
     if (err) {
       throw err;
     }
@@ -313,7 +313,7 @@ exports.doShowAllCustomer = function(req,res){
 	var msg_payload = {"functionName" : "doShowAllCustomer"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-	    console.log(results);
+
 	    if (err) {
 	      throw err;
 	    }
@@ -340,7 +340,7 @@ exports.reviewFarmer = function(req, res) {
 	var msg_payload = {"functionName" : "reviewFarmer"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-	    console.log(results);
+
 	    if (err) {
 	      throw err;
 	    }
@@ -368,7 +368,7 @@ exports.reviewFarmer = function(req, res) {
 
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-	    console.log(results);
+
 	    if (err) {
 	      throw err;
 	    }
@@ -397,7 +397,7 @@ var billId=req.param("billId");
 
   if(req.param("billId")){
     var billId = req.param("billId");
-	  console.log("billid"+billId);
+
     var queryJSON = { BILL_ID : Number(billId)};
   } else {
     var queryJSON = {};
@@ -405,7 +405,7 @@ var billId=req.param("billId");
 	var msg_payload={"queryJSON":queryJSON,"functionName" : "fetchAllBills"};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-		console.log(results);
+
 		if (err) {
 			throw err;
 		}
@@ -437,7 +437,7 @@ exports.showDeliveriesStat = function(req,res){
 	 var queryJSON = {};
 
 	mq_client.make_request('AdminQueue', msg_payload, function (err, results) {
-		console.log(results);
+
 		if (err) {
 			throw err;
 		}
@@ -501,6 +501,42 @@ exports.fetchDailyRevenue = function(req, res){
         "catArray" : catArray,
         "valArray" : valArray,
         "average" : average
+      };
+      res.send(jsonResponse);
+    }
+  });
+};
+
+
+//FETCH TRIP CHARTS
+exports.fetchTripsChart = function(req, res){
+
+  mongo.aggregateZip("BILLING_INFORMATION",function(err, results){
+    if(err){
+      console.log(err);
+
+    } else {
+
+      var catArray = [];
+      var valArray = [];
+
+      for(i=0; i<results.length; i++){
+
+        catArray.push({
+          "label": "'" + results[i]._id + "'"
+        });
+
+        valArray.push({
+          "value" : results[i].total
+        });
+
+      }
+      console.log(catArray);
+      console.log(valArray);
+      var jsonResponse = {
+        "statusCode" : 200,
+        "catArray" : catArray,
+        "valArray" : valArray
       };
       res.send(jsonResponse);
     }

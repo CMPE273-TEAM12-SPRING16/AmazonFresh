@@ -180,6 +180,17 @@ exports.updateOne = function(collectionName,queryJSON,updateJSON,callbackFunctio
 
 }
 
+exports.aggregateZip = function(collectionName, callbackFunction)
+{
+    connect(mongoURL, function(db){
+      //  console.log('Connected to mongo at: ' + mongoURL);
+        var collectionObject = collection(collectionName);
+      //  console.log(queryJSON);
+        collectionObject.aggregate([{ $group: { _id : "$ZIP", total: { $sum: 1 }}}], callbackFunction);
+    });
+
+}
+
 
 exports.connect = connect;
 exports.collection = collection;
