@@ -68,7 +68,7 @@
         <div class="col-md-8">
 
 
-          <div class="thumbnail thumbnail-signup">
+          <div class="thumbnail thumbnail-signup" ng-hide="noSearchResult">
             <div> <!-- add customer notifications -->
               <span class="admin-page-title">Past Purchases</span>
               <div class="thumbnail" ng-repeat="order in purchaseHistory | orderBy : '-BILL_ID'">
@@ -87,7 +87,7 @@
                   </div>
                   <div class="col-md-3">
                     <h6>BILL ID # {{order.BILL_ID}}</h6>
-                    <h6 ng-show="$index == 0"><a href="/trackOrder/{{order.BILL_ID}}">TRACK THIS ORDER</a></h6>
+                    <div ng-hide="isSearch"><h6 ng-show="$index == 0"><a href="/trackOrder/{{order.BILL_ID}}">TRACK THIS ORDER</a></h6></div>
                   </div>
                 </div>
                 <div class="row row-margin-none" style="padding-top : 5px;">
@@ -148,13 +148,15 @@
             </div><!-- FINISHED add customer notification -->
 
           </div>
+          <div class="thumbnail thumbnail-no-result" ng-show="noSearchResult">
+            Nothing found.
+          </div>
 
         </div>
       </div>
     </div>
   </div>
 
-  <% include ./partial/footer %>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

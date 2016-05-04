@@ -4,6 +4,8 @@ var purchaseHistoryApp = angular.module("purchaseHistoryApp", ['ngRoute']);
 purchaseHistoryApp.controller('purchaseHistoryController', function($scope, $http){
 
   $scope.noPurchaseHistory = false;
+  $scope.isSearch = false;
+  $scope.noSearchResult = false;
 
   $http({ //GET LOGGED IN USER DETAILS
 
@@ -42,6 +44,41 @@ purchaseHistoryApp.controller('purchaseHistoryController', function($scope, $htt
     console.log(err);
   });
 
+  $scope.doSearch = function(){
 
+    $scope.purchaseHistory = null;
+    $scope.noSearchResult = false;
+    $scope.isSearch = true;
+
+    var searchString = $scope.searchString;
+    var searchType = 4;
+
+
+    if(searchString != ""){
+      $http({
+        method : "POST",
+        url : '/doSearchAdmin',
+        data : {
+          "searchString" : searchString,
+          "searchType" : searchType
+        }
+
+      }).then(function(res) {
+        if(res.data.statusCode == 200){
+          $scope.purchaseHistory = res.data.searchResults;
+          if($scope.purchaseHistory.length == 0){
+            $scope.noSearchResult = true;
+          }
+        }
+
+      },function() {
+
+      });
+
+    }else{
+      $scope.purchaseHistory = null;
+      $scope.isSearch = false;
+    }
+  }
 
 });

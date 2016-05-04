@@ -13,6 +13,25 @@ app.controller('rideControl', function($scope, $http, billId) {
     $scope.dest_address = details.DESTINATION_LOC.ADDRESS
   });
 
+  $http({ //GET LOGGED IN USER DETAILS
+
+      method: "POST",
+      url: '/getLoggedInUserDetails',
+      data: {
+      }
+
+  }).then(function (res) {
+          $scope.firstName = res.data.firstName;
+          $scope.lastName = res.data.lastName;
+          $scope.email = res.data.email;
+          $scope.city = res.data.city;
+          $scope.userId = res.data.userId;
+          if(res.data.firstName)
+          {
+              $scope.isLoggedIn = true;
+          }
+          console.log("first name"+$scope.firstName+"lastName"+$scope.lastName+" isLoggedIn "+$scope.isLoggedIn);
+  });
 
   $http({
     method : "POST",
