@@ -176,7 +176,7 @@
                 <span class="unit-price">for {{displayProductDetails.UNIT}}</span>
               </div>
               <div class="product-page-add">
-                <button class="btn btn-primary btn-add" ng-disabled="!isLoggedIn" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
+                <button class="btn btn-primary btn-add" ng-disabled="!isLoggedIn || (userType!=1)" ng-click="addToCart(displayProductDetails._id)">Add to Cart</button>
                 <span ng-hide="isLoggedIn"><a href="#modal-container-748235" data-toggle="modal">Sign In</a> to Shop.</span>
               </div>
             </div>

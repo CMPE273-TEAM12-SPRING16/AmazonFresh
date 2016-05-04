@@ -215,7 +215,8 @@ exports.getLoggedInUserDetails = function(req,res)
                     "lastName" : req.session.lastName,
                     "email" : req.session.email,
                     "city" : req.session.city,
-                    "userId" : req.session.userId};
+                    "userId" : req.session.userId,
+                    "userType" : req.session.userType};
   res.send(jsonResponse);
 }
 
@@ -232,7 +233,14 @@ exports.getLoggedCartUserDetails = function(req,res)
 
 function farmerHome(req,res)
 {
-res.render('farmerHome');
+  if(req.session.userType==2) {
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    res.render('farmerHome');
+  }
+  else{
+    res.redirect("/*");
+  }
+
 
 }
 
@@ -296,6 +304,7 @@ exports.logout = function(req,res)
 {
   console.log("in logout");
   req.session.destroy();
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   res.redirect('/');
 }
 

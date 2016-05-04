@@ -43,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //All GET methods...........................//
 app.get('/', function(req, res){
+
 	res.render('index', {});
 });
 app.post('/', function(req, res){
@@ -106,9 +107,13 @@ app.get('/farmerHome', function(req, res){
 });
 
 app.get('/adminHome', function(req, res){
-
-    res.render('adminHome', {});
-
+if(req.session.userType==0) {
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  res.render('adminHome', {});
+}
+  else{
+  res.redirect("/*");
+}
 });
 app.get('/apprReqCustomer', function(req, res){
 
