@@ -659,3 +659,13 @@ color: #999999 !important;
   height: 143px;
   width: 100%;
 }
+
+
+.my-alert{
+  z-index: 243 !important;
+  position: fixed;
+  margin-top: 45px;
+  top: 0;
+  width: 50%;
+  margin-left: 5% !important;
+}

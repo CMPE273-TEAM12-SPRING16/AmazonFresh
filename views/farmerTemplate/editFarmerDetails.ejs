@@ -1,6 +1,12 @@
-  <div class="thumbnail thumbnail-signup" >
+        <div class="thumbnail thumbnail-signup" >
             <h1>My Profile</h1>
+
             <form role="form" >
+              <div class="row my-alert" ng-hide="successUpdateProfile"> <!--ng-hide="successUpdateProfile" -->
+                  <div class="alert alert-success" role="alert">
+                    <center>Details Updated <strong>Successfully</strong>!!!</center>
+                  </div>
+              </div>
               <h3>
                 Personal Details
               </h3>
@@ -103,21 +109,9 @@
                 </div>
                 <div class="col-md-2"></div>
               </div>
-
-              <div class="row" ng-hide="successUpdateProfile">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                <div class="alert alert-success" role="alert" style="margin-top: 30px">
-                   
-                      <center>Details Updated <strong>Successfully</strong>!!!</center>
-                  
-                </div>
-                  
-                </div>
-                <div class="col-md-2"></div>
-              </div>
             </form>
           </div>
+
 
 
   <!-- ---------------DELETE MODAL --------- -->
@@ -139,7 +133,7 @@
                     <center>
                      <h2> Are you sure you want to delete your account?</h2>
                     <center>
-                   
+
                   </div>
                 </div>
               </div>
@@ -157,4 +151,4 @@
 
         </div>
 
-      </div>      
+      </div>
