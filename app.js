@@ -101,7 +101,9 @@ app.get('/getCustomerAccountDetails',users.getCustomerAccountDetails);
 app.get('/customerAccount', function(req, res){
   res.render('customerAccount', {});
 });
-
+app.get('/farmerHome', function(req, res){
+  res.redirect('farmerHome', {});
+});
 
 app.get('/adminHome', function(req, res){
 
