@@ -18,9 +18,9 @@ var users=require('./routes/users');
 var cronRoute=require('./routes/cron');
 var passport = require('passport');
 require('./routes/passport')(passport);
-var cron = require('cron');
-var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount);
-discountCronJob.start();
+// var cron = require('cron');
+// var discountCronJob = cron.job("*/10 * * * * *",cronRoute.processDiscount);
+// discountCronJob.start();
 
 app.use(expressSession({
 	secret: 'fjklowjafnkvnap',
